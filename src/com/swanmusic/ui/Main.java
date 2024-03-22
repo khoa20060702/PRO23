@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.swanmusic.ui;
-
+import javax.swing.*;
+import java.awt.*;
 /**
  *
  * @author tran
@@ -15,8 +16,25 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+    
     }
+public class CustomUndecoratedWindow {
 
+    public static void main(String[] args) {
+        // Create a JFrame with no decorations
+        JFrame frame = new JFrame();
+        frame.setUndecorated(true);
+
+      
+        // Set the background color of the content pane
+        JPanel contentPane = new JPanel();
+        contentPane.setBackground(Color.BLUE); // Set your desired color here
+        frame.setContentPane(contentPane);
+
+        // Make the frame visible
+        frame.setVisible(true);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,6 +45,7 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

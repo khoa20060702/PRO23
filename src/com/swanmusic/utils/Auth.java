@@ -7,19 +7,20 @@ package com.swanmusic.utils;
 
 import com.swanmusic.entity.Account;
 
-/**
- *
- * @author Admin
- */
+///**
+// *
+// * @author Admin
+// */
 public class Auth {
-    public static Account USER =null;
-    public static void clear(){
-        Auth.USER=null;
-    }
-    public static boolean isLogin(){
-        return Auth.USER!=null;
-    }
-    public static boolean isManager(){
-        return Auth.isLogin() && USER.isVaitro();
-    }
+   public static Account USER =null;
+  public static void clear(){
+      Auth.USER=null;
+  }
+   public static boolean isLogin(){
+      return Auth.USER!=null;
+  }
+   public static boolean isManager(){
+      return Auth.isLogin() && USER.isVaiTro();
+   }
+
 }
