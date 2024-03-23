@@ -79,6 +79,21 @@ public class QLNHAC extends javax.swing.JFrame {
         String sEmail = txtEMAIL.getText().trim();
         String sSDT = txtSDT.getText().trim();
         String EmailPater1 = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        String NumberPater2 = "\\\\d{10}|(?:\\\\d{3}-){2}\\\\d{4}|\\\\(\\\\d{3}\\\\)\\\\d{3}-?\\\\d{4}";
+         if (sTENTK.length()==0) {
+               err += "Không để trống nội dung\n";
+         }else if(!sTENTK.matches("[\\D]{3,}")) {
+            err += "Tên TK phải từ 3 kí tự trở lên và không chứa số\n";
+        }if (sSDT.length() == 0) {
+            err += "Không được để trống số điện thoại \n";
+        } else if (!sSDT.matches("^[0-9]{7,15}$")) {
+            err += "số điện thoại không đúng định dạng\n";
+        }if (sEmail.length() == 0) {
+            err += "Không được để trống email \n";
+        } else if (!sEmail.matches(EmailPater1)) {
+            err += "Email không đúng định dạng\n";
+        }
+           if (err.length() == 0) {}
         return null;
         
      }
