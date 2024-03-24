@@ -123,7 +123,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace pref="193" max="32767" attributes="0"/>
-                              <Component id="jTabbedPane1" min="-2" pref="990" max="-2" attributes="0"/>
+                              <Component id="tabs" min="-2" pref="990" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -132,14 +132,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace pref="38" max="32767" attributes="0"/>
-                              <Component id="jTabbedPane1" min="-2" pref="420" max="-2" attributes="0"/>
+                              <Component id="tabs" min="-2" pref="420" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+                    <Container class="javax.swing.JTabbedPane" name="tabs">
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                       <SubComponents>

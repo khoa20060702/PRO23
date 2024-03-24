@@ -62,7 +62,7 @@ public class QLNHAC extends javax.swing.JFrame {
                    });
             });
         } catch (Exception e) {
-            MsgBox.alert(this, "Lỗi truy vấn dữ liệu");
+//            MsgBox.alert(this, "Lỗi truy vấn dữ liệu");
         }
     }
      void setForm(Account acc) {
@@ -93,10 +93,62 @@ public class QLNHAC extends javax.swing.JFrame {
         } else if (!sEmail.matches(EmailPater1)) {
             err += "Email không đúng định dạng\n";
         }
-           if (err.length() == 0) {}
-        return null;
-        
+           if (err.length() == 0) {
+           Account acc = new Account();
+           acc.setTENTK(sTENTK);
+            acc.setEmail(sEmail);
+            acc.setSODIENTHOAI(sSDT);
+           acc.setVaiTro((cbxROLE.getSelectedIndex() !=0));
+           return acc;
+           }else
+           {
+               MsgBox.alert(this, err);
+                 return null;
+           }
      }
+        void edit() {
+        String maCD = (String) tblGridView.getValueAt(this.row, 0);
+        Account nh = dao.selectByID(maCD);
+        this.setForm(nh);
+        clearWarning();
+        tabs.setSelectedIndex(0);
+        this.updateStatus();
+        isEdit = true;
+    }
+
+    void clearForm() {
+        Account nh = new Account();
+        nh.setVaiTro(true);
+        setForm(nh);
+        clearWarning();
+        this.row = -1;
+        this.updateStatus();
+        isEdit = false;
+    }
+     void showWaring(int error) {
+        switch (error) {
+            case 1:
+                txtTENTK.setBackground(Contraints.INPUT_ERROR_BG);
+                lblMaNHW.setVisible(true);
+                break;
+            case 2:
+                txtHoTen.setBackground(Contraints.INPUT_ERROR_BG);
+                lblHoTenW.setVisible(true);
+                break;
+            case 3:
+                txtDienThoai.setBackground(Contraints.INPUT_ERROR_BG);
+                lblDienThoaiW.setVisible(true);
+                break;
+            case 4:
+                txtEmail.setBackground(Contraints.INPUT_ERROR_BG);
+                lblEmailW.setVisible(true);
+                break;
+            case 5:
+                txtNgaySinh.setBackground(Contraints.INPUT_ERROR_BG);
+                lblNgaySinhW.setVisible(true);
+                break;
+        }
+    }
     public void hideshow (JPanel menushowhide, boolean dashboard){
         if(dashboard == true){
             menushowhide.setPreferredSize(new Dimension(0,menushowhide.getHeight()));
@@ -115,7 +167,7 @@ public class QLNHAC extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         panelMain2 = new com.swanmusic.swing.PanelMain();
         panel1 = new com.swanmusic.swing.Panel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabs = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         txtSDT = new javax.swing.JTextField();
         txtEMAIL = new javax.swing.JTextField();
@@ -271,7 +323,7 @@ public class QLNHAC extends javax.swing.JFrame {
                     .addContainerGap(291, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("tab1", jPanel2);
+        tabs.addTab("tab1", jPanel2);
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -339,7 +391,7 @@ public class QLNHAC extends javax.swing.JFrame {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel3);
+        tabs.addTab("tab2", jPanel3);
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -347,14 +399,14 @@ public class QLNHAC extends javax.swing.JFrame {
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                 .addContainerGap(193, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                 .addContainerGap(38, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54))
         );
 
@@ -560,7 +612,6 @@ public class QLNHAC extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblTimKiem;
     private com.swanmusic.swing.Panel panel1;
     private com.swanmusic.swing.Panel panel2;
@@ -570,6 +621,7 @@ public class QLNHAC extends javax.swing.JFrame {
     private com.swanmusic.swing.PanelButton panelButton1;
     private com.swanmusic.swing.PanelMain panelMain2;
     private com.swanmusic.swing.PanelMenu panelMenu1;
+    private javax.swing.JTabbedPane tabs;
     private javax.swing.JTable tblGridView;
     private javax.swing.JTextField txtEMAIL;
     private javax.swing.JTextField txtSDT;
