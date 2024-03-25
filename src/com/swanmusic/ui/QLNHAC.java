@@ -10,6 +10,10 @@ import com.swanmusic.utils.Auth;
 import com.swanmusic.utils.Contraints;
 import com.swanmusic.utils.MsgBox;
 import com.swanmusic.utils.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +23,62 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 public class QLNHAC extends javax.swing.JFrame {
     
-    boolean a = true;
+   ArrayList<Account> list = new ArrayList<>();
+    int index = 0;
+
+    public void showDetail() {
+
+        if (index >= 0) {
+            Account acc = list.get(index);
+            txtTENTK.setText(acc.getTENTK());
+            txtEMAIL.setText(acc.getEmail());
+               txtSDT.setText(acc.getEmail());
+        }
+    }
+
+    public void load_data() {
+        list.clear(); // xóa các item đi
+        try {
+            //1. url
+            String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+            //2. Tạo 1 Connection để kết nối
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            //3. Tạo PreparedStatement để thi hành câu lệnh sql
+            PreparedStatement ps = con.prepareStatement("select * from TAIKHOAN");
+            //4. tạo 1 ResultSet                     
+            ResultSet rs = ps.executeQuery();// thi hành sql
+            while (rs.next()) {
+                //5. tạo 1 đối tượng sinh viên sv
+                Account stu = new Account();
+                //6. gán giá trị vào cho sv
+                stu.setTENTK(rs.getString("TENTK"));
+                stu.setEmail(rs.getString("EMAIL"));
+                        stu.setSODIENTHOAI(rs.getString("DIENTHOAI"));
+                //7. thêm sv vào danh sách sinh viên list
+                list.add(stu);
+            }
+
+            //8. đưa danh sách list lên JTable
+            //9. lấy mô hình dữ liệu và xóa sạch các hàng
+            DefaultTableModel model = (DefaultTableModel) tblGridView.getModel();
+            model.setRowCount(0); // xóa sạch các hàng
+            //11. duyệt qua danh sách sinh viên list, lấy từng sinh viên thêm vào table
+            for (Account stu : list) {
+                Object[] row = new Object[]{stu.getTENTK(), stu.getEmail(),stu.getSODIENTHOAI()};
+                model.addRow(row);
+            }
+
+            //12. xong rồi nhớ đóng kết nối lại
+            rs.close();
+            ps.close();
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public QLNHAC() { 
         initComponents();
         init();
@@ -45,110 +104,9 @@ public class QLNHAC extends javax.swing.JFrame {
     }
     
     public void init(){
-        fillTable();
+     load_data();
     }
-    AccountDAO dao = new AccountDAO();
-    int row=-1;
-    boolean isEdit=false;
-    void fillTable() {
-        try {
-            DefaultTableModel model = (DefaultTableModel) tblGridView.getModel();
-            model.setRowCount(0);
-            //List<ChuyenDe> list = dao.selectAll();
-            List<Account> list = dao.selectByKey(txtTimKiem.getText().trim());
-            list.forEach((nh) -> {
-                model.addRow(new Object[]{nh.getTENTK(), nh.getEmail(), nh.isVaiTro()? "Quản lý" : "Người dùng",
-                  nh.getSODIENTHOAI()
-                   });
-            });
-        } catch (Exception e) {
-//            MsgBox.alert(this, "Lỗi truy vấn dữ liệu");
-        }
-    }
-     void setForm(Account acc) {
-        txtTENTK.setText(acc.getTENTK());
-        txtEMAIL.setText(acc.getEmail());
-        cbxROLE.setSelectedIndex(acc.isVaiTro()? 1 : 0);
-        txtSDT.setText(acc.getSODIENTHOAI());
-    
-    }
-     Account getForm(){
-         String err="";
-//          clearWarning();
-         String sTENTK = txtTENTK.getText().trim();
-        String sEmail = txtEMAIL.getText().trim();
-        String sSDT = txtSDT.getText().trim();
-        String EmailPater1 = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        String NumberPater2 = "\\\\d{10}|(?:\\\\d{3}-){2}\\\\d{4}|\\\\(\\\\d{3}\\\\)\\\\d{3}-?\\\\d{4}";
-         if (sTENTK.length()==0) {
-               err += "Không để trống nội dung\n";
-         }else if(!sTENTK.matches("[\\D]{3,}")) {
-            err += "Tên TK phải từ 3 kí tự trở lên và không chứa số\n";
-        }if (sSDT.length() == 0) {
-            err += "Không được để trống số điện thoại \n";
-        } else if (!sSDT.matches("^[0-9]{7,15}$")) {
-            err += "số điện thoại không đúng định dạng\n";
-        }if (sEmail.length() == 0) {
-            err += "Không được để trống email \n";
-        } else if (!sEmail.matches(EmailPater1)) {
-            err += "Email không đúng định dạng\n";
-        }
-           if (err.length() == 0) {
-           Account acc = new Account();
-           acc.setTENTK(sTENTK);
-            acc.setEmail(sEmail);
-            acc.setSODIENTHOAI(sSDT);
-           acc.setVaiTro((cbxROLE.getSelectedIndex() !=0));
-           return acc;
-           }else
-           {
-               MsgBox.alert(this, err);
-                 return null;
-           }
-     }
-        void edit() {
-        String maCD = (String) tblGridView.getValueAt(this.row, 0);
-        Account nh = dao.selectByID(maCD);
-        this.setForm(nh);
-        clearWarning();
-        tabs.setSelectedIndex(0);
-        this.updateStatus();
-        isEdit = true;
-    }
-
-    void clearForm() {
-        Account nh = new Account();
-        nh.setVaiTro(true);
-        setForm(nh);
-        clearWarning();
-        this.row = -1;
-        this.updateStatus();
-        isEdit = false;
-    }
-     void showWaring(int error) {
-        switch (error) {
-            case 1:
-                txtTENTK.setBackground(Contraints.INPUT_ERROR_BG);
-                lblMaNHW.setVisible(true);
-                break;
-            case 2:
-                txtHoTen.setBackground(Contraints.INPUT_ERROR_BG);
-                lblHoTenW.setVisible(true);
-                break;
-            case 3:
-                txtDienThoai.setBackground(Contraints.INPUT_ERROR_BG);
-                lblDienThoaiW.setVisible(true);
-                break;
-            case 4:
-                txtEmail.setBackground(Contraints.INPUT_ERROR_BG);
-                lblEmailW.setVisible(true);
-                break;
-            case 5:
-                txtNgaySinh.setBackground(Contraints.INPUT_ERROR_BG);
-                lblNgaySinhW.setVisible(true);
-                break;
-        }
-    }
+   
     public void hideshow (JPanel menushowhide, boolean dashboard){
         if(dashboard == true){
             menushowhide.setPreferredSize(new Dimension(0,menushowhide.getHeight()));
@@ -529,7 +487,7 @@ public class QLNHAC extends javax.swing.JFrame {
     private void tblGridViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGridViewMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
-            row = tblGridView.getSelectedRow();
+         
 //            edit();
         }
     }//GEN-LAST:event_tblGridViewMouseClicked
