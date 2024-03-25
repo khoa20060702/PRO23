@@ -158,8 +158,8 @@ public class QLNHAC extends javax.swing.JFrame {
             .addGap(0, 90, Short.MAX_VALUE)
         );
 
-        panel1.setBackground(new java.awt.Color(255, 103, 158));
-        panel1.setForeground(new java.awt.Color(255, 103, 158));
+        panel1.setBackground(new java.awt.Color(255, 201, 221));
+        panel1.setForeground(new java.awt.Color(255, 201, 221));
 
         txtSDT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
