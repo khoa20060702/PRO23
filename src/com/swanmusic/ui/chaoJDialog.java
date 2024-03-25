@@ -4,6 +4,11 @@
  */
 package com.swanmusic.ui;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 /**
  *
  * @author phuon
@@ -16,6 +21,26 @@ public class chaoJDialog extends javax.swing.JDialog {
     public chaoJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        init();
+    }
+    
+    void init(){
+        this.setSize(1242,682);
+        this.setLocationRelativeTo(null);
+        new Timer(5,new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              int value = pgbChao.getValue();
+            if(value < 100)
+            {
+                pgbChao.setValue(value+1);
+                lblLoading.setText("Loading.."+value+"%");
+            }
+            else{
+                chaoJDialog.this.dispose();
+            }
+        }
+            }).start();
     }
 
     /**
@@ -27,17 +52,53 @@ public class chaoJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        nenden = new javax.swing.JPanel();
+        panel1 = new com.swanmusic.swing.Panel();
+        jLabel2 = new javax.swing.JLabel();
+        lblLoading = new javax.swing.JLabel();
+        pgbChao = new javax.swing.JProgressBar();
+        TIEUDE = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        nenden.setBackground(new java.awt.Color(0, 0, 0));
+        nenden.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panel1.setBackground(new java.awt.Color(255, 201, 221));
+        panel1.setForeground(new java.awt.Color(255, 201, 221));
+        panel1.setToolTipText("");
+        panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/img/logoswan_ok.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        panel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 390, -1));
+
+        lblLoading.setBackground(new java.awt.Color(255, 255, 255));
+        lblLoading.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblLoading.setForeground(new java.awt.Color(255, 255, 255));
+        panel1.add(lblLoading, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, 189, 25));
+
+        pgbChao.setBackground(new java.awt.Color(255, 103, 158));
+        pgbChao.setForeground(new java.awt.Color(255, 103, 158));
+        pgbChao.setBorder(null);
+        panel1.add(pgbChao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 1200, 43));
+
+        TIEUDE.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        TIEUDE.setForeground(new java.awt.Color(255, 103, 158));
+        TIEUDE.setText("WELCOME TO SWAN MUSIC");
+        panel1.add(TIEUDE, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, -1, -1));
+
+        nenden.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 18, 1200, 600));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(nenden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(nenden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -86,5 +147,11 @@ public class chaoJDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel TIEUDE;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblLoading;
+    private javax.swing.JPanel nenden;
+    private com.swanmusic.swing.Panel panel1;
+    private javax.swing.JProgressBar pgbChao;
     // End of variables declaration//GEN-END:variables
 }
