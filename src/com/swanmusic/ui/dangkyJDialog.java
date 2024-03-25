@@ -16,8 +16,13 @@ public class dangkyJDialog extends javax.swing.JDialog {
     public dangkyJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        init();
     }
 
+        void init(){
+        this.setSize(1242,682);
+        this.setLocationRelativeTo(null);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,17 +32,120 @@ public class dangkyJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        nenden = new javax.swing.JPanel();
+        panel1 = new com.swanmusic.swing.Panel();
+        jLabel2 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        txtPass = new javax.swing.JPasswordField();
+        lblPass = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        btnDangNhap = new javax.swing.JButton();
+        lblDT2 = new javax.swing.JLabel();
+        lblDT = new javax.swing.JLabel();
+        lblRanhGioi = new javax.swing.JLabel();
+        btnDangKy = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        lblNhaplaiMK = new javax.swing.JLabel();
+        txtNhaplaiMK = new javax.swing.JPasswordField();
+        lblEmail = new javax.swing.JLabel();
+        txtName1 = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+
+        nenden.setBackground(new java.awt.Color(0, 0, 0));
+        nenden.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panel1.setBackground(new java.awt.Color(255, 201, 221));
+        panel1.setForeground(new java.awt.Color(255, 201, 221));
+        panel1.setToolTipText("");
+        panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/img/logoswan_ok.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        panel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 390, -1));
+
+        txtEmail.setBackground(new java.awt.Color(255, 145, 185));
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtEmail.setForeground(new java.awt.Color(0, 0, 0));
+        panel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, 460, 50));
+
+        txtPass.setBackground(new java.awt.Color(255, 145, 185));
+        txtPass.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        panel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 170, 460, 50));
+
+        lblPass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPass.setForeground(new java.awt.Color(0, 0, 0));
+        lblPass.setText("Mật khẩu:");
+        panel1.add(lblPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, -1, -1));
+
+        lblName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblName.setForeground(new java.awt.Color(0, 0, 0));
+        lblName.setText("Tên tài khoản:");
+        panel1.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, -1, -1));
+
+        btnDangNhap.setBackground(new java.awt.Color(255, 145, 185));
+        btnDangNhap.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnDangNhap.setForeground(new java.awt.Color(255, 255, 255));
+        btnDangNhap.setText("Đăng nhập");
+        btnDangNhap.setBorder(null);
+        panel1.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 540, 460, 60));
+
+        lblDT2.setForeground(new java.awt.Color(0, 0, 0));
+        lblDT2.setText("-----------------------------------");
+        panel1.add(lblDT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 500, 170, -1));
+
+        lblDT.setForeground(new java.awt.Color(0, 0, 0));
+        lblDT.setText("-----------------------------------");
+        panel1.add(lblDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 500, 190, -1));
+
+        lblRanhGioi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblRanhGioi.setForeground(new java.awt.Color(153, 153, 153));
+        lblRanhGioi.setText("Hoặc tiếp tục với");
+        panel1.add(lblRanhGioi, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 500, -1, -1));
+
+        btnDangKy.setBackground(new java.awt.Color(255, 145, 185));
+        btnDangKy.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnDangKy.setForeground(new java.awt.Color(255, 255, 255));
+        btnDangKy.setText("Đăng ký");
+        btnDangKy.setBorder(null);
+        panel1.add(btnDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 420, 460, 60));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("ĐĂNG KÝ");
+        panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, -1, -1));
+
+        lblNhaplaiMK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNhaplaiMK.setForeground(new java.awt.Color(0, 0, 0));
+        lblNhaplaiMK.setText("Nhập lại mật khẩu:");
+        panel1.add(lblNhaplaiMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, -1, -1));
+
+        txtNhaplaiMK.setBackground(new java.awt.Color(255, 145, 185));
+        txtNhaplaiMK.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        panel1.add(txtNhaplaiMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 460, 50));
+
+        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblEmail.setForeground(new java.awt.Color(0, 0, 0));
+        lblEmail.setText("Email:");
+        panel1.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, -1, -1));
+
+        txtName1.setBackground(new java.awt.Color(255, 145, 185));
+        txtName1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtName1.setForeground(new java.awt.Color(0, 0, 0));
+        panel1.add(txtName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 460, 50));
+
+        nenden.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 8, 1210, 660));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(nenden, javax.swing.GroupLayout.DEFAULT_SIZE, 1242, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(nenden, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
         );
 
         pack();
@@ -86,5 +194,22 @@ public class dangkyJDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDangKy;
+    private javax.swing.JButton btnDangNhap;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblDT;
+    private javax.swing.JLabel lblDT2;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblNhaplaiMK;
+    private javax.swing.JLabel lblPass;
+    private javax.swing.JLabel lblRanhGioi;
+    private javax.swing.JPanel nenden;
+    private com.swanmusic.swing.Panel panel1;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtName1;
+    private javax.swing.JPasswordField txtNhaplaiMK;
+    private javax.swing.JPasswordField txtPass;
     // End of variables declaration//GEN-END:variables
 }
