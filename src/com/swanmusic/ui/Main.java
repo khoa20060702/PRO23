@@ -9,6 +9,9 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 public class Main extends javax.swing.JFrame {
     
+    // note layout
+    // main sử dụng FlowLayout chỉnh các bản nhạc xuống dòng khi hết chỗ
+    // khi tạo mới sử dụng boxlayout cho JFrame rồi thêm một panel đen vào
     boolean a = true;
     public Main() { 
         initComponents();
