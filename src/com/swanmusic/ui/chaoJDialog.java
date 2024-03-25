@@ -54,7 +54,7 @@ public class chaoJDialog extends javax.swing.JDialog {
 
         nenden = new javax.swing.JPanel();
         panel1 = new com.swanmusic.swing.Panel();
-        jLabel2 = new javax.swing.JLabel();
+        anh = new javax.swing.JLabel();
         lblLoading = new javax.swing.JLabel();
         pgbChao = new javax.swing.JProgressBar();
         TIEUDE = new javax.swing.JLabel();
@@ -69,9 +69,9 @@ public class chaoJDialog extends javax.swing.JDialog {
         panel1.setToolTipText("");
         panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/img/logoswan_ok.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        panel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 390, -1));
+        anh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/img/logoswan_ok.png"))); // NOI18N
+        anh.setText("jLabel2");
+        panel1.add(anh, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 390, -1));
 
         lblLoading.setBackground(new java.awt.Color(255, 255, 255));
         lblLoading.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -148,7 +148,7 @@ public class chaoJDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TIEUDE;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel anh;
     private javax.swing.JLabel lblLoading;
     private javax.swing.JPanel nenden;
     private com.swanmusic.swing.Panel panel1;
