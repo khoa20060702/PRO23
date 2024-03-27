@@ -23,62 +23,7 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 public class QLNHAC extends javax.swing.JFrame {
     
-   ArrayList<Account> list = new ArrayList<>();
-    int index = 0;
-
-    public void showDetail() {
-
-        if (index >= 0) {
-            Account acc = list.get(index);
-            txtTENTK.setText(acc.getTENTK());
-            txtEMAIL.setText(acc.getEmail());
-               txtSDT.setText(acc.getEmail());
-        }
-    }
-
-    public void load_data() {
-        list.clear(); // xóa các item đi
-        try {
-            //1. url
-            String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-
-            //2. Tạo 1 Connection để kết nối
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            //3. Tạo PreparedStatement để thi hành câu lệnh sql
-            PreparedStatement ps = con.prepareStatement("select * from TAIKHOAN");
-            //4. tạo 1 ResultSet                     
-            ResultSet rs = ps.executeQuery();// thi hành sql
-            while (rs.next()) {
-                //5. tạo 1 đối tượng sinh viên sv
-                Account stu = new Account();
-                //6. gán giá trị vào cho sv
-                stu.setTENTK(rs.getString("TENTK"));
-                stu.setEmail(rs.getString("EMAIL"));
-                        stu.setSODIENTHOAI(rs.getString("DIENTHOAI"));
-                //7. thêm sv vào danh sách sinh viên list
-                list.add(stu);
-            }
-
-            //8. đưa danh sách list lên JTable
-            //9. lấy mô hình dữ liệu và xóa sạch các hàng
-            DefaultTableModel model = (DefaultTableModel) tblGridView.getModel();
-            model.setRowCount(0); // xóa sạch các hàng
-            //11. duyệt qua danh sách sinh viên list, lấy từng sinh viên thêm vào table
-            for (Account stu : list) {
-                Object[] row = new Object[]{stu.getTENTK(), stu.getEmail(),stu.getSODIENTHOAI()};
-                model.addRow(row);
-            }
-
-            //12. xong rồi nhớ đóng kết nối lại
-            rs.close();
-            ps.close();
-            con.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+   
     public QLNHAC() { 
         initComponents();
         init();
@@ -104,7 +49,8 @@ public class QLNHAC extends javax.swing.JFrame {
     }
     
     public void init(){
-     load_data();
+       
+         tabs.setSelectedIndex(1);
     }
    
     public void hideshow (JPanel menushowhide, boolean dashboard){
@@ -305,7 +251,7 @@ public class QLNHAC extends javax.swing.JFrame {
 
             },
             new String [] {
-                "TÊN TÀI KHOẢN", "EMAIL", "VAI TRÒ", "ĐIỆN THOẠI"
+                "TENTK", "EMAIL", "VAITRO", "DIENTHOAI"
             }
         ) {
             boolean[] canEdit = new boolean [] {
