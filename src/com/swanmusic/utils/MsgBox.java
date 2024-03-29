@@ -14,12 +14,12 @@ import javax.swing.JOptionPane;
  */
 public class MsgBox {
     public static void alert(Component parent,String message){
-        JOptionPane.showMessageDialog(parent, message,"EduSys - Thông báo",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(parent, message,"SWAN - Thông báo",JOptionPane.INFORMATION_MESSAGE);
     }
     public static int confirm(Component parent,String message){
-        return JOptionPane.showConfirmDialog(parent, message,"EduSys - Xác nhận",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        return JOptionPane.showConfirmDialog(parent, message,"SWAN - Xác nhận",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
     }
     public static String promt(Component parent,String message){
-        return JOptionPane.showInputDialog(parent, message,"EduSys - Vui lòng nhập",JOptionPane.INFORMATION_MESSAGE);
+        return JOptionPane.showInputDialog(parent, message,"SWAN - Vui lòng nhập",JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -60,12 +60,11 @@ public class Account {
     public void setSODIENTHOAI(String SODIENTHOAI) {
         this.SODIENTHOAI = SODIENTHOAI;
     }
-   public Object[] toObjects(boolean isManager){
+   public Object[] toObjects(){
        return new Object[]{
            TENTK,
-           isManager?matkhau:"••••••••",
            email,SODIENTHOAI,
-           vaiTro?"Quản lý":" Người dùng"
+            vaiTro?"Nam":"Nữ",
        };
     }
     
@@ -75,5 +74,6 @@ public class Account {
     boolean vaiTro;
     String email;
     String SODIENTHOAI;
+
 
 }

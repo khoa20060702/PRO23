@@ -51,8 +51,9 @@ public  class AccountDAO extends DAO<Account, String>{
                     Account e =new Account();
                     e.setTENTK(rs.getString(1));
                     e.setMatkhau(rs.getString(2));
-                    e.setEmail(rs.getString(3));
-                   e.setSODIENTHOAI(rs.getString(4)); 
+                    e.setEmail(rs.getString(4));
+              e.setVaiTro(rs.getBoolean(3));
+                   e.setSODIENTHOAI(rs.getString(5)); 
                     list.add(e);
                 }
             }finally{
