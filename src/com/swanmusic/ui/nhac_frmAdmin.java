@@ -4,6 +4,16 @@
  */
 package com.swanmusic.ui;
 
+import com.swanmusic.entity.Nhac;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author phuon
@@ -17,12 +27,82 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         init();
+        load_data();
     }
      void init(){
         this.setSize(1242,682);
         this.setLocationRelativeTo(null);
     }
 
+     ArrayList<Nhac> list = new ArrayList();
+     int index = 0;
+     
+     public void load_data(){
+         list.clear();
+         try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             PreparedStatement ps = con.prepareCall("select * from NHAC");
+             ResultSet rs = ps.executeQuery();
+              while (rs.next()) {
+                Nhac mu = new Nhac();
+                mu.setName(rs.getString("TENNHAC"));
+                mu.setTheloai(rs.getString("THELOAI"));
+                mu.setAlbum(rs.getString("ALBUM"));
+                mu.setNghesi(rs.getString("NGHESI"));
+                list.add(mu);
+            }
+            DefaultTableModel model = (DefaultTableModel) tblNhac.getModel();
+            model.setRowCount(0);
+            for (Nhac mu : list) {
+                Object[] row = new Object[]{mu.getName(),mu.getAlbum(),mu.getNghesi(),mu.getTheloai()};
+                model.addRow(row);
+            }
+            rs.close();
+            ps.close();
+            con.close();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+}
+     
+     public void showdetail(){
+         if(index >=0){
+             Nhac mu = list.get(index);
+             txtName.setText(mu.getName());
+             txtNghesi.setText(mu.getNghesi());
+             txtTheloai.setText(mu.getTheloai());
+             txtAlbum.setText(mu.getAlbum());
+         }
+     }
+     
+     
+     public void them(){
+         try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             PreparedStatement ps = con.prepareCall("insert into Nhac values(?,?,?,?)");
+             ps.setString(1, txtName.getText());
+             ps.setString(3,txtAlbum.getText());
+             ps.setString(4, txtNghesi.getText());
+             ps.setString(2,txtTheloai.getText());
+             int kq = ps.executeUpdate();
+             if(kq == 1){
+                 JOptionPane.showMessageDialog( this,"Lưu thành công");
+             }
+             else{
+                 JOptionPane.showMessageDialog(this, "Lưu không thành công");
+             }
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+     }
+     
+     
+     
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -303,6 +383,11 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
                 "Tên nhạc", "Thể loại", "Album", "Nghệ sĩ"
             }
         ));
+        tblNhac.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNhacMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblNhac);
 
         btnFirst.setBackground(new java.awt.Color(255, 103, 158));
@@ -433,6 +518,11 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
     private void txtAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlbumActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAlbumActionPerformed
+
+    private void tblNhacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhacMouseClicked
+        index = tblNhac.getSelectedRow();
+        showdetail();
+    }//GEN-LAST:event_tblNhacMouseClicked
 
     /**
      * @param args the command line arguments
