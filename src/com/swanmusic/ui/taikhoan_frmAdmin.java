@@ -4,37 +4,23 @@
  */
 package com.swanmusic.ui;
 
-import java.awt.Dimension;
-import javax.swing.*;
-import com.swanmusic.swing.ComponentResizer;
-import java.awt.*;
-import com.swanmusic.dao.AccountDAO;
-import com.swanmusic.entity.Account;
-import com.swanmusic.utils.Auth;
-import com.swanmusic.utils.Contraints;
-import com.swanmusic.utils.MsgBox;
-import com.swanmusic.utils.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.swing.DefaultComboBoxModel;
+import java.util.HashSet;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
+import com.swanmusic.dao.AccountDAO;
+import com.swanmusic.entity.Account;
+
 
 /**
  *
  * @author phuon
  */
 public class taikhoan_frmAdmin extends javax.swing.JDialog {
-      Account tk;
     /**
      * Creates new form taikhoan_frmAdmin
      */
@@ -42,208 +28,65 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         init();
+        load_data();
     }
+         ArrayList<Account> list = new ArrayList();
+         Account acc;
+              int index = 0;
       int row = -1;
        boolean isEdit = false;
      AccountDAO dao = new AccountDAO();
-    
-      void fillTable() {
-    try {
-          DefaultTableModel model = (DefaultTableModel) tblGridView.getModel();
-        model.setRowCount(0);
-         List<Account> list = dao.selectAll();
-//          List<Account> list = dao.selectByKey(txtTimKiem.getText().trim());
-         list.forEach((tk) -> {
-             model.addRow(new Object[]{tk.getTENTK(),tk.isVaiTro()? "Admin" : "User",tk.getEmail(),tk.getSODIENTHOAI()
-                  });
-          });
-     } catch (Exception e) {
-         MsgBox.alert(this, "Lỗi truy vấn dữ liệu");
-      }
-  }
-      
-    void setForm(Account acc) {
-        txtName.setText(acc.getTENTK());
-        txtEMAIL.setText(acc.getEmail());
-        if (acc.isVaiTro()==true) {
-            rdoAdmin.setSelected(true);
-        } else {
-             rdoUser.setSelected(true);
-        }
-        txtNumberPhone.setText(acc.getSODIENTHOAI());
-    
-    }  
-    void showWaring(int error) {
-      
-        switch (error) {
-            case 1:
-                txtEMAIL.setBackground(Contraints.INPUT_ERROR_BG);
-                lblEMAIL.setVisible(true);
-                break;
-            case 2:
-                txtName.setBackground(Contraints.INPUT_ERROR_BG);
-                lblName.setVisible(true);
-                break;
-            case 3:
-                txtNumberPhone.setBackground(Contraints.INPUT_ERROR_BG);
-                lblNumberPhone.setVisible(true);
-                break;
-            case 4:
-                if (tk.isVaiTro()==true) {
-                    rdoAdmin.setBackground(Contraints.INPUT_ERROR_BG);
-                } else {
-                     rdoUser.setBackground(Contraints.INPUT_ERROR_BG);
-                }
-                lblROLE.setVisible(true);
-                break;
-          
-        }
-    }
-    Account getForm(){
-    String error="";
-    clearWarning();
-    String sName = txtName.getText().trim();
-    String sEMAIL =  txtEMAIL.getText().trim();
-    String sNUMBERPHONE = txtNumberPhone.getText().trim();
-    String EmailPater1 = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        if (sEMAIL.length()==0) {
-            error +="Email đã được đăng kí ";
-            showWaring(1);
-        } else {
-        }
-          return null;
-
-    }
-      void clearWarning() {
-        txtEMAIL.setBackground(Contraints.INPUT_NORMAL_BG);
-        txtName.setBackground(Contraints.INPUT_NORMAL_BG);
-        txtNumberPhone.setBackground(Contraints.INPUT_NORMAL_BG);
-        clearIcon();
-    }
-       void clearIcon(){
-        lblEMAIL.setVisible(false);
-        lblName.setVisible(false);
-        lblNumberPhone.setVisible(false);
-        lblROLE.setVisible(false);  }
-        void clearForm() {
-        Account acc = new Account();
-        acc.setVaiTro(false);
-        setForm(acc);
-        clearWarning();
-        this.row = -1;
-        this.updateStatus();
-        isEdit = false;
-    }
-       void edit() {
-        String maCD = (String) tblGridView.getValueAt(this.row, 0);
-        Account acc = dao.selectByID(maCD);
-        this.setForm(acc);
-        clearWarning();
-        tabs.setSelectedIndex(0);
-        this.updateStatus();
-        isEdit = true;
-    }
-       void insert() {
-        Account acc = getForm();
-        if (acc == null) {
-            return;
-        }
-
-        try {
-            dao.insert(acc);
-      this.fillTable();
-            this.clearForm();
-            MsgBox.alert(this, "Thêm mới thành công");
-        } catch (Exception e) {
-            MsgBox.alert(this, "Thêm mới thất bại");
-        }
-
-    }
-       void update() {
-        Account acc = getForm();
-        if (acc == null) {
-            return;
-        }
-
-        try {
-            dao.update(acc);
-     this.fillTable();
-     //this.clearForm();
-            MsgBox.alert(this, "Cập nhật thành công");
-        } catch (Exception e) {
-            MsgBox.alert(this, "Cập nhật thất bại");
-
-        }
-
-    }
-//       void delete() {
-//        if (Auth.isManager()) {
-//            if (MsgBox.confirm(this, "Bạn có chắc muốn xóa người học này?") == 0) {
-//                try {
-//                    AccountDAO hvdao = new AccountDAO();
-//                    List<Account> list = hvdao.selectByKey(Name);
-//                    if(!list.isEmpty()){
-//                        if (MsgBox.confirm(this, "Người học này đã tham gia vào một số khóa học \n . Bạn có muốn tiếp tục xóa ?") != 0) return;
-//                        list.forEach((HocVien) -> {
-//                            hvdao.delete(HocVien.getMaHV());
-//                        });
-//                    }
-//                    dao.delete(maNH);
-//          fillTable();
-//                    clearForm();
-//                    MsgBox.alert(this, "Xóa người học thành công");
-//                } catch (SQLException ex) {
-//                    MsgBox.alert(this, "Xóa người học thất bại");
-//                }
-//            }
-//        } else {
-//            MsgBox.alert(this, "Bạn không có quyền xóa người học");
-//        }
-//    }
-          void first() {
-        row = 0;
-        edit();
-    }
-          
-    void prev() {
-        if (row > 0) {
-            row--;
-            edit();
-        }
-    }
-
-    void next() {
-        if (row < tblGridView.getRowCount() - 1) {
-            row++;
-            edit();
-        }
-    }
-
-    void last() {
-        row = tblGridView.getRowCount() - 1;
-        edit();
-    }
-
-
+          public void load_data(){
+         list.clear();
+         try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             PreparedStatement ps = con.prepareCall("select * from TAIKHOAN");
+             ResultSet rs = ps.executeQuery();
+              while (rs.next()) {
+                Account acc = new Account();
+                acc.setTENTK(rs.getString("TENTAIKHOAN"));
+                boolean IsRole = rs.getBoolean("VAITRO"); 
+                acc.setVaiTro(IsRole);
+                acc.setEmail(rs.getString("EMAIL"));
+                acc.setSODIENTHOAI(rs.getString("SODIENTHOAI"));
+           
+                list.add(acc);
+            }
+            DefaultTableModel model = (DefaultTableModel) tblGridView.getModel();
+            model.setRowCount(0);
+            for (Account acc : list) {
+                   String role = acc.isVaiTro()? "User" : "Admin";
+                Object[] row = new Object[]{acc.getTENTK(),acc.isVaiTro()?"User":"Admin",acc.getEmail(),acc.getSODIENTHOAI()};
+                model.addRow(row);
+            }
+            rs.close();
+            ps.close();
+            con.close();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+}
+            public void showdetail(){
+         if(index >=0){
+             Account mu = list.get(index);
+             txtName.setText(mu.getTENTK());
+             txtEMAIL.setText(mu.getEmail());
+             txtNumberPhone.setText(mu.getSODIENTHOAI());
+             if (mu.isVaiTro()) {
+                 rdoUser.setSelected(true);
+             }else{
+                    rdoAdmin.setSelected(true);
+             }
+         }
+     }
        
-   void updateStatus() {
-        boolean edit = (row >= 0);
-        boolean first = (row == 0);
-        boolean last = (row == tblGridView.getRowCount() - 1);
-        
-        btnUpdate.setEnabled(edit);
-        btnDelete.setEnabled(edit);
-        btnFirst.setEnabled(edit && !first);
-        btnPrev.setEnabled(edit && !first);
-        btnNext.setEnabled(edit && !last);
-        btnLast.setEnabled(edit && !last);}
-        
        void init()
        {
         this.setSize(1242,682);
         this.setLocationRelativeTo(null);
-  fillTable();
-    tabs.setSelectedIndex(1);
+         tabs.setSelectedIndex(1);
     }
         
    
@@ -281,6 +124,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         txtNumberPhone = new javax.swing.JTextField();
         lblEMAIL = new javax.swing.JLabel();
         lblNumberPhone = new javax.swing.JLabel();
+        btnOUT = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         lblTieude = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -431,6 +275,16 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         lblNumberPhone.setForeground(new java.awt.Color(0, 0, 0));
         lblNumberPhone.setText("Số điện thoại");
 
+        btnOUT.setBackground(new java.awt.Color(255, 103, 158));
+        btnOUT.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnOUT.setForeground(new java.awt.Color(255, 255, 255));
+        btnOUT.setText("Thoát");
+        btnOUT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOUTActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -443,7 +297,9 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNew))
+                        .addComponent(btnNew)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnOUT))
                     .addComponent(jLabel6)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -488,7 +344,8 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete)
                     .addComponent(btnUpdate)
-                    .addComponent(btnNew))
+                    .addComponent(btnNew)
+                    .addComponent(btnOUT))
                 .addContainerGap(223, Short.MAX_VALUE))
         );
 
@@ -637,22 +494,73 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
 
     private void tblGridViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGridViewMouseClicked
         // TODO add your handling code here:
+               index = tblGridView.getSelectedRow();
+        showdetail();
+                         
     }//GEN-LAST:event_tblGridViewMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+         try {
+            String url = "jdbc:sqlserver://localhost:1433;DatabaseName=SWAN;encrypt=false";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("delete from TAIKHOAN where TENTAIKHOAN = ?");
+            ps.setString(1, txtName.getText());
+            int kq = ps.executeUpdate();
+            if (kq == 1) {
+                JOptionPane.showMessageDialog(this, "Xóa thành công");
+            } else {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+            }
+            ps.close();
+            con.close();
+            load_data();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
           
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        update();
+         try {
+            String url = "jdbc:sqlserver://localhost:1433;DatabaseName=SWAN;encrypt=false";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("update TAIKHOAN set VAITRO = ?, EMAIL = ?, SODIENTHOAI = ? where TENTAIKHOAN = ?");
+             boolean isFemale = rdoUser.isSelected();
+            ps.setBoolean(1, isFemale);
+            ps.setString(2, txtEMAIL.getText());
+            ps.setString(3, txtNumberPhone.getText());
+            ps.setString(4, txtName.getText());
+            int kq = ps.executeUpdate();
+            if (kq == 1) {
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+            } else {
+                JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
+            }
+            ps.close();
+            con.close();
+            load_data();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+      
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
-        clearForm();
+       txtEMAIL.setText(null);
+       txtName.setText(null);
+       txtNumberPhone.setText(null);
+       rdoUser.setSelected(true);
     }//GEN-LAST:event_btnNewActionPerformed
+
+    private void btnOUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOUTActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnOUTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -702,6 +610,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
     private javax.swing.JButton btnLast;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnOUT;
     private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup1;
