@@ -9,20 +9,6 @@ package com.swanmusic.entity;
  * @author phuon
  */
 public class Nhac {
-    String name;
-    String theloai;
-    String album;
-    String nghesi;
-
-    public Nhac() {
-    }
-
-    public Nhac(String name, String theloai, String album, String nghesi) {
-        this.name = name;
-        this.theloai = theloai;
-        this.album = album;
-        this.nghesi = nghesi;
-    }
 
     public String getName() {
         return name;
@@ -32,12 +18,12 @@ public class Nhac {
         this.name = name;
     }
 
-    public String getTheloai() {
-        return theloai;
+    public String getCategory() {
+        return category;
     }
 
-    public void setTheloai(String theloai) {
-        this.theloai = theloai;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getAlbum() {
@@ -48,15 +34,38 @@ public class Nhac {
         this.album = album;
     }
 
-    public String getNghesi() {
-        return nghesi;
+    public String getArtist() {
+        return artist;
     }
 
-    public void setNghesi(String nghesi) {
-        this.nghesi = nghesi;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
-    
-    
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Nhac() {
+    }
+
+    public Nhac(String name, String category, String album, String artist, String image) {
+        this.name = name;
+        this.category = category;
+        this.album = album;
+        this.artist = artist;
+        this.image = image;
+    }
+    String name;
+    String category;
+    String album;
+    String artist;
+    String image;
+   
     
     
     

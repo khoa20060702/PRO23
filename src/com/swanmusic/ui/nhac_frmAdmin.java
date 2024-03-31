@@ -13,13 +13,24 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.Image;
+import javax.swing.JFileChooser;
+import javax.swing.*;
+import static javax.swing.JFileChooser.APPROVE_OPTION;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.io.File;
+import java.util.*;
 
 /**
  *
  * @author phuon
  */
 public class nhac_frmAdmin extends javax.swing.JDialog {
-
+     static void getText(String imageName) {
+    // code to be executed
+  }
     /**
      * Creates new form nhac_frmAdmin
      */
@@ -32,11 +43,19 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
      void init(){
         this.setSize(1242,682);
         this.setLocationRelativeTo(null);
+         load_data();
     }
 
      ArrayList<Nhac> list = new ArrayList();
+       String imageName = null;
      int index = 0;
-     
+     public void upImage(String imageName) {
+        ImageIcon icon = new ImageIcon("D:\\NetBeansProjects\\java3\\src\\lab6\\lab6\\image\\" + imageName);
+        Image image = icon.getImage();
+        ImageIcon icon1 = new ImageIcon(image.getScaledInstance(lblhinh.getWidth(), lblhinh.getHeight(), image.SCALE_SMOOTH));
+        lblhinh.setIcon(icon1);
+        
+    }
      public void load_data(){
          list.clear();
          try {
@@ -48,15 +67,16 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
               while (rs.next()) {
                 Nhac mu = new Nhac();
                 mu.setName(rs.getString("TENNHAC"));
-                mu.setTheloai(rs.getString("THELOAI"));
+                mu.setCategory(rs.getString("THELOAI"));
                 mu.setAlbum(rs.getString("ALBUM"));
-                mu.setNghesi(rs.getString("NGHESI"));
+                mu.setArtist(rs.getString("NGHESI"));
+                mu.setImage(rs.getString("img"));
                 list.add(mu);
             }
             DefaultTableModel model = (DefaultTableModel) tblNhac.getModel();
             model.setRowCount(0);
             for (Nhac mu : list) {
-                Object[] row = new Object[]{mu.getName(),mu.getAlbum(),mu.getNghesi(),mu.getTheloai()};
+                Object[] row = new Object[]{mu.getName(),mu.getAlbum(),mu.getArtist(),mu.getCategory(),mu.getImage()};
                 model.addRow(row);
             }
             rs.close();
@@ -71,33 +91,16 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
          if(index >=0){
              Nhac mu = list.get(index);
              txtName.setText(mu.getName());
-             txtNghesi.setText(mu.getNghesi());
-             txtTheloai.setText(mu.getTheloai());
+             txtNghesi.setText(mu.getArtist());
+             txtTheloai.setText(mu.getCategory());
              txtAlbum.setText(mu.getAlbum());
+             upImage(list.get(index).getImage());
          }
      }
      
      
      public void them(){
-         try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("insert into Nhac values(?,?,?,?)");
-             ps.setString(1, txtName.getText());
-             ps.setString(3,txtAlbum.getText());
-             ps.setString(4, txtNghesi.getText());
-             ps.setString(2,txtTheloai.getText());
-             int kq = ps.executeUpdate();
-             if(kq == 1){
-                 JOptionPane.showMessageDialog( this,"Lưu thành công");
-             }
-             else{
-                 JOptionPane.showMessageDialog(this, "Lưu không thành công");
-             }
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
+        
      }
      
      
@@ -122,21 +125,6 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         panel3 = new com.swanmusic.swing.Panel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        lblTheloai = new javax.swing.JLabel();
-        txtTheloai = new javax.swing.JTextField();
-        btnXoa = new javax.swing.JButton();
-        btnThem = new javax.swing.JButton();
-        btnSua = new javax.swing.JButton();
-        btnMoi = new javax.swing.JButton();
-        lblName = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
-        lblAlbum = new javax.swing.JLabel();
-        txtNghesi = new javax.swing.JTextField();
-        lblNghesi = new javax.swing.JLabel();
-        txtAlbum = new javax.swing.JTextField();
-        pnlHinh = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         lblTieude = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -145,6 +133,22 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         btnPrev = new javax.swing.JButton();
         btnNext = new javax.swing.JButton();
         btnLast = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        lblTheloai = new javax.swing.JLabel();
+        txtTheloai = new javax.swing.JTextField();
+        lblName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        lblAlbum = new javax.swing.JLabel();
+        txtNghesi = new javax.swing.JTextField();
+        lblNghesi = new javax.swing.JLabel();
+        txtAlbum = new javax.swing.JTextField();
+        pnlHinh = new javax.swing.JPanel();
+        lblhinh = new javax.swing.JLabel();
+        btnXoa = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
+        btnMoi = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -221,161 +225,6 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
 
         panel3.setForeground(new java.awt.Color(255, 201, 221));
 
-        jPanel2.setBackground(new java.awt.Color(255, 201, 221));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("QUẢN LÝ NHẠC");
-
-        lblTheloai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTheloai.setForeground(new java.awt.Color(0, 0, 0));
-        lblTheloai.setText("Thể loại:");
-
-        txtTheloai.setBackground(new java.awt.Color(255, 145, 185));
-        txtTheloai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTheloaiActionPerformed(evt);
-            }
-        });
-
-        btnXoa.setBackground(new java.awt.Color(255, 103, 158));
-        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
-        btnXoa.setText("Xóa");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
-            }
-        });
-
-        btnThem.setBackground(new java.awt.Color(255, 103, 158));
-        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThem.setForeground(new java.awt.Color(255, 255, 255));
-        btnThem.setText("Thêm");
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
-            }
-        });
-
-        btnSua.setBackground(new java.awt.Color(255, 103, 158));
-        btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSua.setForeground(new java.awt.Color(255, 255, 255));
-        btnSua.setText("Sửa");
-
-        btnMoi.setBackground(new java.awt.Color(255, 103, 158));
-        btnMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnMoi.setForeground(new java.awt.Color(255, 255, 255));
-        btnMoi.setText("Mới");
-
-        lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblName.setForeground(new java.awt.Color(0, 0, 0));
-        lblName.setText("Tên nhạc:");
-
-        txtName.setBackground(new java.awt.Color(255, 145, 185));
-
-        lblAlbum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblAlbum.setForeground(new java.awt.Color(0, 0, 0));
-        lblAlbum.setText("Album:");
-
-        txtNghesi.setBackground(new java.awt.Color(255, 145, 185));
-        txtNghesi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNghesiActionPerformed(evt);
-            }
-        });
-
-        lblNghesi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNghesi.setForeground(new java.awt.Color(0, 0, 0));
-        lblNghesi.setText("Nghệ sĩ:");
-
-        txtAlbum.setBackground(new java.awt.Color(255, 145, 185));
-        txtAlbum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAlbumActionPerformed(evt);
-            }
-        });
-
-        pnlHinh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        javax.swing.GroupLayout pnlHinhLayout = new javax.swing.GroupLayout(pnlHinh);
-        pnlHinh.setLayout(pnlHinhLayout);
-        pnlHinhLayout.setHorizontalGroup(
-            pnlHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 229, Short.MAX_VALUE)
-        );
-        pnlHinhLayout.setVerticalGroup(
-            pnlHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 295, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnThem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnXoa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSua)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnMoi))
-                    .addComponent(jLabel6)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAlbum)
-                            .addComponent(lblNghesi)
-                            .addComponent(txtAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTheloai)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblName))
-                        .addGap(85, 85, 85)
-                        .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(400, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblName)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTheloai)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblAlbum)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblNghesi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnXoa)
-                    .addComponent(btnThem)
-                    .addComponent(btnSua)
-                    .addComponent(btnMoi))
-                .addGap(40, 40, 40))
-        );
-
-        jTabbedPane1.addTab("Chỉnh sửa", jPanel2);
-
         jPanel3.setBackground(new java.awt.Color(255, 201, 221));
 
         lblTieude.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -384,13 +233,13 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
 
         tblNhac.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Tên nhạc", "Thể loại", "Album", "Nghệ sĩ"
+                "Tên nhạc", "Thể loại", "Album", "Nghệ sĩ", "Ảnh"
             }
         ));
         tblNhac.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -440,7 +289,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLast)
                         .addGap(15, 15, 15)))
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,6 +308,176 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         );
 
         jTabbedPane1.addTab("Danh sách", jPanel3);
+
+        jPanel2.setBackground(new java.awt.Color(255, 201, 221));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("QUẢN LÝ NHẠC");
+
+        lblTheloai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTheloai.setForeground(new java.awt.Color(0, 0, 0));
+        lblTheloai.setText("Thể loại:");
+
+        txtTheloai.setBackground(new java.awt.Color(255, 145, 185));
+        txtTheloai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTheloaiActionPerformed(evt);
+            }
+        });
+
+        lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblName.setForeground(new java.awt.Color(0, 0, 0));
+        lblName.setText("Tên nhạc:");
+
+        txtName.setBackground(new java.awt.Color(255, 145, 185));
+
+        lblAlbum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblAlbum.setForeground(new java.awt.Color(0, 0, 0));
+        lblAlbum.setText("Album:");
+
+        txtNghesi.setBackground(new java.awt.Color(255, 145, 185));
+        txtNghesi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNghesiActionPerformed(evt);
+            }
+        });
+
+        lblNghesi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNghesi.setForeground(new java.awt.Color(0, 0, 0));
+        lblNghesi.setText("Nghệ sĩ:");
+
+        txtAlbum.setBackground(new java.awt.Color(255, 145, 185));
+        txtAlbum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAlbumActionPerformed(evt);
+            }
+        });
+
+        pnlHinh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblhinh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblhinhMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlHinhLayout = new javax.swing.GroupLayout(pnlHinh);
+        pnlHinh.setLayout(pnlHinhLayout);
+        pnlHinhLayout.setHorizontalGroup(
+            pnlHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHinhLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblhinh, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlHinhLayout.setVerticalGroup(
+            pnlHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHinhLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblhinh, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btnXoa.setBackground(new java.awt.Color(255, 103, 158));
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+
+        btnThem.setBackground(new java.awt.Color(255, 103, 158));
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
+
+        btnMoi.setBackground(new java.awt.Color(255, 103, 158));
+        btnMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnMoi.setForeground(new java.awt.Color(255, 255, 255));
+        btnMoi.setText("Mới");
+
+        btnSua.setBackground(new java.awt.Color(255, 103, 158));
+        btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSua.setForeground(new java.awt.Color(255, 255, 255));
+        btnSua.setText("Sửa");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAlbum)
+                            .addComponent(lblNghesi)
+                            .addComponent(txtAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTheloai)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                        .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(384, 384, 384))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(lblName))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnThem)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnXoa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSua)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnMoi)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblTheloai)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(lblAlbum)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblNghesi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnXoa)
+                    .addComponent(btnThem)
+                    .addComponent(btnSua)
+                    .addComponent(btnMoi))
+                .addContainerGap(63, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Chỉnh sửa", jPanel2);
 
         javax.swing.GroupLayout panel3Layout = new javax.swing.GroupLayout(panel3);
         panel3.setLayout(panel3Layout);
@@ -536,11 +555,44 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+         try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+                 upImage(imageName);
+             PreparedStatement ps = con.prepareCall("insert into Nhac values(?,?,?,?,?)");
+             ps.setString(1, txtName.getText());
+             ps.setString(3,txtAlbum.getText());
+             ps.setString(4, txtNghesi.getText());
+             ps.setString(5, imageName);
+             ps.setString(2,txtTheloai.getText());
+             int kq = ps.executeUpdate();
+             if(kq == 1){
+                 JOptionPane.showMessageDialog( this,"Lưu thành công");
+             }
+             else{
+                 JOptionPane.showMessageDialog(this, "Lưu không thành công");
+             }
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void lblhinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblhinhMouseClicked
+        // TODO add your handling code here:
+        JFileChooser file = new JFileChooser("D:\\NetBeansProjects\\java3\\src\\lab6\\lab6\\image\\");
+        int kq = file.showOpenDialog(file);
+        if (kq == JFileChooser.APPROVE_OPTION) {
+            imageName = file.getSelectedFile().getName();
+    upImage(imageName);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
+        }
+    }//GEN-LAST:event_lblhinhMouseClicked
 
     /**
      * @param args the command line arguments
@@ -609,6 +661,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
     private javax.swing.JLabel lblNghesi;
     private javax.swing.JLabel lblTheloai;
     private javax.swing.JLabel lblTieude;
+    private javax.swing.JLabel lblhinh;
     private com.swanmusic.swing.Panel panel1;
     private com.swanmusic.swing.Panel panel2;
     private com.swanmusic.swing.Panel panel3;
