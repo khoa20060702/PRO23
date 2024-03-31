@@ -50,7 +50,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
        String imageName = null;
      int index = 0;
      public void upImage(String imageName) {
-        ImageIcon icon = new ImageIcon("D:\\NetBeansProjects\\java3\\src\\lab6\\lab6\\image\\" + imageName);
+        ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
         Image image = icon.getImage();
         ImageIcon icon1 = new ImageIcon(image.getScaledInstance(lblhinh.getWidth(), lblhinh.getHeight(), image.SCALE_SMOOTH));
         lblhinh.setIcon(icon1);
@@ -584,7 +584,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
 
     private void lblhinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblhinhMouseClicked
         // TODO add your handling code here:
-        JFileChooser file = new JFileChooser("D:\\NetBeansProjects\\java3\\src\\lab6\\lab6\\image\\");
+        JFileChooser file = new JFileChooser("src\\com\\swanmusic\\img\\");
         int kq = file.showOpenDialog(file);
         if (kq == JFileChooser.APPROVE_OPTION) {
             imageName = file.getSelectedFile().getName();
