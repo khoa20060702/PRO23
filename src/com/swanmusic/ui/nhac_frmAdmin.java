@@ -10,18 +10,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Image;
 import javax.swing.JFileChooser;
 import javax.swing.*;
-import static javax.swing.JFileChooser.APPROVE_OPTION;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
-import java.io.File;
-import java.util.*;
+
 
 /**
  *
