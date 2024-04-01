@@ -54,7 +54,6 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         Image image = icon.getImage();
         ImageIcon icon1 = new ImageIcon(image.getScaledInstance(lblhinh.getWidth(), lblhinh.getHeight(), image.SCALE_SMOOTH));
         lblhinh.setIcon(icon1);
-        
     }
      public void load_data(){
          list.clear();
@@ -159,7 +158,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
              String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
-                 upImage(imageName);
+             upImage(imageName);
              PreparedStatement ps = con.prepareCall("update Nhac set THELOAI = ?, ALBUM=?, NGHESI=?, img=? where TENNHAC = ?");
              ps.setString(1, txtTheloai.getText());
              ps.setString(2,txtAlbum.getText());
