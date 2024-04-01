@@ -124,7 +124,6 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         txtNumberPhone = new javax.swing.JTextField();
         lblEMAIL = new javax.swing.JLabel();
         lblNumberPhone = new javax.swing.JLabel();
-        btnOUT = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         lblTieude = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -275,16 +274,6 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         lblNumberPhone.setForeground(new java.awt.Color(0, 0, 0));
         lblNumberPhone.setText("Số điện thoại");
 
-        btnOUT.setBackground(new java.awt.Color(255, 103, 158));
-        btnOUT.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnOUT.setForeground(new java.awt.Color(255, 255, 255));
-        btnOUT.setText("Thoát");
-        btnOUT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOUTActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -297,9 +286,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNew)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnOUT))
+                        .addComponent(btnNew))
                     .addComponent(jLabel6)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,8 +331,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete)
                     .addComponent(btnUpdate)
-                    .addComponent(btnNew)
-                    .addComponent(btnOUT))
+                    .addComponent(btnNew))
                 .addContainerGap(223, Short.MAX_VALUE))
         );
 
@@ -557,11 +543,6 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
        rdoUser.setSelected(true);
     }//GEN-LAST:event_btnNewActionPerformed
 
-    private void btnOUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOUTActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_btnOUTActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -610,7 +591,6 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
     private javax.swing.JButton btnLast;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnNext;
-    private javax.swing.JButton btnOUT;
     private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup1;

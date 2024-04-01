@@ -4,6 +4,18 @@
  */
 package com.swanmusic.ui;
 
+import com.swanmusic.entity.Album;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.Image;
+import javax.swing.JFileChooser;
+import javax.swing.*;
+
 /**
  *
  * @author phuon
@@ -17,11 +29,184 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         init();
+        load_data();
     }
 void init(){
         this.setSize(1242,682);
         this.setLocationRelativeTo(null);
+        load_data();
     }
+  ArrayList<Album> list = new ArrayList();
+       String imageName = null;
+     int index = 0;
+     public void upImage(String imageName) {
+        ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
+        Image image = icon.getImage();
+        ImageIcon icon1 = new ImageIcon(image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), image.SCALE_SMOOTH));
+        lblImage.setIcon(icon1);
+    }
+         public void load_data(){
+         list.clear();
+         try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             PreparedStatement ps = con.prepareCall("select * from ALBUM");
+             ResultSet rs = ps.executeQuery();
+              while (rs.next()) {
+                Album mu = new Album();
+                mu.setAlbumName(rs.getString("TENALBUM"));
+                mu.setArtist(rs.getString("NGHESI"));
+                mu.setCategory(rs.getString("THELOAI"));
+                mu.setReleaseTime(rs.getString("TG_PHATHANH"));
+                mu.setImage(rs.getString("img"));
+                list.add(mu);
+            }
+            DefaultTableModel model = (DefaultTableModel) tblAlbum.getModel();
+            model.setRowCount(0);
+            for (Album mu : list) {
+                Object[] row = new Object[]{mu.getAlbumName(),mu.getArtist(),mu.getCategory(),mu.getReleaseTime(),mu.getImage()};
+                model.addRow(row);
+            }
+            rs.close();
+            ps.close();
+            con.close();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+}
+     
+     public void showdetail(){
+         if(index >=0){
+             Album mu = list.get(index);
+             txtName.setText(mu.getAlbumName());
+             txtNghesi.setText(mu.getArtist());
+             txtTheloai.setText(mu.getCategory());
+             txtTime.setText(mu.getReleaseTime());
+             upImage(list.get(index).getImage());
+         }
+     }
+     
+ public void them(){
+        try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+                 upImage(imageName);
+             PreparedStatement ps = con.prepareCall("insert into ALBUM values(?,?,?,?,?)");
+             ps.setString(1, txtName.getText());
+             ps.setString(3,txtTheloai.getText());
+             ps.setString(4, txtTime.getText());
+             ps.setString(5, imageName);
+             ps.setString(2,txtNghesi.getText());
+             int kq = ps.executeUpdate();
+             if(kq == 1){
+                 JOptionPane.showMessageDialog( this,"Lưu thành công");
+             }
+             else{
+                 JOptionPane.showMessageDialog(this, "Lưu không thành công");
+             }
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+     }
+     public void xoa(){
+              try {
+            //1. url
+            String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url,"sa","");
+            PreparedStatement ps = con.prepareStatement("delete from ALBUM where TENALBUM = ?");
+            ps.setString(1, txtName.getText());
+            int kq = ps.executeUpdate();
+            if (kq == 1)
+            {
+                JOptionPane.showMessageDialog(this, "thành công");
+                txtTime.setText(null);
+                txtNghesi.setText(null);
+                txtTheloai.setText(null);
+                txtName.setText(null);
+                upImage(null);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "thất bại.");
+            }
+            ps.close();
+            con.close();
+            load_data();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }                   
+     }
+     
+     
+     public void sua(){
+                  try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             upImage(imageName);
+             PreparedStatement ps = con.prepareCall("update ALBUM set NGHESI = ?, THELOAI=?, TG_PHATHANH=?, img=? where TENALBUM = ?");
+             ps.setString(1, txtNghesi.getText());
+             ps.setString(2,txtTheloai.getText());
+             ps.setString(3, txtTime.getText());
+             ps.setString(4, imageName);
+             ps.setString(5,txtName.getText());
+             int kq = ps.executeUpdate();
+             if(kq == 1){
+                 JOptionPane.showMessageDialog( this,"Lưu thành công");
+                txtName.setText(null);
+                txtNghesi.setText(null);
+                txtTheloai.setText(null);
+                txtTime.setText(null);
+                upImage(null);
+             }
+             else{
+                 JOptionPane.showMessageDialog(this, "Lưu không thành công");
+             }
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+     }
+     
+     public void moi(){
+        txtTime.setText(null);
+        txtNghesi.setText(null);
+        txtTheloai.setText(null);
+        txtName.setText(null);
+         upImage(null);
+     }
+     
+     public void First(){
+        index = 0;
+        tblAlbum.setRowSelectionInterval(index, index);
+        showdetail();
+     }
+     
+     public void prev(){
+        if(index > 0)
+        {
+            index --;
+            tblAlbum.setRowSelectionInterval(index, index);
+            showdetail();
+        }
+     }
+     
+     public void next(){
+           if (index < list.size()-1)
+        {
+            index ++;
+            tblAlbum.setRowSelectionInterval(index, index);
+            showdetail();
+        }
+     }
+     
+     public void last(){
+        index = list.size()-1;
+        tblAlbum.setRowSelectionInterval(index, index);
+        showdetail();
+     }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -162,21 +347,41 @@ void init(){
         btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnXoa.setForeground(new java.awt.Color(255, 255, 255));
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnThem.setBackground(new java.awt.Color(255, 103, 158));
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
         btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
         btnSua.setBackground(new java.awt.Color(255, 103, 158));
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSua.setForeground(new java.awt.Color(255, 255, 255));
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         btnMoi.setBackground(new java.awt.Color(255, 103, 158));
         btnMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnMoi.setForeground(new java.awt.Color(255, 255, 255));
         btnMoi.setText("Mới");
+        btnMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoiActionPerformed(evt);
+            }
+        });
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblName.setForeground(new java.awt.Color(0, 0, 0));
@@ -207,6 +412,13 @@ void init(){
         });
 
         pnlHinh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlHinh.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblImageMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlHinhLayout = new javax.swing.GroupLayout(pnlHinh);
         pnlHinh.setLayout(pnlHinhLayout);
@@ -214,14 +426,14 @@ void init(){
             pnlHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHinhLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlHinhLayout.setVerticalGroup(
             pnlHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHinhLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -240,20 +452,22 @@ void init(){
                         .addComponent(btnSua)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnMoi))
+                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTime)
                             .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTheloai)
                             .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblNghesi)
-                            .addComponent(lblTime)
-                            .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblName)
-                            .addComponent(jLabel6))
-                        .addGap(83, 83, 83)
-                        .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(774, Short.MAX_VALUE))
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(120, 120, 120)
+                        .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(744, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,25 +476,26 @@ void init(){
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(348, 348, 348))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblName)
-                        .addGap(311, 311, 311))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lblTheloai)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lblNghesi)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(lblTime)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblTheloai)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblNghesi)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addComponent(lblTime)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnXoa)
@@ -300,15 +515,20 @@ void init(){
 
         tblAlbum.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Tên album", "Thể loại", "Nghệ sĩ", "Thời gian phát hành"
+                "Tên album", "Thể loại", "Nghệ sĩ", "Thời gian phát hành", "Ảnh"
             }
         ));
+        tblAlbum.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAlbumMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblAlbum);
 
         btnFirst.setBackground(new java.awt.Color(255, 103, 158));
@@ -351,7 +571,7 @@ void init(){
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLast)
                         .addGap(15, 15, 15)))
-                .addContainerGap(515, Short.MAX_VALUE))
+                .addContainerGap(518, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,7 +642,7 @@ void init(){
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -439,6 +659,44 @@ void init(){
     private void txtTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimeActionPerformed
+
+    private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
+        // TODO add your handling code here:
+        JFileChooser file = new JFileChooser("src\\com\\swanmusic\\img\\");
+        int kq = file.showOpenDialog(file);
+        if (kq == JFileChooser.APPROVE_OPTION) {
+            imageName = file.getSelectedFile().getName();
+        upImage(imageName);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
+        }
+    }//GEN-LAST:event_lblImageMouseClicked
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        them();
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void tblAlbumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlbumMouseClicked
+        // TODO add your handling code here:
+         index = tblAlbum.getSelectedRow();
+        showdetail();
+    }//GEN-LAST:event_tblAlbumMouseClicked
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        sua();
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        xoa();
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
+        // TODO add your handling code here:
+        moi();
+    }//GEN-LAST:event_btnMoiActionPerformed
 
     /**
      * @param args the command line arguments
