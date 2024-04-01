@@ -153,7 +153,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
              upImage(imageName);
-             PreparedStatement ps = con.prepareCall("update Nhac set THELOAI = ?, ALBUM=?, NGHESI=?, img=? where TENNHAC = ?");
+             PreparedStatement ps = con.prepareCall("update Nhac set THELOAI = ?, ALBUM=?, NGHESI=?, ANH=? where TENNHAC = ?");
              ps.setString(1, txtTheloai.getText());
              ps.setString(2,txtAlbum.getText());
              ps.setString(3, txtNghesi.getText());
@@ -171,6 +171,9 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
              else{
                  JOptionPane.showMessageDialog(this, "Lưu không thành công");
              }
+            ps.close();
+            con.close();
+            load_data();
          } catch (Exception e) {
              e.printStackTrace();
          }
