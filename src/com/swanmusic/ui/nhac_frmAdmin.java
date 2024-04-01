@@ -408,6 +408,11 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSua.setForeground(new java.awt.Color(255, 255, 255));
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -580,6 +585,37 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
+            try {
+            //1. url
+            String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            
+            //2. Tạo 1 Connection để kết nối
+            Connection con = DriverManager.getConnection(url,"sa","");
+            //3. Tạo PreparedStatement để thi hành câu lệnh sql
+            PreparedStatement ps = con.prepareStatement("delete from Nhac where TENNHAC = ?");
+            //4. gán giá trị vào cho các tham số
+            ps.setString(1, txtName.getText());
+           
+            //5. thi hành câu lệnh sql
+            int kq = ps.executeUpdate();
+            
+            if (kq == 1)
+            {
+                JOptionPane.showMessageDialog(this, "thành công");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "thất bại.");
+            }
+            //6. xong nhớ đóng kết nối lại
+            ps.close();
+            con.close();
+            //7. nhớ load_data lại nhé
+            load_data();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }                   
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void lblhinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblhinhMouseClicked
@@ -593,6 +629,31 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
         }
     }//GEN-LAST:event_lblhinhMouseClicked
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+                 try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+                 upImage(imageName);
+             PreparedStatement ps = con.prepareCall("update Nhac set THELOAI = ?, ALBUM=?, NGHESI=?, img=? where TENNHAC = ?");
+             ps.setString(1, txtTheloai.getText());
+             ps.setString(2,txtAlbum.getText());
+             ps.setString(3, txtNghesi.getText());
+             ps.setString(4, imageName);
+             ps.setString(5,txtName.getText());
+             int kq = ps.executeUpdate();
+             if(kq == 1){
+                 JOptionPane.showMessageDialog( this,"Lưu thành công");
+             }
+             else{
+                 JOptionPane.showMessageDialog(this, "Lưu không thành công");
+             }
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     /**
      * @param args the command line arguments
