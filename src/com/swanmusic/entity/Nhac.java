@@ -9,6 +9,22 @@ package com.swanmusic.entity;
  * @author phuon
  */
 public class Nhac {
+    String name;
+    String category;
+    String album;
+    String artist;
+    String image;
+
+    public Nhac() {
+    }
+
+    public Nhac(String name, String category, String album, String artist, String image) {
+        this.name = name;
+        this.category = category;
+        this.album = album;
+        this.artist = artist;
+        this.image = image;
+    }
 
     public String getName() {
         return name;
@@ -49,22 +65,8 @@ public class Nhac {
     public void setImage(String image) {
         this.image = image;
     }
-
-    public Nhac() {
-    }
-
-    public Nhac(String name, String category, String album, String artist, String image) {
-        this.name = name;
-        this.category = category;
-        this.album = album;
-        this.artist = artist;
-        this.image = image;
-    }
-    String name;
-    String category;
-    String album;
-    String artist;
-    String image;
+    
+    
    
     
     
