@@ -56,6 +56,7 @@ void init(){
         lblNghesi = new javax.swing.JLabel();
         txtTime = new javax.swing.JTextField();
         pnlHinh = new javax.swing.JPanel();
+        lblImage = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         lblTieude = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -211,11 +212,17 @@ void init(){
         pnlHinh.setLayout(pnlHinhLayout);
         pnlHinhLayout.setHorizontalGroup(
             pnlHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 229, Short.MAX_VALUE)
+            .addGroup(pnlHinhLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnlHinhLayout.setVerticalGroup(
             pnlHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 309, Short.MAX_VALUE)
+            .addGroup(pnlHinhLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -274,7 +281,7 @@ void init(){
                             .addComponent(lblTime)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnXoa)
                     .addComponent(btnThem)
@@ -495,6 +502,7 @@ void init(){
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNghesi;
     private javax.swing.JLabel lblTheloai;
