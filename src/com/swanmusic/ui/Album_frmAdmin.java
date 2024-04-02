@@ -31,105 +31,105 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         init();
         load_data();
     }
-void init(){
-        this.setSize(1242,682);
+
+    void init() {
+        this.setSize(1242, 682);
         this.setLocationRelativeTo(null);
         load_data();
     }
-  ArrayList<Album> list = new ArrayList();
-       String imageName = null;
-     int index = 0;
-     public void upImage(String imageName) {
+    ArrayList<Album> list = new ArrayList();
+    String imageName = null;
+    int index = 0;
+
+    public void upImage(String imageName) {
         ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
         Image image = icon.getImage();
         ImageIcon icon1 = new ImageIcon(image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), image.SCALE_SMOOTH));
         lblImage.setIcon(icon1);
     }
-         public void load_data(){
-         list.clear();
-         try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select * from ALBUM");
-             ResultSet rs = ps.executeQuery();
-              while (rs.next()) {
+
+    public void load_data() {
+        list.clear();
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select * from ALBUM");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
                 Album mu = new Album();
                 mu.setAlbumName(rs.getString("TENALBUM"));
                 mu.setArtist(rs.getString("NGHESI"));
                 mu.setCategory(rs.getString("THELOAI"));
                 mu.setReleaseTime(rs.getString("TG_PHATHANH"));
-                mu.setImage(rs.getString("img"));
+                mu.setImage(rs.getString("ANH"));
                 list.add(mu);
             }
             DefaultTableModel model = (DefaultTableModel) tblAlbum.getModel();
             model.setRowCount(0);
             for (Album mu : list) {
-                Object[] row = new Object[]{mu.getAlbumName(),mu.getArtist(),mu.getCategory(),mu.getReleaseTime(),mu.getImage()};
+                Object[] row = new Object[]{mu.getAlbumName(), mu.getArtist(), mu.getCategory(), mu.getReleaseTime(), mu.getImage()};
                 model.addRow(row);
             }
             rs.close();
             ps.close();
             con.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-}
-     
-     public void showdetail(){
-         if(index >=0){
-             Album mu = list.get(index);
-             txtName.setText(mu.getAlbumName());
-             txtNghesi.setText(mu.getArtist());
-             txtTheloai.setText(mu.getCategory());
-             txtTime.setText(mu.getReleaseTime());
-             upImage(list.get(index).getImage());
-         }
-     }
-     
- public void them(){
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showdetail() {
+        if (index >= 0) {
+            Album mu = list.get(index);
+            txtName.setText(mu.getAlbumName());
+            txtNghesi.setText(mu.getArtist());
+            txtTheloai.setText(mu.getCategory());
+            txtTime.setText(mu.getReleaseTime());
+            upImage(list.get(index).getImage());
+        }
+    }
+
+    public void them() {
         try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-                 upImage(imageName);
-             PreparedStatement ps = con.prepareCall("insert into ALBUM values(?,?,?,?,?)");
-             ps.setString(1, txtName.getText());
-             ps.setString(3,txtTheloai.getText());
-             ps.setString(4, txtTime.getText());
-             ps.setString(5, imageName);
-             ps.setString(2,txtNghesi.getText());
-             int kq = ps.executeUpdate();
-             if(kq == 1){
-                 JOptionPane.showMessageDialog( this,"Lưu thành công");
-             }
-             else{
-                 JOptionPane.showMessageDialog(this, "Lưu không thành công");
-             }
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-     }
-     public void xoa(){
-              try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            upImage(imageName);
+            PreparedStatement ps = con.prepareCall("insert into ALBUM values(?,?,?,?,?)");
+            ps.setString(1, txtName.getText());
+            ps.setString(3, txtTheloai.getText());
+            ps.setString(4, txtTime.getText());
+            ps.setString(5, imageName);
+            ps.setString(2, txtNghesi.getText());
+            int kq = ps.executeUpdate();
+            if (kq == 1) {
+                JOptionPane.showMessageDialog(this, "Lưu thành công");
+            } else {
+                JOptionPane.showMessageDialog(this, "Lưu không thành công");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void xoa() {
+        try {
             //1. url
             String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url,"sa","");
+            Connection con = DriverManager.getConnection(url, "sa", "");
             PreparedStatement ps = con.prepareStatement("delete from ALBUM where TENALBUM = ?");
             ps.setString(1, txtName.getText());
             int kq = ps.executeUpdate();
-            if (kq == 1)
-            {
+            if (kq == 1) {
                 JOptionPane.showMessageDialog(this, "thành công");
                 txtTime.setText(null);
                 txtNghesi.setText(null);
                 txtTheloai.setText(null);
                 txtName.setText(null);
                 upImage(null);
-            }
-            else
-            {
+            } else {
                 JOptionPane.showMessageDialog(this, "thất bại.");
             }
             ps.close();
@@ -137,76 +137,73 @@ void init(){
             load_data();
         } catch (Exception e) {
             e.printStackTrace();
-        }                   
-     }
-     
-     
-     public void sua(){
-                  try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             upImage(imageName);
-             PreparedStatement ps = con.prepareCall("update ALBUM set NGHESI = ?, THELOAI=?, TG_PHATHANH=?, img=? where TENALBUM = ?");
-             ps.setString(1, txtNghesi.getText());
-             ps.setString(2,txtTheloai.getText());
-             ps.setString(3, txtTime.getText());
-             ps.setString(4, imageName);
-             ps.setString(5,txtName.getText());
-             int kq = ps.executeUpdate();
-             if(kq == 1){
-                 JOptionPane.showMessageDialog( this,"Lưu thành công");
+        }
+    }
+
+    public void sua() {
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            upImage(imageName);
+            PreparedStatement ps = con.prepareCall("update ALBUM set NGHESI = ?, THELOAI=?, TG_PHATHANH=?, ANH=? where TENALBUM = ?");
+            ps.setString(1, txtNghesi.getText());
+            ps.setString(2, txtTheloai.getText());
+            ps.setString(3, txtTime.getText());
+            ps.setString(4, imageName);
+            ps.setString(5, txtName.getText());
+            int kq = ps.executeUpdate();
+            if (kq == 1) {
+                JOptionPane.showMessageDialog(this, "Lưu thành công");
                 txtName.setText(null);
                 txtNghesi.setText(null);
                 txtTheloai.setText(null);
                 txtTime.setText(null);
                 upImage(null);
-             }
-             else{
-                 JOptionPane.showMessageDialog(this, "Lưu không thành công");
-             }
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-     }
-     
-     public void moi(){
+            } else {
+                JOptionPane.showMessageDialog(this, "Lưu không thành công");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void moi() {
         txtTime.setText(null);
         txtNghesi.setText(null);
         txtTheloai.setText(null);
         txtName.setText(null);
-         upImage(null);
-     }
-     
-     public void First(){
+        upImage(null);
+    }
+
+    public void First() {
         index = 0;
         tblAlbum.setRowSelectionInterval(index, index);
         showdetail();
-     }
-     
-     public void prev(){
-        if(index > 0)
-        {
-            index --;
+    }
+
+    public void prev() {
+        if (index > 0) {
+            index--;
             tblAlbum.setRowSelectionInterval(index, index);
             showdetail();
         }
-     }
-     
-     public void next(){
-           if (index < list.size()-1)
-        {
-            index ++;
+    }
+
+    public void next() {
+        if (index < list.size() - 1) {
+            index++;
             tblAlbum.setRowSelectionInterval(index, index);
             showdetail();
         }
-     }
-     
-     public void last(){
-        index = list.size()-1;
+    }
+
+    public void last() {
+        index = list.size() - 1;
         tblAlbum.setRowSelectionInterval(index, index);
         showdetail();
-     }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -666,7 +663,7 @@ void init(){
         int kq = file.showOpenDialog(file);
         if (kq == JFileChooser.APPROVE_OPTION) {
             imageName = file.getSelectedFile().getName();
-        upImage(imageName);
+            upImage(imageName);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
         }
@@ -679,7 +676,7 @@ void init(){
 
     private void tblAlbumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlbumMouseClicked
         // TODO add your handling code here:
-         index = tblAlbum.getSelectedRow();
+        index = tblAlbum.getSelectedRow();
         showdetail();
     }//GEN-LAST:event_tblAlbumMouseClicked
 
