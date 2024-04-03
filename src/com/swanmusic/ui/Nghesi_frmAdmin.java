@@ -11,7 +11,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashSet;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -147,7 +146,7 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
              upImage(imageName);
-             PreparedStatement ps = con.prepareCall("update NGHESI set SL_ALBUM = ?, SL_DSNHAC, ANH=? where TENNGHESI = ?");
+             PreparedStatement ps = con.prepareCall("update NGHESI set SL_ALBUM = ?, SL_DSNHAC=?, ANH=? where TENNGHESI = ?");
              ps.setString(1, txtSLAlbum.getText());
              ps.setString(2,txtSLNhac.getText());
              ps.setString(3, imageName);
