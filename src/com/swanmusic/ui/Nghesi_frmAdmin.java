@@ -4,72 +4,69 @@
  */
 package com.swanmusic.ui;
 
-import com.swanmusic.entity.Nhac;
+import com.swanmusic.entity.Nghesi;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import java.awt.Image;
-import javax.swing.JFileChooser;
-import javax.swing.*;
-
 
 /**
  *
  * @author phuon
  */
-public class nhac_frmAdmin extends javax.swing.JDialog {
-     static void getText(String imageName) {
-    // code to be executed
-  }
-    /**
-     * Creates new form nhac_frmAdmin
-     */
-    public nhac_frmAdmin(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        init();
-        load_data();
-    }
-     void init(){
-        this.setSize(1242,682);
-        this.setLocationRelativeTo(null);
-         load_data();
-    }
+public class Nghesi_frmAdmin extends javax.swing.JDialog {
 
-     ArrayList<Nhac> list = new ArrayList();
-     String imageName = null;
-     int index = 0;
-     public void upImage(String imageName) {
+    ArrayList<Nghesi> list = new ArrayList();
+    int index = 0;
+    String imageName = null;
+    
+    public void upImage(String imageName) {
         ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
         Image image = icon.getImage();
         ImageIcon icon1 = new ImageIcon(image.getScaledInstance(lblhinh.getWidth(), lblhinh.getHeight(), image.SCALE_SMOOTH));
         lblhinh.setIcon(icon1);
     }
-     public void load_data(){
+    
+    public Nghesi_frmAdmin(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        init();
+    }
+    
+    public void init(){
+        this.setSize(1242,682);
+        this.setLocationRelativeTo(null);
+        load_data();
+    }
+    
+    
+    public void load_data(){
          list.clear();
          try {
              String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select * from NHAC");
+             PreparedStatement ps = con.prepareCall("select * from NGHESI");
              ResultSet rs = ps.executeQuery();
               while (rs.next()) {
-                Nhac mu = new Nhac();
-                mu.setName(rs.getString("TENNHAC"));
-                mu.setCategory(rs.getString("THELOAI"));
-                mu.setAlbum(rs.getString("ALBUM"));
-                mu.setArtist(rs.getString("NGHESI"));
-                mu.setImage(rs.getString("ANH"));
-                list.add(mu);
+                Nghesi si = new Nghesi();
+                si.setName(rs.getString("TENNGHESI"));
+                si.setSl_album(Integer.parseInt(rs.getString("SL_ALBUM")));
+                si.setSl_dsnhac(Integer.parseInt(rs.getString("SL_DSNHAC")));
+                si.setAnh(rs.getString("ANH")); 
+                list.add(si);
             }
-            DefaultTableModel model = (DefaultTableModel) tblNhac.getModel();
+            DefaultTableModel model = (DefaultTableModel) tblNghesi.getModel();
             model.setRowCount(0);
-            for (Nhac mu : list) {
-                Object[] row = new Object[]{mu.getName(),mu.getAlbum(),mu.getArtist(),mu.getCategory(),mu.getImage()};
+            for (Nghesi si : list) {
+                Object[] row = new Object[]{si.getName(),si.getSl_album(),si.getSl_dsnhac(),si.getAnh()};
                 model.addRow(row);
             }
             rs.close();
@@ -82,12 +79,11 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
      
      public void showdetail(){
          if(index >=0){
-             Nhac mu = list.get(index);
-             txtName.setText(mu.getName());
-             txtNghesi.setText(mu.getArtist());
-             txtTheloai.setText(mu.getCategory());
-             txtAlbum.setText(mu.getAlbum());
-             upImage(list.get(index).getImage());
+             Nghesi si = list.get(index);
+             txtName.setText(si.getName());
+             txtSLAlbum.setText(String.valueOf(si.getSl_album()));
+             txtSLNhac.setText(String.valueOf(si.getSl_dsnhac()));
+             upImage(list.get(index).getAnh());
          }
      }
      
@@ -97,13 +93,12 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
              String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
-                 upImage(imageName);
-             PreparedStatement ps = con.prepareCall("insert into Nhac values(?,?,?,?,?)");
+             upImage(imageName);
+             PreparedStatement ps = con.prepareCall("insert into NGHESI values(?,?,?,?)");
              ps.setString(1, txtName.getText());
-             ps.setString(3,txtAlbum.getText());
-             ps.setString(4, txtNghesi.getText());
-             ps.setString(5, imageName);
-             ps.setString(2,txtTheloai.getText());
+             ps.setString(2,txtSLAlbum.getText());
+             ps.setString(3, txtSLNhac.getText());
+             ps.setString(4, imageName);
              int kq = ps.executeUpdate();
              if(kq == 1){
                  JOptionPane.showMessageDialog( this,"Lưu thành công");
@@ -122,16 +117,15 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
             String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con = DriverManager.getConnection(url,"sa","");
-            PreparedStatement ps = con.prepareStatement("delete from Nhac where TENNHAC = ?");
+            PreparedStatement ps = con.prepareStatement("delete from NGHESI where TENNGHESI = ?");
             ps.setString(1, txtName.getText());
             int kq = ps.executeUpdate();
             if (kq == 1)
             {
                 JOptionPane.showMessageDialog(this, "thành công");
-                txtAlbum.setText(null);
-                txtNghesi.setText(null);
-                txtTheloai.setText(null);
                 txtName.setText(null);
+                txtSLAlbum.setText(null);
+                txtSLNhac.setText(null);
                 upImage(null);
             }
             else
@@ -153,19 +147,17 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
              upImage(imageName);
-             PreparedStatement ps = con.prepareCall("update Nhac set THELOAI = ?, ALBUM=?, NGHESI=?, ANH=? where TENNHAC = ?");
-             ps.setString(1, txtTheloai.getText());
-             ps.setString(2,txtAlbum.getText());
-             ps.setString(3, txtNghesi.getText());
-             ps.setString(4, imageName);
-             ps.setString(5,txtName.getText());
+             PreparedStatement ps = con.prepareCall("update NGHESI set SL_ALBUM = ?, SL_DSNHAC, ANH=? where TENNGHESI = ?");
+             ps.setString(1, txtSLAlbum.getText());
+             ps.setString(2,txtSLNhac.getText());
+             ps.setString(3, imageName);
+             ps.setString(4,txtName.getText());
              int kq = ps.executeUpdate();
              if(kq == 1){
                  JOptionPane.showMessageDialog( this,"Lưu thành công");
-                txtAlbum.setText(null);
-                txtNghesi.setText(null);
-                txtTheloai.setText(null);
                 txtName.setText(null);
+                txtSLAlbum.setText(null);
+                txtSLNhac.setText(null);
                 upImage(null);
              }
              else{
@@ -180,16 +172,15 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
      }
      
      public void moi(){
-        txtAlbum.setText(null);
-        txtNghesi.setText(null);
-        txtTheloai.setText(null);
         txtName.setText(null);
-         upImage(null);
+        txtSLAlbum.setText(null);
+        txtSLNhac.setText(null);
+        upImage(null);
      }
      
      public void First(){
         index = 0;
-        tblNhac.setRowSelectionInterval(index, index);
+        tblNghesi.setRowSelectionInterval(index, index);
         showdetail();
      }
      
@@ -197,7 +188,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         if(index > 0)
         {
             index --;
-            tblNhac.setRowSelectionInterval(index, index);
+            tblNghesi.setRowSelectionInterval(index, index);
             showdetail();
         }
      }
@@ -206,16 +197,29 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
            if (index < list.size()-1)
         {
             index ++;
-            tblNhac.setRowSelectionInterval(index, index);
+            tblNghesi.setRowSelectionInterval(index, index);
             showdetail();
         }
      }
      
      public void last(){
         index = list.size()-1;
-        tblNhac.setRowSelectionInterval(index, index);
+        tblNghesi.setRowSelectionInterval(index, index);
         showdetail();
      }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -238,13 +242,11 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         lblTheloai = new javax.swing.JLabel();
-        txtTheloai = new javax.swing.JTextField();
+        txtSLAlbum = new javax.swing.JTextField();
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        lblAlbum = new javax.swing.JLabel();
-        txtNghesi = new javax.swing.JTextField();
-        lblNghesi = new javax.swing.JLabel();
-        txtAlbum = new javax.swing.JTextField();
+        lblNhac = new javax.swing.JLabel();
+        txtSLNhac = new javax.swing.JTextField();
         pnlHinh = new javax.swing.JPanel();
         lblhinh = new javax.swing.JLabel();
         btnXoa = new javax.swing.JButton();
@@ -254,7 +256,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         lblTieude = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblNhac = new javax.swing.JTable();
+        tblNghesi = new javax.swing.JTable();
         btnFirst = new javax.swing.JButton();
         btnPrev = new javax.swing.JButton();
         btnNext = new javax.swing.JButton();
@@ -294,12 +296,12 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Tài khoản");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nghệ sĩ");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nhạc");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -339,44 +341,33 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("QUẢN LÝ NHẠC");
+        jLabel6.setText("QUẢN LÝ NGHỆ SĨ");
 
         lblTheloai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTheloai.setForeground(new java.awt.Color(0, 0, 0));
-        lblTheloai.setText("Thể loại:");
+        lblTheloai.setText("SL Album:");
 
-        txtTheloai.setBackground(new java.awt.Color(255, 145, 185));
-        txtTheloai.addActionListener(new java.awt.event.ActionListener() {
+        txtSLAlbum.setBackground(new java.awt.Color(255, 145, 185));
+        txtSLAlbum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTheloaiActionPerformed(evt);
+                txtSLAlbumActionPerformed(evt);
             }
         });
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblName.setForeground(new java.awt.Color(0, 0, 0));
-        lblName.setText("Tên nhạc:");
+        lblName.setText("Tên nghệ sĩ:");
 
         txtName.setBackground(new java.awt.Color(255, 145, 185));
 
-        lblAlbum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblAlbum.setForeground(new java.awt.Color(0, 0, 0));
-        lblAlbum.setText("Album:");
+        lblNhac.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNhac.setForeground(new java.awt.Color(0, 0, 0));
+        lblNhac.setText("SL Nhạc:");
 
-        txtNghesi.setBackground(new java.awt.Color(255, 145, 185));
-        txtNghesi.addActionListener(new java.awt.event.ActionListener() {
+        txtSLNhac.setBackground(new java.awt.Color(255, 145, 185));
+        txtSLNhac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNghesiActionPerformed(evt);
-            }
-        });
-
-        lblNghesi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNghesi.setForeground(new java.awt.Color(0, 0, 0));
-        lblNghesi.setText("Nghệ sĩ:");
-
-        txtAlbum.setBackground(new java.awt.Color(255, 145, 185));
-        txtAlbum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAlbumActionPerformed(evt);
+                txtSLNhacActionPerformed(evt);
             }
         });
 
@@ -458,7 +449,12 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
                             .addComponent(lblName))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSLAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNhac)
+                            .addComponent(txtSLNhac, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTheloai)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(btnThem)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -466,16 +462,8 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnSua)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnMoi))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblAlbum)
-                                .addComponent(lblNghesi)
-                                .addComponent(txtAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblTheloai)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                                .addComponent(btnMoi)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                         .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(384, 384, 384))))
         );
@@ -493,23 +481,19 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblTheloai)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSLAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(lblAlbum)
+                        .addComponent(lblNhac)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblNghesi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtSLNhac, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnXoa)
+                            .addComponent(btnThem)
+                            .addComponent(btnSua)
+                            .addComponent(btnMoi)))
                     .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnXoa)
-                    .addComponent(btnThem)
-                    .addComponent(btnSua)
-                    .addComponent(btnMoi))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Chỉnh sửa", jPanel2);
@@ -518,25 +502,25 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
 
         lblTieude.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTieude.setForeground(new java.awt.Color(0, 0, 0));
-        lblTieude.setText("DANH SÁCH NHẠC");
+        lblTieude.setText("DANH SÁCH NGHỆ SĨ");
 
-        tblNhac.setModel(new javax.swing.table.DefaultTableModel(
+        tblNghesi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Tên nhạc", "Thể loại", "Album", "Nghệ sĩ", "Ảnh"
+                "Tên nghệ sĩ", "SL Album", "SL Nhạc", "Ảnh"
             }
         ));
-        tblNhac.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblNghesi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblNhacMouseClicked(evt);
+                tblNghesiMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblNhac);
+        jScrollPane1.setViewportView(tblNghesi);
 
         btnFirst.setBackground(new java.awt.Color(255, 103, 158));
         btnFirst.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -675,53 +659,49 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtTheloaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTheloaiActionPerformed
+    private void txtSLAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSLAlbumActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTheloaiActionPerformed
+    }//GEN-LAST:event_txtSLAlbumActionPerformed
 
-    private void txtNghesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNghesiActionPerformed
+    private void txtSLNhacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSLNhacActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNghesiActionPerformed
-
-    private void txtAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlbumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAlbumActionPerformed
-
-    private void tblNhacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhacMouseClicked
-        index = tblNhac.getSelectedRow();
-        showdetail();
-    }//GEN-LAST:event_tblNhacMouseClicked
-
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        them();
-         
-    }//GEN-LAST:event_btnThemActionPerformed
-
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        xoa();
-       
-    }//GEN-LAST:event_btnXoaActionPerformed
+    }//GEN-LAST:event_txtSLNhacActionPerformed
 
     private void lblhinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblhinhMouseClicked
         // TODO add your handling code here:
         JFileChooser file = new JFileChooser("src\\com\\swanmusic\\img\\");
-        int kq = file.showOpenDialog(file);
-        if (kq == JFileChooser.APPROVE_OPTION) {
-            imageName = file.getSelectedFile().getName();
-        upImage(imageName);
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
-        }
+            int kq = file.showOpenDialog(file);
+            if (kq == JFileChooser.APPROVE_OPTION) {
+                imageName = file.getSelectedFile().getName();
+                upImage(imageName);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
+            }
     }//GEN-LAST:event_lblhinhMouseClicked
 
-    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-       sua();
-        
-    }//GEN-LAST:event_btnSuaActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        xoa();
+
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        them();
+
+    }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
         moi();
     }//GEN-LAST:event_btnMoiActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        sua();
+
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void tblNghesiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNghesiMouseClicked
+        index = tblNghesi.getSelectedRow();
+        showdetail();
+    }//GEN-LAST:event_tblNghesiMouseClicked
 
     private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
         First();
@@ -756,20 +736,20 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(nhac_frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Nghesi_frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(nhac_frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Nghesi_frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(nhac_frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Nghesi_frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(nhac_frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Nghesi_frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                nhac_frmAdmin dialog = new nhac_frmAdmin(new javax.swing.JFrame(), true);
+                Nghesi_frmAdmin dialog = new Nghesi_frmAdmin(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -801,9 +781,8 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel lblAlbum;
     private javax.swing.JLabel lblName;
-    private javax.swing.JLabel lblNghesi;
+    private javax.swing.JLabel lblNhac;
     private javax.swing.JLabel lblTheloai;
     private javax.swing.JLabel lblTieude;
     private javax.swing.JLabel lblhinh;
@@ -811,10 +790,9 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
     private com.swanmusic.swing.Panel panel2;
     private com.swanmusic.swing.Panel panel3;
     private javax.swing.JPanel pnlHinh;
-    private javax.swing.JTable tblNhac;
-    private javax.swing.JTextField txtAlbum;
+    private javax.swing.JTable tblNghesi;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtNghesi;
-    private javax.swing.JTextField txtTheloai;
+    private javax.swing.JTextField txtSLAlbum;
+    private javax.swing.JTextField txtSLNhac;
     // End of variables declaration//GEN-END:variables
 }

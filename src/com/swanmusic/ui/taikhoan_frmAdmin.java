@@ -32,10 +32,10 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
     }
          ArrayList<Account> list = new ArrayList();
          Account acc;
-              int index = 0;
-      int row = -1;
-       boolean isEdit = false;
-     AccountDAO dao = new AccountDAO();
+         int index = 0;
+         int row = -1;
+         boolean isEdit = false;
+         AccountDAO dao = new AccountDAO();
           public void load_data(){
          list.clear();
          try {
