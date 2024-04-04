@@ -4,12 +4,30 @@
  */
 package com.swanmusic.ui;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
+import lab8_new1.SendMail;
+import java.util.Random;
+
+/**
 /**
  *
  * @author phuon
  */
 public class quenmatkhauJDialog extends javax.swing.JDialog {
-
+int otp;
     /**
      * Creates new form quenmatkhauJDialog
      */
@@ -96,6 +114,11 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
         btnDatLai.setForeground(new java.awt.Color(255, 255, 255));
         btnDatLai.setText("Đặt lại mật khẩu");
         btnDatLai.setBorder(null);
+        btnDatLai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDatLaiActionPerformed(evt);
+            }
+        });
         panel1.add(btnDatLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 460, 60));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -116,6 +139,11 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
         btnGuima.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGuima.setForeground(new java.awt.Color(255, 255, 255));
         btnGuima.setText("Gửi mã");
+        btnGuima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuimaActionPerformed(evt);
+            }
+        });
         panel1.add(btnGuima, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 300, 160, 50));
 
         txtEmail.setBackground(new java.awt.Color(255, 145, 185));
@@ -157,6 +185,81 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGuimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuimaActionPerformed
+        // TODO add your handling code here:
+         try {
+            // TODO add your handling code here:
+            Properties p = new Properties();
+            p.put("mail.smtp.auth", "true");
+            p.put("mail.smtp.starttls.enable", "true");
+            p.put("mail.smtp.host", "smtp.gmail.com");
+            p.put("mail.smtp.port", 587);
+            // -----
+            final String accountName = "tranhtbts00531@fpt.edu.vn";
+            final String accountPassword = "hjhs sujj qdpf qwkp";
+            Session s = Session.getInstance(p,
+                    new javax.mail.Authenticator() {
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(accountName, accountPassword);
+                        }
+                    });
+            // --------
+            Random random=new Random();
+            int min =1000;
+             int max =9999;
+             otp=random.nextInt(max-min)+min;
+            String from = "tranhtbts00531@fpt.edu.vn";
+            String to = txtEmail.getText();
+            String body =String.valueOf(otp);
+            Message msg = new MimeMessage(s);
+            // gán giá trị cho các thuộc tính của đối tượng msg
+            msg.setFrom(new InternetAddress(from));
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            msg.setText(body);
+            // -----------
+            Transport.send(msg); //
+
+            JOptionPane.showMessageDialog(null, "Mail was sent successfully.", "Message",
+                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        } catch (MessagingException ex) {
+            Logger.getLogger(SendMail.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGuimaActionPerformed
+
+    private void btnDatLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatLaiActionPerformed
+        // TODO add your handling code here:
+         int otp2=Integer.parseInt(txtMaXM.getText());
+        if(otp==otp2)
+        {
+            JOptionPane.showMessageDialog(this, "Mã xác minh trùng khớp");
+        }
+        else{
+              JOptionPane.showMessageDialog(this, "Mã xác minh không trùng khớp");
+        }
+          try {
+            String url = "jdbc:sqlserver://localhost:1433;DatabaseName=SWAN;encrypt=false";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("update TAIKHOAN set MATKHAU = ? where EMAIL = ?");
+           
+            ps.setString(2, txtEmail.getText());
+            ps.setString(1, txtNhapMKMoi1.getText());
+         
+            int kq = ps.executeUpdate();
+            if (kq == 1) {
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+            } else {
+                JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
+            }
+            ps.close();
+            con.close();
+     
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+           
+    }//GEN-LAST:event_btnDatLaiActionPerformed
 
     /**
      * @param args the command line arguments

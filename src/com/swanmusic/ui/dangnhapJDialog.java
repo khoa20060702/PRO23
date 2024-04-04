@@ -4,11 +4,31 @@
  */
 package com.swanmusic.ui;
 
+import com.swanmusic.entity.*;
+import com.swanmusic.dao.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import com.swanmusic.utils.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 /**
  *
  * @author phuon
  */
 public class dangnhapJDialog extends javax.swing.JDialog {
+public static Main main;
+    boolean viewPass = false;
+    boolean forgot = false;
+    private dangnhapJDialog loginForm;
+    public static Account acc;
+  
+    private AccountDAO aDAO = new AccountDAO();
 
     /**
      * Creates new form dangnhapJDialog
@@ -23,6 +43,28 @@ public class dangnhapJDialog extends javax.swing.JDialog {
         this.setSize(1242,682);
         this.setLocationRelativeTo(null);
     }
+        AccountDAO dao = new AccountDAO();
+     private void login() {
+        String username = txtName.getText();
+        String pass = new String(txtPass.getPassword());
+        acc = dao.selectByID(username);
+        if (acc == null) {
+            MsgBox.alert(this, "Tên tài khoản không đúng");
+        } else {
+                if (acc.getMatkhau().equals(pass)) {
+                    acc = aDAO.selectByID(username);
+                    Auth.USER = acc;
+                        if (acc.isVaiTro()==true) {
+                                MsgBox.alert(this, "vào admin");
+                    } else {
+                             MsgBox.alert(this, "vào user");
+                    }
+                } else {
+                    MsgBox.alert(this, "Mật khẩu không đúng");
+                }
+        }
+    }
+      
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -122,6 +164,11 @@ public class dangnhapJDialog extends javax.swing.JDialog {
         btnDangNhap1.setForeground(new java.awt.Color(255, 255, 255));
         btnDangNhap1.setText("Đăng nhập");
         btnDangNhap1.setBorder(null);
+        btnDangNhap1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangNhap1ActionPerformed(evt);
+            }
+        });
         panel1.add(btnDangNhap1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, 460, 60));
 
         btnGoogle.setBackground(new java.awt.Color(255, 145, 185));
@@ -157,6 +204,12 @@ public class dangnhapJDialog extends javax.swing.JDialog {
     private void rdoNhoMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNhoMKActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdoNhoMKActionPerformed
+
+    private void btnDangNhap1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhap1ActionPerformed
+        // TODO add your handling code here:
+        login();
+        
+    }//GEN-LAST:event_btnDangNhap1ActionPerformed
 
     /**
      * @param args the command line arguments
