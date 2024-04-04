@@ -23,6 +23,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class dangnhapJDialog extends javax.swing.JDialog {
 public static Main main;
+public static taikhoan_frmAdmin tk;
     boolean viewPass = false;
     boolean forgot = false;
     private dangnhapJDialog loginForm;
@@ -38,7 +39,8 @@ public static Main main;
         initComponents();
         init();
     }
-
+Main form = new Main();
+taikhoan_frmAdmin mau=new taikhoan_frmAdmin(main, forgot);
     void init(){
         this.setSize(1242,682);
         this.setLocationRelativeTo(null);
@@ -56,8 +58,13 @@ public static Main main;
                     Auth.USER = acc;
                         if (acc.isVaiTro()==true) {
                                 MsgBox.alert(this, "vào admin");
+                                mau.setVisible(true);
+                                this.setVisible(false);
+                                
                     } else {
                              MsgBox.alert(this, "vào user");
+                             form.setVisible(true);
+                                this.setVisible(false);
                     }
                 } else {
                     MsgBox.alert(this, "Mật khẩu không đúng");
