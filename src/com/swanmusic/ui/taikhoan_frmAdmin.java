@@ -86,7 +86,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
        {
         this.setSize(1242,682);
         this.setLocationRelativeTo(null);
-         tabs.setSelectedIndex(1);
+        tabs.setSelectedIndex(0);
     }
         
    
@@ -120,10 +120,10 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnNew = new javax.swing.JButton();
-        txtEMAIL = new javax.swing.JTextField();
-        txtNumberPhone = new javax.swing.JTextField();
         lblEMAIL = new javax.swing.JLabel();
+        txtEMAIL = new javax.swing.JTextField();
         lblNumberPhone = new javax.swing.JLabel();
+        txtNumberPhone = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         lblTieude = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -209,28 +209,46 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         panel3.setForeground(new java.awt.Color(255, 201, 221));
 
         jPanel2.setBackground(new java.awt.Color(255, 201, 221));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("QUẢN LÝ TÀI KHOẢN");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 43, -1, -1));
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblName.setForeground(new java.awt.Color(0, 0, 0));
-        lblName.setText("Tên tài khoản:");
+        lblName.setForeground(new java.awt.Color(255, 201, 221));
+        lblName.setText("Tên tài khoản");
+        jPanel2.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 330, 30));
 
         txtName.setBackground(new java.awt.Color(255, 145, 185));
+        txtName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtName.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtNameCaretUpdate(evt);
+            }
+        });
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 350, 43));
 
         lblROLE.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblROLE.setForeground(new java.awt.Color(0, 0, 0));
         lblROLE.setText("Vai trò:");
+        jPanel2.add(lblROLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
         buttonGroup1.add(rdoAdmin);
         rdoAdmin.setForeground(new java.awt.Color(0, 0, 0));
         rdoAdmin.setText("Admin");
+        jPanel2.add(rdoAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 100, -1));
 
         buttonGroup1.add(rdoUser);
         rdoUser.setForeground(new java.awt.Color(0, 0, 0));
         rdoUser.setText("User");
+        jPanel2.add(rdoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 100, -1));
 
         btnDelete.setBackground(new java.awt.Color(255, 103, 158));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -241,6 +259,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                 btnDeleteActionPerformed(evt);
             }
         });
+        jPanel2.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 90, -1));
 
         btnUpdate.setBackground(new java.awt.Color(255, 103, 158));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -251,6 +270,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                 btnUpdateActionPerformed(evt);
             }
         });
+        jPanel2.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 90, -1));
 
         btnNew.setBackground(new java.awt.Color(255, 103, 158));
         btnNew.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -261,79 +281,35 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                 btnNewActionPerformed(evt);
             }
         });
-
-        txtEMAIL.setBackground(new java.awt.Color(255, 145, 185));
-
-        txtNumberPhone.setBackground(new java.awt.Color(255, 145, 185));
+        jPanel2.add(btnNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, 90, -1));
 
         lblEMAIL.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblEMAIL.setForeground(new java.awt.Color(0, 0, 0));
+        lblEMAIL.setForeground(new java.awt.Color(255, 201, 221));
         lblEMAIL.setText("Email");
+        jPanel2.add(lblEMAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 330, -1));
+
+        txtEMAIL.setBackground(new java.awt.Color(255, 145, 185));
+        txtEMAIL.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtEMAIL.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtEMAILCaretUpdate(evt);
+            }
+        });
+        jPanel2.add(txtEMAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 350, 43));
 
         lblNumberPhone.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNumberPhone.setForeground(new java.awt.Color(0, 0, 0));
+        lblNumberPhone.setForeground(new java.awt.Color(255, 201, 221));
         lblNumberPhone.setText("Số điện thoại");
+        jPanel2.add(lblNumberPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 330, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnUpdate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNew))
-                    .addComponent(jLabel6)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNumberPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblName)
-                            .addComponent(lblNumberPhone))
-                        .addGap(70, 70, 70)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEMAIL)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(rdoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(55, 55, 55)
-                                .addComponent(rdoUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblROLE)
-                            .addComponent(txtEMAIL, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(304, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jLabel6)
-                .addGap(34, 34, 34)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblName)
-                    .addComponent(lblEMAIL))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEMAIL, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblROLE)
-                    .addComponent(lblNumberPhone))
-                .addGap(2, 2, 2)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdoAdmin)
-                    .addComponent(rdoUser)
-                    .addComponent(txtNumberPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDelete)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnNew))
-                .addContainerGap(223, Short.MAX_VALUE))
-        );
+        txtNumberPhone.setBackground(new java.awt.Color(255, 145, 185));
+        txtNumberPhone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNumberPhone.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtNumberPhoneCaretUpdate(evt);
+            }
+        });
+        jPanel2.add(txtNumberPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 350, 43));
 
         tabs.addTab("Chỉnh sửa", jPanel2);
 
@@ -401,7 +377,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLast)
                         .addGap(15, 15, 15)))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(229, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,6 +518,37 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
        txtNumberPhone.setText(null);
        rdoUser.setSelected(true);
     }//GEN-LAST:event_btnNewActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
+
+    private void txtNameCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNameCaretUpdate
+        if(!txtName.getText().equals("")){
+            lblName.setText("");
+        }
+        else{
+            lblName.setText("Tên tài khoản");
+        }
+    }//GEN-LAST:event_txtNameCaretUpdate
+
+    private void txtEMAILCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtEMAILCaretUpdate
+        if(!txtEMAIL.getText().equals("")){
+            lblEMAIL.setText("");
+        }
+        else{
+            lblEMAIL.setText("Email");
+        }
+    }//GEN-LAST:event_txtEMAILCaretUpdate
+
+    private void txtNumberPhoneCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNumberPhoneCaretUpdate
+        if(!txtNumberPhone.getText().equals("")){
+            lblNumberPhone.setText("");
+        }
+        else{
+            lblNumberPhone.setText("Tên tài khoản");
+        }
+    }//GEN-LAST:event_txtNumberPhoneCaretUpdate
 
     /**
      * @param args the command line arguments
