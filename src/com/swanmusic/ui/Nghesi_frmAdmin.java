@@ -296,7 +296,6 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         jLabel1.setText("Tài khoản");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nghệ sĩ");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -339,11 +338,9 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(255, 201, 221));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("QUẢN LÝ NGHỆ SĨ");
 
         lblTheloai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTheloai.setForeground(new java.awt.Color(0, 0, 0));
         lblTheloai.setText("SL Album:");
 
         txtSLAlbum.setBackground(new java.awt.Color(255, 145, 185));
@@ -354,13 +351,11 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         });
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblName.setForeground(new java.awt.Color(0, 0, 0));
         lblName.setText("Tên nghệ sĩ:");
 
         txtName.setBackground(new java.awt.Color(255, 145, 185));
 
         lblNhac.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNhac.setForeground(new java.awt.Color(0, 0, 0));
         lblNhac.setText("SL Nhạc:");
 
         txtSLNhac.setBackground(new java.awt.Color(255, 145, 185));
@@ -500,7 +495,6 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         jPanel3.setBackground(new java.awt.Color(255, 201, 221));
 
         lblTieude.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTieude.setForeground(new java.awt.Color(0, 0, 0));
         lblTieude.setText("DANH SÁCH NGHỆ SĨ");
 
         tblNghesi.setModel(new javax.swing.table.DefaultTableModel(
