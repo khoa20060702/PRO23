@@ -1096,6 +1096,7 @@ public class Main extends javax.swing.JFrame {
         jPanel16.add(jPanel19, java.awt.BorderLayout.LINE_END);
 
         jScrollPane2.setBorder(null);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jPanel13.setBackground(new java.awt.Color(255, 201, 221));
         jPanel13.setForeground(new java.awt.Color(255, 201, 221));
