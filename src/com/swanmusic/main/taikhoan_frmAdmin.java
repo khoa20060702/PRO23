@@ -86,7 +86,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
             model.setRowCount(0);
             for (Account acc : list) {
                    String role = acc.isVaiTro()? "User" : "Admin";
-                Object[] row = new Object[]{acc.getTENTK(),acc.isVaiTro()?"Admin":"User",acc.getEmail(),acc.getSODIENTHOAI()};
+                Object[] row = new Object[]{acc.getTENTK(),acc.isVaiTro()?"User":"Admin",acc.getEmail(),acc.getSODIENTHOAI()};
                 model.addRow(row);
             }
             rs.close();
