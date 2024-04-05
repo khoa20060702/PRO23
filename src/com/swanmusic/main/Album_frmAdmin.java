@@ -80,7 +80,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         try {
             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "123");
+            Connection con = DriverManager.getConnection(url, "sa", "");
             PreparedStatement ps = con.prepareCall("select * from ALBUM");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -121,7 +121,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         try {
             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "123");
+            Connection con = DriverManager.getConnection(url, "sa", "");
             upImage(imageName);
             PreparedStatement ps = con.prepareCall("insert into ALBUM values(?,?,?,?,?)");
             ps.setString(1, txtName.getText());
@@ -145,7 +145,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
             //1. url
             String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "123");
+            Connection con = DriverManager.getConnection(url, "sa", "");
             PreparedStatement ps = con.prepareStatement("delete from ALBUM where TENALBUM = ?");
             ps.setString(1, txtName.getText());
             int kq = ps.executeUpdate();
@@ -171,7 +171,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         try {
             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "123");
+            Connection con = DriverManager.getConnection(url, "sa", "");
             upImage(imageName);
             PreparedStatement ps = con.prepareCall("update ALBUM set NGHESI = ?, THELOAI=?, TG_PHATHANH=?, ANH=? where TENALBUM = ?");
             ps.setString(1, txtNghesi.getText());
@@ -233,15 +233,19 @@ public class Album_frmAdmin extends javax.swing.JDialog {
 
     void openTaiKhoan(){
         new taikhoan_frmAdmin(null,true).setVisible(true);
+        this.setVisible(false);
     }
     void openNgheSi(){
         new Nghesi_frmAdmin(null,true).setVisible(true);
+        this.setVisible(false);
     }
     void openNhac(){
         new nhac_frmAdmin(null,true).setVisible(true);
+        this.setVisible(false);
     }
     void openAlbum(){
         new Album_frmAdmin(null,true).setVisible(true);
+        this.setVisible(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -774,7 +778,6 @@ public class Album_frmAdmin extends javax.swing.JDialog {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(btnThem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -794,8 +797,9 @@ public class Album_frmAdmin extends javax.swing.JDialog {
                             .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTime))
                         .addGap(120, 120, 120)
-                        .addComponent(pnlHinh2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(288, Short.MAX_VALUE))
+                        .addComponent(pnlHinh2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

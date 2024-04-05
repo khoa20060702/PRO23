@@ -119,15 +119,19 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         
     void openTaiKhoan(){
         new taikhoan_frmAdmin(null,true).setVisible(true);
+        this.setVisible(false);
     }
     void openNgheSi(){
         new Nghesi_frmAdmin(null,true).setVisible(true);
+        this.setVisible(false);
     }
     void openNhac(){
         new nhac_frmAdmin(null,true).setVisible(true);
+        this.setVisible(false);
     }
     void openAlbum(){
         new Album_frmAdmin(null,true).setVisible(true);
+        this.setVisible(false);
     }
     
     @SuppressWarnings("unchecked")
@@ -282,6 +286,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
 
         name.setBackground(new java.awt.Color(255, 255, 255));
         name.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        name.setForeground(new java.awt.Color(255, 255, 255));
         name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         name.setText("SWAN");
         name.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
