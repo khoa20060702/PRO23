@@ -112,7 +112,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
        
        void init()
        {
-        this.setSize(1242,682);
+        this.setSize(1260, 682);
         this.setLocationRelativeTo(null);
      
     }

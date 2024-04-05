@@ -65,7 +65,7 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
     }
     
     public void init(){
-        this.setSize(1242,682);
+        this.setSize(1260, 682);
         this.setLocationRelativeTo(null);
         load_data();
     }
@@ -618,7 +618,7 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         jPanel22.setLayout(jPanel22Layout);
         jPanel22Layout.setHorizontalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1049, Short.MAX_VALUE)
+            .addGap(0, 1015, Short.MAX_VALUE)
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -634,7 +634,7 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1049, Short.MAX_VALUE)
+            .addGap(0, 1015, Short.MAX_VALUE)
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -990,7 +990,7 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         main.setLayout(mainLayout);
         mainLayout.setHorizontalGroup(
             mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 1015, Short.MAX_VALUE)
         );
         mainLayout.setVerticalGroup(
             mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
