@@ -232,7 +232,18 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         showdetail();
      }
     
-    
+    void openTaiKhoan(){
+        new taikhoan_frmAdmin(null,true).setVisible(true);
+    }
+    void openNgheSi(){
+        new Nghesi_frmAdmin(null,true).setVisible(true);
+    }
+    void openNhac(){
+        new nhac_frmAdmin(null,true).setVisible(true);
+    }
+    void openAlbum(){
+        new Album_frmAdmin(null,true).setVisible(true);
+    }
     
     
     
@@ -1007,22 +1018,6 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
-
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
-
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton15ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         cardLayout.show(QL, "cardChinhSua1");
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -1087,6 +1082,26 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
             }
     }//GEN-LAST:event_lblhinhMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        this.openTaiKhoan();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        this.openNgheSi();
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        this.openNhac();
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+        this.openAlbum();
+    }//GEN-LAST:event_jButton15ActionPerformed
 
     /**
      * @param args the command line arguments
