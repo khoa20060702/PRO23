@@ -6,6 +6,7 @@ package com.swanmusic.main;
 
 import com.swanmusic.ui.*;
 import com.swanmusic.entity.Nghesi;
+import com.swanmusic.swing.ComponentResizer;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.sql.Connection;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,13 +25,29 @@ import javax.swing.table.DefaultTableModel;
  * @author phuon
  */
 public class Nghesi_frmAdmin extends javax.swing.JDialog {
-    CardLayout cardLayout;
+    
     ArrayList<Nghesi> list = new ArrayList();
     int index = 0;
     String imageName = null;
+    CardLayout cardLayout;
+    
     public void navigatePages() {
 
     cardLayout = (CardLayout) (QL.getLayout());
+        // thay đổi kích thước của app
+        ComponentResizer resizer = new ComponentResizer();
+        resizer.registerComponent(this);
+    }
+     
+    public void customSplitpaneUI() {
+        // Thiết lập màu trong suốt cho JSplitPane và các phần con của nó
+        jSplitPane1.setUI(new BasicSplitPaneUI() {
+            @Override
+            public void installDefaults() {
+                super.installDefaults();   
+                splitPane.setOpaque(false);          
+            }
+        });
     }
     public void upImage(String imageName) {
         ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
@@ -43,6 +61,7 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         initComponents();
         init();
         navigatePages();
+        customSplitpaneUI();
     }
     
     public void init(){
@@ -294,7 +313,6 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1260, 682));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(1260, 682));
@@ -346,6 +364,8 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         );
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.LINE_END);
+
+        jSplitPane1.setOpaque(false);
 
         menu.setBackground(new java.awt.Color(0, 0, 0));
         menu.setMinimumSize(new java.awt.Dimension(220, 100));

@@ -15,8 +15,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.swanmusic.dao.AccountDAO;
 import com.swanmusic.entity.Account;
+import com.swanmusic.swing.ComponentResizer;
 import java.awt.CardLayout;
 import java.awt.event.*;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 
 /**
@@ -29,10 +31,24 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
      */
     
     CardLayout cardLayout;
- 
+    
     public void navigatePages() {
 
     cardLayout = (CardLayout) (QL.getLayout());
+        // thay đổi kích thước của app
+        ComponentResizer resizer = new ComponentResizer();
+        resizer.registerComponent(this);
+    }
+     
+    public void customSplitpaneUI() {
+        // Thiết lập màu trong suốt cho JSplitPane và các phần con của nó
+        jSplitPane1.setUI(new BasicSplitPaneUI() {
+            @Override
+            public void installDefaults() {
+                super.installDefaults();   
+                splitPane.setOpaque(false);          
+            }
+        });
     }
     public taikhoan_frmAdmin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -40,6 +56,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         init();
         load_data();
         navigatePages();
+        customSplitpaneUI();
     }
          ArrayList<Account> list = new ArrayList();
          Account acc;
@@ -221,6 +238,8 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         );
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.LINE_END);
+
+        jSplitPane1.setOpaque(false);
 
         menu.setBackground(new java.awt.Color(0, 0, 0));
         menu.setMinimumSize(new java.awt.Dimension(220, 100));

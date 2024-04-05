@@ -291,7 +291,6 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         jLabel4.setText("Nhạc");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Album");
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
@@ -326,11 +325,9 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(255, 201, 221));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("QUẢN LÝ ALBUM");
 
         lblTheloai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTheloai.setForeground(new java.awt.Color(0, 0, 0));
         lblTheloai.setText("Thể loại:");
 
         txtTheloai.setBackground(new java.awt.Color(255, 145, 185));
@@ -381,13 +378,11 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         });
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblName.setForeground(new java.awt.Color(0, 0, 0));
         lblName.setText("Tên album:");
 
         txtName.setBackground(new java.awt.Color(255, 145, 185));
 
         lblTime.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTime.setForeground(new java.awt.Color(0, 0, 0));
         lblTime.setText("Thời gian phát hành:");
 
         txtNghesi.setBackground(new java.awt.Color(255, 145, 185));
@@ -398,7 +393,6 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         });
 
         lblNghesi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNghesi.setForeground(new java.awt.Color(0, 0, 0));
         lblNghesi.setText("Nghệ sĩ:");
 
         txtTime.setBackground(new java.awt.Color(255, 145, 185));
@@ -423,14 +417,14 @@ public class Album_frmAdmin extends javax.swing.JDialog {
             pnlHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHinhLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlHinhLayout.setVerticalGroup(
             pnlHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHinhLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -507,7 +501,6 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         jPanel3.setBackground(new java.awt.Color(255, 201, 221));
 
         lblTieude.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTieude.setForeground(new java.awt.Color(0, 0, 0));
         lblTieude.setText("DANH SÁCH ALBUM");
 
         tblAlbum.setModel(new javax.swing.table.DefaultTableModel(

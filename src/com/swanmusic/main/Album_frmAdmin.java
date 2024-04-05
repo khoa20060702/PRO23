@@ -6,6 +6,8 @@ package com.swanmusic.main;
 
 import com.swanmusic.ui.*;
 import com.swanmusic.entity.Album;
+import com.swanmusic.swing.ComponentResizer;
+import com.swanmusic.swing.ScrollBar;
 import java.awt.CardLayout;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Image;
 import javax.swing.JFileChooser;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 /**
  *
@@ -25,17 +28,33 @@ import javax.swing.*;
 public class Album_frmAdmin extends javax.swing.JDialog {
 
     CardLayout cardLayout;
- 
+    
     public void navigatePages() {
 
     cardLayout = (CardLayout) (QL.getLayout());
+        // thay đổi kích thước của app
+        ComponentResizer resizer = new ComponentResizer();
+        resizer.registerComponent(this);
     }
+     
+    public void customSplitpaneUI() {
+        // Thiết lập màu trong suốt cho JSplitPane và các phần con của nó
+        jSplitPane1.setUI(new BasicSplitPaneUI() {
+            @Override
+            public void installDefaults() {
+                super.installDefaults();   
+                splitPane.setOpaque(false);          
+            }
+        });
+    }
+    
     public Album_frmAdmin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         init();
         load_data();
         navigatePages();
+        customSplitpaneUI();
     }
 
     void init() {
@@ -267,7 +286,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         lblNghesi = new javax.swing.JLabel();
         txtTime = new javax.swing.JTextField();
         pnlHinh2 = new javax.swing.JPanel();
-        lblImage2 = new javax.swing.JLabel();
+        lblImage = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlbum = new javax.swing.JTable();
@@ -716,9 +735,9 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         pnlHinh2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnlHinh2.setPreferredSize(new java.awt.Dimension(200, 200));
 
-        lblImage2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblImage2MouseClicked(evt);
+                lblImageMouseClicked(evt);
             }
         });
 
@@ -728,14 +747,14 @@ public class Album_frmAdmin extends javax.swing.JDialog {
             pnlHinh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHinh2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage2, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlHinh2Layout.setVerticalGroup(
             pnlHinh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHinh2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage2, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1023,7 +1042,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimeActionPerformed
 
-    private void lblImage2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImage2MouseClicked
+    private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
         // TODO add your handling code here:
         JFileChooser file = new JFileChooser("src\\com\\swanmusic\\img\\");
             int kq = file.showOpenDialog(file);
@@ -1033,7 +1052,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
             }
-    }//GEN-LAST:event_lblImage2MouseClicked
+    }//GEN-LAST:event_lblImageMouseClicked
 
     private void tblAlbumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlbumMouseClicked
         // TODO add your handling code here:
@@ -1123,8 +1142,6 @@ public class Album_frmAdmin extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel lblImage;
-    private javax.swing.JLabel lblImage1;
-    private javax.swing.JLabel lblImage2;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNghesi;
     private javax.swing.JLabel lblTheloai;
@@ -1138,8 +1155,6 @@ public class Album_frmAdmin extends javax.swing.JDialog {
     private com.swanmusic.swing.Panel panel3;
     private com.swanmusic.swing.Panel panel4;
     private com.swanmusic.swing.Panel panelTrademark1;
-    private javax.swing.JPanel pnlHinh;
-    private javax.swing.JPanel pnlHinh1;
     private javax.swing.JPanel pnlHinh2;
     private javax.swing.JTable tblAlbum;
     private javax.swing.JPanel trademark;

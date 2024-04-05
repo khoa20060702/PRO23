@@ -6,6 +6,7 @@ package com.swanmusic.main;
 
 import com.swanmusic.ui.*;
 import com.swanmusic.entity.Nhac;
+import com.swanmusic.swing.ComponentResizer;
 import java.awt.CardLayout;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Image;
 import javax.swing.JFileChooser;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 
 /**
@@ -28,16 +30,31 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
     // code to be executed
   }
     CardLayout cardLayout;
- 
+    
     public void navigatePages() {
 
     cardLayout = (CardLayout) (QL.getLayout());
+        // thay đổi kích thước của app
+        ComponentResizer resizer = new ComponentResizer();
+        resizer.registerComponent(this);
+    }
+     
+    public void customSplitpaneUI() {
+        // Thiết lập màu trong suốt cho JSplitPane và các phần con của nó
+        jSplitPane1.setUI(new BasicSplitPaneUI() {
+            @Override
+            public void installDefaults() {
+                super.installDefaults();   
+                splitPane.setOpaque(false);          
+            }
+        });
     }
     public nhac_frmAdmin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         init();
         load_data();
+        customSplitpaneUI();
     }
      void init(){
         this.setSize(1242,682);
@@ -344,6 +361,8 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         );
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.LINE_END);
+
+        jSplitPane1.setOpaque(false);
 
         menu.setBackground(new java.awt.Color(0, 0, 0));
         menu.setMinimumSize(new java.awt.Dimension(220, 100));
