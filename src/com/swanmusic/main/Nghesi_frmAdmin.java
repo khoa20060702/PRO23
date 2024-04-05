@@ -365,8 +365,6 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.LINE_END);
 
-        jSplitPane1.setOpaque(false);
-
         menu.setBackground(new java.awt.Color(0, 0, 0));
         menu.setMinimumSize(new java.awt.Dimension(220, 100));
         menu.setName(""); // NOI18N
