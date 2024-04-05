@@ -25,6 +25,10 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
     ArrayList<Nghesi> list = new ArrayList();
     int index = 0;
     String imageName = null;
+
+    Nghesi_frmAdmin(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     public void upImage(String imageName) {
         ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
