@@ -10,20 +10,20 @@ package com.swanmusic.entity;
  */
 public class Album {
     String AlbumName;
-    String Category;
-     String Artist;
-     String ReleaseTime;
-     String Image;
+    String AlbumCategory;
+     String AlbumArtist;
+     String AlbumReleaseTime;
+     String AlbumImage;
 
     public Album() {
     }
 
-    public Album(String AlbumName, String Category, String Artist, String ReleaseTime, String Image) {
+    public Album(String AlbumName, String AlbumCategory, String AlbumArtist, String AlbumReleaseTime, String AlbumImage) {
         this.AlbumName = AlbumName;
-        this.Category = Category;
-        this.Artist = Artist;
-        this.ReleaseTime = ReleaseTime;
-        this.Image = Image;
+        this.AlbumCategory = AlbumCategory;
+        this.AlbumArtist = AlbumArtist;
+        this.AlbumReleaseTime = AlbumReleaseTime;
+        this.AlbumImage = AlbumImage;
     }
 
     public String getAlbumName() {
@@ -34,35 +34,35 @@ public class Album {
         this.AlbumName = AlbumName;
     }
 
-    public String getCategory() {
-        return Category;
+    public String getAlbumCategory() {
+        return AlbumCategory;
     }
 
-    public void setCategory(String Category) {
-        this.Category = Category;
+    public void setAlbumCategory(String AlbumCategory) {
+        this.AlbumCategory = AlbumCategory;
     }
 
-    public String getArtist() {
-        return Artist;
+    public String getAlbumArtist() {
+        return AlbumArtist;
     }
 
-    public void setArtist(String Artist) {
-        this.Artist = Artist;
+    public void setAlbumArtist(String AlbumArtist) {
+        this.AlbumArtist = AlbumArtist;
     }
 
-    public String getReleaseTime() {
-        return ReleaseTime;
+    public String getAlbumReleaseTime() {
+        return AlbumReleaseTime;
     }
 
-    public void setReleaseTime(String ReleaseTime) {
-        this.ReleaseTime = ReleaseTime;
+    public void setAlbumReleaseTime(String AlbumReleaseTime) {
+        this.AlbumReleaseTime = AlbumReleaseTime;
     }
 
-    public String getImage() {
-        return Image;
+    public String getAlbumImage() {
+        return AlbumImage;
     }
 
-    public void setImage(String Image) {
-        this.Image = Image;
+    public void setAlbumImage(String AlbumImage) {
+        this.AlbumImage = AlbumImage;
     }
 }

@@ -16,28 +16,54 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.swing.plaf.basic.*;
+import java.awt.BorderLayout;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main extends javax.swing.JFrame {
-
+    public List<String> listAlbumName = new ArrayList<>();
+    public List<String> listAlbumArtist = new ArrayList<>();
+    public List<String> listAlbumCate = new ArrayList<>();
+    public List<String> listAlbumDate = new ArrayList<>();
+    public List<String> listAlbumPic = new ArrayList<>();
     public void getAlbum()
     {
+        int i = 0;
+        String a;
               try {
              String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select * from song");
+             PreparedStatement ps = con.prepareCall("select * from ALBUM");
              ResultSet rs = ps.executeQuery();
               while (rs.next()) {
-                Album mu = new Album();
-//                mu.setSongname(rs.getString("songname"));
-//                listSongName.add(rs.getString("songname"));
-//                mu.setSongdura(rs.getString("songdura"));
-//                listSongDura.add(rs.getString("songdura"));
-//                mu.setArtist(rs.getString("artist"));
-//                listArtist.add(rs.getString("artist"));
-//            list.add(mu);
-//                  System.out.println(listSongName);
+                Album al = new Album();
+                al.setAlbumName(rs.getString("TENALBUM"));
+                listAlbumName.add(rs.getString("TENALBUM"));
+                
+                al.setAlbumArtist(rs.getString("NGHESI"));
+                listAlbumArtist.add(rs.getString("NGHESI"));
+                al.setAlbumCategory(rs.getString("THELOAI"));
+                listAlbumCate.add(rs.getString("THELOAI"));
+                al.setAlbumArtist(rs.getString("TG_PHATHANH"));
+                listAlbumArtist.add(rs.getString("TG_PHATHANH"));
+                al.setAlbumCategory(rs.getString("ANH"));
+                listAlbumCate.add(rs.getString("ANH"));
+                  System.out.println(listAlbumName.get(i));
+                  i++;
             }
             rs.close();
             ps.close();
@@ -49,6 +75,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {       
         initComponents();
         customSplitpaneUI();
+        getAlbum();
     } 
     
     public void customSplitpaneUI() {
@@ -123,12 +150,12 @@ public class Main extends javax.swing.JFrame {
         jPanel15 = new javax.swing.JPanel();
         panel3 = new com.swanmusic.swing.Panel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
+        Albumlbl2 = new javax.swing.JLabel();
+        Albumlbl1 = new javax.swing.JLabel();
+        Albumlbl4 = new javax.swing.JLabel();
+        Albumlbl3 = new javax.swing.JLabel();
+        Albumlbl6 = new javax.swing.JLabel();
+        Albumlbl5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         main = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -749,23 +776,23 @@ public class Main extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel19.setText("DANH SÁCH");
 
-        jLabel41.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel41.setText("Playlist #1");
+        Albumlbl2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl2.setText("Playlist #1");
 
-        jLabel42.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel42.setText("Playlist #1");
+        Albumlbl1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl1.setText("Playlist #1");
 
-        jLabel43.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel43.setText("Playlist #1");
+        Albumlbl4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl4.setText("Playlist #1");
 
-        jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel44.setText("Playlist #1");
+        Albumlbl3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl3.setText("Playlist #1");
 
-        jLabel45.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel45.setText("Playlist #1");
+        Albumlbl6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl6.setText("Playlist #1");
 
-        jLabel46.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel46.setText("Playlist #1");
+        Albumlbl5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl5.setText("Playlist #1");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("ICON");
@@ -779,12 +806,12 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel3Layout.createSequentialGroup()
                         .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel46)
-                            .addComponent(jLabel43)
-                            .addComponent(jLabel44)
-                            .addComponent(jLabel41)
-                            .addComponent(jLabel42)
-                            .addComponent(jLabel45))
+                            .addComponent(Albumlbl5)
+                            .addComponent(Albumlbl4)
+                            .addComponent(Albumlbl3)
+                            .addComponent(Albumlbl2)
+                            .addComponent(Albumlbl1)
+                            .addComponent(Albumlbl6))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panel3Layout.createSequentialGroup()
                         .addComponent(jLabel19)
@@ -800,17 +827,17 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel19)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel42)
+                .addComponent(Albumlbl1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel41)
+                .addComponent(Albumlbl2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel44)
+                .addComponent(Albumlbl3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel43)
+                .addComponent(Albumlbl4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel46)
+                .addComponent(Albumlbl5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel45)
+                .addComponent(Albumlbl6)
                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
@@ -2036,11 +2063,11 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel33Layout.createSequentialGroup()
                 .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
+                    .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
                     .addComponent(jPanel53, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
+                    .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
                     .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE))
+                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel33Layout.setVerticalGroup(
@@ -2166,6 +2193,12 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Albumlbl1;
+    private javax.swing.JLabel Albumlbl2;
+    private javax.swing.JLabel Albumlbl3;
+    private javax.swing.JLabel Albumlbl4;
+    private javax.swing.JLabel Albumlbl5;
+    private javax.swing.JLabel Albumlbl6;
     private javax.swing.JPanel center;
     private javax.swing.JPanel east;
     private javax.swing.JPanel header;
@@ -2204,12 +2237,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel55;

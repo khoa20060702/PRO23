@@ -1051,12 +1051,12 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel46" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel43" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel44" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel45" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="Albumlbl5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="Albumlbl4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="Albumlbl3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="Albumlbl2" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="Albumlbl1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="Albumlbl6" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="32767" attributes="0"/>
                                           </Group>
@@ -1079,17 +1079,17 @@
                                           <Component id="jLabel8" min="-2" pref="27" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Albumlbl1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Albumlbl2" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Albumlbl3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Albumlbl4" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel46" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Albumlbl5" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Albumlbl6" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace pref="75" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -1104,7 +1104,7 @@
                                 <Property name="text" type="java.lang.String" value="DANH S&#xc1;CH"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel41">
+                            <Component class="javax.swing.JLabel" name="Albumlbl2">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Segoe UI" size="18" style="1"/>
@@ -1112,7 +1112,7 @@
                                 <Property name="text" type="java.lang.String" value="Playlist #1"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel42">
+                            <Component class="javax.swing.JLabel" name="Albumlbl1">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Segoe UI" size="18" style="1"/>
@@ -1120,7 +1120,7 @@
                                 <Property name="text" type="java.lang.String" value="Playlist #1"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel43">
+                            <Component class="javax.swing.JLabel" name="Albumlbl4">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Segoe UI" size="18" style="1"/>
@@ -1128,7 +1128,7 @@
                                 <Property name="text" type="java.lang.String" value="Playlist #1"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel44">
+                            <Component class="javax.swing.JLabel" name="Albumlbl3">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Segoe UI" size="18" style="1"/>
@@ -1136,7 +1136,7 @@
                                 <Property name="text" type="java.lang.String" value="Playlist #1"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel45">
+                            <Component class="javax.swing.JLabel" name="Albumlbl6">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Segoe UI" size="18" style="1"/>
@@ -1144,7 +1144,7 @@
                                 <Property name="text" type="java.lang.String" value="Playlist #1"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel46">
+                            <Component class="javax.swing.JLabel" name="Albumlbl5">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Segoe UI" size="18" style="1"/>
