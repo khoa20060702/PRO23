@@ -4,7 +4,7 @@
  */
 package pro23;
 
-import com.swanmusic.entity.song;
+import com.swanmusic.entity.Nhac;
 import java.awt.BorderLayout;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -62,24 +62,21 @@ public class NewJFrame extends javax.swing.JFrame {
     Timer timeSongRunning;
     public int minutetotalLength;
     public int secondTotalLength;
-    public song data;
+    public Nhac data;
     long time;
     boolean loop = false;
     private int buffer;
     public List<String> listLyrics = new ArrayList<>();
     public List<String> listSongName = new ArrayList<>();
     public List<String> listSongDura = new ArrayList<>();
-    public List<String> listArtist = new ArrayList<>();
+    public List<String> listSongArtist = new ArrayList<>();
     /**
      * Creates new form NewJFrame
      */
-    ArrayList<song> list = new ArrayList();
+    ArrayList<Nhac> list = new ArrayList();
     public NewJFrame() {
         initComponents();
         getsong();
-        JButton button = new JButton("a");
-        jPanel2.add(button);
-        button.setVisible(true);
     }
     public void pauseSong() throws IOException, InterruptedException {
         pause = fi.available();
@@ -121,18 +118,18 @@ public class NewJFrame extends javax.swing.JFrame {
              String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select * from song");
+             PreparedStatement ps = con.prepareCall("select * from NHAC");
              ResultSet rs = ps.executeQuery();
               while (rs.next()) {
-                song mu = new song();
-                mu.setSongname(rs.getString("songname"));
-                listSongName.add(rs.getString("songname"));
-                mu.setSongdura(rs.getString("songdura"));
-                listSongDura.add(rs.getString("songdura"));
-                mu.setArtist(rs.getString("artist"));
-                listArtist.add(rs.getString("artist"));
+                Nhac mu = new Nhac();
+                mu.setName(rs.getString("TENNHAC"));
+                listSongName.add(rs.getString("TENNHAC"));
+                mu.setDura(rs.getString("THOILUONG"));
+                listSongDura.add(rs.getString("THOILUONG"));
+                mu.setArtist(rs.getString("NGHESI"));
+                listSongArtist.add(rs.getString("NGHESI"));
             list.add(mu);
-                  System.out.println(listSongName);
+                  System.out.println(listSongName.get(0));
             }
             rs.close();
             ps.close();
@@ -450,10 +447,15 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
         cursong = listSongName.get(0);
-
-        time = Long.parseLong(listSongDura.get(0));
+        String string = listSongDura.get(0);
+        String[] parts = string.split(":");
+        int part1 = Integer.parseInt(parts[0]);
+        int part2 = Integer.parseInt(parts[1]);
+        time = Long.parseLong(String.valueOf(part1*60+part2));
+        System.out.println(time);
         try {
             totalTime = fi.available();
+            
             System.out.println(totalTime);
         } catch (Exception e) {
         }
