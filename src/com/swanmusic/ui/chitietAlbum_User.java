@@ -4,7 +4,7 @@
  */
 package com.swanmusic.ui;
 
-import com.swanmusic.entity.*;
+import com.swanmusic.entity.Album;
 import com.swanmusic.ui.*;
 import java.awt.Color;
 import java.awt.Font;
@@ -15,14 +15,16 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class chitietAlbum_User extends javax.swing.JDialog {
-
     /**
      * Creates new form chitietAlbum_User
      */
-    public chitietAlbum_User(java.awt.Frame parent, boolean modal) {
+    private String data;
+    public chitietAlbum_User(java.awt.Frame parent, boolean modal , String data) {
         super(parent, modal);
         initComponents();
         init();
+        this.data = data;
+        AlbumNamelbl.setText(data);
     }
 
     void init() {
@@ -60,7 +62,7 @@ public class chitietAlbum_User extends javax.swing.JDialog {
         panel5 = new com.swanmusic.swing.Panel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        AlbumNamelbl = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
@@ -189,9 +191,9 @@ public class chitietAlbum_User extends javax.swing.JDialog {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/img/logoswan_ok_da_canh_giua.png"))); // NOI18N
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, 150));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("VSTRA");
+        AlbumNamelbl.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        AlbumNamelbl.setForeground(new java.awt.Color(255, 255, 255));
+        AlbumNamelbl.setText("VSTRA");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -210,7 +212,7 @@ public class chitietAlbum_User extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(AlbumNamelbl)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -223,7 +225,7 @@ public class chitietAlbum_User extends javax.swing.JDialog {
                         .addGap(43, 43, 43)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
+                        .addComponent(AlbumNamelbl)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6))
                     .addGroup(panel5Layout.createSequentialGroup()
@@ -595,7 +597,7 @@ public class chitietAlbum_User extends javax.swing.JDialog {
                         .addComponent(jButton5)
                         .addGap(26, 26, 26)
                         .addComponent(jButton7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(musicPlayerLayout.createSequentialGroup()
@@ -734,7 +736,7 @@ public class chitietAlbum_User extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                chitietAlbum_User dialog = new chitietAlbum_User(new javax.swing.JFrame(), true);
+                chitietAlbum_User dialog = new chitietAlbum_User(new javax.swing.JFrame(), true , data);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -747,6 +749,7 @@ public class chitietAlbum_User extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AlbumNamelbl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -761,7 +764,6 @@ public class chitietAlbum_User extends javax.swing.JDialog {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;

@@ -26,7 +26,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-78,0,0,4,-38"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-78,0,0,4,-37"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -1122,6 +1122,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Playlist #1"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Albumlbl2MouseClicked"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="Albumlbl1">
                               <Properties>
@@ -1130,6 +1133,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Playlist #1"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Albumlbl1MouseClicked"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="Albumlbl4">
                               <Properties>
@@ -1138,6 +1144,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Playlist #1"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Albumlbl4MouseClicked"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="Albumlbl3">
                               <Properties>
@@ -1146,6 +1155,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Playlist #1"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Albumlbl3MouseClicked"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="Albumlbl6">
                               <Properties>
@@ -1154,6 +1166,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Playlist #1"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Albumlbl6MouseClicked"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="Albumlbl5">
                               <Properties>
@@ -1162,6 +1177,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Playlist #1"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Albumlbl5MouseClicked"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel8">
                               <Properties>
@@ -1953,7 +1971,7 @@
                                                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                                                           <Group type="103" groupAlignment="0" attributes="0">
                                                                               <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                              <Component id="Songlbl1" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="panel8" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
                                                                           <EmptySpace max="32767" attributes="0"/>
@@ -1965,7 +1983,7 @@
                                                                       <Group type="102" alignment="0" attributes="0">
                                                                           <Component id="panel8" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="Songlbl1" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                                                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -1989,7 +2007,7 @@
                                                                     </DimensionLayout>
                                                                   </Layout>
                                                                 </Container>
-                                                                <Component class="javax.swing.JLabel" name="jLabel1">
+                                                                <Component class="javax.swing.JLabel" name="Songlbl1">
                                                                   <Properties>
                                                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                                                       <Font name="Segoe UI" size="12" style="1"/>
@@ -2108,7 +2126,7 @@
                                                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                                                           <Group type="103" groupAlignment="0" attributes="0">
                                                                               <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                              <Component id="Songlbl2" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="panel12" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
                                                                           <EmptySpace max="32767" attributes="0"/>
@@ -2120,7 +2138,7 @@
                                                                       <Group type="102" alignment="0" attributes="0">
                                                                           <Component id="panel12" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                                                          <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="Songlbl2" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                                                           <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -2144,7 +2162,7 @@
                                                                     </DimensionLayout>
                                                                   </Layout>
                                                                 </Container>
-                                                                <Component class="javax.swing.JLabel" name="jLabel22">
+                                                                <Component class="javax.swing.JLabel" name="Songlbl2">
                                                                   <Properties>
                                                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                                                       <Font name="Segoe UI" size="12" style="1"/>
@@ -2263,7 +2281,7 @@
                                                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                                                           <Group type="103" groupAlignment="0" attributes="0">
                                                                               <Component id="jLabel26" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                              <Component id="Songlbl3" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="panel13" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
                                                                           <EmptySpace max="32767" attributes="0"/>
@@ -2275,7 +2293,7 @@
                                                                       <Group type="102" alignment="0" attributes="0">
                                                                           <Component id="panel13" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                                                          <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="Songlbl3" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                                                           <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -2299,7 +2317,7 @@
                                                                     </DimensionLayout>
                                                                   </Layout>
                                                                 </Container>
-                                                                <Component class="javax.swing.JLabel" name="jLabel25">
+                                                                <Component class="javax.swing.JLabel" name="Songlbl3">
                                                                   <Properties>
                                                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                                                       <Font name="Segoe UI" size="12" style="1"/>
@@ -2638,7 +2656,7 @@
                                                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                                                           <Group type="103" groupAlignment="0" attributes="0">
                                                                               <Component id="jLabel32" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="jLabel31" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                              <Component id="Songlbl4" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="panel21" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
                                                                           <EmptySpace pref="24" max="32767" attributes="0"/>
@@ -2650,7 +2668,7 @@
                                                                       <Group type="102" alignment="0" attributes="0">
                                                                           <Component id="panel21" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                                                          <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="Songlbl4" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                                                           <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace min="0" pref="59" max="32767" attributes="0"/>
@@ -2674,7 +2692,7 @@
                                                                     </DimensionLayout>
                                                                   </Layout>
                                                                 </Container>
-                                                                <Component class="javax.swing.JLabel" name="jLabel31">
+                                                                <Component class="javax.swing.JLabel" name="Songlbl4">
                                                                   <Properties>
                                                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                                                       <Font name="Segoe UI" size="12" style="1"/>
@@ -2818,7 +2836,7 @@
                                                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                                                           <Group type="103" groupAlignment="0" attributes="0">
                                                                               <Component id="jLabel30" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="jLabel29" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                              <Component id="Songlbl5" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="panel15" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
                                                                           <EmptySpace pref="24" max="32767" attributes="0"/>
@@ -2830,7 +2848,7 @@
                                                                       <Group type="102" alignment="0" attributes="0">
                                                                           <Component id="panel15" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                                                          <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="Songlbl5" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                                                           <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace min="0" pref="59" max="32767" attributes="0"/>
@@ -2854,7 +2872,7 @@
                                                                     </DimensionLayout>
                                                                   </Layout>
                                                                 </Container>
-                                                                <Component class="javax.swing.JLabel" name="jLabel29">
+                                                                <Component class="javax.swing.JLabel" name="Songlbl5">
                                                                   <Properties>
                                                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                                                       <Font name="Segoe UI" size="12" style="1"/>
@@ -2998,7 +3016,7 @@
                                                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                                                           <Group type="103" groupAlignment="0" attributes="0">
                                                                               <Component id="jLabel34" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="jLabel33" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                              <Component id="Songlbl6" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="panel16" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
                                                                           <EmptySpace pref="24" max="32767" attributes="0"/>
@@ -3010,7 +3028,7 @@
                                                                       <Group type="102" alignment="0" attributes="0">
                                                                           <Component id="panel16" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                                                          <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="Songlbl6" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                                                           <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace min="0" pref="59" max="32767" attributes="0"/>
@@ -3034,7 +3052,7 @@
                                                                     </DimensionLayout>
                                                                   </Layout>
                                                                 </Container>
-                                                                <Component class="javax.swing.JLabel" name="jLabel33">
+                                                                <Component class="javax.swing.JLabel" name="Songlbl6">
                                                                   <Properties>
                                                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                                                       <Font name="Segoe UI" size="12" style="1"/>

@@ -76,7 +76,7 @@ public class NewJFrame extends javax.swing.JFrame {
     ArrayList<Nhac> list = new ArrayList();
     public NewJFrame() {
         initComponents();
-        getsong();
+        
     }
     public void pauseSong() throws IOException, InterruptedException {
         pause = fi.available();
@@ -111,33 +111,6 @@ public class NewJFrame extends javax.swing.JFrame {
              e.printStackTrace();
          }
      }
-    public void getsong()
-    {
-         
-         try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select * from NHAC");
-             ResultSet rs = ps.executeQuery();
-              while (rs.next()) {
-                Nhac mu = new Nhac();
-                mu.setName(rs.getString("TENNHAC"));
-                listSongName.add(rs.getString("TENNHAC"));
-                mu.setDura(rs.getString("THOILUONG"));
-                listSongDura.add(rs.getString("THOILUONG"));
-                mu.setArtist(rs.getString("NGHESI"));
-                listSongArtist.add(rs.getString("NGHESI"));
-            list.add(mu);
-                  System.out.println(listSongName.get(0));
-            }
-            rs.close();
-            ps.close();
-            con.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-    }
     private Runnable play = new Runnable() {
         @Override
         public void run() {

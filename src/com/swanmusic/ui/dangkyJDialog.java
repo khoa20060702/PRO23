@@ -36,7 +36,7 @@ public class dangkyJDialog extends javax.swing.JDialog {
         public void load_data() {
         list.clear();
         try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con = DriverManager.getConnection(url, "sa", "");
             PreparedStatement ps = con.prepareCall("select * from  TAIKHOAN");
@@ -289,7 +289,7 @@ public class dangkyJDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Mật khẩu không khớp!");
         } else {
                 try {
-                String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+                String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 Connection con = DriverManager.getConnection(url, "sa", "");
                 PreparedStatement ps = con.prepareCall("insert into TAIKHOAN (TENTAIKHOAN,MATKHAU,VAITRO,EMAIL) VALUES (?,?,'0',?)");

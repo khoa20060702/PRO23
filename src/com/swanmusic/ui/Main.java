@@ -5,6 +5,7 @@
 package com.swanmusic.ui;
 
 import com.swanmusic.entity.Album;
+import com.swanmusic.entity.Nhac;
 import javax.swing.*;
 import com.swanmusic.swing.ComponentResizer;
 import com.swanmusic.swing.ScrollBar;
@@ -34,15 +35,24 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main extends javax.swing.JFrame {
+    public static chitietAlbum_User album;
+     boolean forgot = false;
     public List<String> listAlbumName = new ArrayList<>();
     public List<String> listAlbumArtist = new ArrayList<>();
     public List<String> listAlbumCate = new ArrayList<>();
     public List<String> listAlbumDate = new ArrayList<>();
     public List<String> listAlbumPic = new ArrayList<>();
+    
+    public List<String> listSongName = new ArrayList<>();
+    public List<String> listSongCate = new ArrayList<>();
+    public List<String> listSongAlb = new ArrayList<>();
+    public List<String> listSongArtist = new ArrayList<>();
+    public List<String> listSongDura = new ArrayList<>();
+    public List<String> listSongLyr = new ArrayList<>();
+    public List<String> listSongPic = new ArrayList<>();
     public void getAlbum()
     {
         int i = 0;
-        String a;
               try {
              String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -53,7 +63,6 @@ public class Main extends javax.swing.JFrame {
                 Album al = new Album();
                 al.setAlbumName(rs.getString("TENALBUM"));
                 listAlbumName.add(rs.getString("TENALBUM"));
-                
                 al.setAlbumArtist(rs.getString("NGHESI"));
                 listAlbumArtist.add(rs.getString("NGHESI"));
                 al.setAlbumCategory(rs.getString("THELOAI"));
@@ -62,7 +71,6 @@ public class Main extends javax.swing.JFrame {
                 listAlbumArtist.add(rs.getString("TG_PHATHANH"));
                 al.setAlbumCategory(rs.getString("ANH"));
                 listAlbumCate.add(rs.getString("ANH"));
-                  System.out.println(listAlbumName.get(i));
                   i++;
             }
             rs.close();
@@ -72,10 +80,59 @@ public class Main extends javax.swing.JFrame {
              e.printStackTrace();
          }   
     }
-    public Main() {       
+    public void getSong()
+    {
+        int i = 0;
+              try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             PreparedStatement ps = con.prepareCall("select * from NHAC");
+             ResultSet rs = ps.executeQuery();
+              while (rs.next()) {
+                Nhac al = new Nhac();
+                al.setName(rs.getString("TENNHAC"));
+                listSongName.add(rs.getString("TENNHAC")); 
+                al.setCategory(rs.getString("THELOAI"));
+                listSongCate.add(rs.getString("THELOAI"));
+                al.setAlbum(rs.getString("ALBUM"));
+                listSongAlb.add(rs.getString("ALBUM"));
+                al.setArtist(rs.getString("NGHESI"));
+                listSongArtist.add(rs.getString("NGHESI"));
+                al.setDura(rs.getString("THOILUONG"));
+                listSongDura.add(rs.getString("THOILUONG"));
+                al.setLyr(rs.getString("LOIBAIHAT"));
+                listSongLyr.add(rs.getString("LOIBAIHAT"));
+                al.setImage(rs.getString("ANH"));
+                listSongPic.add(rs.getString("ANH"));
+                System.out.println(listSongName.get(i));
+                  i++;
+                  
+            }
+            rs.close();
+            ps.close();
+            con.close();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }   
+    }
+    public Main() {
         initComponents();
+        
         customSplitpaneUI();
         getAlbum();
+        getSong();
+        Albumlbl1.setText(listAlbumName.get(0));
+        Albumlbl2.setText(listAlbumName.get(1));
+        Albumlbl3.setText(listAlbumName.get(2));
+        Albumlbl4.setText(listAlbumName.get(3));
+        Albumlbl5.setText(listAlbumName.get(4));
+        Albumlbl6.setText(listAlbumName.get(5));
+        Songlbl1.setText(listSongName.get(0));
+        Songlbl2.setText(listSongName.get(1));
+        Songlbl3.setText(listSongName.get(2));
+        Songlbl4.setText(listSongName.get(3));
+        Songlbl5.setText(listSongName.get(4));        
     } 
     
     public void customSplitpaneUI() {
@@ -194,7 +251,7 @@ public class Main extends javax.swing.JFrame {
         jPanel47 = new javax.swing.JPanel();
         jPanel43 = new javax.swing.JPanel();
         panel8 = new com.swanmusic.swing.Panel();
-        jLabel1 = new javax.swing.JLabel();
+        Songlbl1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
         jPanel54 = new javax.swing.JPanel();
@@ -202,7 +259,7 @@ public class Main extends javax.swing.JFrame {
         jPanel83 = new javax.swing.JPanel();
         jPanel84 = new javax.swing.JPanel();
         panel12 = new com.swanmusic.swing.Panel();
-        jLabel22 = new javax.swing.JLabel();
+        Songlbl2 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
         jPanel85 = new javax.swing.JPanel();
@@ -210,7 +267,7 @@ public class Main extends javax.swing.JFrame {
         jPanel88 = new javax.swing.JPanel();
         jPanel89 = new javax.swing.JPanel();
         panel13 = new com.swanmusic.swing.Panel();
-        jLabel25 = new javax.swing.JLabel();
+        Songlbl3 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
         jPanel90 = new javax.swing.JPanel();
@@ -229,7 +286,7 @@ public class Main extends javax.swing.JFrame {
         jPanel119 = new javax.swing.JPanel();
         jPanel120 = new javax.swing.JPanel();
         panel21 = new com.swanmusic.swing.Panel();
-        jLabel31 = new javax.swing.JLabel();
+        Songlbl4 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jPanel29 = new javax.swing.JPanel();
         jPanel95 = new javax.swing.JPanel();
@@ -238,7 +295,7 @@ public class Main extends javax.swing.JFrame {
         jPanel98 = new javax.swing.JPanel();
         jPanel99 = new javax.swing.JPanel();
         panel15 = new com.swanmusic.swing.Panel();
-        jLabel29 = new javax.swing.JLabel();
+        Songlbl5 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
         jPanel100 = new javax.swing.JPanel();
@@ -247,7 +304,7 @@ public class Main extends javax.swing.JFrame {
         jPanel103 = new javax.swing.JPanel();
         jPanel104 = new javax.swing.JPanel();
         panel16 = new com.swanmusic.swing.Panel();
-        jLabel33 = new javax.swing.JLabel();
+        Songlbl6 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
         jPanel105 = new javax.swing.JPanel();
@@ -778,21 +835,51 @@ public class Main extends javax.swing.JFrame {
 
         Albumlbl2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Albumlbl2.setText("Playlist #1");
+        Albumlbl2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Albumlbl2MouseClicked(evt);
+            }
+        });
 
         Albumlbl1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Albumlbl1.setText("Playlist #1");
+        Albumlbl1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Albumlbl1MouseClicked(evt);
+            }
+        });
 
         Albumlbl4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Albumlbl4.setText("Playlist #1");
+        Albumlbl4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Albumlbl4MouseClicked(evt);
+            }
+        });
 
         Albumlbl3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Albumlbl3.setText("Playlist #1");
+        Albumlbl3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Albumlbl3MouseClicked(evt);
+            }
+        });
 
         Albumlbl6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Albumlbl6.setText("Playlist #1");
+        Albumlbl6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Albumlbl6MouseClicked(evt);
+            }
+        });
 
         Albumlbl5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Albumlbl5.setText("Playlist #1");
+        Albumlbl5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Albumlbl5MouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("ICON");
@@ -1227,8 +1314,8 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 140, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Tiêu đề");
+        Songlbl1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Songlbl1.setText("Tiêu đề");
 
         jLabel2.setText("mhgbnfm.......");
 
@@ -1240,7 +1327,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1)
+                    .addComponent(Songlbl1)
                     .addComponent(panel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1249,7 +1336,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel43Layout.createSequentialGroup()
                 .addComponent(panel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jLabel1)
+                .addComponent(Songlbl1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -1323,8 +1410,8 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 140, Short.MAX_VALUE)
         );
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel22.setText("Tiêu đề");
+        Songlbl2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Songlbl2.setText("Tiêu đề");
 
         jLabel23.setText("mhgbnfm.......");
 
@@ -1336,7 +1423,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel84Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel23)
-                    .addComponent(jLabel22)
+                    .addComponent(Songlbl2)
                     .addComponent(panel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1345,7 +1432,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel84Layout.createSequentialGroup()
                 .addComponent(panel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jLabel22)
+                .addComponent(Songlbl2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel23)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -1419,8 +1506,8 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 140, Short.MAX_VALUE)
         );
 
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel25.setText("Tiêu đề");
+        Songlbl3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Songlbl3.setText("Tiêu đề");
 
         jLabel26.setText("mhgbnfm.......");
 
@@ -1432,7 +1519,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel26)
-                    .addComponent(jLabel25)
+                    .addComponent(Songlbl3)
                     .addComponent(panel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1441,7 +1528,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel89Layout.createSequentialGroup()
                 .addComponent(panel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jLabel25)
+                .addComponent(Songlbl3)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel26)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -1645,8 +1732,8 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 140, Short.MAX_VALUE)
         );
 
-        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel31.setText("Tiêu đề");
+        Songlbl4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Songlbl4.setText("Tiêu đề");
 
         jLabel32.setText("mhgbnfm.......");
 
@@ -1658,7 +1745,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel120Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel32)
-                    .addComponent(jLabel31)
+                    .addComponent(Songlbl4)
                     .addComponent(panel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -1667,7 +1754,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel120Layout.createSequentialGroup()
                 .addComponent(panel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jLabel31)
+                .addComponent(Songlbl4)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel32)
                 .addGap(0, 59, Short.MAX_VALUE))
@@ -1756,8 +1843,8 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 140, Short.MAX_VALUE)
         );
 
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel29.setText("Tiêu đề");
+        Songlbl5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Songlbl5.setText("Tiêu đề");
 
         jLabel30.setText("mhgbnfm.......");
 
@@ -1769,7 +1856,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel99Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel30)
-                    .addComponent(jLabel29)
+                    .addComponent(Songlbl5)
                     .addComponent(panel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -1778,7 +1865,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel99Layout.createSequentialGroup()
                 .addComponent(panel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jLabel29)
+                .addComponent(Songlbl5)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel30)
                 .addGap(0, 59, Short.MAX_VALUE))
@@ -1867,8 +1954,8 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 140, Short.MAX_VALUE)
         );
 
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel33.setText("Tiêu đề");
+        Songlbl6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Songlbl6.setText("Tiêu đề");
 
         jLabel34.setText("mhgbnfm.......");
 
@@ -1880,7 +1967,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel104Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel34)
-                    .addComponent(jLabel33)
+                    .addComponent(Songlbl6)
                     .addComponent(panel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -1889,7 +1976,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel104Layout.createSequentialGroup()
                 .addComponent(panel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jLabel33)
+                .addComponent(Songlbl6)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel34)
                 .addGap(0, 59, Short.MAX_VALUE))
@@ -2156,6 +2243,53 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void Albumlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl1MouseClicked
+            String data = listAlbumName.get(0);
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Albumlbl1MouseClicked
+
+    private void Albumlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl2MouseClicked
+        // TODO add your handling code here:
+            String data = listAlbumName.get(1);
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Albumlbl2MouseClicked
+
+    private void Albumlbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl3MouseClicked
+        // TODO add your handling code here:
+            String data = listAlbumName.get(2);
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Albumlbl3MouseClicked
+
+    private void Albumlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl4MouseClicked
+        // TODO add your handling code here:
+            String data = listAlbumName.get(3);
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Albumlbl4MouseClicked
+
+    private void Albumlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl5MouseClicked
+        // TODO add your handling code here:
+            String data = listAlbumName.get(4);
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Albumlbl5MouseClicked
+
+    private void Albumlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl6MouseClicked
+        // TODO add your handling code here:
+            String data = listAlbumName.get(5);
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Albumlbl6MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -2199,6 +2333,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel Albumlbl4;
     private javax.swing.JLabel Albumlbl5;
     private javax.swing.JLabel Albumlbl6;
+    private javax.swing.JLabel Songlbl1;
+    private javax.swing.JLabel Songlbl2;
+    private javax.swing.JLabel Songlbl3;
+    private javax.swing.JLabel Songlbl4;
+    private javax.swing.JLabel Songlbl5;
+    private javax.swing.JLabel Songlbl6;
     private javax.swing.JPanel center;
     private javax.swing.JPanel east;
     private javax.swing.JPanel header;
@@ -2209,7 +2349,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -2220,19 +2359,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
