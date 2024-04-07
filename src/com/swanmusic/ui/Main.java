@@ -4,6 +4,7 @@
  */
 package com.swanmusic.ui;
 
+import com.swanmusic.entity.Album;
 import javax.swing.*;
 import com.swanmusic.swing.ComponentResizer;
 import com.swanmusic.swing.ScrollBar;
@@ -11,13 +12,39 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.TextLayout;
 import java.awt.geom.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.plaf.basic.*;
 
 public class Main extends javax.swing.JFrame {
 
     public void getAlbum()
     {
-        
+              try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             PreparedStatement ps = con.prepareCall("select * from song");
+             ResultSet rs = ps.executeQuery();
+              while (rs.next()) {
+                Album mu = new Album();
+//                mu.setSongname(rs.getString("songname"));
+//                listSongName.add(rs.getString("songname"));
+//                mu.setSongdura(rs.getString("songdura"));
+//                listSongDura.add(rs.getString("songdura"));
+//                mu.setArtist(rs.getString("artist"));
+//                listArtist.add(rs.getString("artist"));
+//            list.add(mu);
+//                  System.out.println(listSongName);
+            }
+            rs.close();
+            ps.close();
+            con.close();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }   
     }
     public Main() {       
         initComponents();
