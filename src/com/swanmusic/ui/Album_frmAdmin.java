@@ -59,16 +59,16 @@ public class Album_frmAdmin extends javax.swing.JDialog {
             while (rs.next()) {
                 Album mu = new Album();
                 mu.setAlbumName(rs.getString("TENALBUM"));
-                mu.setArtist(rs.getString("NGHESI"));
-                mu.setCategory(rs.getString("THELOAI"));
-                mu.setReleaseTime(rs.getString("TG_PHATHANH"));
-                mu.setImage(rs.getString("ANH"));
+                mu.setAlbumArtist(rs.getString("NGHESI"));
+                mu.setAlbumCategory(rs.getString("THELOAI"));
+                mu.setAlbumReleaseTime(rs.getString("TG_PHATHANH"));
+                mu.setAlbumImage(rs.getString("ANH"));
                 list.add(mu);
             }
             DefaultTableModel model = (DefaultTableModel) tblAlbum.getModel();
             model.setRowCount(0);
             for (Album mu : list) {
-                Object[] row = new Object[]{mu.getAlbumName(), mu.getArtist(), mu.getCategory(), mu.getReleaseTime(), mu.getImage()};
+                Object[] row = new Object[]{mu.getAlbumName(), mu.getAlbumArtist(), mu.getAlbumCategory(), mu.getAlbumReleaseTime(), mu.getAlbumImage()};
                 model.addRow(row);
             }
             rs.close();
@@ -83,10 +83,10 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         if (index >= 0) {
             Album mu = list.get(index);
             txtName.setText(mu.getAlbumName());
-            txtNghesi.setText(mu.getArtist());
-            txtTheloai.setText(mu.getCategory());
-            txtTime.setText(mu.getReleaseTime());
-            upImage(list.get(index).getImage());
+            txtNghesi.setText(mu.getAlbumArtist());
+            txtTheloai.setText(mu.getAlbumCategory());
+            txtTime.setText(mu.getAlbumReleaseTime());
+            upImage(list.get(index).getAlbumImage());
         }
     }
 
