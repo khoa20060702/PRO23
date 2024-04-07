@@ -1167,13 +1167,16 @@ public class chitietNhac_User extends javax.swing.JDialog {
             .addGap(0, 27, Short.MAX_VALUE)
         );
 
+        jScrollPane1.setBorder(null);
+
+        jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(255, 201, 221));
         jTextArea1.setColumns(20);
-        jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
         jTextArea1.setRows(5);
         jTextArea1.setText("Nhìn theo bóng dáng ai dần xa\nVừa vội trao chiếc hôn chia lìa (mm-mm-mm-mm)\nDù rằng tim đã đau nhiều đêm\nChẳng biết cách ngăn nước mắt rơi (uhm)\nNgười đã bên ta, cuốn trôi hết chai sần\nNhững vết thương cũng cứ thế phai dần\nNgười là nắng bên đời\nNgười sưởi ấm ta rồi\nThe way you smile khiến ta biết rung động\nCó sai đâu nếu ta cứ mơ mộng ngồi đợi biết bao mùa\nTo say I love you so\nNhững giai điệu đã trao nhau giờ như vỡ tan\nTrái tim ta trót đau trước kỉ niệm lỡ mang\nĐến ngỡ ngàng\nHah-hah-hah-hah-hah-hah-hah-hah\nVẫn biết ơn phút giây khi người đến với đời\nNhững chú chim kéo nhau hót mừng người tới chơi\nDẫn lối tôi\nHah-hah-hah-hah-hah-hah-hah-hah");
         jTextArea1.setBorder(null);
         jTextArea1.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        jTextArea1.setFocusable(false);
         jTextArea1.setSelectionColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -1231,9 +1234,7 @@ public class chitietNhac_User extends javax.swing.JDialog {
                         .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel33Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(210, 210, 210))
         );
@@ -1432,9 +1433,6 @@ public class chitietNhac_User extends javax.swing.JDialog {
     private javax.swing.JPanel paddingTrademark;
     private javax.swing.JPanel paddingWest;
     private com.swanmusic.swing.Panel panel1;
-    private com.swanmusic.swing.Panel panel10;
-    private com.swanmusic.swing.Panel panel11;
-    private com.swanmusic.swing.Panel panel12;
     private com.swanmusic.swing.Panel panel13;
     private com.swanmusic.swing.Panel panel14;
     private com.swanmusic.swing.Panel panel19;
@@ -1444,7 +1442,6 @@ public class chitietNhac_User extends javax.swing.JDialog {
     private com.swanmusic.swing.Panel panel4;
     private com.swanmusic.swing.Panel panel6;
     private com.swanmusic.swing.Panel panel8;
-    private com.swanmusic.swing.Panel panel9;
     private com.swanmusic.swing.Panel panelTrademark1;
     private javax.swing.JPanel trademark;
     private javax.swing.JPanel waitingList;
