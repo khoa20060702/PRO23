@@ -14,7 +14,11 @@ import java.awt.geom.*;
 import javax.swing.plaf.basic.*;
 
 public class Main extends javax.swing.JFrame {
-    
+
+    public void getAlbum()
+    {
+        
+    }
     public Main() {       
         initComponents();
         customSplitpaneUI();

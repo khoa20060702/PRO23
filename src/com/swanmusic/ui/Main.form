@@ -1720,11 +1720,11 @@
                                                           <Group type="102" alignment="0" attributes="0">
                                                               <Group type="103" groupAlignment="0" attributes="0">
                                                                   <Component id="jPanel23" alignment="0" pref="0" max="32767" attributes="0"/>
-                                                                  <Component id="jPanel28" alignment="0" pref="754" max="32767" attributes="0"/>
+                                                                  <Component id="jPanel28" alignment="0" pref="756" max="32767" attributes="0"/>
                                                                   <Component id="jPanel53" alignment="0" max="32767" attributes="0"/>
-                                                                  <Component id="jPanel35" alignment="0" pref="754" max="32767" attributes="0"/>
+                                                                  <Component id="jPanel35" alignment="0" pref="756" max="32767" attributes="0"/>
                                                                   <Component id="jPanel36" alignment="0" pref="0" max="32767" attributes="0"/>
-                                                                  <Component id="jPanel21" alignment="0" pref="754" max="32767" attributes="0"/>
+                                                                  <Component id="jPanel21" alignment="0" pref="756" max="32767" attributes="0"/>
                                                               </Group>
                                                               <EmptySpace max="-2" attributes="0"/>
                                                           </Group>
