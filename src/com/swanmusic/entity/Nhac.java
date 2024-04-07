@@ -14,16 +14,25 @@ public class Nhac {
     String album;
     String artist;
     String image;
-
+    String dura;
     public Nhac() {
     }
 
-    public Nhac(String name, String category, String album, String artist, String image) {
+    public Nhac(String name, String category, String album, String artist, String image, String dura) {
         this.name = name;
         this.category = category;
         this.album = album;
         this.artist = artist;
         this.image = image;
+        this.dura = dura;
+    }
+
+    public void setDura(String dura) {
+        this.dura = dura;
+    }
+
+    public String getDura() {
+        return dura;
     }
 
     public String getName() {
