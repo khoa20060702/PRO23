@@ -9,36 +9,59 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author tran
  */
 public class NewJFrame extends javax.swing.JFrame {
-
+public List<String> listAlbumPic = new ArrayList<>();
     /**
      * Creates new form NewJFrame
      */
     public NewJFrame() {
         initComponents();
+        lblartist.setVisible(false);
+        lblname.setVisible(false);
+                lblalbum.setVisible(false);
     }
     public void load_data(){
-         try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select  from NHAC");
-             ResultSet rs = ps.executeQuery();
-              while (rs.next()) {
-            
+        try {
+            String url = "jdbc:sqlserver://localhost:1433;DatabaseName=SWAN;encrypt=false";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select TENNHAC,NGHESI from NHAC where TENNHAC like ?");
+           String tennhac= String.valueOf(txtSearch.getText());
+             String nghesi= String.valueOf(txtSearch.getText());
+                ps.setString(1, tennhac);
+                   
+                ResultSet rs1=ps.executeQuery();
+          
+             
+                if (rs1.next()==false) {
+                            JOptionPane.showMessageDialog(this, "không truy vấn đc");
+            } else {
+                        lblartist.setVisible(true);
+                       lblname.setVisible(true);
+                       lblalbum.setVisible(true);
+                    lblartist.setText(rs1.getString("NGHESI"));
+                    listAlbumPic.add(rs1.getString("NGHESI"));
+                       lblname.setText(rs1.getString("TENNHAC"));
+                        listAlbumPic.add(rs1.getString("TENNHAC"));
+                   
             }
-            rs.close();
+  
             ps.close();
             con.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
+     
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+           
+                                             
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,6 +77,7 @@ public class NewJFrame extends javax.swing.JFrame {
         lblname = new javax.swing.JLabel();
         lblartist = new javax.swing.JLabel();
         lblalbum = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +88,13 @@ public class NewJFrame extends javax.swing.JFrame {
         lblartist.setText("artist");
 
         lblalbum.setText("album");
+
+        jButton1.setText("Kiếm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,8 +112,11 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblalbum)
                             .addComponent(lblname)
-                            .addComponent(lblartist))))
-                .addContainerGap(285, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblartist)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
+                                .addComponent(jButton1)))))
+                .addGap(168, 168, 168))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,14 +128,21 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGap(72, 72, 72)
                 .addComponent(lblname)
                 .addGap(8, 8, 8)
-                .addComponent(lblartist)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblartist)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblalbum)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        load_data();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,6 +180,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblalbum;
     private javax.swing.JLabel lblartist;
