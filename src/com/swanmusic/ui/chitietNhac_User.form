@@ -1674,7 +1674,7 @@
                                               <Layout>
                                                 <DimensionLayout dim="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <EmptySpace min="0" pref="2810" max="32767" attributes="0"/>
+                                                      <EmptySpace min="0" pref="3532" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
@@ -1700,7 +1700,7 @@
                                               <Layout>
                                                 <DimensionLayout dim="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <EmptySpace min="0" pref="2810" max="32767" attributes="0"/>
+                                                      <EmptySpace min="0" pref="3532" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
@@ -1795,21 +1795,27 @@
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Group type="102" alignment="0" attributes="0">
                                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                                  <Group type="102" alignment="0" attributes="0">
-                                                                      <Component id="jScrollPane1" min="-2" pref="760" max="-2" attributes="0"/>
-                                                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                                                      <Component id="jPanel28" pref="1993" max="32767" attributes="0"/>
-                                                                  </Group>
-                                                                  <Component id="jPanel21" alignment="0" pref="2784" max="32767" attributes="0"/>
+                                                                  <Component id="jPanel21" alignment="0" pref="3506" max="32767" attributes="0"/>
                                                                   <Group type="102" attributes="0">
                                                                       <EmptySpace max="-2" attributes="0"/>
-                                                                      <Component id="jScrollPane3" min="-2" pref="385" max="-2" attributes="0"/>
-                                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                                       <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <Component id="jPanel35" alignment="0" pref="2381" max="32767" attributes="0"/>
+                                                                          <Component id="jScrollPane1" min="-2" pref="710" max="-2" attributes="0"/>
+                                                                          <Component id="jScrollPane3" alignment="0" min="-2" pref="385" max="-2" attributes="0"/>
+                                                                      </Group>
+                                                                      <Group type="103" groupAlignment="0" attributes="0">
                                                                           <Group type="102" alignment="0" attributes="0">
-                                                                              <Component id="jPanel36" min="-2" pref="756" max="-2" attributes="0"/>
-                                                                              <EmptySpace min="0" pref="1625" max="32767" attributes="0"/>
+                                                                              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                                                                              <Component id="jPanel28" pref="2709" max="32767" attributes="0"/>
+                                                                          </Group>
+                                                                          <Group type="102" alignment="0" attributes="0">
+                                                                              <EmptySpace min="-2" pref="409" max="-2" attributes="0"/>
+                                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                                  <Component id="jPanel35" alignment="0" pref="2381" max="32767" attributes="0"/>
+                                                                                  <Group type="102" alignment="0" attributes="0">
+                                                                                      <Component id="jPanel36" min="-2" pref="756" max="-2" attributes="0"/>
+                                                                                      <EmptySpace min="0" pref="1625" max="32767" attributes="0"/>
+                                                                                  </Group>
+                                                                              </Group>
                                                                           </Group>
                                                                       </Group>
                                                                   </Group>
@@ -1838,15 +1844,18 @@
                                                                       <Component id="jScrollPane1" min="-2" pref="315" max="-2" attributes="0"/>
                                                                   </Group>
                                                               </Group>
-                                                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                                                               <Group type="103" groupAlignment="0" attributes="0">
                                                                   <Group type="102" attributes="0">
-                                                                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                                                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                                                                       <Component id="jPanel35" min="-2" pref="28" max="-2" attributes="0"/>
                                                                       <EmptySpace min="-2" max="-2" attributes="0"/>
                                                                       <Component id="jPanel36" min="-2" max="-2" attributes="0"/>
                                                                   </Group>
-                                                                  <Component id="jScrollPane3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                  <Group type="102" alignment="0" attributes="0">
+                                                                      <EmptySpace max="-2" attributes="0"/>
+                                                                      <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
+                                                                      <EmptySpace max="-2" attributes="0"/>
+                                                                  </Group>
                                                               </Group>
                                                               <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
                                                               <EmptySpace min="-2" pref="210" max="-2" attributes="0"/>
@@ -2055,6 +2064,9 @@
                                                               <Color blue="dd" green="c9" red="ff" type="rgb"/>
                                                             </Property>
                                                             <Property name="columns" type="int" value="20"/>
+                                                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                                                            </Property>
                                                             <Property name="rows" type="int" value="5"/>
                                                             <Property name="text" type="java.lang.String" value="Nh&#xec;n theo b&#xf3;ng d&#xe1;ng ai d&#x1ea7;n xa&#xa;V&#x1eeb;a v&#x1ed9;i trao chi&#x1ebf;c h&#xf4;n chia l&#xec;a (mm-mm-mm-mm)&#xa;D&#xf9; r&#x1eb1;ng tim &#x111;&#xe3; &#x111;au nhi&#x1ec1;u &#x111;&#xea;m&#xa;Ch&#x1eb3;ng bi&#x1ebf;t c&#xe1;ch ng&#x103;n n&#x1b0;&#x1edb;c m&#x1eaf;t r&#x1a1;i (uhm)&#xa;Ng&#x1b0;&#x1edd;i &#x111;&#xe3; b&#xea;n ta, cu&#x1ed1;n tr&#xf4;i h&#x1ebf;t chai s&#x1ea7;n&#xa;Nh&#x1eef;ng v&#x1ebf;t th&#x1b0;&#x1a1;ng c&#x169;ng c&#x1ee9; th&#x1ebf; phai d&#x1ea7;n&#xa;Ng&#x1b0;&#x1edd;i l&#xe0; n&#x1eaf;ng b&#xea;n &#x111;&#x1edd;i&#xa;Ng&#x1b0;&#x1edd;i s&#x1b0;&#x1edf;i &#x1ea5;m ta r&#x1ed3;i&#xa;The way you smile khi&#x1ebf;n ta bi&#x1ebf;t rung &#x111;&#x1ed9;ng&#xa;C&#xf3; sai &#x111;&#xe2;u n&#x1ebf;u ta c&#x1ee9; m&#x1a1; m&#x1ed9;ng ng&#x1ed3;i &#x111;&#x1ee3;i bi&#x1ebf;t bao m&#xf9;a&#xa;To say I love you so&#xa;Nh&#x1eef;ng giai &#x111;i&#x1ec7;u &#x111;&#xe3; trao nhau gi&#x1edd; nh&#x1b0; v&#x1ee1; tan&#xa;Tr&#xe1;i tim ta tr&#xf3;t &#x111;au tr&#x1b0;&#x1edb;c k&#x1ec9; ni&#x1ec7;m l&#x1ee1; mang&#xa;&#x110;&#x1ebf;n ng&#x1ee1; ng&#xe0;ng&#xa;Hah-hah-hah-hah-hah-hah-hah-hah&#xa;V&#x1eab;n bi&#x1ebf;t &#x1a1;n ph&#xfa;t gi&#xe2;y khi ng&#x1b0;&#x1edd;i &#x111;&#x1ebf;n v&#x1edb;i &#x111;&#x1edd;i&#xa;Nh&#x1eef;ng ch&#xfa; chim k&#xe9;o nhau h&#xf3;t m&#x1eeb;ng ng&#x1b0;&#x1edd;i t&#x1edb;i ch&#x1a1;i&#xa;D&#x1eab;n l&#x1ed1;i t&#xf4;i&#xa;Hah-hah-hah-hah-hah-hah-hah-hah"/>
                                                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -2080,6 +2092,7 @@
                                                       <SubComponents>
                                                         <Component class="javax.swing.JTextArea" name="jTextArea2">
                                                           <Properties>
+                                                            <Property name="editable" type="boolean" value="false"/>
                                                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                                               <Color blue="dd" green="c9" red="ff" type="rgb"/>
                                                             </Property>
@@ -2092,9 +2105,7 @@
                                                             </Property>
                                                             <Property name="rows" type="int" value="5"/>
                                                             <Property name="text" type="java.lang.String" value="December 15, 2023&#xa;@2023 52Hz, Exclusively Licensed To DAO Music Entertainment&#xa;@2023 52Hz, Exclusively Licensed To DAO Music Entertainment"/>
-                                                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                                                              <Border info="null"/>
-                                                            </Property>
+                                                            <Property name="focusable" type="boolean" value="false"/>
                                                           </Properties>
                                                         </Component>
                                                       </SubComponents>
