@@ -132,7 +132,12 @@ public class Main extends javax.swing.JFrame {
         Songlbl2.setText(listSongName.get(1));
         Songlbl3.setText(listSongName.get(2));
         Songlbl4.setText(listSongName.get(3));
-        Songlbl5.setText(listSongName.get(4));        
+        Songlbl5.setText(listSongName.get(4));    
+        Artistlbl1.setText(listSongArtist.get(0));
+        Artistlbl2.setText(listSongArtist.get(1));
+        Artistlbl3.setText(listSongArtist.get(2));
+        Artistlbl4.setText(listSongArtist.get(3));
+        Artistlbl5.setText(listSongArtist.get(4)); 
     } 
     
     public void customSplitpaneUI() {
@@ -252,7 +257,7 @@ public class Main extends javax.swing.JFrame {
         jPanel43 = new javax.swing.JPanel();
         panel8 = new com.swanmusic.swing.Panel();
         Songlbl1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        Artistlbl1 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
         jPanel54 = new javax.swing.JPanel();
         jPanel55 = new javax.swing.JPanel();
@@ -260,7 +265,7 @@ public class Main extends javax.swing.JFrame {
         jPanel84 = new javax.swing.JPanel();
         panel12 = new com.swanmusic.swing.Panel();
         Songlbl2 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        Artistlbl2 = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
         jPanel85 = new javax.swing.JPanel();
         jPanel86 = new javax.swing.JPanel();
@@ -268,7 +273,7 @@ public class Main extends javax.swing.JFrame {
         jPanel89 = new javax.swing.JPanel();
         panel13 = new com.swanmusic.swing.Panel();
         Songlbl3 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
+        Artistlbl3 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
         jPanel90 = new javax.swing.JPanel();
         jPanel91 = new javax.swing.JPanel();
@@ -287,7 +292,7 @@ public class Main extends javax.swing.JFrame {
         jPanel120 = new javax.swing.JPanel();
         panel21 = new com.swanmusic.swing.Panel();
         Songlbl4 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
+        Artistlbl4 = new javax.swing.JLabel();
         jPanel29 = new javax.swing.JPanel();
         jPanel95 = new javax.swing.JPanel();
         jPanel96 = new javax.swing.JPanel();
@@ -296,7 +301,7 @@ public class Main extends javax.swing.JFrame {
         jPanel99 = new javax.swing.JPanel();
         panel15 = new com.swanmusic.swing.Panel();
         Songlbl5 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
+        Artistlbl5 = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
         jPanel100 = new javax.swing.JPanel();
         jPanel101 = new javax.swing.JPanel();
@@ -305,7 +310,7 @@ public class Main extends javax.swing.JFrame {
         jPanel104 = new javax.swing.JPanel();
         panel16 = new com.swanmusic.swing.Panel();
         Songlbl6 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
+        Artistlbl6 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
         jPanel105 = new javax.swing.JPanel();
         jPanel106 = new javax.swing.JPanel();
@@ -403,6 +408,8 @@ public class Main extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jLabel17)))
                 .addContainerGap(15, Short.MAX_VALUE))
+            .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 508, Short.MAX_VALUE))
         );
         jPanel40Layout.setVerticalGroup(
             jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -419,7 +426,9 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addComponent(jLabel15))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
+            .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 98, Short.MAX_VALUE))
         );
 
         jLabel47.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -451,7 +460,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jPanel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, musicPlayerLayout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(musicPlayerLayout.createSequentialGroup()
@@ -1317,7 +1326,7 @@ public class Main extends javax.swing.JFrame {
         Songlbl1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl1.setText("Tiêu đề");
 
-        jLabel2.setText("mhgbnfm.......");
+        Artistlbl1.setText("mhgbnfm.......");
 
         javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
         jPanel43.setLayout(jPanel43Layout);
@@ -1326,7 +1335,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel43Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(Artistlbl1)
                     .addComponent(Songlbl1)
                     .addComponent(panel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1338,7 +1347,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(Songlbl1)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(Artistlbl1)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -1413,7 +1422,7 @@ public class Main extends javax.swing.JFrame {
         Songlbl2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl2.setText("Tiêu đề");
 
-        jLabel23.setText("mhgbnfm.......");
+        Artistlbl2.setText("mhgbnfm.......");
 
         javax.swing.GroupLayout jPanel84Layout = new javax.swing.GroupLayout(jPanel84);
         jPanel84.setLayout(jPanel84Layout);
@@ -1422,7 +1431,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel84Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel84Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel23)
+                    .addComponent(Artistlbl2)
                     .addComponent(Songlbl2)
                     .addComponent(panel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1434,7 +1443,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(Songlbl2)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel23)
+                .addComponent(Artistlbl2)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -1509,7 +1518,7 @@ public class Main extends javax.swing.JFrame {
         Songlbl3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl3.setText("Tiêu đề");
 
-        jLabel26.setText("mhgbnfm.......");
+        Artistlbl3.setText("mhgbnfm.......");
 
         javax.swing.GroupLayout jPanel89Layout = new javax.swing.GroupLayout(jPanel89);
         jPanel89.setLayout(jPanel89Layout);
@@ -1518,7 +1527,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel89Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel26)
+                    .addComponent(Artistlbl3)
                     .addComponent(Songlbl3)
                     .addComponent(panel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1530,7 +1539,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(Songlbl3)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel26)
+                .addComponent(Artistlbl3)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -1735,7 +1744,7 @@ public class Main extends javax.swing.JFrame {
         Songlbl4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl4.setText("Tiêu đề");
 
-        jLabel32.setText("mhgbnfm.......");
+        Artistlbl4.setText("mhgbnfm.......");
 
         javax.swing.GroupLayout jPanel120Layout = new javax.swing.GroupLayout(jPanel120);
         jPanel120.setLayout(jPanel120Layout);
@@ -1744,7 +1753,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel120Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel120Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel32)
+                    .addComponent(Artistlbl4)
                     .addComponent(Songlbl4)
                     .addComponent(panel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -1756,7 +1765,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(Songlbl4)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel32)
+                .addComponent(Artistlbl4)
                 .addGap(0, 59, Short.MAX_VALUE))
         );
 
@@ -1846,7 +1855,7 @@ public class Main extends javax.swing.JFrame {
         Songlbl5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl5.setText("Tiêu đề");
 
-        jLabel30.setText("mhgbnfm.......");
+        Artistlbl5.setText("mhgbnfm.......");
 
         javax.swing.GroupLayout jPanel99Layout = new javax.swing.GroupLayout(jPanel99);
         jPanel99.setLayout(jPanel99Layout);
@@ -1855,7 +1864,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel99Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel99Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel30)
+                    .addComponent(Artistlbl5)
                     .addComponent(Songlbl5)
                     .addComponent(panel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -1867,7 +1876,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(Songlbl5)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel30)
+                .addComponent(Artistlbl5)
                 .addGap(0, 59, Short.MAX_VALUE))
         );
 
@@ -1957,7 +1966,7 @@ public class Main extends javax.swing.JFrame {
         Songlbl6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl6.setText("Tiêu đề");
 
-        jLabel34.setText("mhgbnfm.......");
+        Artistlbl6.setText("mhgbnfm.......");
 
         javax.swing.GroupLayout jPanel104Layout = new javax.swing.GroupLayout(jPanel104);
         jPanel104.setLayout(jPanel104Layout);
@@ -1966,7 +1975,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel104Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel104Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel34)
+                    .addComponent(Artistlbl6)
                     .addComponent(Songlbl6)
                     .addComponent(panel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -1978,7 +1987,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(Songlbl6)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel34)
+                .addComponent(Artistlbl6)
                 .addGap(0, 59, Short.MAX_VALUE))
         );
 
@@ -2333,6 +2342,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel Albumlbl4;
     private javax.swing.JLabel Albumlbl5;
     private javax.swing.JLabel Albumlbl6;
+    private javax.swing.JLabel Artistlbl1;
+    private javax.swing.JLabel Artistlbl2;
+    private javax.swing.JLabel Artistlbl3;
+    private javax.swing.JLabel Artistlbl4;
+    private javax.swing.JLabel Artistlbl5;
+    private javax.swing.JLabel Artistlbl6;
     private javax.swing.JLabel Songlbl1;
     private javax.swing.JLabel Songlbl2;
     private javax.swing.JLabel Songlbl3;
@@ -2358,16 +2373,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
