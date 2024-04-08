@@ -43,7 +43,6 @@ public class chitietNhac_User extends javax.swing.JDialog {
     public ImageIcon data3;
     public String data4;
     public String data5;
-    public String data6;
     boolean running = false;
     boolean paused = false;
     boolean shuffle = false;
@@ -180,7 +179,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     totalTime = fi.available();
     player.play();
 }
-    public chitietNhac_User(java.awt.Frame parent, boolean modal , String data1 , String data2 , ImageIcon data3 , String data4 , String data5 , String data6) {
+    public chitietNhac_User(java.awt.Frame parent, boolean modal , String data1 , String data2 , ImageIcon data3 , String data4 , String data5) {
         super(parent, modal);
         initComponents();
         init();
@@ -190,7 +189,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         this.data3 = data3;
         this.data4 = data4;
         this.data5 = data5;
-        this.data6 = data6;
         Image image1 = data3.getImage();
         ImageIcon newscale1 = new ImageIcon(image1.getScaledInstance(SongPiclbl.getWidth(), SongPiclbl.getHeight(), image1.SCALE_SMOOTH));
         Image image = data3.getImage();
@@ -202,13 +200,14 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         SongName1lbl.setText(data1);
         SongArtistlbl.setText(data5);
         SongPiclbl1.setIcon(newscale);
-        cursong = data6;
+        cursong = data1.replace(" ","");
         Albumlbl1.setText(listAlbumName.get(0));
         Albumlbl2.setText(listAlbumName.get(1));
         Albumlbl3.setText(listAlbumName.get(2));
         Albumlbl4.setText(listAlbumName.get(3));
         Albumlbl5.setText(listAlbumName.get(4));
         Albumlbl6.setText(listAlbumName.get(5));
+        System.out.println(cursong);
     }
 
     
@@ -1511,6 +1510,10 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+            Main mai = new Main();
+            this.setVisible(false);
+            mai.setVisible(true);
+            player.close();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

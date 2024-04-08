@@ -61,7 +61,7 @@ public class Main extends javax.swing.JFrame {
     public List<String> listSongLyr = new ArrayList<>();
     public List<String> listSongPic = new ArrayList<>();
     
-    public ImageIcon[] icons = new ImageIcon[10];
+    public ImageIcon[] icons = new ImageIcon[100];
 
     boolean running = false;
     boolean paused = false;
@@ -223,7 +223,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 icons[i] = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(i));
                 Image image = icons[i].getImage();
                 icons[i] = new ImageIcon(image.getScaledInstance(Imglbl1.getWidth(), Imglbl1.getHeight(), image.SCALE_SMOOTH));
-                System.out.println(icons[i]);
                   i++;
             }
             rs.close();
@@ -249,17 +248,20 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         Songlbl2.setText(listSongName.get(1));
         Songlbl3.setText(listSongName.get(2));
         Songlbl4.setText(listSongName.get(3));
-        Songlbl5.setText(listSongName.get(4));    
+        Songlbl5.setText(listSongName.get(4));
+        Songlbl6.setText(listSongName.get(5));
         Artistlbl1.setText(listSongArtist.get(0));
         Artistlbl2.setText(listSongArtist.get(1));
         Artistlbl3.setText(listSongArtist.get(2));
         Artistlbl4.setText(listSongArtist.get(3));
         Artistlbl5.setText(listSongArtist.get(4));
+        Artistlbl6.setText(listSongArtist.get(5));
         Imglbl1.setIcon(icons[0]);
         Imglbl2.setIcon(icons[1]);
         Imglbl3.setIcon(icons[2]);
         Imglbl4.setIcon(icons[3]);
         Imglbl5.setIcon(icons[4]);
+        Imglbl6.setIcon(icons[5]);
     } 
     
     public void customSplitpaneUI() {
@@ -2070,6 +2072,11 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel31.add(jPanel103, java.awt.BorderLayout.LINE_END);
 
         jPanel104.setOpaque(false);
+        jPanel104.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel104MouseClicked(evt);
+            }
+        });
 
         Songlbl6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl6.setText("Tiêu đề");
@@ -2414,8 +2421,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             ImageIcon data3 = icons[0];
             String data4 = listSongLyr.get(0);
             String data5 = listSongArtist.get(0);
-            String data6 = "shirt";
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5 , data6);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_jPanel43MouseClicked
@@ -2427,8 +2433,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             ImageIcon data3 = icons[1];
             String data4 = listSongLyr.get(1);
             String data5 = listSongArtist.get(1);
-            String data6 = cursong;
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5 , data6);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
             this.setVisible(false);
             mai.setVisible(true);        
     }//GEN-LAST:event_jPanel84MouseClicked
@@ -2440,8 +2445,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             ImageIcon data3 = icons[2];
             String data4 = listSongLyr.get(2);
             String data5 = listSongArtist.get(2);
-            String data6 = cursong;
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5 , data6);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
             this.setVisible(false);
             mai.setVisible(true);     
     }//GEN-LAST:event_jPanel89MouseClicked
@@ -2453,8 +2457,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             ImageIcon data3 = icons[3];
             String data4 = listSongLyr.get(3);
             String data5 = listSongArtist.get(3);
-            String data6 = cursong;
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5 , data6);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
             this.setVisible(false);
             mai.setVisible(true);  
     }//GEN-LAST:event_jPanel120MouseClicked
@@ -2466,8 +2469,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             ImageIcon data3 = icons[4];
             String data4 = listSongLyr.get(4);
             String data5 = listSongArtist.get(4);
-            String data6 = cursong;
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5 , data6);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
             this.setVisible(false);
             mai.setVisible(true);  
     }//GEN-LAST:event_jPanel99MouseClicked
@@ -2538,6 +2540,18 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         String value = String.valueOf(jSlider2.getValue());
         volumeControl(Double.parseDouble(value)/100);
     }//GEN-LAST:event_jSlider2StateChanged
+
+    private void jPanel104MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel104MouseClicked
+        // TODO add your handling code here:
+                    String data1 = listSongName.get(5);
+            String data2 = listSongDura.get(5);
+            ImageIcon data3 = icons[5];
+            String data4 = listSongLyr.get(5);
+            String data5 = listSongArtist.get(5);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_jPanel104MouseClicked
 
     /**
      * @param args the command line arguments

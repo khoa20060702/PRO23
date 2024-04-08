@@ -19,6 +19,7 @@ public class chitietAlbum_User extends javax.swing.JDialog {
      * Creates new form chitietAlbum_User
      */
     public String data;
+    boolean forgot = false;
     public chitietAlbum_User(java.awt.Frame parent, boolean modal , String data) {
         super(parent, modal);
         initComponents();
@@ -703,7 +704,9 @@ public class chitietAlbum_User extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-       
+            Main mai = new Main();
+            this.setVisible(false);
+            mai.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
