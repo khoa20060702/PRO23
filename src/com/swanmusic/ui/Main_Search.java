@@ -7,22 +7,49 @@ package com.swanmusic.ui;
 import com.swanmusic.swing.ScrollBar;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
+import com.swanmusic.entity.Nghesi;
+import java.awt.Image;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 /**
  *
  * @author phuon
  */
 public class Main_Search extends javax.swing.JDialog {
-
+public List<String> listAlbumPic = new ArrayList<>();
+  
     /**
      * Creates new form Main_Search
      */
     public Main_Search(java.awt.Frame parent, boolean modal) {
+   
         super(parent, modal);
         initComponents();
+        jLabel1.setVisible(false);
+           jLabel2.setVisible(false);
+           jPanel43.setVisible(false);
+             jPanel24.setVisible(false);
+                 jPanel25.setVisible(false);
+                     jPanel26.setVisible(false);
+                         jPanel27.setVisible(false);
+                             jPanel28.setVisible(false);
+                                 jPanel29.setVisible(false);
+                                     jPanel30.setVisible(false);
+                                         jPanel31.setVisible(false);
+                                             jPanel32.setVisible(false);
         customSplitpaneUI();
         init();
+        
     }
-
+      String imageName ="src\\com\\swanmusic\\img\\Wn.jpg";
      public void customSplitpaneUI() {
         // custom giao dien
         jSplitPane1.setUI(new BasicSplitPaneUI() {
@@ -41,7 +68,55 @@ public class Main_Search extends javax.swing.JDialog {
         });
         jScrollPane2.setVerticalScrollBar(new ScrollBar());
     }
- 
+      public void upImage(String imageName) {
+        ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
+        Image image = icon.getImage();
+        ImageIcon icon1 = new ImageIcon(image.getScaledInstance(jLabel7.getWidth(), jLabel7.getHeight(), image.SCALE_SMOOTH));
+        jLabel7.setIcon(icon1);
+    }
+     public void load_data(){
+        try {
+            String url = "jdbc:sqlserver://localhost:1433;DatabaseName=SWAN;encrypt=false";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select TENNHAC,NGHESI,ANH from NHAC where TENNHAC like ?");
+           String tennhac= String.valueOf(txtTimKiem.getText());
+             String nghesi= String.valueOf(txtTimKiem.getText());
+                ps.setString(1, tennhac);
+                   
+                ResultSet rs1=ps.executeQuery();
+          
+             
+                if (rs1.next()==false) {
+                            JOptionPane.showMessageDialog(this, "không truy vấn đc");
+            } else {
+                   
+                        jLabel1.setVisible(true);
+                       jLabel2.setVisible(true);
+                       jPanel43.setVisible(true);
+                        jPanel24.setVisible(true);
+                        jLabel7.setVisible(true);
+                    jLabel1.setText(rs1.getString("NGHESI"));
+                    listAlbumPic.add(rs1.getString("NGHESI"));
+                       jLabel2.setText(rs1.getString("TENNHAC"));
+                        listAlbumPic.add(rs1.getString("TENNHAC"));
+                        jLabel7.setText(rs1.getString("ANH"));
+                      
+                                upImage("Wn.jpg");
+                     
+                      
+                     
+            }
+  
+            ps.close();
+            con.close();
+     
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+           
+                                             
+}
         public void init(){
             this.setSize(1260, 682);
             this.setLocationRelativeTo(null);
@@ -148,7 +223,7 @@ public class Main_Search extends javax.swing.JDialog {
         jPanel45 = new javax.swing.JPanel();
         jPanel47 = new javax.swing.JPanel();
         jPanel43 = new javax.swing.JPanel();
-        panel8 = new com.swanmusic.swing.Panel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
@@ -346,7 +421,7 @@ public class Main_Search extends javax.swing.JDialog {
                 .addComponent(jPanel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, musicPlayerLayout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(musicPlayerLayout.createSequentialGroup()
@@ -371,7 +446,7 @@ public class Main_Search extends javax.swing.JDialog {
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1243, Short.MAX_VALUE)
+            .addGap(0, 1266, Short.MAX_VALUE)
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,7 +466,7 @@ public class Main_Search extends javax.swing.JDialog {
         );
         paddingWestLayout.setVerticalGroup(
             paddingWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
 
         getContentPane().add(paddingWest, java.awt.BorderLayout.LINE_START);
@@ -407,7 +482,7 @@ public class Main_Search extends javax.swing.JDialog {
         );
         paddingEastLayout.setVerticalGroup(
             paddingEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
 
         getContentPane().add(paddingEast, java.awt.BorderLayout.LINE_END);
@@ -432,7 +507,7 @@ public class Main_Search extends javax.swing.JDialog {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 693, Short.MAX_VALUE)
+            .addGap(0, 202, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -448,7 +523,7 @@ public class Main_Search extends javax.swing.JDialog {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 693, Short.MAX_VALUE)
+            .addGap(0, 202, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -464,11 +539,11 @@ public class Main_Search extends javax.swing.JDialog {
         panel4.setLayout(panel4Layout);
         panel4Layout.setHorizontalGroup(
             panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 693, Short.MAX_VALUE)
+            .addGap(0, 202, Short.MAX_VALUE)
         );
         panel4Layout.setVerticalGroup(
             panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
+            .addGap(0, 479, Short.MAX_VALUE)
         );
 
         information.add(panel4, java.awt.BorderLayout.CENTER);
@@ -487,7 +562,7 @@ public class Main_Search extends javax.swing.JDialog {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 693, Short.MAX_VALUE)
+            .addGap(0, 202, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -503,7 +578,7 @@ public class Main_Search extends javax.swing.JDialog {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 693, Short.MAX_VALUE)
+            .addGap(0, 202, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -524,7 +599,7 @@ public class Main_Search extends javax.swing.JDialog {
             .addGroup(panel6Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jButton11)
-                .addContainerGap(502, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel6Layout.setVerticalGroup(
             panel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -812,7 +887,7 @@ public class Main_Search extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -828,7 +903,7 @@ public class Main_Search extends javax.swing.JDialog {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -940,6 +1015,11 @@ public class Main_Search extends javax.swing.JDialog {
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Tìm kiếm");
         jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel9.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(612, 20, 80, 50));
 
         txtTimKiem.setBackground(new java.awt.Color(255, 103, 158));
@@ -969,7 +1049,7 @@ public class Main_Search extends javax.swing.JDialog {
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -989,7 +1069,7 @@ public class Main_Search extends javax.swing.JDialog {
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 362, Short.MAX_VALUE)
+            .addGap(0, 387, Short.MAX_VALUE)
         );
 
         jPanel16.add(jPanel18, java.awt.BorderLayout.LINE_START);
@@ -1005,7 +1085,7 @@ public class Main_Search extends javax.swing.JDialog {
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 362, Short.MAX_VALUE)
+            .addGap(0, 387, Short.MAX_VALUE)
         );
 
         jPanel16.add(jPanel19, java.awt.BorderLayout.LINE_END);
@@ -1134,7 +1214,7 @@ public class Main_Search extends javax.swing.JDialog {
         jPanel23.setOpaque(false);
         jPanel23.setPreferredSize(new java.awt.Dimension(629, 252));
 
-        jPanel24.setBackground(new java.awt.Color(255, 103, 158));
+        jPanel24.setBackground(new java.awt.Color(0, 153, 153));
         jPanel24.setLayout(new java.awt.BorderLayout());
 
         jPanel44.setName(""); // NOI18N
@@ -1145,7 +1225,7 @@ public class Main_Search extends javax.swing.JDialog {
         jPanel44.setLayout(jPanel44Layout);
         jPanel44Layout.setHorizontalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 205, Short.MAX_VALUE)
         );
         jPanel44Layout.setVerticalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1187,16 +1267,12 @@ public class Main_Search extends javax.swing.JDialog {
 
         jPanel43.setOpaque(false);
 
-        javax.swing.GroupLayout panel8Layout = new javax.swing.GroupLayout(panel8);
-        panel8.setLayout(panel8Layout);
-        panel8Layout.setHorizontalGroup(
-            panel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
-        panel8Layout.setVerticalGroup(
-            panel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
+        jLabel7.setBackground(new java.awt.Color(255, 255, 51));
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Tiêu đề");
@@ -1211,19 +1287,26 @@ public class Main_Search extends javax.swing.JDialog {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(panel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(jLabel1))
+                .addContainerGap(104, Short.MAX_VALUE))
+            .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel43Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(30, Short.MAX_VALUE)))
         );
         jPanel43Layout.setVerticalGroup(
             jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel43Layout.createSequentialGroup()
-                .addComponent(panel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(169, 169, 169)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 14, Short.MAX_VALUE))
+            .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel43Layout.createSequentialGroup()
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 93, Short.MAX_VALUE)))
         );
 
         jPanel24.add(jPanel43, java.awt.BorderLayout.CENTER);
@@ -2079,11 +2162,11 @@ public class Main_Search extends javax.swing.JDialog {
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
         );
 
         jPanel16.add(jPanel20, java.awt.BorderLayout.CENTER);
@@ -2098,11 +2181,11 @@ public class Main_Search extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 497, Short.MAX_VALUE)
         );
 
         main.add(jPanel1, "card5");
@@ -2133,6 +2216,17 @@ public class Main_Search extends javax.swing.JDialog {
     private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTimKiemCaretUpdate
 
     }//GEN-LAST:event_txtTimKiemCaretUpdate
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        load_data();
+         Image i = new javax.swing.ImageIcon(imageName).getImage();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+          Image i = new javax.swing.ImageIcon(imageName).getImage();
+    }//GEN-LAST:event_jLabel7MouseClicked
 
     /**
      * @param args the command line arguments
@@ -2225,6 +2319,7 @@ public class Main_Search extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -2334,7 +2429,6 @@ public class Main_Search extends javax.swing.JDialog {
     private com.swanmusic.swing.Panel panel3;
     private com.swanmusic.swing.Panel panel4;
     private com.swanmusic.swing.Panel panel6;
-    private com.swanmusic.swing.Panel panel8;
     private com.swanmusic.swing.Panel panelTrademark1;
     private javax.swing.JPanel trademark;
     private javax.swing.JTextField txtTimKiem;
