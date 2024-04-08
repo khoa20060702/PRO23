@@ -200,6 +200,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         SongName1lbl.setText(data1);
         SongArtistlbl.setText(data5);
         SongPiclbl1.setIcon(newscale);
+        TotalTimelbl.setText(data2);
         cursong = data1.replace(" ","");
         Albumlbl1.setText(listAlbumName.get(0));
         Albumlbl2.setText(listAlbumName.get(1));
@@ -251,7 +252,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jSlider1 = new javax.swing.JSlider();
-        jLabel15 = new javax.swing.JLabel();
+        TotalTimelbl = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -389,9 +390,9 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             }
         });
 
-        jLabel15.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("00:00");
+        TotalTimelbl.setBackground(new java.awt.Color(255, 255, 255));
+        TotalTimelbl.setForeground(new java.awt.Color(255, 255, 255));
+        TotalTimelbl.setText("00:00");
 
         jLabel16.setBackground(new java.awt.Color(255, 255, 255));
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -426,7 +427,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                         .addGap(3, 3, 3)
                         .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel15))
+                        .addComponent(TotalTimelbl))
                     .addGroup(jPanel40Layout.createSequentialGroup()
                         .addGap(106, 106, 106)
                         .addComponent(jLabel13)
@@ -454,7 +455,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
-                    .addComponent(jLabel15))
+                    .addComponent(TotalTimelbl))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1631,6 +1632,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel SongNamelbl;
     private javax.swing.JLabel SongPiclbl;
     private javax.swing.JLabel SongPiclbl1;
+    private javax.swing.JLabel TotalTimelbl;
     private javax.swing.JPanel center;
     private javax.swing.JPanel east;
     private javax.swing.JPanel header;
@@ -1643,7 +1645,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;

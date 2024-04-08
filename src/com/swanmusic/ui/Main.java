@@ -2364,6 +2364,9 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+            Main_Search mai = new Main_Search(this, forgot);
+            this.setVisible(false);
+            mai.setVisible(true);        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void Albumlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl1MouseClicked

@@ -19,13 +19,23 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 /**
  *
  * @author phuon
  */
 public class Main_Search extends javax.swing.JDialog {
 public List<String> listAlbumPic = new ArrayList<>();
-  
+    public List<String> listAlbumName = new ArrayList<>();
+    public List<String> listAlbumArtist = new ArrayList<>();
+    public List<String> listAlbumCate = new ArrayList<>();
+    public List<String> listAlbumDate = new ArrayList<>();
+    
+    public List<String> listSongName = new ArrayList<>();
+    public List<String> listSongArtist = new ArrayList<>();
+    public List<String> listSongDura = new ArrayList<>();
+    public List<String> listSongLyr = new ArrayList<>();
+    public List<String> listSongPic = new ArrayList<>();    
     /**
      * Creates new form Main_Search
      */
@@ -47,9 +57,48 @@ public List<String> listAlbumPic = new ArrayList<>();
                                              jPanel32.setVisible(false);
         customSplitpaneUI();
         init();
+        getAlbum();
+        Albumlbl1.setText(listAlbumName.get(0));
+        Albumlbl2.setText(listAlbumName.get(1));
+        Albumlbl3.setText(listAlbumName.get(2));
+        Albumlbl4.setText(listAlbumName.get(3));
+        Albumlbl5.setText(listAlbumName.get(4));
+        Albumlbl6.setText(listAlbumName.get(5));
         
     }
       String imageName ="src\\com\\swanmusic\\img\\Wn.jpg";
+      ImageIcon icons;
+      boolean forgot = false;
+    public void getAlbum()
+    {
+        int i = 0;
+              try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             PreparedStatement ps = con.prepareCall("select * from ALBUM");
+             ResultSet rs = ps.executeQuery();
+              while (rs.next()) {
+                com.swanmusic.entity.Album al = new com.swanmusic.entity.Album();
+                al.setAlbumName(rs.getString("TENALBUM"));
+                listAlbumName.add(rs.getString("TENALBUM"));
+                al.setAlbumArtist(rs.getString("NGHESI"));
+                listAlbumArtist.add(rs.getString("NGHESI"));
+                al.setAlbumCategory(rs.getString("THELOAI"));
+                listAlbumCate.add(rs.getString("THELOAI"));
+                al.setAlbumArtist(rs.getString("TG_PHATHANH"));
+                listAlbumArtist.add(rs.getString("TG_PHATHANH"));
+                al.setAlbumCategory(rs.getString("ANH"));
+                listAlbumCate.add(rs.getString("ANH"));
+                  i++;
+            }
+            rs.close();
+            ps.close();
+            con.close();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }   
+    }
      public void customSplitpaneUI() {
         // custom giao dien
         jSplitPane1.setUI(new BasicSplitPaneUI() {
@@ -79,7 +128,7 @@ public List<String> listAlbumPic = new ArrayList<>();
             String url = "jdbc:sqlserver://localhost:1433;DatabaseName=SWAN;encrypt=false";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con = DriverManager.getConnection(url, "sa", "");
-            PreparedStatement ps = con.prepareCall("select TENNHAC,NGHESI,ANH from NHAC where TENNHAC like ?");
+            PreparedStatement ps = con.prepareCall("select TENNHAC,NGHESI,THOILUONG,LOIBAIHAT,ANH from NHAC where TENNHAC like ?");
            String tennhac= String.valueOf(txtTimKiem.getText());
              String nghesi= String.valueOf(txtTimKiem.getText());
                 ps.setString(1, tennhac);
@@ -101,7 +150,15 @@ public List<String> listAlbumPic = new ArrayList<>();
                        jLabel2.setText(rs1.getString("TENNHAC"));
                         listAlbumPic.add(rs1.getString("TENNHAC"));
                         jLabel7.setText(rs1.getString("ANH"));
-                      
+
+                listSongName.add(rs1.getString("TENNHAC")); 
+                listSongArtist.add(rs1.getString("NGHESI"));
+                listSongDura.add(rs1.getString("THOILUONG"));
+                listSongLyr.add(rs1.getString("LOIBAIHAT"));
+                listSongPic.add(rs1.getString("ANH"));
+                icons = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(0));
+                Image image = icons.getImage();
+                icons = new ImageIcon(image.getScaledInstance(jLabel7.getWidth(), jLabel7.getHeight(), image.SCALE_SMOOTH));
                                 upImage("Wn.jpg");
                      
                       
@@ -178,12 +235,12 @@ public List<String> listAlbumPic = new ArrayList<>();
         jPanel15 = new javax.swing.JPanel();
         panel3 = new com.swanmusic.swing.Panel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
+        Albumlbl2 = new javax.swing.JLabel();
+        Albumlbl1 = new javax.swing.JLabel();
+        Albumlbl4 = new javax.swing.JLabel();
+        Albumlbl3 = new javax.swing.JLabel();
+        Albumlbl6 = new javax.swing.JLabel();
+        Albumlbl5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         main = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -801,23 +858,23 @@ public List<String> listAlbumPic = new ArrayList<>();
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel19.setText("DANH SÁCH");
 
-        jLabel41.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel41.setText("Playlist #1");
+        Albumlbl2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl2.setText("Playlist #1");
 
-        jLabel42.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel42.setText("Playlist #1");
+        Albumlbl1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl1.setText("Playlist #1");
 
-        jLabel43.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel43.setText("Playlist #1");
+        Albumlbl4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl4.setText("Playlist #1");
 
-        jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel44.setText("Playlist #1");
+        Albumlbl3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl3.setText("Playlist #1");
 
-        jLabel45.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel45.setText("Playlist #1");
+        Albumlbl6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl6.setText("Playlist #1");
 
-        jLabel46.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel46.setText("Playlist #1");
+        Albumlbl5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl5.setText("Playlist #1");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("ICON");
@@ -831,12 +888,12 @@ public List<String> listAlbumPic = new ArrayList<>();
                 .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel3Layout.createSequentialGroup()
                         .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel46)
-                            .addComponent(jLabel43)
-                            .addComponent(jLabel44)
-                            .addComponent(jLabel41)
-                            .addComponent(jLabel42)
-                            .addComponent(jLabel45))
+                            .addComponent(Albumlbl5)
+                            .addComponent(Albumlbl4)
+                            .addComponent(Albumlbl3)
+                            .addComponent(Albumlbl2)
+                            .addComponent(Albumlbl1)
+                            .addComponent(Albumlbl6))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panel3Layout.createSequentialGroup()
                         .addComponent(jLabel19)
@@ -852,17 +909,17 @@ public List<String> listAlbumPic = new ArrayList<>();
                     .addComponent(jLabel19)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel42)
+                .addComponent(Albumlbl1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel41)
+                .addComponent(Albumlbl2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel44)
+                .addComponent(Albumlbl3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel43)
+                .addComponent(Albumlbl4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel46)
+                .addComponent(Albumlbl5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel45)
+                .addComponent(Albumlbl6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1266,6 +1323,11 @@ public List<String> listAlbumPic = new ArrayList<>();
         jPanel24.add(jPanel47, java.awt.BorderLayout.LINE_END);
 
         jPanel43.setOpaque(false);
+        jPanel43.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel43MouseClicked(evt);
+            }
+        });
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 51));
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2207,6 +2269,7 @@ public List<String> listAlbumPic = new ArrayList<>();
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
@@ -2227,6 +2290,19 @@ public List<String> listAlbumPic = new ArrayList<>();
         // TODO add your handling code here:
           Image i = new javax.swing.ImageIcon(imageName).getImage();
     }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jPanel43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel43MouseClicked
+        // TODO add your handling code here:
+            JFrame frame = new JFrame();
+            String data1 = listSongName.get(0);
+            String data2 = listSongDura.get(0);
+            ImageIcon data3 = icons;
+            String data4 = listSongLyr.get(0);
+            String data5 = listSongArtist.get(0);
+            chitietNhac_User mai = new chitietNhac_User(frame, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);        
+    }//GEN-LAST:event_jPanel43MouseClicked
 
     /**
      * @param args the command line arguments
@@ -2271,6 +2347,12 @@ public List<String> listAlbumPic = new ArrayList<>();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Albumlbl1;
+    private javax.swing.JLabel Albumlbl2;
+    private javax.swing.JLabel Albumlbl3;
+    private javax.swing.JLabel Albumlbl4;
+    private javax.swing.JLabel Albumlbl5;
+    private javax.swing.JLabel Albumlbl6;
     private javax.swing.JPanel center;
     private javax.swing.JPanel east;
     private javax.swing.JPanel header;
@@ -2309,12 +2391,6 @@ public List<String> listAlbumPic = new ArrayList<>();
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel55;
