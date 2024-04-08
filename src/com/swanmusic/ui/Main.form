@@ -124,6 +124,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JSlider" name="jSlider2">
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSlider2StateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -225,8 +228,15 @@
                   <Image iconType="3" name="/com.swanmusic.icon/play-white.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSlider" name="jSlider1">
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSlider1StateChanged"/>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jSlider1MouseReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
@@ -288,6 +298,9 @@
                   <Image iconType="3" name="/com.swanmusic.icon/repeat-white.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel17MouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1953,6 +1966,9 @@
                                                               <Properties>
                                                                 <Property name="opaque" type="boolean" value="false"/>
                                                               </Properties>
+                                                              <Events>
+                                                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel43MouseClicked"/>
+                                                              </Events>
                                                               <Constraints>
                                                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                                                                   <BorderConstraints direction="Center"/>
@@ -1967,41 +1983,26 @@
                                                                           <Group type="103" groupAlignment="0" attributes="0">
                                                                               <Component id="Artistlbl1" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="Songlbl1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="panel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                              <Component id="Imglbl1" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                                                           </Group>
-                                                                          <EmptySpace max="32767" attributes="0"/>
+                                                                          <EmptySpace pref="14" max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
                                                                 <DimensionLayout dim="1">
                                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                                       <Group type="102" alignment="0" attributes="0">
-                                                                          <Component id="panel8" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="Imglbl1" pref="140" max="32767" attributes="0"/>
                                                                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                                                                           <Component id="Songlbl1" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                                                           <Component id="Artistlbl1" min="-2" max="-2" attributes="0"/>
-                                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                                          <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
                                                               </Layout>
                                                               <SubComponents>
-                                                                <Container class="com.swanmusic.swing.Panel" name="panel8">
-
-                                                                  <Layout>
-                                                                    <DimensionLayout dim="0">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                    </DimensionLayout>
-                                                                    <DimensionLayout dim="1">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                    </DimensionLayout>
-                                                                  </Layout>
-                                                                </Container>
                                                                 <Component class="javax.swing.JLabel" name="Songlbl1">
                                                                   <Properties>
                                                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -2014,6 +2015,8 @@
                                                                   <Properties>
                                                                     <Property name="text" type="java.lang.String" value="mhgbnfm......."/>
                                                                   </Properties>
+                                                                </Component>
+                                                                <Component class="javax.swing.JLabel" name="Imglbl1">
                                                                 </Component>
                                                               </SubComponents>
                                                             </Container>
@@ -2108,6 +2111,9 @@
                                                               <Properties>
                                                                 <Property name="opaque" type="boolean" value="false"/>
                                                               </Properties>
+                                                              <Events>
+                                                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel84MouseClicked"/>
+                                                              </Events>
                                                               <Constraints>
                                                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                                                                   <BorderConstraints direction="Center"/>
@@ -2120,43 +2126,28 @@
                                                                       <Group type="102" alignment="0" attributes="0">
                                                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                                                           <Group type="103" groupAlignment="0" attributes="0">
+                                                                              <Component id="Imglbl2" min="-2" pref="154" max="-2" attributes="0"/>
                                                                               <Component id="Artistlbl2" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="Songlbl2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="panel12" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
-                                                                          <EmptySpace max="32767" attributes="0"/>
+                                                                          <EmptySpace pref="10" max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
                                                                 <DimensionLayout dim="1">
                                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                                       <Group type="102" alignment="0" attributes="0">
-                                                                          <Component id="panel12" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="Imglbl2" pref="140" max="32767" attributes="0"/>
                                                                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                                                                           <Component id="Songlbl2" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                                                           <Component id="Artistlbl2" min="-2" max="-2" attributes="0"/>
-                                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                                          <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
                                                               </Layout>
                                                               <SubComponents>
-                                                                <Container class="com.swanmusic.swing.Panel" name="panel12">
-
-                                                                  <Layout>
-                                                                    <DimensionLayout dim="0">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                    </DimensionLayout>
-                                                                    <DimensionLayout dim="1">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                    </DimensionLayout>
-                                                                  </Layout>
-                                                                </Container>
                                                                 <Component class="javax.swing.JLabel" name="Songlbl2">
                                                                   <Properties>
                                                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -2169,6 +2160,8 @@
                                                                   <Properties>
                                                                     <Property name="text" type="java.lang.String" value="mhgbnfm......."/>
                                                                   </Properties>
+                                                                </Component>
+                                                                <Component class="javax.swing.JLabel" name="Imglbl2">
                                                                 </Component>
                                                               </SubComponents>
                                                             </Container>
@@ -2263,6 +2256,9 @@
                                                               <Properties>
                                                                 <Property name="opaque" type="boolean" value="false"/>
                                                               </Properties>
+                                                              <Events>
+                                                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel89MouseClicked"/>
+                                                              </Events>
                                                               <Constraints>
                                                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                                                                   <BorderConstraints direction="Center"/>
@@ -2275,43 +2271,28 @@
                                                                       <Group type="102" alignment="0" attributes="0">
                                                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                                                           <Group type="103" groupAlignment="0" attributes="0">
+                                                                              <Component id="Imglbl3" min="-2" pref="154" max="-2" attributes="0"/>
                                                                               <Component id="Artistlbl3" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="Songlbl3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="panel13" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
-                                                                          <EmptySpace max="32767" attributes="0"/>
+                                                                          <EmptySpace pref="10" max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
                                                                 <DimensionLayout dim="1">
                                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                                       <Group type="102" alignment="0" attributes="0">
-                                                                          <Component id="panel13" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="Imglbl3" pref="140" max="32767" attributes="0"/>
                                                                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                                                                           <Component id="Songlbl3" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                                                           <Component id="Artistlbl3" min="-2" max="-2" attributes="0"/>
-                                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                                          <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
                                                               </Layout>
                                                               <SubComponents>
-                                                                <Container class="com.swanmusic.swing.Panel" name="panel13">
-
-                                                                  <Layout>
-                                                                    <DimensionLayout dim="0">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                    </DimensionLayout>
-                                                                    <DimensionLayout dim="1">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                    </DimensionLayout>
-                                                                  </Layout>
-                                                                </Container>
                                                                 <Component class="javax.swing.JLabel" name="Songlbl3">
                                                                   <Properties>
                                                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -2324,6 +2305,8 @@
                                                                   <Properties>
                                                                     <Property name="text" type="java.lang.String" value="mhgbnfm......."/>
                                                                   </Properties>
+                                                                </Component>
+                                                                <Component class="javax.swing.JLabel" name="Imglbl3">
                                                                 </Component>
                                                               </SubComponents>
                                                             </Container>
@@ -2638,6 +2621,9 @@
                                                               <Properties>
                                                                 <Property name="opaque" type="boolean" value="false"/>
                                                               </Properties>
+                                                              <Events>
+                                                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel120MouseClicked"/>
+                                                              </Events>
                                                               <Constraints>
                                                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                                                                   <BorderConstraints direction="Center"/>
@@ -2650,18 +2636,18 @@
                                                                       <Group type="102" alignment="0" attributes="0">
                                                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                                                           <Group type="103" groupAlignment="0" attributes="0">
+                                                                              <Component id="Imglbl4" min="-2" pref="154" max="-2" attributes="0"/>
                                                                               <Component id="Artistlbl4" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="Songlbl4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="panel21" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
-                                                                          <EmptySpace pref="24" max="32767" attributes="0"/>
+                                                                          <EmptySpace pref="10" max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
                                                                 <DimensionLayout dim="1">
                                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                                       <Group type="102" alignment="0" attributes="0">
-                                                                          <Component id="panel21" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="Imglbl4" pref="140" max="32767" attributes="0"/>
                                                                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                                                                           <Component id="Songlbl4" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -2672,21 +2658,6 @@
                                                                 </DimensionLayout>
                                                               </Layout>
                                                               <SubComponents>
-                                                                <Container class="com.swanmusic.swing.Panel" name="panel21">
-
-                                                                  <Layout>
-                                                                    <DimensionLayout dim="0">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                    </DimensionLayout>
-                                                                    <DimensionLayout dim="1">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                    </DimensionLayout>
-                                                                  </Layout>
-                                                                </Container>
                                                                 <Component class="javax.swing.JLabel" name="Songlbl4">
                                                                   <Properties>
                                                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -2699,6 +2670,8 @@
                                                                   <Properties>
                                                                     <Property name="text" type="java.lang.String" value="mhgbnfm......."/>
                                                                   </Properties>
+                                                                </Component>
+                                                                <Component class="javax.swing.JLabel" name="Imglbl4">
                                                                 </Component>
                                                               </SubComponents>
                                                             </Container>
@@ -2818,6 +2791,9 @@
                                                               <Properties>
                                                                 <Property name="opaque" type="boolean" value="false"/>
                                                               </Properties>
+                                                              <Events>
+                                                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel99MouseClicked"/>
+                                                              </Events>
                                                               <Constraints>
                                                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                                                                   <BorderConstraints direction="Center"/>
@@ -2830,18 +2806,18 @@
                                                                       <Group type="102" alignment="0" attributes="0">
                                                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                                                           <Group type="103" groupAlignment="0" attributes="0">
+                                                                              <Component id="Imglbl5" min="-2" pref="154" max="-2" attributes="0"/>
                                                                               <Component id="Artistlbl5" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="Songlbl5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="panel15" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
-                                                                          <EmptySpace pref="24" max="32767" attributes="0"/>
+                                                                          <EmptySpace pref="10" max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
                                                                 <DimensionLayout dim="1">
                                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                                       <Group type="102" alignment="0" attributes="0">
-                                                                          <Component id="panel15" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="Imglbl5" pref="140" max="32767" attributes="0"/>
                                                                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                                                                           <Component id="Songlbl5" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -2852,21 +2828,6 @@
                                                                 </DimensionLayout>
                                                               </Layout>
                                                               <SubComponents>
-                                                                <Container class="com.swanmusic.swing.Panel" name="panel15">
-
-                                                                  <Layout>
-                                                                    <DimensionLayout dim="0">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                    </DimensionLayout>
-                                                                    <DimensionLayout dim="1">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                    </DimensionLayout>
-                                                                  </Layout>
-                                                                </Container>
                                                                 <Component class="javax.swing.JLabel" name="Songlbl5">
                                                                   <Properties>
                                                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -2879,6 +2840,8 @@
                                                                   <Properties>
                                                                     <Property name="text" type="java.lang.String" value="mhgbnfm......."/>
                                                                   </Properties>
+                                                                </Component>
+                                                                <Component class="javax.swing.JLabel" name="Imglbl5">
                                                                 </Component>
                                                               </SubComponents>
                                                             </Container>
@@ -3010,18 +2973,18 @@
                                                                       <Group type="102" alignment="0" attributes="0">
                                                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                                                           <Group type="103" groupAlignment="0" attributes="0">
+                                                                              <Component id="Imglbl6" min="-2" pref="154" max="-2" attributes="0"/>
                                                                               <Component id="Artistlbl6" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="Songlbl6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="panel16" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
-                                                                          <EmptySpace pref="24" max="32767" attributes="0"/>
+                                                                          <EmptySpace pref="10" max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
                                                                 <DimensionLayout dim="1">
                                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                                       <Group type="102" alignment="0" attributes="0">
-                                                                          <Component id="panel16" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="Imglbl6" pref="140" max="32767" attributes="0"/>
                                                                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                                                                           <Component id="Songlbl6" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -3032,21 +2995,6 @@
                                                                 </DimensionLayout>
                                                               </Layout>
                                                               <SubComponents>
-                                                                <Container class="com.swanmusic.swing.Panel" name="panel16">
-
-                                                                  <Layout>
-                                                                    <DimensionLayout dim="0">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                    </DimensionLayout>
-                                                                    <DimensionLayout dim="1">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                    </DimensionLayout>
-                                                                  </Layout>
-                                                                </Container>
                                                                 <Component class="javax.swing.JLabel" name="Songlbl6">
                                                                   <Properties>
                                                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -3059,6 +3007,8 @@
                                                                   <Properties>
                                                                     <Property name="text" type="java.lang.String" value="mhgbnfm......."/>
                                                                   </Properties>
+                                                                </Component>
+                                                                <Component class="javax.swing.JLabel" name="Imglbl6">
                                                                 </Component>
                                                               </SubComponents>
                                                             </Container>

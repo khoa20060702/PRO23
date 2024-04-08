@@ -42,12 +42,12 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="jPanel37" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace pref="39" max="32767" attributes="0"/>
+                  <Component id="SongPiclbl1" min="-2" pref="78" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="SongArtistlbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="SongName1lbl" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
                   <Component id="jPanel40" min="-2" max="-2" attributes="0"/>
@@ -61,23 +61,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="jPanel37" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="11" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel40" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jSlider2" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
@@ -85,26 +69,26 @@
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="8" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="SongPiclbl1" min="-2" pref="75" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel40" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="SongName1lbl" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="SongArtistlbl" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanel37">
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="89" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-        </Container>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="SongName1lbl">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="1"/>
@@ -116,8 +100,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JSlider" name="jSlider2">
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSlider2StateChanged"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="SongArtistlbl">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
@@ -211,8 +198,18 @@
                   <Image iconType="3" name="/com.swanmusic.icon/play-white.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSlider" name="jSlider1">
+              <Properties>
+                <Property name="value" type="int" value="0"/>
+              </Properties>
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSlider1StateChanged"/>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jSlider1MouseReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
@@ -274,6 +271,9 @@
                   <Image iconType="3" name="/com.swanmusic.icon/repeat-white.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel17MouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -289,6 +289,8 @@
               <Image iconType="3" name="/com.swanmusic.icon/loudspeaker-white.png"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="SongPiclbl1">
         </Component>
       </SubComponents>
     </Container>
@@ -1731,7 +1733,7 @@
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <EmptySpace min="0" pref="1120" max="32767" attributes="0"/>
+                                                      <EmptySpace min="0" pref="1126" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                               </Layout>
@@ -1757,7 +1759,7 @@
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <EmptySpace min="0" pref="1120" max="32767" attributes="0"/>
+                                                      <EmptySpace min="0" pref="1126" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                               </Layout>
@@ -1871,59 +1873,60 @@
                                                       <Layout>
                                                         <DimensionLayout dim="0">
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Group type="102" alignment="0" attributes="0">
+                                                              <Group type="102" attributes="0">
+                                                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                                                  <Component id="jPanel22" min="-2" max="-2" attributes="0"/>
                                                                   <EmptySpace max="-2" attributes="0"/>
-                                                                  <Component id="panel14" min="-2" max="-2" attributes="0"/>
-                                                                  <EmptySpace pref="40" max="32767" attributes="0"/>
                                                                   <Group type="103" groupAlignment="0" attributes="0">
+                                                                      <Component id="SongDuralbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="SongNamelbl" min="-2" max="-2" attributes="0"/>
                                                                       <Component id="jLabel1" min="-2" pref="37" max="-2" attributes="0"/>
-                                                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                   </Group>
-                                                                  <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+                                                                  <EmptySpace pref="1050" max="32767" attributes="0"/>
                                                               </Group>
                                                           </Group>
                                                         </DimensionLayout>
                                                         <DimensionLayout dim="1">
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Group type="102" alignment="0" attributes="0">
+                                                              <Group type="102" attributes="0">
+                                                                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                                                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                                                                  <Component id="SongNamelbl" min="-2" max="-2" attributes="0"/>
                                                                   <EmptySpace max="-2" attributes="0"/>
-                                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                                      <Group type="102" attributes="0">
-                                                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                                                          <EmptySpace max="-2" attributes="0"/>
-                                                                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                                                          <EmptySpace max="-2" attributes="0"/>
-                                                                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                                                      </Group>
-                                                                      <Component id="panel14" min="-2" max="-2" attributes="0"/>
-                                                                  </Group>
+                                                                  <Component id="SongDuralbl" min="-2" max="-2" attributes="0"/>
                                                                   <EmptySpace max="32767" attributes="0"/>
+                                                              </Group>
+                                                              <Group type="102" alignment="1" attributes="0">
+                                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                                  <Component id="jPanel22" min="-2" max="-2" attributes="0"/>
                                                               </Group>
                                                           </Group>
                                                         </DimensionLayout>
                                                       </Layout>
                                                       <SubComponents>
-                                                        <Container class="com.swanmusic.swing.Panel" name="panel14">
+                                                        <Component class="javax.swing.JLabel" name="SongNamelbl">
                                                           <Properties>
-                                                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                                              <Color blue="9e" green="67" red="ff" type="rgb"/>
+                                                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                                              <Font name="Segoe UI" size="48" style="1"/>
                                                             </Property>
+                                                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                                                            </Property>
+                                                            <Property name="text" type="java.lang.String" value="&#x110;&#x1ee2;I (PROD.RIO)"/>
                                                           </Properties>
-
-                                                          <Layout>
-                                                            <DimensionLayout dim="0">
-                                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                                  <EmptySpace min="0" pref="214" max="32767" attributes="0"/>
-                                                              </Group>
-                                                            </DimensionLayout>
-                                                            <DimensionLayout dim="1">
-                                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                                  <EmptySpace min="0" pref="202" max="32767" attributes="0"/>
-                                                              </Group>
-                                                            </DimensionLayout>
-                                                          </Layout>
-                                                        </Container>
+                                                        </Component>
+                                                        <Component class="javax.swing.JLabel" name="SongDuralbl">
+                                                          <Properties>
+                                                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                                              <Font name="Segoe UI" size="12" style="1"/>
+                                                            </Property>
+                                                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                                                            </Property>
+                                                            <Property name="text" type="java.lang.String" value="52HZ . 2023 . 1 SONG, 3 MIN 17 SEC"/>
+                                                          </Properties>
+                                                        </Component>
                                                         <Component class="javax.swing.JLabel" name="jLabel1">
                                                           <Properties>
                                                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -1935,28 +1938,28 @@
                                                             <Property name="text" type="java.lang.String" value="Single"/>
                                                           </Properties>
                                                         </Component>
-                                                        <Component class="javax.swing.JLabel" name="jLabel2">
-                                                          <Properties>
-                                                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                                              <Font name="Segoe UI" size="48" style="1"/>
-                                                            </Property>
-                                                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                                                            </Property>
-                                                            <Property name="text" type="java.lang.String" value="&#x110;&#x1ee2;I (PROD.RIO)"/>
-                                                          </Properties>
-                                                        </Component>
-                                                        <Component class="javax.swing.JLabel" name="jLabel7">
-                                                          <Properties>
-                                                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                                              <Font name="Segoe UI" size="12" style="1"/>
-                                                            </Property>
-                                                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                                                            </Property>
-                                                            <Property name="text" type="java.lang.String" value="52HZ . 2023 . 1 SONG, 3 MIN 17 SEC"/>
-                                                          </Properties>
-                                                        </Component>
+                                                        <Container class="javax.swing.JPanel" name="jPanel22">
+
+                                                          <Layout>
+                                                            <DimensionLayout dim="0">
+                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                  <Component id="SongPiclbl" alignment="1" pref="197" max="32767" attributes="0"/>
+                                                              </Group>
+                                                            </DimensionLayout>
+                                                            <DimensionLayout dim="1">
+                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                  <Component id="SongPiclbl" alignment="1" pref="198" max="32767" attributes="0"/>
+                                                              </Group>
+                                                            </DimensionLayout>
+                                                          </Layout>
+                                                          <SubComponents>
+                                                            <Component class="javax.swing.JLabel" name="SongPiclbl">
+                                                              <Properties>
+                                                                <Property name="horizontalAlignment" type="int" value="0"/>
+                                                              </Properties>
+                                                            </Component>
+                                                          </SubComponents>
+                                                        </Container>
                                                       </SubComponents>
                                                     </Container>
                                                     <Container class="javax.swing.JPanel" name="jPanel28">
@@ -2056,7 +2059,7 @@
 
                                                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                                                       <SubComponents>
-                                                        <Component class="javax.swing.JTextArea" name="jTextArea1">
+                                                        <Component class="javax.swing.JTextArea" name="SongLyrta">
                                                           <Properties>
                                                             <Property name="editable" type="boolean" value="false"/>
                                                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">

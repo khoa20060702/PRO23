@@ -4,24 +4,169 @@
  */
 package com.swanmusic.ui;
 
+import com.swanmusic.entity.Nhac;
 import com.swanmusic.swing.ScrollBar;
+import java.awt.Image;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 
 /**
  *
  * @author phuon
  */
 public class chitietNhac_User extends javax.swing.JDialog {
-
+    public String data1;
+    public String data2;
+    public ImageIcon data3;
+    public String data4;
+    public String data5;
+    public String data6;
+    boolean running = false;
+    boolean paused = false;
+    boolean shuffle = false;
+    boolean replay = false;
+    boolean lyrics = false;
+    boolean library = false;
+    public boolean comment = false;
+    private int timeListen = 0;
+    String songdir = "src\\com\\swanmusic\\mp3\\";
+    String cursong;
+    private File f;
+    private FileInputStream fi;
+    private BufferedInputStream bi;
+    public Player player;
+    private long totalTime;
+    private long pause = -1;
+    private long totalByte;
+    Timer timeSongRunning;
+    public int minutetotalLength;
+    public int secondTotalLength;
+    public Nhac data;
+    long time;
+    boolean loop = false;
+    private int buffer;
+    public List<String> listLyrics = new ArrayList<>();
     /**
-     * Creates new form chitietNhac_User
+     * Creates new form NewJFrame
      */
-    public chitietNhac_User(java.awt.Frame parent, boolean modal) {
+    ArrayList<Nhac> list = new ArrayList();
+
+    public void pauseSong() throws IOException, InterruptedException {
+        pause = fi.available();
+        player.close();
+    }
+    public void resume() throws IOException, JavaLayerException {
+        try {
+        fi.skip(totalTime - pause);
+
+        } catch (Exception e) {
+        }
+        Thread runningThread = new Thread(play);
+        runningThread.start();
+    }
+    private Runnable play = new Runnable() {
+        @Override
+        public void run() {
+            f = new File(songdir+cursong+".mp3");
+            try {
+                fi = new FileInputStream(f);
+                bi = new BufferedInputStream(fi);
+                player = new Player(bi);
+                totalTime = fi.available();
+                System.out.println(totalTime);
+                System.out.println(cursong);
+                if (pause <= -1) {
+                    player.play();
+                } else {
+                    fi.skip(totalTime - pause);
+                    player.play();
+                }
+            } catch (FileNotFoundException ex) {
+            } catch (JavaLayerException ex) {
+            } catch (IOException ex) {
+            }
+        }
+    };
+public void loopSong() {
+    // Create a new thread to play the song in a loop
+    Thread loopThread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            try {
+                // Loop as long as the player is not closed
+                while (player != null && loop) {
+                    // If the song has finished playing, start it again
+                    if (player.isComplete()) {
+                        player.close();
+                        playSong();
+                    }
+                    // Sleep for a short duration to reduce CPU usage
+                    Thread.sleep(100);
+                }
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            } catch (JavaLayerException ex) {
+                Logger.getLogger(pro23.NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(pro23.NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    });
+    // Start the loop thread
+    loopThread.start();
+} 
+public void playSong() throws FileNotFoundException, JavaLayerException, IOException {
+    fi = new FileInputStream(f);
+    bi = new BufferedInputStream(fi);
+    player = new Player(bi);
+    totalTime = fi.available();
+    player.play();
+}
+    public chitietNhac_User(java.awt.Frame parent, boolean modal , String data1 , String data2 , ImageIcon data3 , String data4 , String data5 , String data6) {
         super(parent, modal);
         initComponents();
         init();
-        customSplitpaneUI();
-
+        this.data1 = data1;
+        this.data2 = data2;
+        this.data3 = data3;
+        this.data4 = data4;
+        this.data5 = data5;
+        this.data6 = data6;
+        Image image1 = data3.getImage();
+        ImageIcon newscale1 = new ImageIcon(image1.getScaledInstance(SongPiclbl.getWidth(), SongPiclbl.getHeight(), image1.SCALE_SMOOTH));
+        Image image = data3.getImage();
+        ImageIcon newscale = new ImageIcon(image.getScaledInstance(SongPiclbl1.getWidth(), SongPiclbl1.getHeight(), image.SCALE_SMOOTH));
+        SongNamelbl.setText(data1);
+        SongDuralbl.setText(data2);
+        SongPiclbl.setIcon(newscale1);
+        SongLyrta.setText(data4);
+        SongName1lbl.setText(data1);
+        SongArtistlbl.setText(data5);
+        SongPiclbl1.setIcon(newscale);
+        cursong = data6;
     }
 
     
@@ -58,10 +203,9 @@ public class chitietNhac_User extends javax.swing.JDialog {
     private void initComponents() {
 
         musicPlayer = new javax.swing.JPanel();
-        jPanel37 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        SongName1lbl = new javax.swing.JLabel();
         jSlider2 = new javax.swing.JSlider();
-        jLabel4 = new javax.swing.JLabel();
+        SongArtistlbl = new javax.swing.JLabel();
         jPanel40 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -72,6 +216,7 @@ public class chitietNhac_User extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
+        SongPiclbl1 = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         paddingWest = new javax.swing.JPanel();
         paddingEast = new javax.swing.JPanel();
@@ -142,16 +287,17 @@ public class chitietNhac_User extends javax.swing.JDialog {
         jPanel60 = new javax.swing.JPanel();
         jPanel33 = new javax.swing.JPanel();
         jPanel53 = new javax.swing.JPanel();
-        panel14 = new com.swanmusic.swing.Panel();
+        SongNamelbl = new javax.swing.JLabel();
+        SongDuralbl = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jPanel22 = new javax.swing.JPanel();
+        SongPiclbl = new javax.swing.JLabel();
         jPanel28 = new javax.swing.JPanel();
         jPanel36 = new javax.swing.JPanel();
         jPanel35 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        SongLyrta = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
@@ -161,24 +307,19 @@ public class chitietNhac_User extends javax.swing.JDialog {
         musicPlayer.setBackground(new java.awt.Color(0, 0, 0));
         musicPlayer.setPreferredSize(new java.awt.Dimension(1242, 90));
 
-        javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
-        jPanel37.setLayout(jPanel37Layout);
-        jPanel37Layout.setHorizontalGroup(
-            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 89, Short.MAX_VALUE)
-        );
-        jPanel37Layout.setVerticalGroup(
-            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        SongName1lbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        SongName1lbl.setForeground(new java.awt.Color(255, 255, 255));
+        SongName1lbl.setText("TÊN BÀI NHẠC");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("TÊN BÀI NHẠC");
+        jSlider2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider2StateChanged(evt);
+            }
+        });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(122, 122, 122));
-        jLabel4.setText("TÊN TÁC GIẢ");
+        SongArtistlbl.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        SongArtistlbl.setForeground(new java.awt.Color(122, 122, 122));
+        SongArtistlbl.setText("TÊN TÁC GIẢ");
 
         jPanel40.setOpaque(false);
 
@@ -189,6 +330,23 @@ public class chitietNhac_User extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/play-white.png"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+
+        jSlider1.setValue(0);
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
+        jSlider1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jSlider1MouseReleased(evt);
+            }
+        });
 
         jLabel15.setBackground(new java.awt.Color(255, 255, 255));
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -209,6 +367,11 @@ public class chitietNhac_User extends javax.swing.JDialog {
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/repeat-white.png"))); // NOI18N
+        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel17MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
         jPanel40.setLayout(jPanel40Layout);
@@ -263,12 +426,12 @@ public class chitietNhac_User extends javax.swing.JDialog {
         musicPlayerLayout.setHorizontalGroup(
             musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, musicPlayerLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(39, Short.MAX_VALUE)
+                .addComponent(SongPiclbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
+                    .addComponent(SongArtistlbl)
+                    .addComponent(SongName1lbl))
                 .addGap(144, 144, 144)
                 .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(157, 157, 157)
@@ -280,23 +443,22 @@ public class chitietNhac_User extends javax.swing.JDialog {
         musicPlayerLayout.setVerticalGroup(
             musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(musicPlayerLayout.createSequentialGroup()
-                .addComponent(jPanel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, musicPlayerLayout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
-                .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(musicPlayerLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)))
-                .addGap(7, 7, 7))
-            .addGroup(musicPlayerLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel47))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, musicPlayerLayout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(SongPiclbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(musicPlayerLayout.createSequentialGroup()
+                            .addComponent(SongName1lbl)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(SongArtistlbl))))
+                .addGap(7, 7, 7))
         );
 
         getContentPane().add(musicPlayer, java.awt.BorderLayout.PAGE_END);
@@ -1037,7 +1199,7 @@ public class chitietNhac_User extends javax.swing.JDialog {
         );
         jPanel58Layout.setVerticalGroup(
             jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1120, Short.MAX_VALUE)
+            .addGap(0, 1126, Short.MAX_VALUE)
         );
 
         jPanel13.add(jPanel58, java.awt.BorderLayout.LINE_START);
@@ -1053,7 +1215,7 @@ public class chitietNhac_User extends javax.swing.JDialog {
         );
         jPanel59Layout.setVerticalGroup(
             jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1120, Short.MAX_VALUE)
+            .addGap(0, 1126, Short.MAX_VALUE)
         );
 
         jPanel13.add(jPanel59, java.awt.BorderLayout.LINE_END);
@@ -1064,58 +1226,58 @@ public class chitietNhac_User extends javax.swing.JDialog {
 
         jPanel53.setOpaque(false);
 
-        panel14.setForeground(new java.awt.Color(255, 103, 158));
+        SongNamelbl.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        SongNamelbl.setForeground(new java.awt.Color(255, 255, 255));
+        SongNamelbl.setText("ĐỢI (PROD.RIO)");
 
-        javax.swing.GroupLayout panel14Layout = new javax.swing.GroupLayout(panel14);
-        panel14.setLayout(panel14Layout);
-        panel14Layout.setHorizontalGroup(
-            panel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 214, Short.MAX_VALUE)
-        );
-        panel14Layout.setVerticalGroup(
-            panel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 202, Short.MAX_VALUE)
-        );
+        SongDuralbl.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        SongDuralbl.setForeground(new java.awt.Color(255, 255, 255));
+        SongDuralbl.setText("52HZ . 2023 . 1 SONG, 3 MIN 17 SEC");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Single");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ĐỢI (PROD.RIO)");
+        SongPiclbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("52HZ . 2023 . 1 SONG, 3 MIN 17 SEC");
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(SongPiclbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(SongPiclbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel53Layout = new javax.swing.GroupLayout(jPanel53);
         jPanel53.setLayout(jPanel53Layout);
         jPanel53Layout.setHorizontalGroup(
             jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel53Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel7))
-                .addGap(118, 118, 118))
+                    .addComponent(SongDuralbl)
+                    .addComponent(SongNamelbl)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(1050, Short.MAX_VALUE))
         );
         jPanel53Layout.setVerticalGroup(
             jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel53Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel53Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7))
-                    .addComponent(panel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(100, 100, 100)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(SongNamelbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SongDuralbl)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel53Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel28.setBackground(new java.awt.Color(255, 153, 153));
@@ -1169,17 +1331,17 @@ public class chitietNhac_User extends javax.swing.JDialog {
 
         jScrollPane1.setBorder(null);
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(255, 201, 221));
-        jTextArea1.setColumns(20);
-        jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Nhìn theo bóng dáng ai dần xa\nVừa vội trao chiếc hôn chia lìa (mm-mm-mm-mm)\nDù rằng tim đã đau nhiều đêm\nChẳng biết cách ngăn nước mắt rơi (uhm)\nNgười đã bên ta, cuốn trôi hết chai sần\nNhững vết thương cũng cứ thế phai dần\nNgười là nắng bên đời\nNgười sưởi ấm ta rồi\nThe way you smile khiến ta biết rung động\nCó sai đâu nếu ta cứ mơ mộng ngồi đợi biết bao mùa\nTo say I love you so\nNhững giai điệu đã trao nhau giờ như vỡ tan\nTrái tim ta trót đau trước kỉ niệm lỡ mang\nĐến ngỡ ngàng\nHah-hah-hah-hah-hah-hah-hah-hah\nVẫn biết ơn phút giây khi người đến với đời\nNhững chú chim kéo nhau hót mừng người tới chơi\nDẫn lối tôi\nHah-hah-hah-hah-hah-hah-hah-hah");
-        jTextArea1.setBorder(null);
-        jTextArea1.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        jTextArea1.setFocusable(false);
-        jTextArea1.setSelectionColor(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(jTextArea1);
+        SongLyrta.setEditable(false);
+        SongLyrta.setBackground(new java.awt.Color(255, 201, 221));
+        SongLyrta.setColumns(20);
+        SongLyrta.setForeground(new java.awt.Color(255, 255, 255));
+        SongLyrta.setRows(5);
+        SongLyrta.setText("Nhìn theo bóng dáng ai dần xa\nVừa vội trao chiếc hôn chia lìa (mm-mm-mm-mm)\nDù rằng tim đã đau nhiều đêm\nChẳng biết cách ngăn nước mắt rơi (uhm)\nNgười đã bên ta, cuốn trôi hết chai sần\nNhững vết thương cũng cứ thế phai dần\nNgười là nắng bên đời\nNgười sưởi ấm ta rồi\nThe way you smile khiến ta biết rung động\nCó sai đâu nếu ta cứ mơ mộng ngồi đợi biết bao mùa\nTo say I love you so\nNhững giai điệu đã trao nhau giờ như vỡ tan\nTrái tim ta trót đau trước kỉ niệm lỡ mang\nĐến ngỡ ngàng\nHah-hah-hah-hah-hah-hah-hah-hah\nVẫn biết ơn phút giây khi người đến với đời\nNhững chú chim kéo nhau hót mừng người tới chơi\nDẫn lối tôi\nHah-hah-hah-hah-hah-hah-hah-hah");
+        SongLyrta.setBorder(null);
+        SongLyrta.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        SongLyrta.setFocusable(false);
+        SongLyrta.setSelectionColor(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(SongLyrta);
 
         jScrollPane3.setBorder(null);
 
@@ -1313,6 +1475,73 @@ public class chitietNhac_User extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+                if(!running)
+        {
+            running = true;
+            paused = false;
+            Thread runningSong = new Thread(play);
+            runningSong.start();
+        }
+        else if(running)
+        {
+            running = false;
+            paused = true;
+            try {
+                pauseSong();
+            } catch (Exception e) {
+            }
+        }
+        else if(paused){
+            try {
+                resume();
+            } catch (Exception e) {
+            }
+        }
+        System.out.println("run"+running);
+        System.out.println("pause"+paused);
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged
+        // TODO add your handling code here:
+        String value = String.valueOf(jSlider2.getValue());
+        volumeControl(Double.parseDouble(value)/100);
+    }//GEN-LAST:event_jSlider2StateChanged
+
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        // TODO add your handling code here:
+        buffer = jSlider1.getValue();
+        System.out.println(buffer);
+    }//GEN-LAST:event_jSlider1StateChanged
+
+    private void jSlider1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSlider1MouseReleased
+        // TODO add your handling code here:
+        long skip = buffer*(totalTime/100);
+        try {
+            fi.skip(skip);
+            System.out.println(skip);
+            pause = fi.available();
+            player.close();
+            Thread runningThread = new Thread(play);
+            runningThread.start();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_jSlider1MouseReleased
+
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+        // TODO add your handling code here:
+        if(!loop)
+        {
+            loop = true;
+        }
+        else
+        {
+            loop = false;
+        }
+        loopSong();
+    }//GEN-LAST:event_jLabel17MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1341,21 +1570,16 @@ public class chitietNhac_User extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                chitietNhac_User dialog = new chitietNhac_User(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel SongArtistlbl;
+    private javax.swing.JLabel SongDuralbl;
+    private javax.swing.JTextArea SongLyrta;
+    private javax.swing.JLabel SongName1lbl;
+    private javax.swing.JLabel SongNamelbl;
+    private javax.swing.JLabel SongPiclbl;
+    private javax.swing.JLabel SongPiclbl1;
     private javax.swing.JPanel center;
     private javax.swing.JPanel east;
     private javax.swing.JPanel header;
@@ -1372,9 +1596,6 @@ public class chitietNhac_User extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
@@ -1384,7 +1605,6 @@ public class chitietNhac_User extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1401,12 +1621,12 @@ public class chitietNhac_User extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
-    private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
@@ -1429,7 +1649,6 @@ public class chitietNhac_User extends javax.swing.JDialog {
     private javax.swing.JSlider jSlider2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JPanel main;
     private javax.swing.JPanel menu;
@@ -1442,7 +1661,6 @@ public class chitietNhac_User extends javax.swing.JDialog {
     private javax.swing.JPanel paddingWest;
     private com.swanmusic.swing.Panel panel1;
     private com.swanmusic.swing.Panel panel13;
-    private com.swanmusic.swing.Panel panel14;
     private com.swanmusic.swing.Panel panel19;
     private com.swanmusic.swing.Panel panel2;
     private com.swanmusic.swing.Panel panel20;
@@ -1455,4 +1673,50 @@ public class chitietNhac_User extends javax.swing.JDialog {
     private javax.swing.JPanel waitingList;
     private javax.swing.JPanel yourLibrary;
     // End of variables declaration//GEN-END:variables
+    private void volumeControl(Double valueToPlusMinus){
+        // Get Mixer Information From AudioSystem
+        Mixer.Info[] mixers = AudioSystem.getMixerInfo();
+        // Now use a for loop to list all mixers
+        for(Mixer.Info mixerInfo : mixers){
+            // Get Mixer
+            Mixer mixer = AudioSystem.getMixer(mixerInfo);
+            // Now Get Target Line
+            Line.Info[] lineInfos = mixer.getTargetLineInfo();
+            // Here again use for loop to list lines
+            for(Line.Info lineInfo : lineInfos){
+                // Make a null line
+                Line line = null;
+                // Make a boolean as opened
+                boolean opened = true;
+                // Now use try exception for opening a line
+                try{
+                    line = mixer.getLine(lineInfo);
+                    opened = line.isOpen() || line instanceof Clip;
+                    // Now Check If Line Is not Opened
+                    if(!opened){
+                        // Open Line
+                        line.open();
+                    }
+                    // Make a float control
+                    FloatControl volControl = (FloatControl) line.getControl(FloatControl.Type.VOLUME);
+                    // Get Current Volume Now
+                    float currentVolume = volControl.getValue();
+                    // Make a temp double variable and store valuePlusMinus
+                    Double volumeToCut = valueToPlusMinus;
+                    // Make a float and calculate the addition or subtraction in volume
+                    float changedCalc = (float) ((double)volumeToCut);
+                    // Now Set This Changed Value Into Volume Line.
+                    volControl.setValue(changedCalc);
+                    System.out.println(volControl.getValue());
+                }catch (LineUnavailableException lineException){
+                }catch (IllegalArgumentException illException){
+                }finally{
+                    // Close Line If it opened
+                    if(line != null && !opened){
+                        line.close();
+                    }
+                }
+            }
+        }
+    }
 }

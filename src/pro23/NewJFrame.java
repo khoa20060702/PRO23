@@ -50,7 +50,7 @@ public class NewJFrame extends javax.swing.JFrame {
     boolean library = false;
     public boolean comment = false;
     private int timeListen = 0;
-    String songdir = "lblartist";
+    String songdir = "";
     String cursong;
     private File f;
     private FileInputStream fi;
