@@ -69,11 +69,46 @@ public class chitietNhac_User extends javax.swing.JDialog {
     boolean loop = false;
     private int buffer;
     public List<String> listLyrics = new ArrayList<>();
+    
+    public List<String> listAlbumName = new ArrayList<>();
+    public List<String> listAlbumArtist = new ArrayList<>();
+    public List<String> listAlbumCate = new ArrayList<>();
+    public List<String> listAlbumDate = new ArrayList<>();
+    public List<String> listAlbumPic = new ArrayList<>();    
     /**
      * Creates new form NewJFrame
      */
     ArrayList<Nhac> list = new ArrayList();
-
+    public void getAlbum()
+    {
+        int i = 0;
+              try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             PreparedStatement ps = con.prepareCall("select * from ALBUM");
+             ResultSet rs = ps.executeQuery();
+              while (rs.next()) {
+                com.swanmusic.entity.Album al = new com.swanmusic.entity.Album();
+                al.setAlbumName(rs.getString("TENALBUM"));
+                listAlbumName.add(rs.getString("TENALBUM"));
+                al.setAlbumArtist(rs.getString("NGHESI"));
+                listAlbumArtist.add(rs.getString("NGHESI"));
+                al.setAlbumCategory(rs.getString("THELOAI"));
+                listAlbumCate.add(rs.getString("THELOAI"));
+                al.setAlbumArtist(rs.getString("TG_PHATHANH"));
+                listAlbumArtist.add(rs.getString("TG_PHATHANH"));
+                al.setAlbumCategory(rs.getString("ANH"));
+                listAlbumCate.add(rs.getString("ANH"));
+                  i++;
+            }
+            rs.close();
+            ps.close();
+            con.close();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }   
+    }
     public void pauseSong() throws IOException, InterruptedException {
         pause = fi.available();
         player.close();
@@ -149,6 +184,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         super(parent, modal);
         initComponents();
         init();
+        getAlbum();
         this.data1 = data1;
         this.data2 = data2;
         this.data3 = data3;
@@ -167,6 +203,12 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         SongArtistlbl.setText(data5);
         SongPiclbl1.setIcon(newscale);
         cursong = data6;
+        Albumlbl1.setText(listAlbumName.get(0));
+        Albumlbl2.setText(listAlbumName.get(1));
+        Albumlbl3.setText(listAlbumName.get(2));
+        Albumlbl4.setText(listAlbumName.get(3));
+        Albumlbl5.setText(listAlbumName.get(4));
+        Albumlbl6.setText(listAlbumName.get(5));
     }
 
     
@@ -253,12 +295,12 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel15 = new javax.swing.JPanel();
         panel3 = new com.swanmusic.swing.Panel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
+        Albumlbl2 = new javax.swing.JLabel();
+        Albumlbl1 = new javax.swing.JLabel();
+        Albumlbl4 = new javax.swing.JLabel();
+        Albumlbl3 = new javax.swing.JLabel();
+        Albumlbl6 = new javax.swing.JLabel();
+        Albumlbl5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         main = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -890,23 +932,23 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel19.setText("DANH SÁCH");
 
-        jLabel41.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel41.setText("Playlist #1");
+        Albumlbl2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl2.setText("Playlist #1");
 
-        jLabel42.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel42.setText("Playlist #1");
+        Albumlbl1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl1.setText("Playlist #1");
 
-        jLabel43.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel43.setText("Playlist #1");
+        Albumlbl4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl4.setText("Playlist #1");
 
-        jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel44.setText("Playlist #1");
+        Albumlbl3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl3.setText("Playlist #1");
 
-        jLabel45.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel45.setText("Playlist #1");
+        Albumlbl6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl6.setText("Playlist #1");
 
-        jLabel46.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel46.setText("Playlist #1");
+        Albumlbl5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Albumlbl5.setText("Playlist #1");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("ICON");
@@ -920,12 +962,12 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel3Layout.createSequentialGroup()
                         .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel46)
-                            .addComponent(jLabel43)
-                            .addComponent(jLabel44)
-                            .addComponent(jLabel41)
-                            .addComponent(jLabel42)
-                            .addComponent(jLabel45))
+                            .addComponent(Albumlbl5)
+                            .addComponent(Albumlbl4)
+                            .addComponent(Albumlbl3)
+                            .addComponent(Albumlbl2)
+                            .addComponent(Albumlbl1)
+                            .addComponent(Albumlbl6))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panel3Layout.createSequentialGroup()
                         .addComponent(jLabel19)
@@ -941,17 +983,17 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                     .addComponent(jLabel19)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel42)
+                .addComponent(Albumlbl1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel41)
+                .addComponent(Albumlbl2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel44)
+                .addComponent(Albumlbl3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel43)
+                .addComponent(Albumlbl4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel46)
+                .addComponent(Albumlbl5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel45)
+                .addComponent(Albumlbl6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1573,6 +1615,12 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Albumlbl1;
+    private javax.swing.JLabel Albumlbl2;
+    private javax.swing.JLabel Albumlbl3;
+    private javax.swing.JLabel Albumlbl4;
+    private javax.swing.JLabel Albumlbl5;
+    private javax.swing.JLabel Albumlbl6;
     private javax.swing.JLabel SongArtistlbl;
     private javax.swing.JLabel SongDuralbl;
     private javax.swing.JTextArea SongLyrta;
@@ -1596,12 +1644,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
