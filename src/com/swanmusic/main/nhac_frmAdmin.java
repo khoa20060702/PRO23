@@ -75,7 +75,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
      public void load_data(){
          list.clear();
          try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
              PreparedStatement ps = con.prepareCall("select * from NHAC");
@@ -117,7 +117,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
      
      public void them(){
         try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
                  upImage(imageName);
@@ -134,6 +134,9 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
              else{
                  JOptionPane.showMessageDialog(this, "Lưu không thành công");
              }
+             ps.close();
+            con.close();
+            load_data();
          } catch (Exception e) {
              e.printStackTrace();
          }
@@ -142,7 +145,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
      public void xoa(){
               try {
             //1. url
-            String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN;encrypt=true;trustServerCertificate=true";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con = DriverManager.getConnection(url,"sa","");
             PreparedStatement ps = con.prepareStatement("delete from Nhac where TENNHAC = ?");
@@ -172,7 +175,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
      
      public void sua(){
                   try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
              upImage(imageName);

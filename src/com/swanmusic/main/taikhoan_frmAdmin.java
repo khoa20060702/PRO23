@@ -67,7 +67,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
           public void load_data(){
          list.clear();
          try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
              PreparedStatement ps = con.prepareCall("select * from TAIKHOAN");
