@@ -118,21 +118,27 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
     }
         
     void openTaiKhoan(){
-        new taikhoan_frmAdmin(null,true).setVisible(true);
+        
         this.setVisible(false);
+        new taikhoan_frmAdmin(null,true).setVisible(true);
+        
     }
     void openNgheSi(){
-        new Nghesi_frmAdmin(null,true).setVisible(true);
+        
         this.setVisible(false);
+        new Nghesi_frmAdmin(null,true).setVisible(true);
     }
     void openNhac(){
-        new nhac_frmAdmin(null,true).setVisible(true);
+        
         this.setVisible(false);
+        new nhac_frmAdmin(null,true).setVisible(true);
     }
     void openAlbum(){
-        new Album_frmAdmin(null,true).setVisible(true);
         this.setVisible(false);
+        new Album_frmAdmin(null,true).setVisible(true);
+        
     }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -198,7 +204,6 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new java.awt.BorderLayout());
@@ -420,6 +425,8 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         jButton3.setBackground(new java.awt.Color(255, 103, 158));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton3.setText("TÀI KHOẢN");
+        jButton3.setFocusPainted(false);
+        jButton3.setRequestFocusEnabled(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -429,6 +436,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         jButton13.setBackground(new java.awt.Color(255, 103, 158));
         jButton13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton13.setText("NGHỆ SĨ");
+        jButton13.setFocusPainted(false);
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton13ActionPerformed(evt);
@@ -438,6 +446,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         jButton14.setBackground(new java.awt.Color(255, 103, 158));
         jButton14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton14.setText("NHẠC");
+        jButton14.setFocusPainted(false);
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton14ActionPerformed(evt);
@@ -447,6 +456,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         jButton15.setBackground(new java.awt.Color(255, 103, 158));
         jButton15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton15.setText("ALBUM");
+        jButton15.setFocusPainted(false);
         jButton15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton15ActionPerformed(evt);

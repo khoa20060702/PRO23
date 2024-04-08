@@ -3,7 +3,6 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="undecorated" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -505,6 +504,8 @@
                                   <Font name="Segoe UI" size="18" style="1"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="T&#xc0;I KHO&#x1ea2;N"/>
+                                <Property name="focusPainted" type="boolean" value="false"/>
+                                <Property name="requestFocusEnabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
@@ -519,6 +520,7 @@
                                   <Font name="Segoe UI" size="18" style="1"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="NGH&#x1ec6; S&#x128;"/>
+                                <Property name="focusPainted" type="boolean" value="false"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton13ActionPerformed"/>
@@ -533,6 +535,7 @@
                                   <Font name="Segoe UI" size="18" style="1"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="NH&#x1ea0;C"/>
+                                <Property name="focusPainted" type="boolean" value="false"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton14ActionPerformed"/>
@@ -547,6 +550,7 @@
                                   <Font name="Segoe UI" size="18" style="1"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="ALBUM"/>
+                                <Property name="focusPainted" type="boolean" value="false"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton15ActionPerformed"/>
@@ -719,7 +723,7 @@
                                           <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="17" max="32767" attributes="0"/>
+                                      <EmptySpace pref="21" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
