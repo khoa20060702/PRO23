@@ -212,7 +212,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     
      public void customSplitpaneUI() {
-        // custom giao dien
+        // cu
         jSplitPane1.setUI(new BasicSplitPaneUI() {
             @Override
             public void installDefaults() {
@@ -227,6 +227,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 splitPane.setOpaque(false);
             }
         });
+        // cho thanh ScrollBar
         jScrollPane2.setVerticalScrollBar(new ScrollBar());
     }
  
