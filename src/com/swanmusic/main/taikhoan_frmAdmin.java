@@ -17,7 +17,10 @@ import com.swanmusic.dao.AccountDAO;
 import com.swanmusic.entity.Account;
 import com.swanmusic.swing.ComponentResizer;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.event.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 
@@ -95,7 +98,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
          } catch (Exception e) {
              e.printStackTrace();
          }
-}
+} 
             public void showdetail(){
          if(index >=0){
              Account mu = list.get(index);
@@ -139,6 +142,149 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
         
     }
     
+
+        public static boolean isEmailValid(String email) {
+        // Biểu thức chính quy cho email
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
+        // Tạo đối tượng Pattern từ biểu thức chính quy
+        Pattern pattern = Pattern.compile(regex);
+
+        // Tạo đối tượng Matcher từ Pattern và email cần kiểm tra
+        Matcher matcher = pattern.matcher(email);
+
+        // Trả về true nếu email khớp với biểu thức chính quy
+        return matcher.matches();
+}
+        
+        public static boolean isPhoneValid(String phone) {
+        // Biểu thức chính quy cho email
+        String regex = "^(\\+84|0)(\\d{1,3})([\\.\\-\\s])?(\\d{3})([\\.\\-\\s])?(\\d{3})$";
+
+        // Tạo đối tượng Pattern từ biểu thức chính quy
+        Pattern pattern = Pattern.compile(regex);
+
+        // Tạo đối tượng Matcher từ Pattern và phone cần kiểm tra
+        Matcher matcher = pattern.matcher(phone);
+
+        // Trả về true nếu email khớp với biểu thức chính quy
+        return matcher.matches();
+}
+        
+        public static boolean isNameValid(String name) {
+        // Biểu thức chính quy cho email
+        String regex = "^[a-zA-Z0-9-_.]+$";
+
+        // Tạo đối tượng Pattern từ biểu thức chính quy
+        Pattern pattern = Pattern.compile(regex);
+
+        // Tạo đối tượng Matcher từ Pattern và phone cần kiểm tra
+        Matcher matcher = pattern.matcher(name);
+
+        // Trả về true nếu email khớp với biểu thức chính quy
+        return matcher.matches();
+}
+
+        
+     public boolean validate_data() {
+        // Kiểm tra tên tài khoản
+        if (txtName.getText().trim().length() == 0) {
+            //2. chửi
+            JOptionPane.showMessageDialog(this, "Tên tài khoản không được để trống");
+            //3. set màu nền là màu vàng
+            txtName.setBackground(Color.yellow);
+            //4. set con nháy nằm tại đó
+            txtName.requestFocus();
+            return false; //5. kết thúc hàm ... không làm các lệnh phía sau nữa
+        }
+        
+        String name = txtName.getText();
+        if (!isNameValid(name)) {
+            JOptionPane.showMessageDialog(this, "Tên tài khoản không được viết có dấu");
+            // Set màu nền là màu vàng
+            txtName.setBackground(Color.yellow);
+
+            // Set con nháy nằm tại đó
+            txtName.requestFocus();
+
+            return false;
+        }
+        
+        // Kiểm tra email
+        if (txtEMAIL.getText().trim().length() == 0) {
+            // chửi
+            JOptionPane.showMessageDialog(this, "Email không được để trống");
+            // set màu nền là màu vàng
+            txtEMAIL.setBackground(Color.yellow);
+            // set con nháy nằm tại đó
+            txtEMAIL.requestFocus();
+            return false; // kết thúc hàm ... không làm các lệnh phía sau nữa
+        }
+        
+         String email = txtEMAIL.getText();
+        // Kiểm tra email hợp lệ
+        if (!isEmailValid(email)) {
+            // Hiển thị thông báo lỗi
+            JOptionPane.showMessageDialog(this, "Email phải đúng chính quy (VD: example@gmail.com)");
+
+            // Set màu nền là màu vàng
+            txtEMAIL.setBackground(Color.yellow);
+
+            // Set con nháy nằm tại đó
+            txtEMAIL.requestFocus();
+
+            // Kết thúc hàm
+            return false;
+            }
+        // Kiểm tra số điện thoại không được để trống
+        if (txtNumberPhone.getText().trim().length() == 0) {
+            //2. chửi
+            JOptionPane.showMessageDialog(this, "Số điện thoại không được để trống");
+            //3. set màu nền là màu vàng
+            txtNumberPhone.setBackground(Color.yellow);
+            //4. set con nháy nằm tại đó
+            txtNumberPhone.requestFocus();   
+            return false; //5. kết thúc hàm ... không làm các lệnh phía sau nữa
+        }
+        
+        // Số điện thoại phải là số
+        try {
+            int phonenumber = Integer.parseInt(txtNumberPhone.getText());
+        } catch (Exception e) {
+            // chửi
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải là số");
+            // set màu nền là màu vàng
+            txtNumberPhone.setBackground(Color.yellow);
+            // set con nháy nằm tại đó
+            txtNumberPhone.requestFocus();
+            return false; // kết thúc hàm ... không làm các lệnh phía sau nữa            
+        }
+        String phone = txtNumberPhone.getText();
+        // Kiểm tra phone hợp lệ
+        if (!isPhoneValid(phone)) {
+            // Hiển thị thông báo lỗi
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải đúng chính quy (VD: 0987654321)");
+            // Set màu nền là màu vàng
+            txtNumberPhone.setBackground(Color.yellow);
+            // Set con nháy nằm tại đó
+            txtNumberPhone.requestFocus();
+            // Kết thúc hàm
+            return false;
+            }
+        if (phone.length() != 10 && phone.length() != 11) {
+            JOptionPane.showMessageDialog(this,"Số điện thoại phải 10 hoặc 11 số");
+             // Set màu nền là màu vàng
+            txtNumberPhone.setBackground(Color.yellow);
+            // Set con nháy nằm tại đó
+            txtNumberPhone.requestFocus();
+            // Kết thúc hàm
+            return false;
+        }
+         return true; // dữ liệu hợp lệ
+    }
+    
+
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -555,28 +701,37 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         QL.setOpaque(false);
         QL.setLayout(new java.awt.CardLayout());
 
         jPanel9.setOpaque(false);
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setText("QUẢN LÝ TÀI KHOẢN");
+        jPanel9.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 6, -1, -1));
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblName.setText("Tên tài khoản:");
+        jPanel9.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 50, -1, -1));
 
         txtName.setBackground(new java.awt.Color(255, 145, 185));
+        jPanel9.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 93, 350, 43));
 
         lblROLE.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblROLE.setText("Vai trò:");
+        jPanel9.add(lblROLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 154, -1, -1));
 
+        buttonGroup1.add(rdoAdmin);
         rdoAdmin.setText("Admin");
+        jPanel9.add(rdoAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 192, 100, -1));
 
+        buttonGroup1.add(rdoUser);
         rdoUser.setText("User");
+        jPanel9.add(rdoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 192, 100, -1));
 
         btnDelete.setBackground(new java.awt.Color(255, 103, 158));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -587,6 +742,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                 btnDeleteActionPerformed(evt);
             }
         });
+        jPanel9.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 242, -1, -1));
 
         btnUpdate.setBackground(new java.awt.Color(255, 103, 158));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -597,6 +753,7 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                 btnUpdateActionPerformed(evt);
             }
         });
+        jPanel9.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 242, -1, -1));
 
         btnNew.setBackground(new java.awt.Color(255, 103, 158));
         btnNew.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -607,77 +764,21 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                 btnNewActionPerformed(evt);
             }
         });
+        jPanel9.add(btnNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 242, -1, -1));
 
         txtEMAIL.setBackground(new java.awt.Color(255, 145, 185));
+        jPanel9.add(txtEMAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 93, 350, 43));
 
         txtNumberPhone.setBackground(new java.awt.Color(255, 145, 185));
+        jPanel9.add(txtNumberPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 181, 350, 43));
 
         lblEMAIL.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblEMAIL.setText("Email");
+        jPanel9.add(lblEMAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 50, -1, -1));
 
         lblNumberPhone.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblNumberPhone.setText("Số điện thoại");
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(btnDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnUpdate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNew))
-                    .addComponent(jLabel6)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNumberPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblName)
-                            .addComponent(lblNumberPhone))
-                        .addGap(70, 70, 70)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEMAIL)
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(rdoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(55, 55, 55)
-                                .addComponent(rdoUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblROLE)
-                            .addComponent(txtEMAIL, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(216, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblName)
-                    .addComponent(lblEMAIL))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEMAIL, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblROLE)
-                    .addComponent(lblNumberPhone))
-                .addGap(2, 2, 2)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdoAdmin)
-                    .addComponent(rdoUser)
-                    .addComponent(txtNumberPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDelete)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnNew))
-                .addContainerGap(293, Short.MAX_VALUE))
-        );
+        jPanel9.add(lblNumberPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 154, -1, -1));
 
         QL.add(jPanel9, "cardChinhSua1");
 
@@ -856,6 +957,11 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
             int kq = ps.executeUpdate();
             if (kq == 1) {
                 JOptionPane.showMessageDialog(this, "Xóa thành công");
+                txtEMAIL.setText(null);
+                txtName.setText(null);
+                txtNumberPhone.setText(null);
+                rdoUser.setSelected(true);
+
             } else {
                 JOptionPane.showMessageDialog(this, "Xóa thất bại");
             }
@@ -880,10 +986,16 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
             ps.setString(3, txtNumberPhone.getText());
             ps.setString(4, txtName.getText());
             int kq = ps.executeUpdate();
+            if(validate_data()){
             if (kq == 1) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                txtEMAIL.setText(null);
+                txtName.setText(null);
+                txtNumberPhone.setText(null);
+                rdoUser.setSelected(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
+            }
             }
             ps.close();
             con.close();
