@@ -243,7 +243,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         Albumlbl3.setText(listAlbumName.get(2));
         Albumlbl4.setText(listAlbumName.get(3));
         Albumlbl5.setText(listAlbumName.get(4));
-        Albumlbl6.setText(listAlbumName.get(5));
         Songlbl1.setText(listSongName.get(0));
         Songlbl2.setText(listSongName.get(1));
         Songlbl3.setText(listSongName.get(2));

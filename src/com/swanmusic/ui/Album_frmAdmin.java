@@ -51,7 +51,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
     public void load_data() {
         list.clear();
         try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=true";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con = DriverManager.getConnection(url, "sa", "");
             PreparedStatement ps = con.prepareCall("select * from ALBUM");
@@ -92,7 +92,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
 
     public void them() {
         try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=true";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con = DriverManager.getConnection(url, "sa", "");
             upImage(imageName);
@@ -116,7 +116,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
     public void xoa() {
         try {
             //1. url
-            String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN;enctrype=true";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con = DriverManager.getConnection(url, "sa", "");
             PreparedStatement ps = con.prepareStatement("delete from ALBUM where TENALBUM = ?");
@@ -142,7 +142,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
 
     public void sua() {
         try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=false";
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;enctrype=true";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con = DriverManager.getConnection(url, "sa", "");
             upImage(imageName);

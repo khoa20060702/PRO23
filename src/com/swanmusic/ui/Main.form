@@ -921,7 +921,7 @@
                                           <Component id="jButton3" min="-2" pref="53" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jButton5" min="-2" pref="53" max="-2" attributes="0"/>
-                                          <EmptySpace pref="11" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1404,7 +1404,7 @@
                                     <DimensionLayout dim="1">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace pref="17" max="32767" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jLabel6" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                                   <Component id="jLabel14" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
@@ -2129,7 +2129,7 @@
                                                                               <Component id="Artistlbl2" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="Songlbl2" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
-                                                                          <EmptySpace pref="10" max="32767" attributes="0"/>
+                                                                          <EmptySpace max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
@@ -2274,7 +2274,7 @@
                                                                               <Component id="Artistlbl3" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="Songlbl3" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
-                                                                          <EmptySpace pref="10" max="32767" attributes="0"/>
+                                                                          <EmptySpace max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
@@ -2639,7 +2639,7 @@
                                                                               <Component id="Artistlbl4" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="Songlbl4" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
-                                                                          <EmptySpace pref="10" max="32767" attributes="0"/>
+                                                                          <EmptySpace max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
@@ -2809,7 +2809,7 @@
                                                                               <Component id="Artistlbl5" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="Songlbl5" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
-                                                                          <EmptySpace pref="10" max="32767" attributes="0"/>
+                                                                          <EmptySpace max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
@@ -2979,7 +2979,7 @@
                                                                               <Component id="Artistlbl6" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               <Component id="Songlbl6" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
-                                                                          <EmptySpace pref="10" max="32767" attributes="0"/>
+                                                                          <EmptySpace max="32767" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
                                                                 </DimensionLayout>
