@@ -30,12 +30,11 @@ public static dangnhapJDialog tk;
         initComponents();
         init();
     }
-    
           ArrayList<Account> list = new ArrayList();
         void init(){
         this.setSize(1242,682);
         this.setLocationRelativeTo(null);
-
+dangnhapJDialog mau = new dangnhapJDialog(tk, forgot);
     }
         public void load_data() {
         list.clear();
@@ -321,8 +320,7 @@ public static dangnhapJDialog tk;
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-
-      
+        tk.setVisible(true);
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**
