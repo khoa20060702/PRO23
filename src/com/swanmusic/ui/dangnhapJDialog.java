@@ -41,6 +41,11 @@ public static taikhoan_frmAdmin tk;
     }
 Main form = new Main();
 taikhoan_frmAdmin mau=new taikhoan_frmAdmin(main, forgot);
+dangkyJDialog dk = new dangkyJDialog(main, forgot);
+
+    dangnhapJDialog(dangnhapJDialog tk, boolean forgot) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     void init(){
         this.setSize(1242,682);
         this.setLocationRelativeTo(null);
@@ -151,6 +156,11 @@ taikhoan_frmAdmin mau=new taikhoan_frmAdmin(main, forgot);
         btnDangKy.setForeground(new java.awt.Color(255, 255, 255));
         btnDangKy.setText("Đăng ký");
         btnDangKy.setBorder(null);
+        btnDangKy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangKyActionPerformed(evt);
+            }
+        });
         panel1.add(btnDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 510, 460, 60));
 
         lblDT2.setForeground(new java.awt.Color(0, 0, 0));
@@ -217,6 +227,13 @@ taikhoan_frmAdmin mau=new taikhoan_frmAdmin(main, forgot);
         login();
         
     }//GEN-LAST:event_btnDangNhap1ActionPerformed
+
+    private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
+        // TODO add your handling code here:
+           this.setVisible(false);
+        dk.setVisible(true);
+     
+    }//GEN-LAST:event_btnDangKyActionPerformed
 
     /**
      * @param args the command line arguments

@@ -19,7 +19,9 @@ import com.swanmusic.entity.Account;
  * @author phuon
  */
 public class dangkyJDialog extends javax.swing.JDialog {
-
+public static dangnhapJDialog tk;
+//public static Main main;
+    boolean forgot = false;
     /**
      * Creates new form dangkyJDialog
      */
@@ -28,10 +30,12 @@ public class dangkyJDialog extends javax.swing.JDialog {
         initComponents();
         init();
     }
+    
           ArrayList<Account> list = new ArrayList();
         void init(){
         this.setSize(1242,682);
         this.setLocationRelativeTo(null);
+
     }
         public void load_data() {
         list.clear();
@@ -151,6 +155,11 @@ public class dangkyJDialog extends javax.swing.JDialog {
         btnDangNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnDangNhap.setText("Đăng nhập");
         btnDangNhap.setBorder(null);
+        btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangNhapActionPerformed(evt);
+            }
+        });
         panel1.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 540, 460, 60));
 
         lblDT2.setForeground(new java.awt.Color(0, 0, 0));
@@ -308,6 +317,13 @@ public class dangkyJDialog extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_btnDangKyActionPerformed
+
+    private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+
+      
+    }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**
      * @param args the command line arguments
