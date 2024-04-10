@@ -280,6 +280,15 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
             // Kết thúc hàm
             return false;
         }
+        if (phone.length() > 11) {
+            JOptionPane.showMessageDialog(this,"Số điện thoại phải 10 hoặc 11 số");
+             // Set màu nền là màu vàng
+            txtNumberPhone.setBackground(Color.yellow);
+            // Set con nháy nằm tại đó
+            txtNumberPhone.requestFocus();
+            // Kết thúc hàm
+            return false;
+        }
          return true; // dữ liệu hợp lệ
     }
     
@@ -993,13 +1002,12 @@ public class taikhoan_frmAdmin extends javax.swing.JDialog {
                 txtName.setText(null);
                 txtNumberPhone.setText(null);
                 rdoUser.setSelected(true);
+                load_data();
             } else {
                 JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
-            }
-            }
+            }}
             ps.close();
             con.close();
-            load_data();
         } catch (Exception e) {
             e.printStackTrace();
         }
