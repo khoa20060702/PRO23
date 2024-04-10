@@ -19,12 +19,11 @@ import com.swanmusic.entity.Account;
  * @author phuon
  */
 public class dangkyJDialog extends javax.swing.JDialog {
-public static dangnhapJDialog tk;
+public static Main main;
 //public static Main main;
     boolean forgot = false;
-    /**
-     * Creates new form dangkyJDialog
-     */
+//    dangnhapJDialog dn = new dangnhapJDialog(main, forgot);
+    
     public dangkyJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -34,7 +33,7 @@ public static dangnhapJDialog tk;
         void init(){
         this.setSize(1242,682);
         this.setLocationRelativeTo(null);
-dangnhapJDialog mau = new dangnhapJDialog(tk, forgot);
+
     }
         public void load_data() {
         list.clear();
@@ -95,7 +94,6 @@ dangnhapJDialog mau = new dangnhapJDialog(tk, forgot);
         txtName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
 
         nenden.setBackground(new java.awt.Color(0, 0, 0));
         nenden.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -117,7 +115,6 @@ dangnhapJDialog mau = new dangnhapJDialog(tk, forgot);
 
         txtEmail.setBackground(new java.awt.Color(255, 145, 185));
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtEmail.setForeground(new java.awt.Color(0, 0, 0));
         txtEmail.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtEmailCaretUpdate(evt);
@@ -140,12 +137,10 @@ dangnhapJDialog mau = new dangnhapJDialog(tk, forgot);
         panel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 170, 460, 50));
 
         lblPass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblPass.setForeground(new java.awt.Color(0, 0, 0));
         lblPass.setText("Mật khẩu:");
         panel1.add(lblPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, -1, -1));
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblName.setForeground(new java.awt.Color(0, 0, 0));
         lblName.setText("Tên tài khoản:");
         panel1.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, -1, -1));
 
@@ -161,11 +156,9 @@ dangnhapJDialog mau = new dangnhapJDialog(tk, forgot);
         });
         panel1.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 540, 460, 60));
 
-        lblDT2.setForeground(new java.awt.Color(0, 0, 0));
         lblDT2.setText("-----------------------------------");
         panel1.add(lblDT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 500, 170, -1));
 
-        lblDT.setForeground(new java.awt.Color(0, 0, 0));
         lblDT.setText("-----------------------------------");
         panel1.add(lblDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 500, 190, -1));
 
@@ -187,12 +180,10 @@ dangnhapJDialog mau = new dangnhapJDialog(tk, forgot);
         panel1.add(btnDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 420, 460, 60));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("ĐĂNG KÝ");
         panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, -1, -1));
 
         lblNhaplaiMK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblNhaplaiMK.setForeground(new java.awt.Color(0, 0, 0));
         lblNhaplaiMK.setText("Nhập lại mật khẩu:");
         panel1.add(lblNhaplaiMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, -1, -1));
 
@@ -212,7 +203,6 @@ dangnhapJDialog mau = new dangnhapJDialog(tk, forgot);
         panel1.add(txtNhaplaiMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 460, 50));
 
         lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblEmail.setForeground(new java.awt.Color(0, 0, 0));
         lblEmail.setText("Email:");
         panel1.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, -1, -1));
 
@@ -224,7 +214,6 @@ dangnhapJDialog mau = new dangnhapJDialog(tk, forgot);
 
         txtName.setBackground(new java.awt.Color(255, 145, 185));
         txtName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtName.setForeground(new java.awt.Color(0, 0, 0));
         txtName.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtNameCaretUpdate(evt);
@@ -320,7 +309,7 @@ dangnhapJDialog mau = new dangnhapJDialog(tk, forgot);
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        tk.setVisible(true);
+        new dangnhapJDialog(null,true).setVisible(true);
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**
