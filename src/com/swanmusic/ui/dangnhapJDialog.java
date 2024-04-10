@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import com.swanmusic.utils.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -31,10 +32,11 @@ public static Account acc;
 Main form = new Main();
 com.swanmusic.main.taikhoan_frmAdmin mau= new com.swanmusic.main.taikhoan_frmAdmin(main, forgot);
 com.swanmusic.ui.dangkyJDialog dk = new com.swanmusic.ui.dangkyJDialog(main, forgot);
-
+com.swanmusic.ui.quenmatkhauJDialog qmk = new com.swanmusic.ui.quenmatkhauJDialog(main, forgot);
     void init(){
         this.setSize(1242,682);
         this.setLocationRelativeTo(null);
+        this.openChao();
     }
         AccountDAO dao = new AccountDAO();
      private void login() {
@@ -62,7 +64,9 @@ com.swanmusic.ui.dangkyJDialog dk = new com.swanmusic.ui.dangkyJDialog(main, for
                 }
         }
     }
-
+     void openChao(){
+         new chaoJDialog(null,true).setVisible(true);
+     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -100,7 +104,6 @@ com.swanmusic.ui.dangkyJDialog dk = new com.swanmusic.ui.dangkyJDialog(main, for
 
         txtName.setBackground(new java.awt.Color(255, 145, 185));
         txtName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtName.setForeground(new java.awt.Color(0, 0, 0));
         panel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, 460, 50));
 
         txtPass.setBackground(new java.awt.Color(255, 145, 185));
@@ -108,17 +111,14 @@ com.swanmusic.ui.dangkyJDialog dk = new com.swanmusic.ui.dangkyJDialog(main, for
         panel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 460, 50));
 
         lblPass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblPass.setForeground(new java.awt.Color(0, 0, 0));
         lblPass.setText("Mật khẩu:");
         panel1.add(lblPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 210, -1, -1));
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblName.setForeground(new java.awt.Color(0, 0, 0));
         lblName.setText("Tên tài khoản:");
         panel1.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 130, -1, -1));
 
         rdoNhoMK.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        rdoNhoMK.setForeground(new java.awt.Color(0, 0, 0));
         rdoNhoMK.setText("Nhớ mật khẩu ?");
         rdoNhoMK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,8 +128,12 @@ com.swanmusic.ui.dangkyJDialog dk = new com.swanmusic.ui.dangkyJDialog(main, for
         panel1.add(rdoNhoMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, -1, -1));
 
         lblQuenMK.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        lblQuenMK.setForeground(new java.awt.Color(0, 0, 0));
         lblQuenMK.setText("Quên mật khẩu ?");
+        lblQuenMK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQuenMKMouseClicked(evt);
+            }
+        });
         panel1.add(lblQuenMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 290, -1, -1));
 
         btnDangKy.setBackground(new java.awt.Color(255, 145, 185));
@@ -144,11 +148,9 @@ com.swanmusic.ui.dangkyJDialog dk = new com.swanmusic.ui.dangkyJDialog(main, for
         });
         panel1.add(btnDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 510, 460, 60));
 
-        lblDT2.setForeground(new java.awt.Color(0, 0, 0));
         lblDT2.setText("-----------------------------------");
         panel1.add(lblDT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 400, 170, -1));
 
-        lblDT.setForeground(new java.awt.Color(0, 0, 0));
         lblDT.setText("-----------------------------------");
         panel1.add(lblDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 400, 190, -1));
 
@@ -177,7 +179,6 @@ com.swanmusic.ui.dangkyJDialog dk = new com.swanmusic.ui.dangkyJDialog(main, for
         panel1.add(btnGoogle, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 430, 460, 60));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("ĐĂNG NHẬP");
         panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, -1));
 
@@ -212,10 +213,23 @@ com.swanmusic.ui.dangkyJDialog dk = new com.swanmusic.ui.dangkyJDialog(main, for
     private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
         // TODO add your handling code here:
     this.setVisible(false);
-    dk.setVisible(true);
+    dk.setVisible(true); 
+//    try{
+//        Thread.sleep(1000);
+//    } catch(InterruptedException e) {
+//        e.printStackTrace();
+//    }
+    
+    
     
     
     }//GEN-LAST:event_btnDangKyActionPerformed
+
+    private void lblQuenMKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMKMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+    qmk.setVisible(true); 
+    }//GEN-LAST:event_lblQuenMKMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -85,7 +85,6 @@ int otp;
         panel1.add(txtMaXM, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 300, 220, 50));
 
         lblNhapMKMoi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblNhapMKMoi.setForeground(new java.awt.Color(0, 0, 0));
         lblNhapMKMoi.setText("Nhập mật khẩu mới:");
         panel1.add(lblNhapMKMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, -1, -1));
 
@@ -94,13 +93,16 @@ int otp;
         btnDangNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnDangNhap.setText("Đăng nhập");
         btnDangNhap.setBorder(null);
+        btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangNhapActionPerformed(evt);
+            }
+        });
         panel1.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 510, 460, 60));
 
-        lblDT2.setForeground(new java.awt.Color(0, 0, 0));
         lblDT2.setText("-----------------------------------");
         panel1.add(lblDT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 470, 170, -1));
 
-        lblDT.setForeground(new java.awt.Color(0, 0, 0));
         lblDT.setText("-----------------------------------");
         panel1.add(lblDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 470, 190, -1));
 
@@ -122,12 +124,10 @@ int otp;
         panel1.add(btnDatLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 460, 60));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("QUÊN MẬT KHẨU");
         panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, -1));
 
         lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblEmail.setForeground(new java.awt.Color(0, 0, 0));
         lblEmail.setText("Email:");
         panel1.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 120, -1, -1));
 
@@ -148,7 +148,6 @@ int otp;
 
         txtEmail.setBackground(new java.awt.Color(255, 145, 185));
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtEmail.setForeground(new java.awt.Color(0, 0, 0));
         panel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 140, 460, 50));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -260,6 +259,12 @@ int otp;
         }
            
     }//GEN-LAST:event_btnDatLaiActionPerformed
+
+    private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new dangnhapJDialog(null,true).setVisible(true);
+    }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**
      * @param args the command line arguments
