@@ -63,7 +63,7 @@ public List<String> listAlbumPic = new ArrayList<>();
         Albumlbl3.setText(listAlbumName.get(2));
         Albumlbl4.setText(listAlbumName.get(3));
         Albumlbl5.setText(listAlbumName.get(4));
-        Albumlbl6.setText(listAlbumName.get(5));
+//        Albumlbl6.setText(listAlbumName.get(5));
         
     }
       String imageName ="src\\com\\swanmusic\\img\\Wn.jpg";
