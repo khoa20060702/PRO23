@@ -709,7 +709,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton5" min="-2" pref="34" max="-2" attributes="0"/>
-                                      <EmptySpace pref="36" max="32767" attributes="0"/>
+                                      <EmptySpace pref="25" max="32767" attributes="0"/>
                                       <Component id="jButton6" min="-2" pref="38" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -723,7 +723,7 @@
                                           <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="21" max="32767" attributes="0"/>
+                                      <EmptySpace pref="14" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -839,6 +839,9 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Segoe UI" size="24" style="1"/>
                                     </Property>
+                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                      <Color blue="0" green="0" red="0" type="rgb"/>
+                                    </Property>
                                     <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; ALBUM"/>
                                   </Properties>
                                 </Component>
@@ -847,7 +850,10 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Segoe UI" size="18" style="1"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="Th&#x1ec3; lo&#x1ea1;i:"/>
+                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                      <Color blue="0" green="0" red="0" type="rgb"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="Th&#x1ec3; lo&#x1ea1;i"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txtTheloai">
@@ -933,7 +939,10 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Segoe UI" size="18" style="1"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="T&#xea;n album:"/>
+                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                      <Color blue="0" green="0" red="0" type="rgb"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="T&#xea;n album"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txtName">
@@ -948,7 +957,10 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Segoe UI" size="18" style="1"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian ph&#xe1;t h&#xe0;nh:"/>
+                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                      <Color blue="0" green="0" red="0" type="rgb"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian ph&#xe1;t h&#xe0;nh"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txtNghesi">
@@ -966,7 +978,10 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Segoe UI" size="18" style="1"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="Ngh&#x1ec7; s&#x129;:"/>
+                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                      <Color blue="0" green="0" red="0" type="rgb"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="Ngh&#x1ec7; s&#x129;"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txtTime">
@@ -996,7 +1011,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="lblImage" pref="212" max="32767" attributes="0"/>
+                                              <Component id="lblImage" pref="200" max="32767" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -1005,7 +1020,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="lblImage" pref="212" max="32767" attributes="0"/>
+                                              <Component id="lblImage" pref="200" max="32767" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                           </Group>
                                       </Group>

@@ -8,6 +8,7 @@ import com.swanmusic.ui.*;
 import com.swanmusic.entity.Nghesi;
 import com.swanmusic.swing.ComponentResizer;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -40,7 +41,6 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
     }
      
     public void customSplitpaneUI() {
-        // Thiết lập màu trong suốt cho JSplitPane và các phần con của nó
         jSplitPane1.setUI(new BasicSplitPaneUI() {
             @Override
             public void installDefaults() {
@@ -117,6 +117,7 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
              String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
+             if(validate_data()){
              upImage(imageName);
              PreparedStatement ps = con.prepareCall("insert into NGHESI values(?,?,?,?)");
              ps.setString(1, txtName.getText());
@@ -133,6 +134,7 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
              ps.close();
             con.close();
             load_data();
+             }
          } catch (Exception e) {
              e.printStackTrace();
          }
@@ -173,6 +175,7 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
              String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
+             if(validate_data()){
              upImage(imageName);
              PreparedStatement ps = con.prepareCall("update NGHESI set SL_ALBUM = ?, SL_DSNHAC=?, ANH=? where TENNGHESI = ?");
              ps.setString(1, txtSLAlbum.getText());
@@ -193,6 +196,7 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
             ps.close();
             con.close();
             load_data();
+             }
          } catch (Exception e) {
              e.printStackTrace();
          }
@@ -257,6 +261,48 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         
     }
     
+    
+    public boolean validate_data() {
+        if (txtName.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Tên nghệ sĩ không được để trống");
+            txtName.setBackground(Color.yellow);
+            txtName.requestFocus();
+            return false; 
+        }
+        if (txtSLAlbum.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Số lượng Album không được để trống");
+            txtSLAlbum.setBackground(Color.yellow);
+            txtSLAlbum.requestFocus();
+            return false; 
+        }
+        
+        try {
+            int slalbum = Integer.parseInt(txtSLAlbum.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Số lượng Album phải là số");
+            txtSLAlbum.setBackground(Color.yellow);
+            txtSLAlbum.requestFocus();
+            return false;  
+        }
+        
+         if (txtSLNhac.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Số lượng nhạc không được để trống");
+            txtSLNhac.setBackground(Color.yellow);
+            txtSLNhac.requestFocus();
+            return false; 
+        }
+         try {
+            int slnhac = Integer.parseInt(txtSLNhac.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Số lượng Nhạc phải là số");
+            txtSLNhac.setBackground(Color.yellow);
+            txtSLNhac.requestFocus();
+            return false;     
+        }
+         return true;
+    }
+    
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -661,7 +707,7 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -672,7 +718,7 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         QL.setOpaque(false);
@@ -681,10 +727,12 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         jPanel9.setOpaque(false);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("QUẢN LÝ NGHỆ SĨ");
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblName.setText("Tên nghệ sĩ:");
+        lblName.setForeground(new java.awt.Color(0, 0, 0));
+        lblName.setText("Tên nghệ sĩ");
 
         txtName.setBackground(new java.awt.Color(255, 145, 185));
 
@@ -696,10 +744,12 @@ public class Nghesi_frmAdmin extends javax.swing.JDialog {
         });
 
         lblTheloai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTheloai.setText("SL Album:");
+        lblTheloai.setForeground(new java.awt.Color(0, 0, 0));
+        lblTheloai.setText("SL Album");
 
         lblNhac.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNhac.setText("SL Nhạc:");
+        lblNhac.setForeground(new java.awt.Color(0, 0, 0));
+        lblNhac.setText("SL Nhạc");
 
         txtSLNhac.setBackground(new java.awt.Color(255, 145, 185));
         txtSLNhac.addActionListener(new java.awt.event.ActionListener() {

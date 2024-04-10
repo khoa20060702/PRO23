@@ -9,6 +9,7 @@ import com.swanmusic.entity.Album;
 import com.swanmusic.swing.ComponentResizer;
 import com.swanmusic.swing.ScrollBar;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -258,6 +259,61 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         new Album_frmAdmin(null,true).setVisible(true);
         
     }
+    
+     public boolean validate_data() {
+        if (txtName.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Tên Nhạc không được để trống");
+            txtName.setBackground(Color.yellow);
+            txtName.requestFocus();
+            return false; 
+        }
+        
+        
+         if (txtTheloai.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Thể loạikhông được để trống");
+            txtTheloai.setBackground(Color.yellow);
+            txtTheloai.requestFocus();
+            return false; 
+        }
+        
+          if (txtNghesi.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Nghệ sĩ không được để trống");
+            txtNghesi.setBackground(Color.yellow);
+            txtNghesi.requestFocus();
+            return false;
+        }
+          
+         if (txtTime.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Thời lượng không được để trống");
+            txtTime.setBackground(Color.yellow);
+            txtTime.requestFocus();
+            return false;
+        }
+
+         return true; 
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     @SuppressWarnings("unchecked")
@@ -666,7 +722,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -677,7 +733,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         QL.setOpaque(false);
@@ -686,10 +742,12 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         jPanel9.setOpaque(false);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("QUẢN LÝ ALBUM");
 
         lblTheloai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTheloai.setText("Thể loại:");
+        lblTheloai.setForeground(new java.awt.Color(0, 0, 0));
+        lblTheloai.setText("Thể loại");
 
         txtTheloai.setBackground(new java.awt.Color(255, 145, 185));
         txtTheloai.addActionListener(new java.awt.event.ActionListener() {
@@ -739,12 +797,14 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         });
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblName.setText("Tên album:");
+        lblName.setForeground(new java.awt.Color(0, 0, 0));
+        lblName.setText("Tên album");
 
         txtName.setBackground(new java.awt.Color(255, 145, 185));
 
         lblTime.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTime.setText("Thời gian phát hành:");
+        lblTime.setForeground(new java.awt.Color(0, 0, 0));
+        lblTime.setText("Thời gian phát hành");
 
         txtNghesi.setBackground(new java.awt.Color(255, 145, 185));
         txtNghesi.addActionListener(new java.awt.event.ActionListener() {
@@ -754,7 +814,8 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         });
 
         lblNghesi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNghesi.setText("Nghệ sĩ:");
+        lblNghesi.setForeground(new java.awt.Color(0, 0, 0));
+        lblNghesi.setText("Nghệ sĩ");
 
         txtTime.setBackground(new java.awt.Color(255, 145, 185));
         txtTime.addActionListener(new java.awt.event.ActionListener() {
@@ -778,14 +839,14 @@ public class Album_frmAdmin extends javax.swing.JDialog {
             pnlHinh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHinh2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlHinh2Layout.setVerticalGroup(
             pnlHinh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHinh2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

@@ -8,6 +8,7 @@ import com.swanmusic.ui.*;
 import com.swanmusic.entity.Nhac;
 import com.swanmusic.swing.ComponentResizer;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,6 +17,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Image;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
@@ -86,6 +90,8 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
                 mu.setCategory(rs.getString("THELOAI"));
                 mu.setAlbum(rs.getString("ALBUM"));
                 mu.setArtist(rs.getString("NGHESI"));
+                mu.setDura(rs.getString("THOILUONG"));
+                mu.setLyr(rs.getString("LOIBAIHAT"));
                 mu.setImage(rs.getString("ANH"));
                 list.add(mu);
             }
@@ -120,12 +126,14 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
              String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
+             if(validate_data()){
                  upImage(imageName);
-             PreparedStatement ps = con.prepareCall("insert into Nhac values(?,?,?,?,?)");
+             PreparedStatement ps = con.prepareCall("insert into Nhac values(?,?,?,?,?,?,?)");
              ps.setString(1, txtName.getText());
              ps.setString(3,txtAlbum.getText());
              ps.setString(4, txtNghesi.getText());
              ps.setString(5, imageName);
+             ps.setString(6,txtThoiLuong.getText());
              ps.setString(2,txtTheloai.getText());
              int kq = ps.executeUpdate();
              if(kq == 1){
@@ -137,6 +145,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
              ps.close();
             con.close();
             load_data();
+             }
          } catch (Exception e) {
              e.printStackTrace();
          }
@@ -178,6 +187,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
              String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
+             if(validate_data()){
              upImage(imageName);
              PreparedStatement ps = con.prepareCall("update Nhac set THELOAI = ?, ALBUM=?, NGHESI=?, ANH=? where TENNHAC = ?");
              ps.setString(1, txtTheloai.getText());
@@ -197,9 +207,11 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
              else{
                  JOptionPane.showMessageDialog(this, "Lưu không thành công");
              }
-            ps.close();
+             ps.close();
             con.close();
             load_data();
+             }
+        
          } catch (Exception e) {
              e.printStackTrace();
          }
@@ -266,6 +278,43 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
     }
     
     
+        
+     public boolean validate_data() {
+        if (txtName.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Tên Nhạc không được để trống");
+            txtName.setBackground(Color.yellow);
+            txtName.requestFocus();
+            return false; 
+        }
+        
+        
+
+        if (txtAlbum.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Album không được để trống");
+            txtAlbum.setBackground(Color.yellow);
+            txtAlbum.requestFocus();
+            return false; 
+        }
+        
+         if (txtNghesi.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Tên nghệ sĩ không được để trống");
+            txtNghesi.setBackground(Color.yellow);
+            txtNghesi.requestFocus();
+            return false; 
+        }
+        
+          if (txtTheloai.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Thể loại không được để trống");
+            txtTheloai.setBackground(Color.yellow);
+            txtTheloai.requestFocus();
+            return false;
+        }
+
+         return true; 
+    }
+    
+
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -319,6 +368,8 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         btnThem = new javax.swing.JButton();
         btnMoi = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
+        lblThoiLuong = new javax.swing.JLabel();
+        txtThoiLuong = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         lblTieude = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -672,7 +723,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -683,7 +734,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         QL.setOpaque(false);
@@ -692,10 +743,12 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         jPanel9.setOpaque(false);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("QUẢN LÝ NHẠC");
 
         lblTheloai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTheloai.setText("Thể loại:");
+        lblTheloai.setForeground(new java.awt.Color(0, 0, 0));
+        lblTheloai.setText("Thể loại");
 
         txtTheloai.setBackground(new java.awt.Color(255, 145, 185));
         txtTheloai.addActionListener(new java.awt.event.ActionListener() {
@@ -705,12 +758,14 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         });
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblName.setText("Tên nhạc:");
+        lblName.setForeground(new java.awt.Color(0, 0, 0));
+        lblName.setText("Tên nhạc");
 
         txtName.setBackground(new java.awt.Color(255, 145, 185));
 
         lblAlbum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblAlbum.setText("Album:");
+        lblAlbum.setForeground(new java.awt.Color(0, 0, 0));
+        lblAlbum.setText("Album");
 
         txtNghesi.setBackground(new java.awt.Color(255, 145, 185));
         txtNghesi.addActionListener(new java.awt.event.ActionListener() {
@@ -720,7 +775,8 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         });
 
         lblNghesi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNghesi.setText("Nghệ sĩ:");
+        lblNghesi.setForeground(new java.awt.Color(0, 0, 0));
+        lblNghesi.setText("Nghệ sĩ");
 
         txtAlbum.setBackground(new java.awt.Color(255, 145, 185));
         txtAlbum.addActionListener(new java.awt.event.ActionListener() {
@@ -794,46 +850,61 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
             }
         });
 
+        lblThoiLuong.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblThoiLuong.setForeground(new java.awt.Color(0, 0, 0));
+        lblThoiLuong.setText("Thời lượng");
+
+        txtThoiLuong.setBackground(new java.awt.Color(255, 145, 185));
+        txtThoiLuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtThoiLuongActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(lblName))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(102, 102, 102)
+                        .addComponent(btnThem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnXoa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSua)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnMoi))
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addContainerGap()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(btnThem)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnXoa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSua)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnMoi))
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblAlbum)
-                                .addComponent(lblNghesi)
-                                .addComponent(txtAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblTheloai)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(384, 384, 384))))
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblAlbum)
+                                    .addComponent(lblNghesi)
+                                    .addComponent(txtAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblTheloai)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                                .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblName)
+                            .addComponent(txtThoiLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblThoiLuong))))
+                .addGap(69, 69, 69))
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lblName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -843,22 +914,28 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
                         .addComponent(lblTheloai)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAlbum)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblNghesi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)))
+                .addComponent(lblThoiLuong)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtThoiLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnXoa)
                     .addComponent(btnThem)
                     .addComponent(btnSua)
                     .addComponent(btnMoi))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         QL.add(jPanel9, "cardChinhSua1");
@@ -946,7 +1023,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLast)
                         .addGap(15, 15, 15)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -961,7 +1038,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
                     .addComponent(btnPrev)
                     .addComponent(btnNext)
                     .addComponent(btnLast))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         QL.add(jPanel8, "cardChinhSua2");
@@ -990,7 +1067,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
             panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(QL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(QL, javax.swing.GroupLayout.DEFAULT_SIZE, 991, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(panel4Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
@@ -1020,7 +1097,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         main.setLayout(mainLayout);
         mainLayout.setHorizontalGroup(
             mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 1015, Short.MAX_VALUE)
+            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
         );
         mainLayout.setVerticalGroup(
             mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1138,6 +1215,10 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
         this.openAlbum();
     }//GEN-LAST:event_jButton15ActionPerformed
 
+    private void txtThoiLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtThoiLuongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtThoiLuongActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1223,6 +1304,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNghesi;
     private javax.swing.JLabel lblTheloai;
+    private javax.swing.JLabel lblThoiLuong;
     private javax.swing.JLabel lblTieude;
     private javax.swing.JLabel lblhinh;
     private javax.swing.JPanel main;
@@ -1240,6 +1322,7 @@ public class nhac_frmAdmin extends javax.swing.JDialog {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNghesi;
     private javax.swing.JTextField txtTheloai;
+    private javax.swing.JTextField txtThoiLuong;
     private javax.swing.JPanel yourLibrary;
     // End of variables declaration//GEN-END:variables
 }
