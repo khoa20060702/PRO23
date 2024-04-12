@@ -6,6 +6,7 @@ package com.swanmusic.ui;
 
 import com.swanmusic.entity.Nhac;
 import com.swanmusic.swing.*;
+import static com.swanmusic.ui.dangnhapJDialog.main;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +37,7 @@ import javazoom.jl.player.Player;
 import org.apache.commons.lang3.StringUtils;
 
 public class NgheSi extends javax.swing.JDialog {
+    public boolean forgot = false;
     public String data1;
     public List<String> listAlbumName = new ArrayList<>();
     public List<String> listAlbumArtist = new ArrayList<>();
@@ -195,8 +197,31 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         initComponents();
         customSplitpaneUI();
         getSongs();
+        Image image = icons[0].getImage();
+        ImageIcon newscale = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+        Artistimglbl.setIcon(newscale);
         ArtistNamelbl.setText(String.valueOf(data1));
+        if(listSongName.get(0) != null && listSongDura.get(0) != null )
+        {
         lblName7.setText(listSongName.get(0));
+        lblUser15.setText(listSongDura.get(0));     
+        
+        }
+        else
+        {
+        lblName7.setVisible(false);
+        lblUser15.setVisible(false);              
+        }
+//        if(listSongName.get(1) != null && listSongDura.get(1) != null )
+//        {
+//        lblName8.setText(listSongName.get(1));
+//        lblUser16.setText(listSongDura.get(1));            
+//        }
+//        else
+//        {
+//        lblName8.setVisible(false);
+//        lblUser16.setVisible(false);              
+//        }
     }
     public void getSongs()
     {
@@ -1251,8 +1276,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel53Layout.setHorizontalGroup(
             jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel53Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(Artistimglbl, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(Artistimglbl, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ArtistNamelbl)
@@ -1262,14 +1287,12 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel53Layout.setVerticalGroup(
             jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel53Layout.createSequentialGroup()
-                .addGroup(jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Artistimglbl, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                    .addGroup(jPanel53Layout.createSequentialGroup()
-                        .addGap(0, 14, Short.MAX_VALUE)
-                        .addComponent(ArtistNamelbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 14, Short.MAX_VALUE)
+                .addComponent(ArtistNamelbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
+            .addComponent(Artistimglbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel28.setBackground(new java.awt.Color(255, 153, 153));
@@ -1627,10 +1650,26 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+            }
+        Main mai = new Main();
+            this.setVisible(false);
+            mai.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+//            if(player != null)
+//            {
+//                player.close();
+//                timer.stop();
+//            }
+//            com.swanmusic.ui.Main_Search sc = new com.swanmusic.ui.Main_Search(main, forgot);
+//            Main_Search mai = new Main_Search(this, forgot);
+//            this.setVisible(false);
+//            mai.setVisible(true);   
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

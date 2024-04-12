@@ -212,6 +212,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         ImageIcon newscale = new ImageIcon(image.getScaledInstance(Albumimglbl.getWidth(), Albumimglbl.getHeight(), image.SCALE_SMOOTH));
         Albumimglbl.setIcon(newscale);
         getSongs();
+        
         lblName7.setText(listSongName.get(0));
         lblName8.setText(listSongName.get(1));
         lblName9.setText(listSongName.get(2));
