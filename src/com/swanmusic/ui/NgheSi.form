@@ -42,16 +42,16 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="jPanel37" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                  <Component id="Songimglbl" min="-2" pref="87" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="Artistlbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="SongNamelbl" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
                   <Component id="jPanel40" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                   <Component id="jLabel47" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSlider2" min="-2" pref="129" max="-2" attributes="0"/>
@@ -62,22 +62,6 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jPanel37" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel40" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jSlider2" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
@@ -85,26 +69,29 @@
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="Songimglbl" pref="77" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jPanel40" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="SongNamelbl" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="Artistlbl" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanel37">
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="89" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-        </Container>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="SongNamelbl">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="1"/>
@@ -116,8 +103,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JSlider" name="jSlider2">
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSlider2StateChanged"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="Artistlbl">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
@@ -144,7 +134,7 @@
                               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                               <Component id="jSlider1" min="-2" pref="422" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                              <Component id="TotalTimelbl" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
@@ -178,7 +168,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jSlider1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="TotalTimelbl" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -211,10 +201,17 @@
                   <Image iconType="3" name="/com.swanmusic.icon/play-white.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSlider" name="jSlider1">
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSlider1StateChanged"/>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jSlider1MouseReleased"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel15">
+            <Component class="javax.swing.JLabel" name="TotalTimelbl">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -289,6 +286,8 @@
               <Image iconType="3" name="/com.swanmusic.icon/loudspeaker-white.png"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Songimglbl">
         </Component>
       </SubComponents>
     </Container>
@@ -1732,50 +1731,35 @@
                                                         <DimensionLayout dim="0">
                                                           <Group type="103" groupAlignment="0" attributes="0">
                                                               <Group type="102" alignment="0" attributes="0">
-                                                                  <EmptySpace max="-2" attributes="0"/>
-                                                                  <Component id="panelTron1" min="-2" max="-2" attributes="0"/>
-                                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                                                  <Component id="Artistimglbl" min="-2" pref="87" max="-2" attributes="0"/>
+                                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="ArtistNamelbl" min="-2" max="-2" attributes="0"/>
                                                                       <Component id="jButton4" min="-2" pref="115" max="-2" attributes="0"/>
                                                                   </Group>
-                                                                  <EmptySpace max="32767" attributes="0"/>
+                                                                  <EmptySpace pref="482" max="32767" attributes="0"/>
                                                               </Group>
                                                           </Group>
                                                         </DimensionLayout>
                                                         <DimensionLayout dim="1">
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Group type="102" attributes="0">
-                                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Component id="panelTron1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                                      <Group type="102" alignment="1" attributes="0">
-                                                                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                                              <Group type="102" alignment="1" attributes="0">
+                                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                                      <Component id="Artistimglbl" pref="88" max="32767" attributes="0"/>
+                                                                      <Group type="102" attributes="0">
+                                                                          <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
+                                                                          <Component id="ArtistNamelbl" min="-2" max="-2" attributes="0"/>
                                                                           <EmptySpace max="-2" attributes="0"/>
                                                                           <Component id="jButton4" min="-2" pref="36" max="-2" attributes="0"/>
-                                                                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                                                       </Group>
                                                                   </Group>
+                                                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                                               </Group>
                                                           </Group>
                                                         </DimensionLayout>
                                                       </Layout>
                                                       <SubComponents>
-                                                        <Container class="com.swanmusic.swing.PanelTron" name="panelTron1">
-
-                                                          <Layout>
-                                                            <DimensionLayout dim="0">
-                                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                                  <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
-                                                              </Group>
-                                                            </DimensionLayout>
-                                                            <DimensionLayout dim="1">
-                                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                                  <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
-                                                              </Group>
-                                                            </DimensionLayout>
-                                                          </Layout>
-                                                        </Container>
                                                         <Component class="javax.swing.JButton" name="jButton4">
                                                           <Properties>
                                                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1794,7 +1778,7 @@
                                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
                                                           </Events>
                                                         </Component>
-                                                        <Component class="javax.swing.JLabel" name="jLabel18">
+                                                        <Component class="javax.swing.JLabel" name="ArtistNamelbl">
                                                           <Properties>
                                                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                                               <Font name="Segoe UI" size="24" style="1"/>
@@ -1804,6 +1788,8 @@
                                                             </Property>
                                                             <Property name="text" type="java.lang.String" value="T&#xca;N NGH&#x1ec6; S&#x128;"/>
                                                           </Properties>
+                                                        </Component>
+                                                        <Component class="javax.swing.JLabel" name="Artistimglbl">
                                                         </Component>
                                                       </SubComponents>
                                                     </Container>
@@ -1915,7 +1901,7 @@
                                                                   </Group>
                                                                   <Group type="102" alignment="1" attributes="0">
                                                                       <EmptySpace max="-2" attributes="0"/>
-                                                                      <Component id="jPanel22" pref="0" max="32767" attributes="0"/>
+                                                                      <Component id="jPanel22" pref="736" max="32767" attributes="0"/>
                                                                       <EmptySpace max="-2" attributes="0"/>
                                                                   </Group>
                                                               </Group>
@@ -2124,6 +2110,9 @@
                                                                                 </Property>
                                                                                 <Property name="text" type="java.lang.String" value="M&#xe2;y h&#x1ed3;ng &#x111;&#x1b0;a l&#x1ed1;i"/>
                                                                               </Properties>
+                                                                              <Events>
+                                                                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblName7MouseClicked"/>
+                                                                              </Events>
                                                                             </Component>
                                                                             <Component class="javax.swing.JLabel" name="lblUser7">
                                                                               <Properties>

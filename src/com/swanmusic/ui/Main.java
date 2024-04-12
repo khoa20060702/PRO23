@@ -44,6 +44,7 @@ import javax.sound.sampled.Mixer;
 import javax.swing.ImageIcon;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
+import org.apache.commons.lang3.StringUtils;
 public class Main extends javax.swing.JFrame {
     public static chitietAlbum_User album;
      boolean forgot = false;
@@ -62,7 +63,7 @@ public class Main extends javax.swing.JFrame {
     public List<String> listSongPic = new ArrayList<>();
     
     public ImageIcon[] icons = new ImageIcon[100];
-    boolean a = false;
+
     boolean running = false;
     boolean paused = false;
     boolean shuffle = false;
@@ -87,11 +88,14 @@ public class Main extends javax.swing.JFrame {
     long time;
     boolean loop = false;
     private int buffer;
+    private Timer timer;
+    private Timer timer1;
+    private int counter = 0;
     public List<String> listLyrics = new ArrayList<>();
     /**
      * Creates new form NewJFrame
      */
-    ArrayList<Nhac> list = new ArrayList();
+    ArrayList<Nhac> list = new ArrayList();    
 
     public void pauseSong() throws IOException, InterruptedException {
         pause = fi.available();
@@ -107,17 +111,47 @@ public class Main extends javax.swing.JFrame {
         runningThread.start();
     }
 
+private boolean isStreamOpen = false;
+
+// Modify your play Runnable:
     private Runnable play = new Runnable() {
         @Override
         public void run() {
-            f = new File(songdir+cursong+".mp3");
+            f = new File(songdir+StringUtils.deleteWhitespace(cursong)+".mp3");
             try {
                 fi = new FileInputStream(f);
                 bi = new BufferedInputStream(fi);
                 player = new Player(bi);
                 totalTime = fi.available();
-                System.out.println(totalTime);
-                System.out.println(cursong);
+    timer = new Timer(1000, new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (player != null && !player.isComplete()) {
+            long current = 0;
+            try {
+                current =  totalTime - fi.available();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            int percent = (int) (((double) current / (double) totalTime) * 100);
+            slider2.setValue(percent);
+        }
+    }
+});
+    timer.start();  
+//    timer1 = new Timer(1000, new ActionListener() {
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        if (player != null && !player.isComplete()) {
+//            counter[0]++;
+//            int seconds = counter[0] % 60;
+//            int minutes = counter[0] / 60;
+//            
+//            Timelbl.setText(String.format("%02d:%02d", minutes, seconds));
+//        }
+//    }
+//});
+//timer1.start();
                 if (pause <= -1) {
                     player.play();
                 } else {
@@ -184,8 +218,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 listAlbumCate.add(rs.getString("THELOAI"));
                 al.setAlbumArtist(rs.getString("TG_PHATHANH"));
                 listAlbumArtist.add(rs.getString("TG_PHATHANH"));
-                al.setAlbumCategory(rs.getString("ANH"));
-                listAlbumCate.add(rs.getString("ANH"));
+                al.setAlbumImage(rs.getString("ANH"));
+                listAlbumPic.add(rs.getString("ANH"));
                   i++;
             }
             rs.close();
@@ -252,13 +286,13 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         Songlbl3.setText(listSongName.get(2));
         Songlbl4.setText(listSongName.get(3));
         Songlbl5.setText(listSongName.get(4));
-//        Songlbl6.setText(listSongName.get(5));
+        Songlbl6.setText(listSongName.get(5));
         Artistlbl1.setText(listSongArtist.get(0));
         Artistlbl2.setText(listSongArtist.get(1));
         Artistlbl3.setText(listSongArtist.get(2));
         Artistlbl4.setText(listSongArtist.get(3));
         Artistlbl5.setText(listSongArtist.get(4));
-//        Artistlbl6.setText(listSongArtist.get(5));
+        Artistlbl6.setText(listSongArtist.get(5));
         Imglbl1.setIcon(icons[0]);
         Imglbl2.setIcon(icons[1]);
         Imglbl3.setIcon(icons[2]);
@@ -295,13 +329,12 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         jButton2 = new javax.swing.JButton();
         musicPlayer = new javax.swing.JPanel();
-        jPanel37 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        SongNamelbl = new javax.swing.JLabel();
+        Artistlbl = new javax.swing.JLabel();
         jPanel40 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        TotalTimelbl = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -309,6 +342,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         slider2 = new com.swanmusic.swing.Slider();
         jLabel47 = new javax.swing.JLabel();
         slider1 = new com.swanmusic.swing.Slider();
+        Songimglbl = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         btnClose = new javax.swing.JPanel();
@@ -470,24 +504,13 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         musicPlayer.setBackground(new java.awt.Color(0, 0, 0));
         musicPlayer.setPreferredSize(new java.awt.Dimension(1242, 90));
 
-        javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
-        jPanel37.setLayout(jPanel37Layout);
-        jPanel37Layout.setHorizontalGroup(
-            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 83, Short.MAX_VALUE)
-        );
-        jPanel37Layout.setVerticalGroup(
-            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        SongNamelbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        SongNamelbl.setForeground(new java.awt.Color(255, 255, 255));
+        SongNamelbl.setText("TÊN BÀI NHẠC");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("TÊN BÀI NHẠC");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(122, 122, 122));
-        jLabel4.setText("TÊN TÁC GIẢ");
+        Artistlbl.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        Artistlbl.setForeground(new java.awt.Color(122, 122, 122));
+        Artistlbl.setText("TÊN TÁC GIẢ");
 
         jPanel40.setOpaque(false);
 
@@ -504,9 +527,9 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             }
         });
 
-        jLabel15.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("00:00");
+        TotalTimelbl.setBackground(new java.awt.Color(255, 255, 255));
+        TotalTimelbl.setForeground(new java.awt.Color(255, 255, 255));
+        TotalTimelbl.setText("00:00");
 
         jLabel16.setBackground(new java.awt.Color(255, 255, 255));
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -531,6 +554,16 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         slider2.setToolTipText("");
         slider2.setValue(0);
+        slider2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                slider2StateChanged(evt);
+            }
+        });
+        slider2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                slider2MouseReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
         jPanel40.setLayout(jPanel40Layout);
@@ -544,7 +577,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(slider2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel15))
+                        .addComponent(TotalTimelbl))
                     .addGroup(jPanel40Layout.createSequentialGroup()
                         .addGap(106, 106, 106)
                         .addComponent(jLabel13)
@@ -574,7 +607,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel16)
-                        .addComponent(jLabel15))
+                        .addComponent(TotalTimelbl))
                     .addComponent(slider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,48 +620,50 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         slider1.setToolTipText("");
         slider1.setValue(0);
+        slider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                slider1StateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout musicPlayerLayout = new javax.swing.GroupLayout(musicPlayer);
         musicPlayer.setLayout(musicPlayerLayout);
         musicPlayerLayout.setHorizontalGroup(
             musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, musicPlayerLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(92, 92, 92)
+                .addComponent(Songimglbl, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
-                .addGap(144, 144, 144)
+                    .addComponent(Artistlbl)
+                    .addComponent(SongNamelbl))
+                .addGap(92, 92, 92)
                 .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(152, 152, 152)
                 .addComponent(jLabel47)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(slider1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(142, 142, 142))
+                .addGap(33, 33, 33))
         );
         musicPlayerLayout.setVerticalGroup(
             musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(musicPlayerLayout.createSequentialGroup()
                 .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(musicPlayerLayout.createSequentialGroup()
-                        .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(musicPlayerLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(musicPlayerLayout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel4))
-                                    .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(musicPlayerLayout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(slider1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 8, Short.MAX_VALUE))
-                    .addComponent(jPanel37, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addGap(28, 28, 28)
+                        .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(slider1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(musicPlayerLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Songimglbl, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, musicPlayerLayout.createSequentialGroup()
+                                .addComponent(SongNamelbl)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Artistlbl))
+                            .addComponent(jPanel40, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         getContentPane().add(musicPlayer, java.awt.BorderLayout.PAGE_END);
@@ -719,7 +754,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         );
         paddingWestLayout.setVerticalGroup(
             paddingWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 562, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
         );
 
         getContentPane().add(paddingWest, java.awt.BorderLayout.LINE_START);
@@ -735,7 +770,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         );
         paddingEastLayout.setVerticalGroup(
             paddingEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 562, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
         );
 
         getContentPane().add(paddingEast, java.awt.BorderLayout.LINE_END);
@@ -761,7 +796,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGap(0, 193, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -777,7 +812,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGap(0, 193, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -793,11 +828,11 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         panel4.setLayout(panel4Layout);
         panel4Layout.setHorizontalGroup(
             panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGap(0, 193, Short.MAX_VALUE)
         );
         panel4Layout.setVerticalGroup(
             panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 542, Short.MAX_VALUE)
+            .addGap(0, 550, Short.MAX_VALUE)
         );
 
         information.add(panel4, java.awt.BorderLayout.CENTER);
@@ -816,7 +851,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGap(0, 193, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -832,7 +867,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGap(0, 193, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -860,7 +895,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             .addGroup(panel6Layout.createSequentialGroup()
                 .addGap(133, 133, 133)
                 .addComponent(jButton11)
-                .addContainerGap(386, Short.MAX_VALUE))
+                .addContainerGap(394, Short.MAX_VALUE))
         );
 
         waitingList.add(panel6, java.awt.BorderLayout.CENTER);
@@ -1148,7 +1183,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 .addComponent(Albumlbl5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Albumlbl6)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         yourLibrary.add(panel3, java.awt.BorderLayout.CENTER);
@@ -1328,7 +1363,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 462, Short.MAX_VALUE)
+            .addGap(0, 470, Short.MAX_VALUE)
         );
 
         jPanel16.add(jPanel18, java.awt.BorderLayout.LINE_START);
@@ -1344,7 +1379,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 462, Short.MAX_VALUE)
+            .addGap(0, 470, Short.MAX_VALUE)
         );
 
         jPanel16.add(jPanel19, java.awt.BorderLayout.LINE_END);
@@ -1533,8 +1568,24 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         Songlbl1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl1.setText("Tiêu đề");
+        Songlbl1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Songlbl1MouseClicked(evt);
+            }
+        });
 
         Artistlbl1.setText("mhgbnfm.......");
+        Artistlbl1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Artistlbl1MouseClicked(evt);
+            }
+        });
+
+        Imglbl1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Imglbl1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
         jPanel43.setLayout(jPanel43Layout);
@@ -1623,8 +1674,24 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         Songlbl2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl2.setText("Tiêu đề");
+        Songlbl2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Songlbl2MouseClicked(evt);
+            }
+        });
 
         Artistlbl2.setText("mhgbnfm.......");
+        Artistlbl2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Artistlbl2MouseClicked(evt);
+            }
+        });
+
+        Imglbl2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Imglbl2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel84Layout = new javax.swing.GroupLayout(jPanel84);
         jPanel84.setLayout(jPanel84Layout);
@@ -1713,8 +1780,24 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         Songlbl3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl3.setText("Tiêu đề");
+        Songlbl3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Songlbl3MouseClicked(evt);
+            }
+        });
 
         Artistlbl3.setText("mhgbnfm.......");
+        Artistlbl3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Artistlbl3MouseClicked(evt);
+            }
+        });
+
+        Imglbl3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Imglbl3MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel89Layout = new javax.swing.GroupLayout(jPanel89);
         jPanel89.setLayout(jPanel89Layout);
@@ -1933,8 +2016,24 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         Songlbl4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl4.setText("Tiêu đề");
+        Songlbl4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Songlbl4MouseClicked(evt);
+            }
+        });
 
         Artistlbl4.setText("mhgbnfm.......");
+        Artistlbl4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Artistlbl4MouseClicked(evt);
+            }
+        });
+
+        Imglbl4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Imglbl4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel120Layout = new javax.swing.GroupLayout(jPanel120);
         jPanel120.setLayout(jPanel120Layout);
@@ -2038,8 +2137,24 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         Songlbl5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl5.setText("Tiêu đề");
+        Songlbl5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Songlbl5MouseClicked(evt);
+            }
+        });
 
         Artistlbl5.setText("mhgbnfm.......");
+        Artistlbl5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Artistlbl5MouseClicked(evt);
+            }
+        });
+
+        Imglbl5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Imglbl5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel99Layout = new javax.swing.GroupLayout(jPanel99);
         jPanel99.setLayout(jPanel99Layout);
@@ -2143,8 +2258,24 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         Songlbl6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Songlbl6.setText("Tiêu đề");
+        Songlbl6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Songlbl6MouseClicked(evt);
+            }
+        });
 
         Artistlbl6.setText("mhgbnfm.......");
+        Artistlbl6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Artistlbl6MouseClicked(evt);
+            }
+        });
+
+        Imglbl6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Imglbl6MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel104Layout = new javax.swing.GroupLayout(jPanel104);
         jPanel104.setLayout(jPanel104Layout);
@@ -2386,7 +2517,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
         );
 
         jPanel16.add(jPanel20, java.awt.BorderLayout.CENTER);
@@ -2405,7 +2536,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 562, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
         );
 
         main.add(jPanel1, "card5");
@@ -2428,116 +2559,90 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
             Main_Search mai = new Main_Search(this, forgot);
             this.setVisible(false);
             mai.setVisible(true);        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void Albumlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl1MouseClicked
-            String data = listAlbumName.get(0);
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data);
+            String data1 = listAlbumName.get(0);
+            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl1MouseClicked
 
     private void Albumlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl2MouseClicked
-        // TODO add your handling code here:
-            String data = listAlbumName.get(0);
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data);
+            String data1 = listAlbumName.get(1);
+            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(1));
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl2MouseClicked
 
     private void Albumlbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl3MouseClicked
         // TODO add your handling code here:
-            String data = listAlbumName.get(2);
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data);
+            String data1 = listAlbumName.get(2);
+            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(2));
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl3MouseClicked
 
     private void Albumlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl4MouseClicked
         // TODO add your handling code here:
-            String data = listAlbumName.get(3);
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data);
+            String data1 = listAlbumName.get(3);
+            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl4MouseClicked
 
     private void Albumlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl5MouseClicked
         // TODO add your handling code here:
-            String data = listAlbumName.get(4);
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data);
+            String data1 = listAlbumName.get(4);
+            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(4));
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl5MouseClicked
 
     private void Albumlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl6MouseClicked
         // TODO add your handling code here:
-            String data = listAlbumName.get(5);
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data);
+            String data1 = listAlbumName.get(5);
+            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(5));
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl6MouseClicked
 
     private void jPanel43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel43MouseClicked
         // TODO add your handling code here:
-            String data1 = listSongName.get(0);
-            String data2 = listSongDura.get(0);
-            ImageIcon data3 = icons[0];
-            String data4 = listSongLyr.get(0);
-            String data5 = listSongArtist.get(0);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);
+
     }//GEN-LAST:event_jPanel43MouseClicked
 
     private void jPanel84MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel84MouseClicked
-        // TODO add your handling code here:
-            String data1 = listSongName.get(1);
-            String data2 = listSongDura.get(1);
-            ImageIcon data3 = icons[1];
-            String data4 = listSongLyr.get(1);
-            String data5 = listSongArtist.get(1);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);        
+        // TODO add your handling code here:        
     }//GEN-LAST:event_jPanel84MouseClicked
 
     private void jPanel89MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel89MouseClicked
         // TODO add your handling code here:
-            String data1 = listSongName.get(2);
-            String data2 = listSongDura.get(2);
-            ImageIcon data3 = icons[2];
-            String data4 = listSongLyr.get(2);
-            String data5 = listSongArtist.get(2);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);     
+    
     }//GEN-LAST:event_jPanel89MouseClicked
 
     private void jPanel120MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel120MouseClicked
         // TODO add your handling code here:
-            String data1 = listSongName.get(3);
-            String data2 = listSongDura.get(3);
-            ImageIcon data3 = icons[3];
-            String data4 = listSongLyr.get(3);
-            String data5 = listSongArtist.get(3);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);  
+ 
     }//GEN-LAST:event_jPanel120MouseClicked
 
     private void jPanel99MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel99MouseClicked
         // TODO add your handling code here:
-            String data1 = listSongName.get(4);
-            String data2 = listSongDura.get(4);
-            ImageIcon data3 = icons[4];
-            String data4 = listSongLyr.get(4);
-            String data5 = listSongArtist.get(4);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);  
+  
     }//GEN-LAST:event_jPanel99MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -2646,6 +2751,399 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         this.setExtendedState(Main.ICONIFIED);
     }//GEN-LAST:event_btnMinimizeMouseClicked
 
+    private void Songlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl1MouseClicked
+        // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            String data1 = listSongName.get(0);
+            String data2 = listSongDura.get(0);
+            ImageIcon data3 = icons[0];
+            String data4 = listSongLyr.get(0);
+            String data5 = listSongArtist.get(0);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Songlbl1MouseClicked
+
+    private void Artistlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl1MouseClicked
+        // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            String data1 = listSongArtist.get(0);
+            NgheSi mai = new NgheSi(this, forgot , data1);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Artistlbl1MouseClicked
+
+    private void Imglbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl1MouseClicked
+        // TODO add your handling code here:
+        if(running)
+        {
+            player.close();
+            running = false;
+            paused = false;
+            cursong = listSongName.get(0);
+            SongNamelbl.setText(listSongName.get(0));
+            Artistlbl.setText(listSongArtist.get(0));
+            Image image = icons[0].getImage();
+            icons[0] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[0]);
+            TotalTimelbl.setText(listSongDura.get(0));
+        }
+        else
+        {
+            cursong = listSongName.get(0);
+            SongNamelbl.setText(listSongName.get(0));
+            Artistlbl.setText(listSongArtist.get(0));
+            Image image = icons[0].getImage();
+            icons[0] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[0]);
+            TotalTimelbl.setText(listSongDura.get(0));
+        }
+    }//GEN-LAST:event_Imglbl1MouseClicked
+
+    private void Imglbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl2MouseClicked
+        // TODO add your handling code here:
+        if(running)
+        {
+            player.close();
+            running = false;
+            paused = false;
+            cursong = listSongName.get(1);
+            SongNamelbl.setText(listSongName.get(1));
+            Artistlbl.setText(listSongArtist.get(1));
+            Image image = icons[1].getImage();
+            icons[1] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[1]);
+            TotalTimelbl.setText(listSongDura.get(1));
+        }
+        else
+        {
+            cursong = listSongName.get(1);
+            SongNamelbl.setText(listSongName.get(1));
+            Artistlbl.setText(listSongArtist.get(1));
+            Image image = icons[1].getImage();
+            icons[1] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[1]);
+            TotalTimelbl.setText(listSongDura.get(1));
+        }
+    }//GEN-LAST:event_Imglbl2MouseClicked
+
+    private void Imglbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl3MouseClicked
+        // TODO add your handling code here:
+        if(running)
+        {
+            player.close();
+            running = false;
+            paused = false;
+            cursong = listSongName.get(2);
+            SongNamelbl.setText(listSongName.get(2));
+            Artistlbl.setText(listSongArtist.get(2));
+            Image image = icons[2].getImage();
+            icons[2] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[2]);
+            TotalTimelbl.setText(listSongDura.get(2));
+        }
+        else
+        {
+            cursong = listSongName.get(2);
+            SongNamelbl.setText(listSongName.get(2));
+            Artistlbl.setText(listSongArtist.get(2));
+            Image image = icons[2].getImage();
+            icons[2] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[2]);
+            TotalTimelbl.setText(listSongDura.get(2));
+        }
+    }//GEN-LAST:event_Imglbl3MouseClicked
+
+    private void Imglbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl4MouseClicked
+        // TODO add your handling code here:
+        if(running)
+        {
+            player.close();
+            running = false;
+            paused = false;
+            cursong = listSongName.get(3);
+            SongNamelbl.setText(listSongName.get(3));
+            Artistlbl.setText(listSongArtist.get(3));
+            Image image = icons[3].getImage();
+            icons[3] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[3]);
+            TotalTimelbl.setText(listSongDura.get(3));
+        }
+        else
+        {
+            cursong = listSongName.get(3);
+            SongNamelbl.setText(listSongName.get(3));
+            Artistlbl.setText(listSongArtist.get(3));
+            Image image = icons[3].getImage();
+            icons[3] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[3]);
+            TotalTimelbl.setText(listSongDura.get(3));
+        }
+    }//GEN-LAST:event_Imglbl4MouseClicked
+
+    private void Imglbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl5MouseClicked
+        // TODO add your handling code here:
+        if(running)
+        {
+            player.close();
+            running = false;
+            paused = false;
+            cursong = listSongName.get(4);
+            SongNamelbl.setText(listSongName.get(4));
+            Artistlbl.setText(listSongArtist.get(4));
+            Image image = icons[4].getImage();
+            icons[4] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[4]);
+            TotalTimelbl.setText(listSongDura.get(4));
+        }
+        else
+        {
+            cursong = listSongName.get(4);
+            SongNamelbl.setText(listSongName.get(4));
+            Artistlbl.setText(listSongArtist.get(4));
+            Image image = icons[4].getImage();
+            icons[4] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[4]);
+            TotalTimelbl.setText(listSongDura.get(4));
+        }
+    }//GEN-LAST:event_Imglbl5MouseClicked
+
+    private void Imglbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl6MouseClicked
+        // TODO add your handling code here:
+        if(running)
+        {
+            player.close();
+            running = false;
+            paused = false;
+            cursong = listSongName.get(5);
+            SongNamelbl.setText(listSongName.get(5));
+            Artistlbl.setText(listSongArtist.get(5));
+            Image image = icons[5].getImage();
+            icons[5] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[5]);
+            TotalTimelbl.setText(listSongDura.get(5));
+        }
+        else
+        {
+            cursong = listSongName.get(5);
+            SongNamelbl.setText(listSongName.get(5));
+            Artistlbl.setText(listSongArtist.get(5));
+            Image image = icons[5].getImage();
+            icons[5] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[5]);
+            TotalTimelbl.setText(listSongDura.get(5));
+        }
+    }//GEN-LAST:event_Imglbl6MouseClicked
+
+    private void Songlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl2MouseClicked
+        // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            String data1 = listSongName.get(1);
+            String data2 = listSongDura.get(1);
+            ImageIcon data3 = icons[1];
+            String data4 = listSongLyr.get(1);
+            String data5 = listSongArtist.get(1);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Songlbl2MouseClicked
+
+    private void Artistlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl2MouseClicked
+        // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            String data1 = listSongName.get(1);
+            String data2 = listSongDura.get(1);
+            ImageIcon data3 = icons[1];
+            String data4 = listSongLyr.get(1);
+            String data5 = listSongArtist.get(1);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Artistlbl2MouseClicked
+
+    private void Songlbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl3MouseClicked
+        // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            String data1 = listSongName.get(2);
+            String data2 = listSongDura.get(2);
+            ImageIcon data3 = icons[2];
+            String data4 = listSongLyr.get(2);
+            String data5 = listSongArtist.get(2);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Songlbl3MouseClicked
+
+    private void Artistlbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl3MouseClicked
+        // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            String data1 = listSongName.get(2);
+            String data2 = listSongDura.get(2);
+            ImageIcon data3 = icons[2];
+            String data4 = listSongLyr.get(2);
+            String data5 = listSongArtist.get(2);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Artistlbl3MouseClicked
+
+    private void Songlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl4MouseClicked
+        // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            String data1 = listSongName.get(3);
+            String data2 = listSongDura.get(3);
+            ImageIcon data3 = icons[3];
+            String data4 = listSongLyr.get(3);
+            String data5 = listSongArtist.get(3);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Songlbl4MouseClicked
+
+    private void Artistlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl4MouseClicked
+        // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            String data1 = listSongName.get(3);
+            String data2 = listSongDura.get(3);
+            ImageIcon data3 = icons[3];
+            String data4 = listSongLyr.get(3);
+            String data5 = listSongArtist.get(3);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Artistlbl4MouseClicked
+
+    private void Songlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl5MouseClicked
+        // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            String data1 = listSongName.get(4);
+            String data2 = listSongDura.get(4);
+            ImageIcon data3 = icons[4];
+            String data4 = listSongLyr.get(4);
+            String data5 = listSongArtist.get(4);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Songlbl5MouseClicked
+
+    private void Artistlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl5MouseClicked
+        // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            String data1 = listSongName.get(4);
+            String data2 = listSongDura.get(4);
+            ImageIcon data3 = icons[4];
+            String data4 = listSongLyr.get(4);
+            String data5 = listSongArtist.get(4);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Artistlbl5MouseClicked
+
+    private void Songlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl6MouseClicked
+        // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            String data1 = listSongName.get(5);
+            String data2 = listSongDura.get(5);
+            ImageIcon data3 = icons[5];
+            String data4 = listSongLyr.get(5);
+            String data5 = listSongArtist.get(5);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Songlbl6MouseClicked
+
+    private void Artistlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl6MouseClicked
+        // TODO add your handling code here:
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            String data1 = listSongName.get(5);
+            String data2 = listSongDura.get(5);
+            ImageIcon data3 = icons[5];
+            String data4 = listSongLyr.get(5);
+            String data5 = listSongArtist.get(5);
+            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Artistlbl6MouseClicked
+
+    private void slider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slider2StateChanged
+        // TODO add your handling code here:
+        buffer = slider2.getValue();
+        System.out.println(buffer/100);        
+    }//GEN-LAST:event_slider2StateChanged
+
+    private void slider2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_slider2MouseReleased
+        long skip = (long) (totalTime * ((double) buffer / 100));
+        try {
+            fi.skip(skip);
+            System.out.println(skip);
+            pause = fi.available();
+            player.close();
+            Thread runningThread = new Thread(play);
+            runningThread.start();
+
+            // Adjust the counter based on the new position
+            counter = (int) (skip / 1000);  // Assuming totalTime is in bytes and 1 second = 1000 bytes
+
+            // Restart the timer
+            timer.start();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_slider2MouseReleased
+
+    private void slider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slider1StateChanged
+        // TODO add your handling code here:
+        String value = String.valueOf(slider1.getValue());
+        volumeControl(Double.parseDouble(value)/100);
+    }//GEN-LAST:event_slider1StateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -2689,6 +3187,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel Albumlbl4;
     private javax.swing.JLabel Albumlbl5;
     private javax.swing.JLabel Albumlbl6;
+    private javax.swing.JLabel Artistlbl;
     private javax.swing.JLabel Artistlbl1;
     private javax.swing.JLabel Artistlbl2;
     private javax.swing.JLabel Artistlbl3;
@@ -2701,12 +3200,15 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel Imglbl4;
     private javax.swing.JLabel Imglbl5;
     private javax.swing.JLabel Imglbl6;
+    private javax.swing.JLabel SongNamelbl;
+    private javax.swing.JLabel Songimglbl;
     private javax.swing.JLabel Songlbl1;
     private javax.swing.JLabel Songlbl2;
     private javax.swing.JLabel Songlbl3;
     private javax.swing.JLabel Songlbl4;
     private javax.swing.JLabel Songlbl5;
     private javax.swing.JLabel Songlbl6;
+    private javax.swing.JLabel TotalTimelbl;
     private javax.swing.JPanel btnClose;
     private javax.swing.JPanel btnMaximize;
     private javax.swing.JPanel btnMinimize;
@@ -2726,7 +3228,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
@@ -2734,10 +3235,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel55;
@@ -2789,7 +3288,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
-    private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;

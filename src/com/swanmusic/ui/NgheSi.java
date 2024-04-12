@@ -4,18 +4,235 @@
  */
 package com.swanmusic.ui;
 
+import com.swanmusic.entity.Nhac;
 import com.swanmusic.swing.*;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
+import javax.swing.ImageIcon;
+import javax.swing.Timer;
 import javax.swing.plaf.basic.*;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import org.apache.commons.lang3.StringUtils;
 
 public class NgheSi extends javax.swing.JDialog {
+    public String data1;
+    public List<String> listAlbumName = new ArrayList<>();
+    public List<String> listAlbumArtist = new ArrayList<>();
+    public List<String> listAlbumCate = new ArrayList<>();
+    public List<String> listAlbumDate = new ArrayList<>();
+    public List<String> listAlbumPic = new ArrayList<>();
+    
+    public List<String> listSongName = new ArrayList<>();
+    public List<String> listSongCate = new ArrayList<>();
+    public List<String> listSongAlb = new ArrayList<>();
+    public List<String> listSongArtist = new ArrayList<>();
+    public List<String> listSongDura = new ArrayList<>();
+    public List<String> listSongLyr = new ArrayList<>();
+    public List<String> listSongPic = new ArrayList<>();
+    
+    public ImageIcon[] icons = new ImageIcon[100];
+    
+        boolean running = false;
+    boolean paused = false;
+    boolean shuffle = false;
+    boolean replay = false;
+    boolean lyrics = false;
+    boolean library = false;
+    public boolean comment = false;
+    private int timeListen = 0;
+    String songdir = "src\\com\\swanmusic\\mp3\\";
+    String cursong;
+    private File f;
+    private FileInputStream fi;
+    private BufferedInputStream bi;
+    public Player player;
+    private long totalTime;
+    private long pause = -1;
+    private long totalByte;
+    Timer timeSongRunning;
+    public int minutetotalLength;
+    public int secondTotalLength;
+    public Nhac data;
+    long time;
+    boolean loop = false;
+    private int buffer;
+    private Timer timer;
+    private Timer timer1;
+    private int counter = 0;
+    public List<String> listLyrics = new ArrayList<>();
+    /**
+     * Creates new form NewJFrame
+     */
+    ArrayList<Nhac> list = new ArrayList();    
 
+    public void pauseSong() throws IOException, InterruptedException {
+        pause = fi.available();
+        player.close();
+    }
+    public void resume() throws IOException, JavaLayerException {
+        try {
+        fi.skip(totalTime - pause);
 
-    public NgheSi(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        customSplitpaneUI();
+        } catch (Exception e) {
+        }
+        Thread runningThread = new Thread(play);
+        runningThread.start();
     }
 
+private boolean isStreamOpen = false;
+
+// Modify your play Runnable:
+    private Runnable play = new Runnable() {
+        @Override
+        public void run() {
+            f = new File(songdir+StringUtils.deleteWhitespace(cursong)+".mp3");
+            try {
+                fi = new FileInputStream(f);
+                bi = new BufferedInputStream(fi);
+                player = new Player(bi);
+                totalTime = fi.available();
+    timer = new Timer(1000, new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (player != null && !player.isComplete()) {
+            long current = 0;
+            try {
+                current =  totalTime - fi.available();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            int percent = (int) (((double) current / (double) totalTime) * 100);
+            jSlider1.setValue(percent);
+        }
+    }
+});
+    timer.start();  
+//    timer1 = new Timer(1000, new ActionListener() {
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        if (player != null && !player.isComplete()) {
+//            counter[0]++;
+//            int seconds = counter[0] % 60;
+//            int minutes = counter[0] / 60;
+//            
+//            Timelbl.setText(String.format("%02d:%02d", minutes, seconds));
+//        }
+//    }
+//});
+//timer1.start();
+                if (pause <= -1) {
+                    player.play();
+                } else {
+                    fi.skip(totalTime - pause);
+                    player.play();
+                }
+            } catch (FileNotFoundException ex) {
+            } catch (JavaLayerException ex) {
+            } catch (IOException ex) {
+            }
+        }
+    };
+public void loopSong() {
+    // Create a new thread to play the song in a loop
+    Thread loopThread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            try {
+                // Loop as long as the player is not closed
+                while (player != null && loop) {
+                    // If the song has finished playing, start it again
+                    if (player.isComplete()) {
+                        player.close();
+                        playSong();
+                    }
+                    // Sleep for a short duration to reduce CPU usage
+                    Thread.sleep(100);
+                }
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            } catch (JavaLayerException ex) {
+                Logger.getLogger(pro23.NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(pro23.NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    });
+    // Start the loop thread
+    loopThread.start();
+} 
+public void playSong() throws FileNotFoundException, JavaLayerException, IOException {
+    fi = new FileInputStream(f);
+    bi = new BufferedInputStream(fi);
+    player = new Player(bi);
+    totalTime = fi.available();
+    player.play();
+}
+    public NgheSi(java.awt.Frame parent, boolean modal , String data1) {
+        super(parent, modal);
+        this.data1 = data1;
+        
+        initComponents();
+        customSplitpaneUI();
+        getSongs();
+        ArtistNamelbl.setText(String.valueOf(data1));
+        lblName7.setText(listSongName.get(0));
+    }
+    public void getSongs()
+    {
+        int i = 0;
+              try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             PreparedStatement ps = con.prepareCall("select * from NHAC where NGHESI like ?");
+             ps.setString(1,data1);
+             ResultSet rs = ps.executeQuery();
+              while (rs.next()) {
+                Nhac al = new Nhac();
+                al.setName(rs.getString("TENNHAC"));
+                listSongName.add(rs.getString("TENNHAC"));
+                al.setArtist(rs.getString("NGHESI"));
+                listSongArtist.add(rs.getString("NGHESI"));
+                al.setCategory(rs.getString("THELOAI"));
+                listSongCate.add(rs.getString("THELOAI"));
+                al.setDura(rs.getString("THOILUONG"));
+                listSongDura.add(rs.getString("THOILUONG"));
+                al.setImage(rs.getString("ANH"));
+                listSongPic.add(rs.getString("ANH"));
+                icons[i] = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(i));
+                Image image = icons[i].getImage();
+                icons[i] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+                  i++;
+            }
+            rs.close();
+            ps.close();
+            con.close();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }   
+    }
+    
     public void customSplitpaneUI() {
         // custom giao dien
         jSplitPane1.setUI(new BasicSplitPaneUI() {
@@ -40,20 +257,20 @@ public class NgheSi extends javax.swing.JDialog {
     private void initComponents() {
 
         musicPlayer = new javax.swing.JPanel();
-        jPanel37 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        SongNamelbl = new javax.swing.JLabel();
         jSlider2 = new javax.swing.JSlider();
-        jLabel4 = new javax.swing.JLabel();
+        Artistlbl = new javax.swing.JLabel();
         jPanel40 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jSlider1 = new javax.swing.JSlider();
-        jLabel15 = new javax.swing.JLabel();
+        TotalTimelbl = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
+        Songimglbl = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         paddingWest = new javax.swing.JPanel();
         paddingEast = new javax.swing.JPanel();
@@ -121,9 +338,9 @@ public class NgheSi extends javax.swing.JDialog {
         jPanel60 = new javax.swing.JPanel();
         jPanel33 = new javax.swing.JPanel();
         jPanel53 = new javax.swing.JPanel();
-        panelTron1 = new com.swanmusic.swing.PanelTron();
         jButton4 = new javax.swing.JButton();
-        jLabel18 = new javax.swing.JLabel();
+        ArtistNamelbl = new javax.swing.JLabel();
+        Artistimglbl = new javax.swing.JLabel();
         jPanel28 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -161,24 +378,19 @@ public class NgheSi extends javax.swing.JDialog {
         musicPlayer.setBackground(new java.awt.Color(0, 0, 0));
         musicPlayer.setPreferredSize(new java.awt.Dimension(1242, 90));
 
-        javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
-        jPanel37.setLayout(jPanel37Layout);
-        jPanel37Layout.setHorizontalGroup(
-            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 89, Short.MAX_VALUE)
-        );
-        jPanel37Layout.setVerticalGroup(
-            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        SongNamelbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        SongNamelbl.setForeground(new java.awt.Color(255, 255, 255));
+        SongNamelbl.setText("TÊN BÀI NHẠC");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("TÊN BÀI NHẠC");
+        jSlider2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider2StateChanged(evt);
+            }
+        });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(122, 122, 122));
-        jLabel4.setText("TÊN TÁC GIẢ");
+        Artistlbl.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        Artistlbl.setForeground(new java.awt.Color(122, 122, 122));
+        Artistlbl.setText("TÊN TÁC GIẢ");
 
         jPanel40.setOpaque(false);
 
@@ -189,10 +401,26 @@ public class NgheSi extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/play-white.png"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
-        jLabel15.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("00:00");
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
+        jSlider1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jSlider1MouseReleased(evt);
+            }
+        });
+
+        TotalTimelbl.setBackground(new java.awt.Color(255, 255, 255));
+        TotalTimelbl.setForeground(new java.awt.Color(255, 255, 255));
+        TotalTimelbl.setText("00:00");
 
         jLabel16.setBackground(new java.awt.Color(255, 255, 255));
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -222,7 +450,7 @@ public class NgheSi extends javax.swing.JDialog {
                         .addGap(3, 3, 3)
                         .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel15))
+                        .addComponent(TotalTimelbl))
                     .addGroup(jPanel40Layout.createSequentialGroup()
                         .addGap(106, 106, 106)
                         .addComponent(jLabel13)
@@ -250,7 +478,7 @@ public class NgheSi extends javax.swing.JDialog {
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
-                    .addComponent(jLabel15))
+                    .addComponent(TotalTimelbl))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -263,15 +491,15 @@ public class NgheSi extends javax.swing.JDialog {
         musicPlayerLayout.setHorizontalGroup(
             musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, musicPlayerLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(69, 69, 69)
+                .addComponent(Songimglbl, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
+                    .addComponent(Artistlbl)
+                    .addComponent(SongNamelbl))
                 .addGap(144, 144, 144)
                 .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(157, 157, 157)
+                .addGap(117, 117, 117)
                 .addComponent(jLabel47)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,23 +508,24 @@ public class NgheSi extends javax.swing.JDialog {
         musicPlayerLayout.setVerticalGroup(
             musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(musicPlayerLayout.createSequentialGroup()
-                .addComponent(jPanel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, musicPlayerLayout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(musicPlayerLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)))
-                .addGap(7, 7, 7))
-            .addGroup(musicPlayerLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel47))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, musicPlayerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Songimglbl, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                    .addGroup(musicPlayerLayout.createSequentialGroup()
+                        .addGap(0, 7, Short.MAX_VALUE)
+                        .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(musicPlayerLayout.createSequentialGroup()
+                                .addComponent(SongNamelbl)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Artistlbl)))))
+                .addGap(7, 7, 7))
         );
 
         getContentPane().add(musicPlayer, java.awt.BorderLayout.PAGE_END);
@@ -1002,17 +1231,6 @@ public class NgheSi extends javax.swing.JDialog {
 
         jPanel53.setOpaque(false);
 
-        javax.swing.GroupLayout panelTron1Layout = new javax.swing.GroupLayout(panelTron1);
-        panelTron1.setLayout(panelTron1Layout);
-        panelTron1Layout.setHorizontalGroup(
-            panelTron1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        panelTron1Layout.setVerticalGroup(
-            panelTron1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
         jButton4.setBackground(new java.awt.Color(255, 103, 158));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jButton4.setText("THEO DÕI");
@@ -1024,34 +1242,34 @@ public class NgheSi extends javax.swing.JDialog {
             }
         });
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("TÊN NGHỆ SĨ");
+        ArtistNamelbl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        ArtistNamelbl.setForeground(new java.awt.Color(255, 255, 255));
+        ArtistNamelbl.setText("TÊN NGHỆ SĨ");
 
         javax.swing.GroupLayout jPanel53Layout = new javax.swing.GroupLayout(jPanel53);
         jPanel53.setLayout(jPanel53Layout);
         jPanel53Layout.setHorizontalGroup(
             jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel53Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelTron1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
+                .addComponent(Artistimglbl, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
+                    .addComponent(ArtistNamelbl)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(482, Short.MAX_VALUE))
         );
         jPanel53Layout.setVerticalGroup(
             jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel53Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelTron1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel53Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel53Layout.createSequentialGroup()
+                .addGroup(jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Artistimglbl, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                    .addGroup(jPanel53Layout.createSequentialGroup()
+                        .addGap(0, 14, Short.MAX_VALUE)
+                        .addComponent(ArtistNamelbl)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))))
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12))
         );
 
         jPanel28.setBackground(new java.awt.Color(255, 153, 153));
@@ -1119,6 +1337,11 @@ public class NgheSi extends javax.swing.JDialog {
         lblName7.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         lblName7.setForeground(new java.awt.Color(255, 255, 255));
         lblName7.setText("Mây hồng đưa lối");
+        lblName7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblName7MouseClicked(evt);
+            }
+        });
 
         lblUser7.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         lblUser7.setForeground(new java.awt.Color(255, 255, 255));
@@ -1287,7 +1510,7 @@ public class NgheSi extends javax.swing.JDialog {
                 .addGap(119, 119, 119))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, titleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 736, Short.MAX_VALUE)
                 .addContainerGap())
         );
         titleLayout.setVerticalGroup(
@@ -1414,6 +1637,93 @@ public class NgheSi extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void lblName7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblName7MouseClicked
+        // TODO add your handling code here:
+                        if(running)
+        {
+            player.close();
+            running = false;
+            paused = false;
+            cursong = listSongName.get(0);
+            SongNamelbl.setText(listSongName.get(0));
+            Artistlbl.setText(listSongArtist.get(0));
+            Image image = icons[0].getImage();
+            icons[0] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[0]);
+            TotalTimelbl.setText(listSongDura.get(0));
+        }
+        else
+        {
+            cursong = listSongName.get(0);
+            SongNamelbl.setText(listSongName.get(0));
+            Artistlbl.setText(listSongArtist.get(0));
+            Image image = icons[0].getImage();
+            icons[0] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icons[0]);
+            TotalTimelbl.setText(listSongDura.get(0));
+        }
+    }//GEN-LAST:event_lblName7MouseClicked
+
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        // TODO add your handling code here:
+                String value = String.valueOf(jSlider1.getValue());
+        volumeControl(Double.parseDouble(value)/100);
+    }//GEN-LAST:event_jSlider1StateChanged
+
+    private void jSlider1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSlider1MouseReleased
+        // TODO add your handling code here:
+                long skip = (long) (totalTime * ((double) buffer / 100));
+        try {
+            fi.skip(skip);
+            System.out.println(skip);
+            pause = fi.available();
+            player.close();
+            Thread runningThread = new Thread(play);
+            runningThread.start();
+
+            // Adjust the counter based on the new position
+            counter = (int) (skip / 1000);  // Assuming totalTime is in bytes and 1 second = 1000 bytes
+
+            // Restart the timer
+            timer.start();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_jSlider1MouseReleased
+
+    private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged
+        // TODO add your handling code here:
+                String value = String.valueOf(jSlider2.getValue());
+        volumeControl(Double.parseDouble(value)/100);
+    }//GEN-LAST:event_jSlider2StateChanged
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+                if(!running)
+        {
+            jLabel5.setIcon(new ImageIcon("src\\com.swanmusic.icon\\play-white.png"));
+            running = true;
+            paused = false;
+            Thread runningSong = new Thread(play);
+            runningSong.start();
+        }
+        else if(running)
+        {
+            jLabel5.setIcon(new ImageIcon("src\\com.swanmusic.icon\\pause-white.png"));
+            running = false;
+            paused = true;
+            try {
+                pauseSong();
+            } catch (Exception e) {
+            }
+        }
+        else if(paused){
+            try {
+                resume();
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_jLabel5MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1443,21 +1753,16 @@ public class NgheSi extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                NgheSi dialog = new NgheSi(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ArtistNamelbl;
+    private javax.swing.JLabel Artistimglbl;
+    private javax.swing.JLabel Artistlbl;
+    private javax.swing.JLabel SongNamelbl;
+    private javax.swing.JLabel Songimglbl;
+    private javax.swing.JLabel TotalTimelbl;
     private javax.swing.JPanel center;
     private javax.swing.JPanel east;
     private javax.swing.JPanel header;
@@ -1473,16 +1778,12 @@ public class NgheSi extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
@@ -1515,7 +1816,6 @@ public class NgheSi extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel33;
-    private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
@@ -1569,10 +1869,55 @@ public class NgheSi extends javax.swing.JDialog {
     private com.swanmusic.swing.Panel panel4;
     private com.swanmusic.swing.Panel panel6;
     private com.swanmusic.swing.Panel panelTrademark1;
-    private com.swanmusic.swing.PanelTron panelTron1;
     private javax.swing.JPanel title;
     private javax.swing.JPanel trademark;
     private javax.swing.JPanel waitingList;
     private javax.swing.JPanel yourLibrary;
     // End of variables declaration//GEN-END:variables
+  private void volumeControl(Double valueToPlusMinus){
+        // Get Mixer Information From AudioSystem
+        Mixer.Info[] mixers = AudioSystem.getMixerInfo();
+        // Now use a for loop to list all mixers
+        for(Mixer.Info mixerInfo : mixers){
+            // Get Mixer
+            Mixer mixer = AudioSystem.getMixer(mixerInfo);
+            // Now Get Target Line
+            Line.Info[] lineInfos = mixer.getTargetLineInfo();
+            // Here again use for loop to list lines
+            for(Line.Info lineInfo : lineInfos){
+                // Make a null line
+                Line line = null;
+                // Make a boolean as opened
+                boolean opened = true;
+                // Now use try exception for opening a line
+                try{
+                    line = mixer.getLine(lineInfo);
+                    opened = line.isOpen() || line instanceof Clip;
+                    // Now Check If Line Is not Opened
+                    if(!opened){
+                        // Open Line
+                        line.open();
+                    }
+                    // Make a float control
+                    FloatControl volControl = (FloatControl) line.getControl(FloatControl.Type.VOLUME);
+                    // Get Current Volume Now
+                    float currentVolume = volControl.getValue();
+                    // Make a temp double variable and store valuePlusMinus
+                    Double volumeToCut = valueToPlusMinus;
+                    // Make a float and calculate the addition or subtraction in volume
+                    float changedCalc = (float) ((double)volumeToCut);
+                    // Now Set This Changed Value Into Volume Line.
+                    volControl.setValue(changedCalc);
+                    System.out.println(volControl.getValue());
+                }catch (LineUnavailableException lineException){
+                }catch (IllegalArgumentException illException){
+                }finally{
+                    // Close Line If it opened
+                    if(line != null && !opened){
+                        line.close();
+                    }
+                }
+            }
+        }
+    }
 }

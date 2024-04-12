@@ -196,6 +196,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Search"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton10ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -308,7 +311,7 @@
                     <Property name="useNullLayout" type="boolean" value="false"/>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel4">
+                    <Component class="javax.swing.JLabel" name="Albumimglbl">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/com/swanmusic/img/logoswan_ok_da_canh_giua.png"/>
@@ -597,6 +600,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="M&#xe2;y h&#x1ed3;ng &#x111;&#x1b0;a l&#x1ed1;i"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblName7MouseClicked"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="lblUser7">
                               <Properties>
@@ -644,6 +650,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="M&#xe2;y h&#x1ed3;ng &#x111;&#x1b0;a l&#x1ed1;i"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblName8MouseClicked"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="lblUser8">
                               <Properties>
@@ -691,6 +700,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="M&#xe2;y h&#x1ed3;ng &#x111;&#x1b0;a l&#x1ed1;i"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblName9MouseClicked"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="lblUser9">
                               <Properties>
@@ -738,6 +750,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="M&#xe2;y h&#x1ed3;ng &#x111;&#x1b0;a l&#x1ed1;i"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblName10MouseClicked"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="lblUser10">
                               <Properties>
@@ -877,16 +892,16 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="jPanel37" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="Songimglbl" min="-2" pref="76" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="Artistlbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="SongNamelbl" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
                       <Component id="jPanel40" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
                       <Component id="jLabel47" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="slider1" min="-2" pref="135" max="-2" attributes="0"/>
@@ -896,17 +911,17 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="SongNamelbl" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                              <Component id="Artistlbl" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="jPanel40" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -919,9 +934,9 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jPanel37" alignment="1" max="32767" attributes="0"/>
+                          <Component id="Songimglbl" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -929,22 +944,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="jPanel37">
-
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
-            </Container>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="SongNamelbl">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="1"/>
@@ -955,7 +955,7 @@
                 <Property name="text" type="java.lang.String" value="T&#xca;N B&#xc0;I NH&#x1ea0;C"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel11">
+            <Component class="javax.swing.JLabel" name="Artistlbl">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="16" style="1"/>
@@ -982,7 +982,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="slider2" min="-2" pref="419" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                  <Component id="TotalTimelbl" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
@@ -1019,7 +1019,7 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                   <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="TotalTimelbl" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="slider2" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -1061,7 +1061,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel13MouseClicked"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel15">
+                <Component class="javax.swing.JLabel" name="TotalTimelbl">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -1130,6 +1130,10 @@
                     <Property name="toolTipText" type="java.lang.String" value=""/>
                     <Property name="value" type="int" value="0"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="slider2StateChanged"/>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="slider2MouseReleased"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1151,6 +1155,11 @@
                 <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="value" type="int" value="0"/>
               </Properties>
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="slider1StateChanged"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Songimglbl">
             </Component>
           </SubComponents>
         </Container>

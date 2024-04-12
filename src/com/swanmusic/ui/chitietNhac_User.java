@@ -192,14 +192,14 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         Image image1 = data3.getImage();
         ImageIcon newscale1 = new ImageIcon(image1.getScaledInstance(SongPiclbl.getWidth(), SongPiclbl.getHeight(), image1.SCALE_SMOOTH));
         Image image = data3.getImage();
-        ImageIcon newscale = new ImageIcon(image.getScaledInstance(SongPiclbl1.getWidth(), SongPiclbl1.getHeight(), image.SCALE_SMOOTH));
+        ImageIcon newscale = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
         SongNamelbl.setText(data1);
         SongDuralbl.setText(data2);
         SongPiclbl.setIcon(newscale1);
         SongLyrta.setText(data4);
-        SongName1lbl.setText(data1);
+        SongNamelbl.setText(data1);
         SongArtistlbl.setText(data5);
-        SongPiclbl1.setIcon(newscale);
+        Songimglbl.setIcon(newscale);
         TotalTimelbl.setText(data2);
         cursong = data1.replace(" ","");
         Albumlbl1.setText(listAlbumName.get(0));
@@ -245,13 +245,12 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private void initComponents() {
 
         musicPlayer = new javax.swing.JPanel();
-        jPanel37 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        SongArtistlbl = new javax.swing.JLabel();
         jPanel40 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        TotalTimelbl = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -259,6 +258,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         slider2 = new com.swanmusic.swing.Slider();
         jLabel47 = new javax.swing.JLabel();
         slider1 = new com.swanmusic.swing.Slider();
+        Songimglbl = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         paddingWest = new javax.swing.JPanel();
         paddingEast = new javax.swing.JPanel();
@@ -349,24 +349,13 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         musicPlayer.setBackground(new java.awt.Color(0, 0, 0));
         musicPlayer.setPreferredSize(new java.awt.Dimension(1242, 90));
 
-        javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
-        jPanel37.setLayout(jPanel37Layout);
-        jPanel37Layout.setHorizontalGroup(
-            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 83, Short.MAX_VALUE)
-        );
-        jPanel37Layout.setVerticalGroup(
-            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("TÊN BÀI NHẠC");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(122, 122, 122));
-        jLabel4.setText("TÊN TÁC GIẢ");
+        SongArtistlbl.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        SongArtistlbl.setForeground(new java.awt.Color(122, 122, 122));
+        SongArtistlbl.setText("TÊN TÁC GIẢ");
 
         jPanel40.setOpaque(false);
 
@@ -383,9 +372,9 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             }
         });
 
-        jLabel15.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("00:00");
+        TotalTimelbl.setBackground(new java.awt.Color(255, 255, 255));
+        TotalTimelbl.setForeground(new java.awt.Color(255, 255, 255));
+        TotalTimelbl.setText("00:00");
 
         jLabel16.setBackground(new java.awt.Color(255, 255, 255));
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -423,7 +412,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(slider2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel15))
+                        .addComponent(TotalTimelbl))
                     .addGroup(jPanel40Layout.createSequentialGroup()
                         .addGap(106, 106, 106)
                         .addComponent(jLabel13)
@@ -453,7 +442,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel16)
-                        .addComponent(jLabel15))
+                        .addComponent(TotalTimelbl))
                     .addComponent(slider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,15 +461,15 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         musicPlayerLayout.setHorizontalGroup(
             musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, musicPlayerLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(91, 91, 91)
+                .addComponent(Songimglbl, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
+                    .addComponent(SongArtistlbl)
                     .addComponent(jLabel3))
                 .addGap(144, 144, 144)
                 .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152)
+                .addGap(92, 92, 92)
                 .addComponent(jLabel47)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(slider1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -498,15 +487,15 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                                     .addGroup(musicPlayerLayout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel4))
+                                        .addComponent(SongArtistlbl))
                                     .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(musicPlayerLayout.createSequentialGroup()
                                 .addGap(28, 28, 28)
                                 .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(slider1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 8, Short.MAX_VALUE))
-                    .addComponent(jPanel37, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(Songimglbl, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -519,7 +508,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1370, Short.MAX_VALUE)
+            .addGap(0, 1242, Short.MAX_VALUE)
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -580,7 +569,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGap(0, 192, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -596,7 +585,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGap(0, 192, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -627,7 +616,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         panel13.setLayout(panel13Layout);
         panel13Layout.setHorizontalGroup(
             panel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
+            .addGap(0, 180, Short.MAX_VALUE)
         );
         panel13Layout.setVerticalGroup(
             panel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -671,7 +660,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGap(0, 192, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -687,7 +676,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGap(0, 192, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -705,7 +694,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         panel20.setLayout(panel20Layout);
         panel20Layout.setHorizontalGroup(
             panel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
+            .addGap(0, 180, Short.MAX_VALUE)
         );
         panel20Layout.setVerticalGroup(
             panel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1609,10 +1598,13 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel Albumlbl4;
     private javax.swing.JLabel Albumlbl5;
     private javax.swing.JLabel Albumlbl6;
+    private javax.swing.JLabel SongArtistlbl;
     private javax.swing.JLabel SongDuralbl;
     private javax.swing.JTextArea SongLyrta;
     private javax.swing.JLabel SongNamelbl;
     private javax.swing.JLabel SongPiclbl;
+    private javax.swing.JLabel Songimglbl;
+    private javax.swing.JLabel TotalTimelbl;
     private javax.swing.JPanel center;
     private javax.swing.JPanel east;
     private javax.swing.JPanel header;
@@ -1625,12 +1617,10 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1656,7 +1646,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
-    private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;

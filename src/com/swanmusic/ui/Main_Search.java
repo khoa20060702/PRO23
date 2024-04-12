@@ -5,7 +5,15 @@ import com.swanmusic.swing.ScrollBar;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import com.swanmusic.entity.Nghesi;
+import com.swanmusic.entity.Nhac;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,9 +22,15 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.Timer;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import org.apache.commons.lang3.StringUtils;
 /**
  *
  * @author phuon
@@ -36,6 +50,143 @@ public List<String> listAlbumPic = new ArrayList<>();
     /**
      * Creates new form Main_Search
      */
+
+
+    boolean running = false;
+    boolean paused = false;
+    boolean shuffle = false;
+    boolean replay = false;
+    boolean lyrics = false;
+    boolean library = false;
+    public boolean comment = false;
+    private int timeListen = 0;
+    String songdir = "src\\com\\swanmusic\\mp3\\";
+    String cursong;
+    private File f;
+    private FileInputStream fi;
+    private BufferedInputStream bi;
+    public Player player;
+    private long totalTime;
+    private long pause = -1;
+    private long totalByte;
+    Timer timeSongRunning;
+    public int minutetotalLength;
+    public int secondTotalLength;
+    public Nhac data;
+    long time;
+    boolean loop = false;
+    private int buffer;
+    private Timer timer;
+    private Timer timer1;
+    private int counter = 0;
+    public List<String> listLyrics = new ArrayList<>();
+    /**
+     * Creates new form NewJFrame
+     */
+    ArrayList<Nhac> list = new ArrayList();    
+
+    public void pauseSong() throws IOException, InterruptedException {
+        pause = fi.available();
+        player.close();
+    }
+    public void resume() throws IOException, JavaLayerException {
+        try {
+        fi.skip(totalTime - pause);
+
+        } catch (Exception e) {
+        }
+        Thread runningThread = new Thread(play);
+        runningThread.start();
+    }
+
+private boolean isStreamOpen = false;
+
+// Modify your play Runnable:
+    private Runnable play = new Runnable() {
+        @Override
+        public void run() {
+            f = new File(songdir+StringUtils.deleteWhitespace(cursong)+".mp3");
+            try {
+                fi = new FileInputStream(f);
+                bi = new BufferedInputStream(fi);
+                player = new Player(bi);
+                totalTime = fi.available();
+    timer = new Timer(1000, new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (player != null && !player.isComplete()) {
+            long current = 0;
+            try {
+                current =  totalTime - fi.available();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            int percent = (int) (((double) current / (double) totalTime) * 100);
+            jSlider2.setValue(percent);
+        }
+    }
+});
+    timer.start();  
+//    timer1 = new Timer(1000, new ActionListener() {
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        if (player != null && !player.isComplete()) {
+//            counter[0]++;
+//            int seconds = counter[0] % 60;
+//            int minutes = counter[0] / 60;
+//            
+//            Timelbl.setText(String.format("%02d:%02d", minutes, seconds));
+//        }
+//    }
+//});
+//timer1.start();
+                if (pause <= -1) {
+                    player.play();
+                } else {
+                    fi.skip(totalTime - pause);
+                    player.play();
+                }
+            } catch (FileNotFoundException ex) {
+            } catch (JavaLayerException ex) {
+            } catch (IOException ex) {
+            }
+        }
+    };
+public void loopSong() {
+    // Create a new thread to play the song in a loop
+    Thread loopThread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            try {
+                // Loop as long as the player is not closed
+                while (player != null && loop) {
+                    // If the song has finished playing, start it again
+                    if (player.isComplete()) {
+                        player.close();
+                        playSong();
+                    }
+                    // Sleep for a short duration to reduce CPU usage
+                    Thread.sleep(100);
+                }
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            } catch (JavaLayerException ex) {
+                Logger.getLogger(pro23.NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(pro23.NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    });
+    // Start the loop thread
+    loopThread.start();
+} 
+public void playSong() throws FileNotFoundException, JavaLayerException, IOException {
+    fi = new FileInputStream(f);
+    bi = new BufferedInputStream(fi);
+    player = new Player(bi);
+    totalTime = fi.available();
+    player.play();
+}    
     public Main_Search(java.awt.Frame parent, boolean modal) {
    
         super(parent, modal);
@@ -60,7 +211,7 @@ public List<String> listAlbumPic = new ArrayList<>();
         Albumlbl3.setText(listAlbumName.get(2));
         Albumlbl4.setText(listAlbumName.get(3));
         Albumlbl5.setText(listAlbumName.get(4));
-//        Albumlbl6.setText(listAlbumName.get(5));
+        Albumlbl6.setText(listAlbumName.get(5));
         
     }
       String imageName ="src\\com\\swanmusic\\img\\Wn.jpg";
