@@ -2434,9 +2434,13 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Main form = new Main();
-        form.setVisible(true);
-        this.setVisible(false);
+        if(player != null)
+        {
+        player.close();    
+        }
+            Main mai = new Main();
+            this.setVisible(false);
+            mai.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

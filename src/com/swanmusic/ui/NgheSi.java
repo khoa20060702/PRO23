@@ -201,27 +201,50 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         ImageIcon newscale = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
         Artistimglbl.setIcon(newscale);
         ArtistNamelbl.setText(String.valueOf(data1));
-        if(listSongName.get(0) != null && listSongDura.get(0) != null )
-        {
-        lblName7.setText(listSongName.get(0));
-        lblUser15.setText(listSongDura.get(0));     
-        
-        }
-        else
-        {
-        lblName7.setVisible(false);
-        lblUser15.setVisible(false);              
-        }
-//        if(listSongName.get(1) != null && listSongDura.get(1) != null )
-//        {
-//        lblName8.setText(listSongName.get(1));
-//        lblUser16.setText(listSongDura.get(1));            
-//        }
-//        else
-//        {
-//        lblName8.setVisible(false);
-//        lblUser16.setVisible(false);              
-//        }
+if(listSongName.size() > 0) {
+    lblName7.setText(listSongName.get(0));
+    lblUser15.setText(listSongDura.get(0));
+}
+else
+{
+    lblName7.setVisible(false);
+    lblUser7.setVisible(false);
+    lblNumber7.setVisible(false);
+    lblUser15.setVisible(false);
+}
+if(listSongName.size() > 1) {
+    lblName8.setText(listSongName.get(1));
+    lblUser16.setText(listSongDura.get(1));
+}
+else
+{
+    lblName8.setVisible(false);
+    lblUser8.setVisible(false);
+    lblNumber8.setVisible(false);
+    lblUser16.setVisible(false);
+}
+if(listSongName.size() > 2) {
+    lblName9.setText(listSongName.get(2));
+    lblUser17.setText(listSongDura.get(2));
+}
+else
+{
+    lblName9.setVisible(false);
+    lblUser9.setVisible(false);
+    lblNumber9.setVisible(false);
+    lblUser17.setVisible(false);
+}
+if(listSongName.size() > 3) {
+    lblName10.setText(listSongName.get(3));
+    lblUser18.setText(listSongDura.get(3));
+} 
+else
+{
+    lblName10.setVisible(false);
+    lblUser10.setVisible(false);
+    lblNumber10.setVisible(false);
+    lblUser18.setVisible(false);
+}
     }
     public void getSongs()
     {
