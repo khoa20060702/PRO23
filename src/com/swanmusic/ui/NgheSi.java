@@ -1660,16 +1660,15 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-//            if(player != null)
-//            {
-//                player.close();
-//                timer.stop();
-//            }
-//            com.swanmusic.ui.Main_Search sc = new com.swanmusic.ui.Main_Search(main, forgot);
-//            Main_Search mai = new Main_Search(this, forgot);
-//            this.setVisible(false);
-//            mai.setVisible(true);   
+         
+            if(player != null)
+            {
+                player.close();
+                timer.stop();
+            }
+            this.setVisible(false);
+            new com.swanmusic.ui.Main_Search(null,true).setVisible(true);
+             
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
