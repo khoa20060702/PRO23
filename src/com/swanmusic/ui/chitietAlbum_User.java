@@ -111,9 +111,6 @@ public class chitietAlbum_User extends javax.swing.JDialog {
         Thread runningThread = new Thread(play);
         runningThread.start();
     }
-
-private boolean isStreamOpen = false;
-
 // Modify your play Runnable:
     private Runnable play = new Runnable() {
         @Override
@@ -140,19 +137,7 @@ private boolean isStreamOpen = false;
     }
 });
     timer.start();  
-//    timer1 = new Timer(1000, new ActionListener() {
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        if (player != null && !player.isComplete()) {
-//            counter[0]++;
-//            int seconds = counter[0] % 60;
-//            int minutes = counter[0] / 60;
-//            
-//            Timelbl.setText(String.format("%02d:%02d", minutes, seconds));
-//        }
-//    }
-//});
-//timer1.start();
+
                 if (pause <= -1) {
                     player.play();
                 } else {
@@ -297,15 +282,6 @@ else
              e.printStackTrace();
          }   
     } 
-//    void table(){
-//        Font myFont = new Font("Arial", Font.BOLD, 14); // Example: Font name, style, size
-//        jTable1.getTableHeader().setFont(myFont);
-//        jTable1.getTableHeader().setOpaque(true);
-//        jTable1.getTableHeader().setBackground(new Color(252, 134, 217));
-//       // jTable1.getTableHeader().setForeground(new Color(255,255,255));
-//        jTable1.setRowHeight(25);
-//    }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1058,7 +1034,7 @@ else
         // TODO add your handling code here:
         if(!running)
         {
-            jLabel5.setIcon(new ImageIcon("src\\com.swanmusic.icon\\play-white.png"));
+            jLabel13.setIcon(new ImageIcon("src\\com.swanmusic.icon\\play-white.png"));
             running = true;
             paused = false;
             Thread runningSong = new Thread(play);
@@ -1066,7 +1042,7 @@ else
         }
         else if(running)
         {
-            jLabel5.setIcon(new ImageIcon("src\\com.swanmusic.icon\\pause-white.png"));
+            jLabel13.setIcon(new ImageIcon("src\\com.swanmusic.icon\\pause-white.png"));
             running = false;
             paused = true;
             try {
