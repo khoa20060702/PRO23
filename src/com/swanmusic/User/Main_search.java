@@ -5,38 +5,29 @@
 package com.swanmusic.User;
 
 import com.swanmusic.swing.ScrollBar;
-import com.swanmusic.entity.Album;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
+
+import com.swanmusic.entity.Nghesi;
 import com.swanmusic.entity.Nhac;
-import javax.swing.*;
-import com.swanmusic.swing.ComponentResizer;
-import com.swanmusic.swing.ScrollBar;
-import com.swanmusic.ui.Main_Search;
 import com.swanmusic.ui.NgheSi;
 import com.swanmusic.ui.chitietAlbum_User;
 import com.swanmusic.ui.chitietNhac_User;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.font.TextLayout;
-import java.awt.geom.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import javax.swing.plaf.basic.*;
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,20 +38,40 @@ import javax.sound.sampled.Line;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import org.apache.commons.lang3.StringUtils;
 
-public class Home extends javax.swing.JDialog {
+public class Main_search extends javax.swing.JDialog {
 
     /**
-     * Creates new form Home
+     * Creates new form Main_search
      */
-    public Home(java.awt.Frame parent, boolean modal) {
+    public Main_search(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+//          jLabel1.setVisible(false);
+        jPanel43.setVisible(false);
+        jPanel24.setVisible(false);
+        jPanel25.setVisible(false);
+        jPanel26.setVisible(false);
+        jPanel27.setVisible(false);
+//                                 jPanel29.setVisible(false);
+//                                     jPanel30.setVisible(false);
+//                                         jPanel31.setVisible(false);
+//                                             jPanel32.setVisible(false);
         init();
         getAlbum();
+        Album1.setText(listAlbumName.get(0));
+        Album2.setText(listAlbumName.get(1));
+        Album3.setText(listAlbumName.get(2));
+        Album4.setText(listAlbumName.get(3));
+        Album5.setText(listAlbumName.get(4));
+
         getSong();
         if (listAlbumName.size() > 0) {
             Album1.setText(listAlbumName.get(0));
@@ -87,28 +98,14 @@ public class Home extends javax.swing.JDialog {
         } else {
             Album5.setVisible(false);
         }
-        if (listSongName.size() > 0) {
-            Songlbl6.setText(listSongName.get(0));
-        } else {
-            Songlbl6.setVisible(false);
-        }
-        if (listSongName.size() > 1) {
-            Songlbl7.setText(listSongName.get(1));
-        } else {
-            Songlbl7.setVisible(false);
-        }
-        if (listSongName.size() > 2) {
-            Songlbl8.setText(listSongName.get(2));
-        } else {
-            Songlbl8.setVisible(false);
-        }
+
         if (listSongName.size() > 3) {
             Songlbl4.setText(listSongName.get(3));
         } else {
             Songlbl4.setVisible(false);
         }
         if (listSongName.size() > 4) {
-            Songlbl1.setText(listSongName.get(0));
+            Songlbl1.setText(listSongName.get(4));
         } else {
             Songlbl1.setVisible(false);
         }
@@ -118,56 +115,38 @@ public class Home extends javax.swing.JDialog {
             Songlbl2.setVisible(false);
         }
 
+        Songlbl1.setText(listSongName.get(0));
         Songlbl2.setText(listSongName.get(1));
         Songlbl3.setText(listSongName.get(2));
         Songlbl4.setText(listSongName.get(3));
-        Songlbl5.setText(listSongName.get(4));
-        Songlbl6.setText(listSongName.get(5));
         Artistlbl1.setText(listSongArtist.get(0));
         Artistlbl2.setText(listSongArtist.get(1));
         Artistlbl3.setText(listSongArtist.get(2));
         Artistlbl4.setText(listSongArtist.get(3));
-        Artistlbl5.setText(listSongArtist.get(4));
-        Artistlbl6.setText(listSongArtist.get(5));
-        Artistlbl7.setText(listSongArtist.get(6));
-        Artistlbl8.setText(listSongArtist.get(7));
         Imglbl1.setIcon(icons[0]);
         Imglbl2.setIcon(icons[1]);
         Imglbl3.setIcon(icons[2]);
         Imglbl4.setIcon(icons[3]);
-        Imglbl5.setIcon(icons[4]);
-        Imglbl6.setIcon(icons[5]);
-        Imglbl7.setIcon(icons[6]);
-        Imglbl8.setIcon(icons[7]);
+
     }
 
-    Home() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    void init() {
-        this.setSize(1260, 682);
-        this.setLocationRelativeTo(null);
-        jScrollPane2.setVerticalScrollBar(new ScrollBar());
-    }
-    public static chitietAlbum_User album;
-    boolean forgot = false;
+    public List<String> listAlbumPic = new ArrayList<>();
     public List<String> listAlbumName = new ArrayList<>();
     public List<String> listAlbumArtist = new ArrayList<>();
     public List<String> listAlbumCate = new ArrayList<>();
     public List<String> listAlbumDate = new ArrayList<>();
-    public List<String> listAlbumPic = new ArrayList<>();
-
-    public List<String> listSongName = new ArrayList<>();
-    public List<String> listSongCate = new ArrayList<>();
     public List<String> listSongAlb = new ArrayList<>();
+    public List<String> listSongCate = new ArrayList<>();
+    public List<String> listSongName = new ArrayList<>();
     public List<String> listSongArtist = new ArrayList<>();
     public List<String> listSongDura = new ArrayList<>();
     public List<String> listSongLyr = new ArrayList<>();
     public List<String> listSongPic = new ArrayList<>();
 
+    /**
+     * Creates new form Main_Search
+     */
     public ImageIcon[] icons = new ImageIcon[100];
-
     boolean running = false;
     boolean paused = false;
     boolean shuffle = false;
@@ -307,6 +286,10 @@ public class Home extends javax.swing.JDialog {
         player.play();
     }
 
+    String imageName = "src\\com\\swanmusic\\img\\Wn.jpg";
+    ImageIcon icon;
+    boolean forgot = false;
+
     public void getAlbum() {
         int i = 0;
         try {
@@ -316,7 +299,7 @@ public class Home extends javax.swing.JDialog {
             PreparedStatement ps = con.prepareCall("select * from ALBUM");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Album al = new Album();
+                com.swanmusic.entity.Album al = new com.swanmusic.entity.Album();
                 al.setAlbumName(rs.getString("TENALBUM"));
                 listAlbumName.add(rs.getString("TENALBUM"));
                 al.setAlbumArtist(rs.getString("NGHESI"));
@@ -325,8 +308,8 @@ public class Home extends javax.swing.JDialog {
                 listAlbumCate.add(rs.getString("THELOAI"));
                 al.setAlbumArtist(rs.getString("TG_PHATHANH"));
                 listAlbumArtist.add(rs.getString("TG_PHATHANH"));
-                al.setAlbumImage(rs.getString("ANH"));
-                listAlbumPic.add(rs.getString("ANH"));
+                al.setAlbumCategory(rs.getString("ANH"));
+                listAlbumCate.add(rs.getString("ANH"));
                 i++;
             }
             rs.close();
@@ -335,6 +318,88 @@ public class Home extends javax.swing.JDialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+//     public void customSplitpaneUI() {
+//        // custom giao dien
+//        jSplitPane1.setUI(new BasicSplitPaneUI() {
+//            @Override
+//            public void installDefaults() {
+//                super.installDefaults();   
+//                splitPane.setOpaque(false);          
+//            }
+//        });
+//        jSplitPane2.setUI(new BasicSplitPaneUI() {
+//            @Override
+//            public void installDefaults() {
+//                super.installDefaults();      
+//                splitPane.setOpaque(false);
+//            }
+//        });
+//        jScrollPane2.setVerticalScrollBar(new ScrollBar());
+//    }
+
+    public void upImage(String imageName) {
+        ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
+        Image image = icon.getImage();
+        ImageIcon icon1 = new ImageIcon(image.getScaledInstance(jLabel8.getWidth(), jLabel8.getHeight(), image.SCALE_SMOOTH));
+        jLabel8.setIcon(icon1);
+    }
+
+    public void load_data() {
+        try {
+            String url = "jdbc:sqlserver://localhost:1433;DatabaseName=SWAN;encrypt=false";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select TENNHAC,NGHESI,THOILUONG,LOIBAIHAT,ANH from NHAC where TENNHAC like ?");
+            String tennhac = String.valueOf(txtTimKiem.getText());
+            String nghesi = String.valueOf(txtTimKiem.getText());
+            ps.setString(1, tennhac);
+
+            ResultSet rs1 = ps.executeQuery();
+
+            if (rs1.next() == false) {
+                JOptionPane.showMessageDialog(this, "không truy vấn đc");
+            } else {
+
+                jLabel4.setVisible(true);
+                jLabel2.setVisible(true);
+                jPanel43.setVisible(true);
+                jPanel24.setVisible(true);
+                jLabel8.setVisible(true);
+                jLabel4.setText(rs1.getString("NGHESI"));
+                listAlbumPic.add(rs1.getString("NGHESI"));
+                jLabel11.setText(rs1.getString("TENNHAC"));
+                listAlbumPic.add(rs1.getString("TENNHAC"));
+                jLabel8.setText(rs1.getString("ANH"));
+
+                listSongName.add(rs1.getString("TENNHAC"));
+                listSongArtist.add(rs1.getString("NGHESI"));
+                listSongDura.add(rs1.getString("THOILUONG"));
+                listSongLyr.add(rs1.getString("LOIBAIHAT"));
+                listSongPic.add(rs1.getString("ANH"));
+                icon = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(0));
+                Image image = icon.getImage();
+                icon = new ImageIcon(image.getScaledInstance(jLabel8.getWidth(), jLabel8.getHeight(), image.SCALE_SMOOTH));
+                jLabel8.setIcon(icon);
+
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void init() {
+        this.setSize(1260, 682);
+        this.setLocationRelativeTo(null);
+    }
+
+    public void changeColor(JPanel hover, Color rand) {
+        hover.setBackground(rand);
     }
 
     public void getSong() {
@@ -372,140 +437,6 @@ public class Home extends javax.swing.JDialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-//    public Home() {
-//        initComponents();
-//        init();
-//        getAlbum();
-//        getSong();
-//        if(listAlbumName.size() > 0)
-//        {
-//        Album1.setText(listAlbumName.get(0));    
-//        }
-//        else
-//        {
-//        Album1.setVisible(false);
-//        }
-//        if(listAlbumName.size() > 1)
-//        {
-//        Album2.setText(listAlbumName.get(1));    
-//        }
-//        else
-//        {
-//        Album2.setVisible(false);
-//        }
-//        if(listAlbumName.size() > 2)
-//        {
-//        Album3.setText(listAlbumName.get(2));    
-//        }
-//        else
-//        {
-//        Album3.setVisible(false);
-//        }
-//        if(listAlbumName.size() > 3)
-//        {
-//        Album4.setText(listAlbumName.get(3));    
-//        }
-//        else
-//        {
-//        Album4.setVisible(false);
-//        }
-//        if(listAlbumName.size() > 4)
-//        {
-//        Album5.setText(listAlbumName.get(4));    
-//        }
-//        else
-//        {
-//        Album5.setVisible(false);
-//        }
-//        if(listSongName.size() > 0)
-//        {
-//        Songlbl6.setText(listSongName.get(0));  
-//        }
-//        else
-//        {
-//        Songlbl6.setVisible(false);
-//        }
-//        if(listSongName.size() > 1)
-//        {
-//        Songlbl7.setText(listSongName.get(1));  
-//        }
-//        else
-//        {
-//        Songlbl7.setVisible(false);
-//        }
-//        if(listSongName.size() > 2)
-//        {
-//        Songlbl8.setText(listSongName.get(2));  
-//        }
-//        else
-//        {
-//        Songlbl8.setVisible(false);
-//        }
-//        if(listSongName.size() > 3)
-//        {
-//        Songlbl4.setText(listSongName.get(3));  
-//        }
-//        else
-//        {
-//        Songlbl4.setVisible(false);
-//        }
-//        if(listSongName.size() > 4)
-//        {
-//        Songlbl1.setText(listSongName.get(0));  
-//        }
-//        else
-//        {
-//        Songlbl1.setVisible(false);
-//        }
-//        if(listAlbumName.size() > 5)
-//        {
-//        Albumlbl2.setText(listAlbumName.get(5));    
-//        }
-//        else
-//        {
-//        Albumlbl2.setVisible(false);
-//        }        
-//        
-//        Songlbl2.setText(listSongName.get(1));
-//        Songlbl3.setText(listSongName.get(2));
-//        Songlbl4.setText(listSongName.get(3));
-//        Songlbl5.setText(listSongName.get(4));
-//        Songlbl6.setText(listSongName.get(5));
-//        Artistlbl1.setText(listSongArtist.get(0));
-//        Artistlbl2.setText(listSongArtist.get(1));
-//        Artistlbl3.setText(listSongArtist.get(2));
-//        Artistlbl4.setText(listSongArtist.get(3));
-//        Artistlbl5.setText(listSongArtist.get(4));
-//        Artistlbl6.setText(listSongArtist.get(5));
-//        Imglbl1.setIcon(icons[0]);
-//        Imglbl2.setIcon(icons[1]);
-//        Imglbl3.setIcon(icons[2]);
-//        Imglbl4.setIcon(icons[3]);
-//        Imglbl5.setIcon(icons[4]);
-//        Imglbl6.setIcon(icons[5]);
-//    } 
-
-//    public void customSplitpaneUI() {
-//        // custom giao dien
-//        jSplitPane1.setUI(new BasicSplitPaneUI() {
-//            @Override
-//            public void installDefaults() {
-//                super.installDefaults();   
-//                splitPane.setOpaque(false);          
-//            }
-//        });
-//        jSplitPane2.setUI(new BasicSplitPaneUI() {
-//            @Override
-//            public void installDefaults() {
-//                super.installDefaults();      
-//                splitPane.setOpaque(false);
-//            }
-//        });
-//        jScrollPane2.setVerticalScrollBar(new ScrollBar());
-//    }
-    public void changeColor(JPanel hover, Color rand) {
-        hover.setBackground(rand);
     }
 
     /**
@@ -569,6 +500,8 @@ public class Home extends javax.swing.JDialog {
         pnlVien5 = new javax.swing.JPanel();
         pnlVien6 = new javax.swing.JPanel();
         pnlVien7 = new javax.swing.JPanel();
+        main1 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
         panel1 = new com.swanmusic.swing.Panel();
         jPanel16 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
@@ -584,71 +517,71 @@ public class Home extends javax.swing.JDialog {
         jPanel45 = new javax.swing.JPanel();
         jPanel47 = new javax.swing.JPanel();
         jPanel43 = new javax.swing.JPanel();
-        Songlbl1 = new javax.swing.JLabel();
-        Artistlbl1 = new javax.swing.JLabel();
-        Imglbl1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
+        jPanel54 = new javax.swing.JPanel();
         jPanel55 = new javax.swing.JPanel();
         jPanel83 = new javax.swing.JPanel();
         jPanel84 = new javax.swing.JPanel();
-        Songlbl2 = new javax.swing.JLabel();
-        Artistlbl2 = new javax.swing.JLabel();
-        Imglbl2 = new javax.swing.JLabel();
-        jPanel46 = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
         jPanel85 = new javax.swing.JPanel();
         jPanel86 = new javax.swing.JPanel();
         jPanel88 = new javax.swing.JPanel();
         jPanel89 = new javax.swing.JPanel();
-        Songlbl3 = new javax.swing.JLabel();
-        Artistlbl3 = new javax.swing.JLabel();
-        Imglbl3 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
+        jPanel90 = new javax.swing.JPanel();
+        jPanel91 = new javax.swing.JPanel();
+        jPanel93 = new javax.swing.JPanel();
+        jPanel94 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jPanel35 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        txtTimKiem = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jPanel34 = new javax.swing.JPanel();
+        jPanel37 = new javax.swing.JPanel();
+        jPanel46 = new javax.swing.JPanel();
         jPanel48 = new javax.swing.JPanel();
         jPanel49 = new javax.swing.JPanel();
         jPanel50 = new javax.swing.JPanel();
+        Songlbl1 = new javax.swing.JLabel();
+        Artistlbl1 = new javax.swing.JLabel();
+        Imglbl1 = new javax.swing.JLabel();
+        jPanel38 = new javax.swing.JPanel();
+        jPanel56 = new javax.swing.JPanel();
+        jPanel87 = new javax.swing.JPanel();
+        jPanel92 = new javax.swing.JPanel();
+        Songlbl2 = new javax.swing.JLabel();
+        Artistlbl2 = new javax.swing.JLabel();
+        Imglbl2 = new javax.swing.JLabel();
         jPanel51 = new javax.swing.JPanel();
+        jPanel39 = new javax.swing.JPanel();
+        jPanel110 = new javax.swing.JPanel();
+        jPanel111 = new javax.swing.JPanel();
+        jPanel112 = new javax.swing.JPanel();
+        jPanel113 = new javax.swing.JPanel();
+        Songlbl3 = new javax.swing.JLabel();
+        Artistlbl3 = new javax.swing.JLabel();
+        Imglbl3 = new javax.swing.JLabel();
+        jPanel41 = new javax.swing.JPanel();
+        jPanel52 = new javax.swing.JPanel();
+        jPanel53 = new javax.swing.JPanel();
+        jPanel57 = new javax.swing.JPanel();
+        jPanel58 = new javax.swing.JPanel();
         Songlbl4 = new javax.swing.JLabel();
         Artistlbl4 = new javax.swing.JLabel();
         Imglbl4 = new javax.swing.JLabel();
-        jPanel35 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jPanel21 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
-        jPanel34 = new javax.swing.JPanel();
-        jPanel37 = new javax.swing.JPanel();
-        jPanel52 = new javax.swing.JPanel();
-        jPanel53 = new javax.swing.JPanel();
-        jPanel54 = new javax.swing.JPanel();
-        jPanel56 = new javax.swing.JPanel();
-        Songlbl5 = new javax.swing.JLabel();
-        Artistlbl5 = new javax.swing.JLabel();
-        Imglbl5 = new javax.swing.JLabel();
-        jPanel38 = new javax.swing.JPanel();
-        jPanel58 = new javax.swing.JPanel();
-        jPanel87 = new javax.swing.JPanel();
-        jPanel90 = new javax.swing.JPanel();
-        Songlbl6 = new javax.swing.JLabel();
-        Artistlbl6 = new javax.swing.JLabel();
-        Imglbl6 = new javax.swing.JLabel();
-        jPanel59 = new javax.swing.JPanel();
-        jPanel39 = new javax.swing.JPanel();
-        jPanel91 = new javax.swing.JPanel();
-        jPanel92 = new javax.swing.JPanel();
-        jPanel93 = new javax.swing.JPanel();
-        jPanel94 = new javax.swing.JPanel();
-        Songlbl7 = new javax.swing.JLabel();
-        Artistlbl7 = new javax.swing.JLabel();
-        Imglbl7 = new javax.swing.JLabel();
-        jPanel41 = new javax.swing.JPanel();
-        jPanel61 = new javax.swing.JPanel();
-        jPanel62 = new javax.swing.JPanel();
-        jPanel63 = new javax.swing.JPanel();
-        jPanel64 = new javax.swing.JPanel();
-        Songlbl8 = new javax.swing.JLabel();
-        Artistlbl8 = new javax.swing.JLabel();
-        Imglbl8 = new javax.swing.JLabel();
-        lblUser = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -856,6 +789,11 @@ public class Home extends javax.swing.JDialog {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/close-black.png"))); // NOI18N
         jLabel2.setOpaque(true);
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         btnClose.add(jLabel2, java.awt.BorderLayout.CENTER);
 
         jPanel22.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, -1, -1));
@@ -904,6 +842,11 @@ public class Home extends javax.swing.JDialog {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/minus.png"))); // NOI18N
         jLabel7.setOpaque(true);
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
         btnMinimize.add(jLabel7, java.awt.BorderLayout.CENTER);
 
         jPanel22.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -928,7 +871,7 @@ public class Home extends javax.swing.JDialog {
         );
         pnlVien1Layout.setVerticalGroup(
             pnlVien1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 15, Short.MAX_VALUE)
+            .addGap(0, 10, Short.MAX_VALUE)
         );
 
         menu.add(pnlVien1, java.awt.BorderLayout.PAGE_START);
@@ -1059,6 +1002,11 @@ public class Home extends javax.swing.JDialog {
         lblIcon_search.setForeground(new java.awt.Color(255, 255, 255));
         lblIcon_search.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblIcon_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/search.png"))); // NOI18N
+        lblIcon_search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblIcon_searchMouseClicked(evt);
+            }
+        });
 
         lblSearch_menu.setBackground(new java.awt.Color(255, 255, 255));
         lblSearch_menu.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -1222,7 +1170,7 @@ public class Home extends javax.swing.JDialog {
         pnlVien5.setLayout(pnlVien5Layout);
         pnlVien5Layout.setHorizontalGroup(
             pnlVien5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1041, Short.MAX_VALUE)
+            .addGap(0, 1050, Short.MAX_VALUE)
         );
         pnlVien5Layout.setVerticalGroup(
             pnlVien5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1238,7 +1186,7 @@ public class Home extends javax.swing.JDialog {
         pnlVien6.setLayout(pnlVien6Layout);
         pnlVien6Layout.setHorizontalGroup(
             pnlVien6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1041, Short.MAX_VALUE)
+            .addGap(0, 1050, Short.MAX_VALUE)
         );
         pnlVien6Layout.setVerticalGroup(
             pnlVien6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1263,6 +1211,14 @@ public class Home extends javax.swing.JDialog {
 
         main.add(pnlVien7, java.awt.BorderLayout.LINE_END);
 
+        main1.setBackground(new java.awt.Color(0, 0, 0));
+        main1.setMinimumSize(new java.awt.Dimension(300, 508));
+        main1.setLayout(new java.awt.CardLayout());
+
+        jPanel7.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel7.setPreferredSize(new java.awt.Dimension(800, 508));
+        jPanel7.setLayout(new java.awt.BorderLayout());
+
         panel1.setForeground(new java.awt.Color(255, 201, 221));
         panel1.setLayout(new java.awt.BorderLayout());
 
@@ -1283,42 +1239,40 @@ public class Home extends javax.swing.JDialog {
         jPanel28.setBackground(new java.awt.Color(51, 51, 51));
         jPanel28.setPreferredSize(new java.awt.Dimension(629, 27));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("HOT TREND 2024");
+        jLabel12.setText("TÌM KIẾM");
 
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
         jPanel28Layout.setHorizontalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel28Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(jLabel12)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel28Layout.setVerticalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel28Layout.createSequentialGroup()
-                .addComponent(jLabel12)
-                .addGap(0, 2, Short.MAX_VALUE))
+            .addComponent(jLabel12)
         );
 
-        jPanel23.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel23.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel23.setOpaque(false);
         jPanel23.setPreferredSize(new java.awt.Dimension(629, 252));
-        jPanel23.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 40, 15));
 
-        jPanel24.setBackground(new java.awt.Color(255, 103, 158));
+        jPanel24.setBackground(new java.awt.Color(0, 153, 153));
         jPanel24.setLayout(new java.awt.BorderLayout());
 
+        jPanel44.setBackground(new java.awt.Color(255, 103, 158));
         jPanel44.setName(""); // NOI18N
-        jPanel44.setOpaque(false);
         jPanel44.setPreferredSize(new java.awt.Dimension(200, 10));
 
         javax.swing.GroupLayout jPanel44Layout = new javax.swing.GroupLayout(jPanel44);
         jPanel44.setLayout(jPanel44Layout);
         jPanel44Layout.setHorizontalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 209, Short.MAX_VALUE)
         );
         jPanel44Layout.setVerticalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1327,7 +1281,7 @@ public class Home extends javax.swing.JDialog {
 
         jPanel24.add(jPanel44, java.awt.BorderLayout.PAGE_START);
 
-        jPanel45.setOpaque(false);
+        jPanel45.setBackground(new java.awt.Color(255, 103, 158));
 
         javax.swing.GroupLayout jPanel45Layout = new javax.swing.GroupLayout(jPanel45);
         jPanel45.setLayout(jPanel45Layout);
@@ -1337,12 +1291,12 @@ public class Home extends javax.swing.JDialog {
         );
         jPanel45Layout.setVerticalGroup(
             jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
+            .addGap(0, 233, Short.MAX_VALUE)
         );
 
         jPanel24.add(jPanel45, java.awt.BorderLayout.LINE_START);
 
-        jPanel47.setOpaque(false);
+        jPanel47.setBackground(new java.awt.Color(255, 103, 158));
         jPanel47.setPreferredSize(new java.awt.Dimension(10, 232));
 
         javax.swing.GroupLayout jPanel47Layout = new javax.swing.GroupLayout(jPanel47);
@@ -1353,36 +1307,26 @@ public class Home extends javax.swing.JDialog {
         );
         jPanel47Layout.setVerticalGroup(
             jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
+            .addGap(0, 233, Short.MAX_VALUE)
         );
 
         jPanel24.add(jPanel47, java.awt.BorderLayout.LINE_END);
 
-        jPanel43.setOpaque(false);
+        jPanel43.setBackground(new java.awt.Color(255, 103, 158));
         jPanel43.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel43MouseClicked(evt);
             }
         });
 
-        Songlbl1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Songlbl1.setText("Tiêu đề");
-        Songlbl1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Songlbl1MouseClicked(evt);
-            }
-        });
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("Tiêu đề");
 
-        Artistlbl1.setText("Nội dung....");
-        Artistlbl1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Artistlbl1MouseClicked(evt);
-            }
-        });
+        jLabel11.setText("mhgbnfm.......");
 
-        Imglbl1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Imglbl1MouseClicked(evt);
+                jLabel8MouseClicked(evt);
             }
         });
 
@@ -1393,20 +1337,21 @@ public class Home extends javax.swing.JDialog {
             .addGroup(jPanel43Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Artistlbl1)
-                    .addComponent(Songlbl1)
-                    .addComponent(Imglbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel43Layout.setVerticalGroup(
             jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel43Layout.createSequentialGroup()
-                .addComponent(Imglbl1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
-                .addComponent(Songlbl1)
+                .addGap(11, 11, 11)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(Artistlbl1)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addGap(0, 14, Short.MAX_VALUE))
         );
 
         jPanel24.add(jPanel43, java.awt.BorderLayout.CENTER);
@@ -1415,6 +1360,23 @@ public class Home extends javax.swing.JDialog {
 
         jPanel25.setBackground(new java.awt.Color(255, 103, 158));
         jPanel25.setLayout(new java.awt.BorderLayout());
+
+        jPanel54.setName(""); // NOI18N
+        jPanel54.setOpaque(false);
+        jPanel54.setPreferredSize(new java.awt.Dimension(200, 10));
+
+        javax.swing.GroupLayout jPanel54Layout = new javax.swing.GroupLayout(jPanel54);
+        jPanel54.setLayout(jPanel54Layout);
+        jPanel54Layout.setHorizontalGroup(
+            jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+        jPanel54Layout.setVerticalGroup(
+            jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel25.add(jPanel54, java.awt.BorderLayout.PAGE_START);
 
         jPanel55.setOpaque(false);
 
@@ -1448,30 +1410,15 @@ public class Home extends javax.swing.JDialog {
         jPanel25.add(jPanel83, java.awt.BorderLayout.LINE_END);
 
         jPanel84.setOpaque(false);
-        jPanel84.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel84MouseClicked(evt);
-            }
-        });
 
-        Songlbl2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Songlbl2.setText("Tiêu đề");
-        Songlbl2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Songlbl2MouseClicked(evt);
-            }
-        });
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel22.setText("Tiêu đề");
 
-        Artistlbl2.setText("Nội dung....");
-        Artistlbl2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Artistlbl2MouseClicked(evt);
-            }
-        });
+        jLabel23.setText("mhgbnfm.......");
 
-        Imglbl2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Imglbl2MouseClicked(evt);
+                jLabel14MouseClicked(evt);
             }
         });
 
@@ -1482,40 +1429,24 @@ public class Home extends javax.swing.JDialog {
             .addGroup(jPanel84Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel84Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Imglbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Artistlbl2)
-                    .addComponent(Songlbl2))
-                .addContainerGap(10, Short.MAX_VALUE))
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel22))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel84Layout.setVerticalGroup(
             jPanel84Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel84Layout.createSequentialGroup()
-                .addComponent(Imglbl2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
-                .addComponent(Songlbl2)
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel22)
                 .addGap(18, 18, 18)
-                .addComponent(Artistlbl2)
+                .addComponent(jLabel23)
                 .addGap(0, 13, Short.MAX_VALUE))
         );
 
         jPanel25.add(jPanel84, java.awt.BorderLayout.CENTER);
-
-        jPanel46.setName(""); // NOI18N
-        jPanel46.setOpaque(false);
-        jPanel46.setPreferredSize(new java.awt.Dimension(200, 10));
-
-        javax.swing.GroupLayout jPanel46Layout = new javax.swing.GroupLayout(jPanel46);
-        jPanel46.setLayout(jPanel46Layout);
-        jPanel46Layout.setHorizontalGroup(
-            jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel46Layout.setVerticalGroup(
-            jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        jPanel25.add(jPanel46, java.awt.BorderLayout.PAGE_START);
 
         jPanel23.add(jPanel25);
 
@@ -1571,9 +1502,462 @@ public class Home extends javax.swing.JDialog {
         jPanel26.add(jPanel88, java.awt.BorderLayout.LINE_END);
 
         jPanel89.setOpaque(false);
-        jPanel89.addMouseListener(new java.awt.event.MouseAdapter() {
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel25.setText("Tiêu đề");
+
+        jLabel26.setText("mhgbnfm.......");
+
+        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel89MouseClicked(evt);
+                jLabel18MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel89Layout = new javax.swing.GroupLayout(jPanel89);
+        jPanel89.setLayout(jPanel89Layout);
+        jPanel89Layout.setHorizontalGroup(
+            jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel89Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel25))
+                .addContainerGap(95, Short.MAX_VALUE))
+            .addGroup(jPanel89Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel89Layout.setVerticalGroup(
+            jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel89Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel25)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel26)
+                .addGap(0, 13, Short.MAX_VALUE))
+        );
+
+        jPanel26.add(jPanel89, java.awt.BorderLayout.CENTER);
+
+        jPanel23.add(jPanel26);
+
+        jPanel27.setBackground(new java.awt.Color(255, 103, 158));
+        jPanel27.setLayout(new java.awt.BorderLayout());
+
+        jPanel90.setName(""); // NOI18N
+        jPanel90.setOpaque(false);
+        jPanel90.setPreferredSize(new java.awt.Dimension(200, 10));
+
+        javax.swing.GroupLayout jPanel90Layout = new javax.swing.GroupLayout(jPanel90);
+        jPanel90.setLayout(jPanel90Layout);
+        jPanel90Layout.setHorizontalGroup(
+            jPanel90Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+        jPanel90Layout.setVerticalGroup(
+            jPanel90Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel27.add(jPanel90, java.awt.BorderLayout.PAGE_START);
+
+        jPanel91.setOpaque(false);
+
+        javax.swing.GroupLayout jPanel91Layout = new javax.swing.GroupLayout(jPanel91);
+        jPanel91.setLayout(jPanel91Layout);
+        jPanel91Layout.setHorizontalGroup(
+            jPanel91Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jPanel91Layout.setVerticalGroup(
+            jPanel91Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 232, Short.MAX_VALUE)
+        );
+
+        jPanel27.add(jPanel91, java.awt.BorderLayout.LINE_START);
+
+        jPanel93.setOpaque(false);
+        jPanel93.setPreferredSize(new java.awt.Dimension(10, 232));
+
+        javax.swing.GroupLayout jPanel93Layout = new javax.swing.GroupLayout(jPanel93);
+        jPanel93.setLayout(jPanel93Layout);
+        jPanel93Layout.setHorizontalGroup(
+            jPanel93Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jPanel93Layout.setVerticalGroup(
+            jPanel93Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 232, Short.MAX_VALUE)
+        );
+
+        jPanel27.add(jPanel93, java.awt.BorderLayout.LINE_END);
+
+        jPanel94.setOpaque(false);
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel27.setText("Tiêu đề");
+
+        jLabel28.setText("mhgbnfm.......");
+
+        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel19MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel94Layout = new javax.swing.GroupLayout(jPanel94);
+        jPanel94.setLayout(jPanel94Layout);
+        jPanel94Layout.setHorizontalGroup(
+            jPanel94Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel94Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel94Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel27))
+                .addContainerGap(95, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel94Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel94Layout.setVerticalGroup(
+            jPanel94Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel94Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel27)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel28)
+                .addGap(0, 13, Short.MAX_VALUE))
+        );
+
+        jPanel27.add(jPanel94, java.awt.BorderLayout.CENTER);
+
+        jPanel23.add(jPanel27);
+
+        jPanel35.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel35.setPreferredSize(new java.awt.Dimension(629, 27));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("US - UK MUSIC");
+
+        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
+        jPanel35.setLayout(jPanel35Layout);
+        jPanel35Layout.setHorizontalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel35Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel35Layout.setVerticalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel35Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel15)
+                .addContainerGap())
+        );
+
+        txtTimKiem.setBackground(new java.awt.Color(255, 103, 158));
+        txtTimKiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTimKiem.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtTimKiemCaretUpdate(evt);
+            }
+        });
+        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(255, 103, 158));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setText("Tìm kiếm");
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jPanel34.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel34.setPreferredSize(new java.awt.Dimension(629, 252));
+        jPanel34.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 40, 15));
+
+        jPanel37.setBackground(new java.awt.Color(255, 103, 158));
+        jPanel37.setLayout(new java.awt.BorderLayout());
+
+        jPanel46.setName(""); // NOI18N
+        jPanel46.setOpaque(false);
+        jPanel46.setPreferredSize(new java.awt.Dimension(200, 10));
+
+        javax.swing.GroupLayout jPanel46Layout = new javax.swing.GroupLayout(jPanel46);
+        jPanel46.setLayout(jPanel46Layout);
+        jPanel46Layout.setHorizontalGroup(
+            jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+        jPanel46Layout.setVerticalGroup(
+            jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel37.add(jPanel46, java.awt.BorderLayout.PAGE_START);
+
+        jPanel48.setOpaque(false);
+
+        javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
+        jPanel48.setLayout(jPanel48Layout);
+        jPanel48Layout.setHorizontalGroup(
+            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jPanel48Layout.setVerticalGroup(
+            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 232, Short.MAX_VALUE)
+        );
+
+        jPanel37.add(jPanel48, java.awt.BorderLayout.LINE_START);
+
+        jPanel49.setOpaque(false);
+        jPanel49.setPreferredSize(new java.awt.Dimension(10, 232));
+
+        javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
+        jPanel49.setLayout(jPanel49Layout);
+        jPanel49Layout.setHorizontalGroup(
+            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jPanel49Layout.setVerticalGroup(
+            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 232, Short.MAX_VALUE)
+        );
+
+        jPanel37.add(jPanel49, java.awt.BorderLayout.LINE_END);
+
+        jPanel50.setOpaque(false);
+        jPanel50.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel50MouseClicked(evt);
+            }
+        });
+
+        Songlbl1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Songlbl1.setText("Tiêu đề");
+        Songlbl1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Songlbl1MouseClicked(evt);
+            }
+        });
+
+        Artistlbl1.setText("Nội dung....");
+        Artistlbl1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Artistlbl1MouseClicked(evt);
+            }
+        });
+
+        Imglbl1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Imglbl1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel50Layout = new javax.swing.GroupLayout(jPanel50);
+        jPanel50.setLayout(jPanel50Layout);
+        jPanel50Layout.setHorizontalGroup(
+            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel50Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Artistlbl1)
+                    .addComponent(Songlbl1)
+                    .addComponent(Imglbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        jPanel50Layout.setVerticalGroup(
+            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel50Layout.createSequentialGroup()
+                .addComponent(Imglbl1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(Songlbl1)
+                .addGap(18, 18, 18)
+                .addComponent(Artistlbl1)
+                .addGap(0, 13, Short.MAX_VALUE))
+        );
+
+        jPanel37.add(jPanel50, java.awt.BorderLayout.CENTER);
+
+        jPanel34.add(jPanel37);
+
+        jPanel38.setBackground(new java.awt.Color(255, 103, 158));
+        jPanel38.setLayout(new java.awt.BorderLayout());
+
+        jPanel56.setOpaque(false);
+
+        javax.swing.GroupLayout jPanel56Layout = new javax.swing.GroupLayout(jPanel56);
+        jPanel56.setLayout(jPanel56Layout);
+        jPanel56Layout.setHorizontalGroup(
+            jPanel56Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jPanel56Layout.setVerticalGroup(
+            jPanel56Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 232, Short.MAX_VALUE)
+        );
+
+        jPanel38.add(jPanel56, java.awt.BorderLayout.LINE_START);
+
+        jPanel87.setOpaque(false);
+        jPanel87.setPreferredSize(new java.awt.Dimension(10, 232));
+
+        javax.swing.GroupLayout jPanel87Layout = new javax.swing.GroupLayout(jPanel87);
+        jPanel87.setLayout(jPanel87Layout);
+        jPanel87Layout.setHorizontalGroup(
+            jPanel87Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jPanel87Layout.setVerticalGroup(
+            jPanel87Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 232, Short.MAX_VALUE)
+        );
+
+        jPanel38.add(jPanel87, java.awt.BorderLayout.LINE_END);
+
+        jPanel92.setOpaque(false);
+        jPanel92.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel92MouseClicked(evt);
+            }
+        });
+
+        Songlbl2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Songlbl2.setText("Tiêu đề");
+        Songlbl2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Songlbl2MouseClicked(evt);
+            }
+        });
+
+        Artistlbl2.setText("Nội dung....");
+        Artistlbl2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Artistlbl2MouseClicked(evt);
+            }
+        });
+
+        Imglbl2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Imglbl2MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel92Layout = new javax.swing.GroupLayout(jPanel92);
+        jPanel92.setLayout(jPanel92Layout);
+        jPanel92Layout.setHorizontalGroup(
+            jPanel92Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel92Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel92Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Imglbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Artistlbl2)
+                    .addComponent(Songlbl2))
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+        jPanel92Layout.setVerticalGroup(
+            jPanel92Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel92Layout.createSequentialGroup()
+                .addComponent(Imglbl2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(Songlbl2)
+                .addGap(18, 18, 18)
+                .addComponent(Artistlbl2)
+                .addGap(0, 13, Short.MAX_VALUE))
+        );
+
+        jPanel38.add(jPanel92, java.awt.BorderLayout.CENTER);
+
+        jPanel51.setName(""); // NOI18N
+        jPanel51.setOpaque(false);
+        jPanel51.setPreferredSize(new java.awt.Dimension(200, 10));
+
+        javax.swing.GroupLayout jPanel51Layout = new javax.swing.GroupLayout(jPanel51);
+        jPanel51.setLayout(jPanel51Layout);
+        jPanel51Layout.setHorizontalGroup(
+            jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+        jPanel51Layout.setVerticalGroup(
+            jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel38.add(jPanel51, java.awt.BorderLayout.PAGE_START);
+
+        jPanel34.add(jPanel38);
+
+        jPanel39.setBackground(new java.awt.Color(255, 103, 158));
+        jPanel39.setLayout(new java.awt.BorderLayout());
+
+        jPanel110.setName(""); // NOI18N
+        jPanel110.setOpaque(false);
+        jPanel110.setPreferredSize(new java.awt.Dimension(200, 10));
+
+        javax.swing.GroupLayout jPanel110Layout = new javax.swing.GroupLayout(jPanel110);
+        jPanel110.setLayout(jPanel110Layout);
+        jPanel110Layout.setHorizontalGroup(
+            jPanel110Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+        jPanel110Layout.setVerticalGroup(
+            jPanel110Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel39.add(jPanel110, java.awt.BorderLayout.PAGE_START);
+
+        jPanel111.setOpaque(false);
+
+        javax.swing.GroupLayout jPanel111Layout = new javax.swing.GroupLayout(jPanel111);
+        jPanel111.setLayout(jPanel111Layout);
+        jPanel111Layout.setHorizontalGroup(
+            jPanel111Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jPanel111Layout.setVerticalGroup(
+            jPanel111Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 232, Short.MAX_VALUE)
+        );
+
+        jPanel39.add(jPanel111, java.awt.BorderLayout.LINE_START);
+
+        jPanel112.setOpaque(false);
+        jPanel112.setPreferredSize(new java.awt.Dimension(10, 232));
+
+        javax.swing.GroupLayout jPanel112Layout = new javax.swing.GroupLayout(jPanel112);
+        jPanel112.setLayout(jPanel112Layout);
+        jPanel112Layout.setHorizontalGroup(
+            jPanel112Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jPanel112Layout.setVerticalGroup(
+            jPanel112Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 232, Short.MAX_VALUE)
+        );
+
+        jPanel39.add(jPanel112, java.awt.BorderLayout.LINE_END);
+
+        jPanel113.setOpaque(false);
+        jPanel113.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel113MouseClicked(evt);
             }
         });
 
@@ -1598,21 +1982,21 @@ public class Home extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanel89Layout = new javax.swing.GroupLayout(jPanel89);
-        jPanel89.setLayout(jPanel89Layout);
-        jPanel89Layout.setHorizontalGroup(
-            jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel89Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel113Layout = new javax.swing.GroupLayout(jPanel113);
+        jPanel113.setLayout(jPanel113Layout);
+        jPanel113Layout.setHorizontalGroup(
+            jPanel113Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel113Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel113Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Imglbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Artistlbl3)
                     .addComponent(Songlbl3))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
-        jPanel89Layout.setVerticalGroup(
-            jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel89Layout.createSequentialGroup()
+        jPanel113Layout.setVerticalGroup(
+            jPanel113Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel113Layout.createSequentialGroup()
                 .addComponent(Imglbl3, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                 .addGap(29, 29, 29)
                 .addComponent(Songlbl3)
@@ -1621,65 +2005,65 @@ public class Home extends javax.swing.JDialog {
                 .addGap(0, 13, Short.MAX_VALUE))
         );
 
-        jPanel26.add(jPanel89, java.awt.BorderLayout.CENTER);
+        jPanel39.add(jPanel113, java.awt.BorderLayout.CENTER);
 
-        jPanel23.add(jPanel26);
+        jPanel34.add(jPanel39);
 
-        jPanel27.setBackground(new java.awt.Color(255, 103, 158));
-        jPanel27.setLayout(new java.awt.BorderLayout());
+        jPanel41.setBackground(new java.awt.Color(255, 103, 158));
+        jPanel41.setLayout(new java.awt.BorderLayout());
 
-        jPanel48.setName(""); // NOI18N
-        jPanel48.setOpaque(false);
-        jPanel48.setPreferredSize(new java.awt.Dimension(200, 10));
+        jPanel52.setName(""); // NOI18N
+        jPanel52.setOpaque(false);
+        jPanel52.setPreferredSize(new java.awt.Dimension(200, 10));
 
-        javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
-        jPanel48.setLayout(jPanel48Layout);
-        jPanel48Layout.setHorizontalGroup(
-            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel52Layout = new javax.swing.GroupLayout(jPanel52);
+        jPanel52.setLayout(jPanel52Layout);
+        jPanel52Layout.setHorizontalGroup(
+            jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 200, Short.MAX_VALUE)
         );
-        jPanel48Layout.setVerticalGroup(
-            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel52Layout.setVerticalGroup(
+            jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
 
-        jPanel27.add(jPanel48, java.awt.BorderLayout.PAGE_START);
+        jPanel41.add(jPanel52, java.awt.BorderLayout.PAGE_START);
 
-        jPanel49.setOpaque(false);
+        jPanel53.setOpaque(false);
 
-        javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
-        jPanel49.setLayout(jPanel49Layout);
-        jPanel49Layout.setHorizontalGroup(
-            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel53Layout = new javax.swing.GroupLayout(jPanel53);
+        jPanel53.setLayout(jPanel53Layout);
+        jPanel53Layout.setHorizontalGroup(
+            jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
-        jPanel49Layout.setVerticalGroup(
-            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel53Layout.setVerticalGroup(
+            jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 232, Short.MAX_VALUE)
         );
 
-        jPanel27.add(jPanel49, java.awt.BorderLayout.LINE_START);
+        jPanel41.add(jPanel53, java.awt.BorderLayout.LINE_START);
 
-        jPanel50.setOpaque(false);
-        jPanel50.setPreferredSize(new java.awt.Dimension(10, 232));
+        jPanel57.setOpaque(false);
+        jPanel57.setPreferredSize(new java.awt.Dimension(10, 232));
 
-        javax.swing.GroupLayout jPanel50Layout = new javax.swing.GroupLayout(jPanel50);
-        jPanel50.setLayout(jPanel50Layout);
-        jPanel50Layout.setHorizontalGroup(
-            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel57Layout = new javax.swing.GroupLayout(jPanel57);
+        jPanel57.setLayout(jPanel57Layout);
+        jPanel57Layout.setHorizontalGroup(
+            jPanel57Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
-        jPanel50Layout.setVerticalGroup(
-            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel57Layout.setVerticalGroup(
+            jPanel57Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 232, Short.MAX_VALUE)
         );
 
-        jPanel27.add(jPanel50, java.awt.BorderLayout.LINE_END);
+        jPanel41.add(jPanel57, java.awt.BorderLayout.LINE_END);
 
-        jPanel51.setOpaque(false);
-        jPanel51.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel58.setOpaque(false);
+        jPanel58.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel51MouseClicked(evt);
+                jPanel58MouseClicked(evt);
             }
         });
 
@@ -1704,21 +2088,21 @@ public class Home extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanel51Layout = new javax.swing.GroupLayout(jPanel51);
-        jPanel51.setLayout(jPanel51Layout);
-        jPanel51Layout.setHorizontalGroup(
-            jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel51Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel58Layout = new javax.swing.GroupLayout(jPanel58);
+        jPanel58.setLayout(jPanel58Layout);
+        jPanel58Layout.setHorizontalGroup(
+            jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel58Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Artistlbl4)
                     .addComponent(Songlbl4)
                     .addComponent(Imglbl4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
-        jPanel51Layout.setVerticalGroup(
-            jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel51Layout.createSequentialGroup()
+        jPanel58Layout.setVerticalGroup(
+            jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel58Layout.createSequentialGroup()
                 .addComponent(Imglbl4, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                 .addGap(29, 29, 29)
                 .addComponent(Songlbl4)
@@ -1727,519 +2111,58 @@ public class Home extends javax.swing.JDialog {
                 .addGap(0, 13, Short.MAX_VALUE))
         );
 
-        jPanel27.add(jPanel51, java.awt.BorderLayout.CENTER);
-
-        jPanel23.add(jPanel27);
-
-        jPanel35.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel35.setPreferredSize(new java.awt.Dimension(629, 27));
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("HIT");
-
-        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
-        jPanel35.setLayout(jPanel35Layout);
-        jPanel35Layout.setHorizontalGroup(
-            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel35Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel35Layout.setVerticalGroup(
-            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel35Layout.createSequentialGroup()
-                .addComponent(jLabel11)
-                .addGap(0, 3, Short.MAX_VALUE))
-        );
-
-        jPanel21.setBackground(new java.awt.Color(255, 153, 153));
-        jPanel21.setOpaque(false);
-        jPanel21.setPreferredSize(new java.awt.Dimension(629, 27));
-
-        jLabel24.setText("abccbsba");
-
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel24)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel24)
-                .addContainerGap())
-        );
-
-        jPanel34.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel34.setPreferredSize(new java.awt.Dimension(629, 252));
-        jPanel34.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 40, 15));
-
-        jPanel37.setBackground(new java.awt.Color(255, 103, 158));
-        jPanel37.setLayout(new java.awt.BorderLayout());
-
-        jPanel52.setName(""); // NOI18N
-        jPanel52.setOpaque(false);
-        jPanel52.setPreferredSize(new java.awt.Dimension(200, 10));
-
-        javax.swing.GroupLayout jPanel52Layout = new javax.swing.GroupLayout(jPanel52);
-        jPanel52.setLayout(jPanel52Layout);
-        jPanel52Layout.setHorizontalGroup(
-            jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel52Layout.setVerticalGroup(
-            jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        jPanel37.add(jPanel52, java.awt.BorderLayout.PAGE_START);
-
-        jPanel53.setOpaque(false);
-
-        javax.swing.GroupLayout jPanel53Layout = new javax.swing.GroupLayout(jPanel53);
-        jPanel53.setLayout(jPanel53Layout);
-        jPanel53Layout.setHorizontalGroup(
-            jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel53Layout.setVerticalGroup(
-            jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        jPanel37.add(jPanel53, java.awt.BorderLayout.LINE_START);
-
-        jPanel54.setOpaque(false);
-        jPanel54.setPreferredSize(new java.awt.Dimension(10, 232));
-
-        javax.swing.GroupLayout jPanel54Layout = new javax.swing.GroupLayout(jPanel54);
-        jPanel54.setLayout(jPanel54Layout);
-        jPanel54Layout.setHorizontalGroup(
-            jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel54Layout.setVerticalGroup(
-            jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        jPanel37.add(jPanel54, java.awt.BorderLayout.LINE_END);
-
-        jPanel56.setOpaque(false);
-        jPanel56.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel56MouseClicked(evt);
-            }
-        });
-
-        Songlbl5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Songlbl5.setText("Tiêu đề");
-        Songlbl5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Songlbl5MouseClicked(evt);
-            }
-        });
-
-        Artistlbl5.setText("Nội dung....");
-        Artistlbl5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Artistlbl5MouseClicked(evt);
-            }
-        });
-
-        Imglbl5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Imglbl5MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel56Layout = new javax.swing.GroupLayout(jPanel56);
-        jPanel56.setLayout(jPanel56Layout);
-        jPanel56Layout.setHorizontalGroup(
-            jPanel56Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel56Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel56Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Artistlbl5)
-                    .addComponent(Songlbl5)
-                    .addComponent(Imglbl5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-        jPanel56Layout.setVerticalGroup(
-            jPanel56Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel56Layout.createSequentialGroup()
-                .addComponent(Imglbl5, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
-                .addComponent(Songlbl5)
-                .addGap(18, 18, 18)
-                .addComponent(Artistlbl5)
-                .addGap(0, 13, Short.MAX_VALUE))
-        );
-
-        jPanel37.add(jPanel56, java.awt.BorderLayout.CENTER);
-
-        jPanel34.add(jPanel37);
-
-        jPanel38.setBackground(new java.awt.Color(255, 103, 158));
-        jPanel38.setLayout(new java.awt.BorderLayout());
-
-        jPanel58.setOpaque(false);
-
-        javax.swing.GroupLayout jPanel58Layout = new javax.swing.GroupLayout(jPanel58);
-        jPanel58.setLayout(jPanel58Layout);
-        jPanel58Layout.setHorizontalGroup(
-            jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel58Layout.setVerticalGroup(
-            jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        jPanel38.add(jPanel58, java.awt.BorderLayout.LINE_START);
-
-        jPanel87.setOpaque(false);
-        jPanel87.setPreferredSize(new java.awt.Dimension(10, 232));
-
-        javax.swing.GroupLayout jPanel87Layout = new javax.swing.GroupLayout(jPanel87);
-        jPanel87.setLayout(jPanel87Layout);
-        jPanel87Layout.setHorizontalGroup(
-            jPanel87Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel87Layout.setVerticalGroup(
-            jPanel87Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        jPanel38.add(jPanel87, java.awt.BorderLayout.LINE_END);
-
-        jPanel90.setOpaque(false);
-        jPanel90.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel90MouseClicked(evt);
-            }
-        });
-
-        Songlbl6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Songlbl6.setText("Tiêu đề");
-        Songlbl6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Songlbl6MouseClicked(evt);
-            }
-        });
-
-        Artistlbl6.setText("Nội dung....");
-        Artistlbl6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Artistlbl6MouseClicked(evt);
-            }
-        });
-
-        Imglbl6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Imglbl6MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel90Layout = new javax.swing.GroupLayout(jPanel90);
-        jPanel90.setLayout(jPanel90Layout);
-        jPanel90Layout.setHorizontalGroup(
-            jPanel90Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel90Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel90Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Imglbl6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Artistlbl6)
-                    .addComponent(Songlbl6))
-                .addContainerGap(10, Short.MAX_VALUE))
-        );
-        jPanel90Layout.setVerticalGroup(
-            jPanel90Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel90Layout.createSequentialGroup()
-                .addComponent(Imglbl6, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
-                .addComponent(Songlbl6)
-                .addGap(18, 18, 18)
-                .addComponent(Artistlbl6)
-                .addGap(0, 13, Short.MAX_VALUE))
-        );
-
-        jPanel38.add(jPanel90, java.awt.BorderLayout.CENTER);
-
-        jPanel59.setName(""); // NOI18N
-        jPanel59.setOpaque(false);
-        jPanel59.setPreferredSize(new java.awt.Dimension(200, 10));
-
-        javax.swing.GroupLayout jPanel59Layout = new javax.swing.GroupLayout(jPanel59);
-        jPanel59.setLayout(jPanel59Layout);
-        jPanel59Layout.setHorizontalGroup(
-            jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel59Layout.setVerticalGroup(
-            jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        jPanel38.add(jPanel59, java.awt.BorderLayout.PAGE_START);
-
-        jPanel34.add(jPanel38);
-
-        jPanel39.setBackground(new java.awt.Color(255, 103, 158));
-        jPanel39.setLayout(new java.awt.BorderLayout());
-
-        jPanel91.setName(""); // NOI18N
-        jPanel91.setOpaque(false);
-        jPanel91.setPreferredSize(new java.awt.Dimension(200, 10));
-
-        javax.swing.GroupLayout jPanel91Layout = new javax.swing.GroupLayout(jPanel91);
-        jPanel91.setLayout(jPanel91Layout);
-        jPanel91Layout.setHorizontalGroup(
-            jPanel91Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel91Layout.setVerticalGroup(
-            jPanel91Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        jPanel39.add(jPanel91, java.awt.BorderLayout.PAGE_START);
-
-        jPanel92.setOpaque(false);
-
-        javax.swing.GroupLayout jPanel92Layout = new javax.swing.GroupLayout(jPanel92);
-        jPanel92.setLayout(jPanel92Layout);
-        jPanel92Layout.setHorizontalGroup(
-            jPanel92Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel92Layout.setVerticalGroup(
-            jPanel92Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        jPanel39.add(jPanel92, java.awt.BorderLayout.LINE_START);
-
-        jPanel93.setOpaque(false);
-        jPanel93.setPreferredSize(new java.awt.Dimension(10, 232));
-
-        javax.swing.GroupLayout jPanel93Layout = new javax.swing.GroupLayout(jPanel93);
-        jPanel93.setLayout(jPanel93Layout);
-        jPanel93Layout.setHorizontalGroup(
-            jPanel93Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel93Layout.setVerticalGroup(
-            jPanel93Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        jPanel39.add(jPanel93, java.awt.BorderLayout.LINE_END);
-
-        jPanel94.setOpaque(false);
-        jPanel94.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel94MouseClicked(evt);
-            }
-        });
-
-        Songlbl7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Songlbl7.setText("Tiêu đề");
-        Songlbl7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Songlbl7MouseClicked(evt);
-            }
-        });
-
-        Artistlbl7.setText("Nội dung....");
-        Artistlbl7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Artistlbl7MouseClicked(evt);
-            }
-        });
-
-        Imglbl7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Imglbl7MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel94Layout = new javax.swing.GroupLayout(jPanel94);
-        jPanel94.setLayout(jPanel94Layout);
-        jPanel94Layout.setHorizontalGroup(
-            jPanel94Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel94Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel94Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Imglbl7, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Artistlbl7)
-                    .addComponent(Songlbl7))
-                .addContainerGap(10, Short.MAX_VALUE))
-        );
-        jPanel94Layout.setVerticalGroup(
-            jPanel94Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel94Layout.createSequentialGroup()
-                .addComponent(Imglbl7, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
-                .addComponent(Songlbl7)
-                .addGap(18, 18, 18)
-                .addComponent(Artistlbl7)
-                .addGap(0, 13, Short.MAX_VALUE))
-        );
-
-        jPanel39.add(jPanel94, java.awt.BorderLayout.CENTER);
-
-        jPanel34.add(jPanel39);
-
-        jPanel41.setBackground(new java.awt.Color(255, 103, 158));
-        jPanel41.setLayout(new java.awt.BorderLayout());
-
-        jPanel61.setName(""); // NOI18N
-        jPanel61.setOpaque(false);
-        jPanel61.setPreferredSize(new java.awt.Dimension(200, 10));
-
-        javax.swing.GroupLayout jPanel61Layout = new javax.swing.GroupLayout(jPanel61);
-        jPanel61.setLayout(jPanel61Layout);
-        jPanel61Layout.setHorizontalGroup(
-            jPanel61Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel61Layout.setVerticalGroup(
-            jPanel61Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        jPanel41.add(jPanel61, java.awt.BorderLayout.PAGE_START);
-
-        jPanel62.setOpaque(false);
-
-        javax.swing.GroupLayout jPanel62Layout = new javax.swing.GroupLayout(jPanel62);
-        jPanel62.setLayout(jPanel62Layout);
-        jPanel62Layout.setHorizontalGroup(
-            jPanel62Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel62Layout.setVerticalGroup(
-            jPanel62Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        jPanel41.add(jPanel62, java.awt.BorderLayout.LINE_START);
-
-        jPanel63.setOpaque(false);
-        jPanel63.setPreferredSize(new java.awt.Dimension(10, 232));
-
-        javax.swing.GroupLayout jPanel63Layout = new javax.swing.GroupLayout(jPanel63);
-        jPanel63.setLayout(jPanel63Layout);
-        jPanel63Layout.setHorizontalGroup(
-            jPanel63Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel63Layout.setVerticalGroup(
-            jPanel63Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        jPanel41.add(jPanel63, java.awt.BorderLayout.LINE_END);
-
-        jPanel64.setOpaque(false);
-        jPanel64.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel64MouseClicked(evt);
-            }
-        });
-
-        Songlbl8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Songlbl8.setText("Tiêu đề");
-        Songlbl8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Songlbl8MouseClicked(evt);
-            }
-        });
-
-        Artistlbl8.setText("Nội dung....");
-        Artistlbl8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Artistlbl8MouseClicked(evt);
-            }
-        });
-
-        Imglbl8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Imglbl8MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel64Layout = new javax.swing.GroupLayout(jPanel64);
-        jPanel64.setLayout(jPanel64Layout);
-        jPanel64Layout.setHorizontalGroup(
-            jPanel64Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel64Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel64Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Artistlbl8)
-                    .addComponent(Songlbl8)
-                    .addComponent(Imglbl8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-        jPanel64Layout.setVerticalGroup(
-            jPanel64Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel64Layout.createSequentialGroup()
-                .addComponent(Imglbl8, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
-                .addComponent(Songlbl8)
-                .addGap(18, 18, 18)
-                .addComponent(Artistlbl8)
-                .addGap(0, 13, Short.MAX_VALUE))
-        );
-
-        jPanel41.add(jPanel64, java.awt.BorderLayout.CENTER);
+        jPanel41.add(jPanel58, java.awt.BorderLayout.CENTER);
 
         jPanel34.add(jPanel41);
 
-        lblUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/profile-user.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/profile-user.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
         jPanel33Layout.setHorizontalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel33Layout.createSequentialGroup()
-                .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
-                    .addComponent(jPanel28, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
-                    .addComponent(jPanel35, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
-                    .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE))
+            .addGroup(jPanel33Layout.createSequentialGroup()
+                .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE)
+                    .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE)
+                    .addGroup(jPanel33Layout.createSequentialGroup()
+                        .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel33Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 934, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 72, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel33Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblUser)
-                .addGap(15, 15, 15))
+            .addGroup(jPanel33Layout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(75, 75, 75))
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel33Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel33Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel33Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101)
-                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel60Layout = new javax.swing.GroupLayout(jPanel60);
@@ -2252,7 +2175,7 @@ public class Home extends javax.swing.JDialog {
         );
         jPanel60Layout.setVerticalGroup(
             jPanel60Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel33, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel13.add(jPanel60, java.awt.BorderLayout.CENTER);
@@ -2263,7 +2186,7 @@ public class Home extends javax.swing.JDialog {
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1031, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1040, Short.MAX_VALUE)
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2274,7 +2197,11 @@ public class Home extends javax.swing.JDialog {
 
         panel1.add(jPanel16, java.awt.BorderLayout.CENTER);
 
-        main.add(panel1, java.awt.BorderLayout.CENTER);
+        jPanel7.add(panel1, java.awt.BorderLayout.CENTER);
+
+        main1.add(jPanel7, "card4");
+
+        main.add(main1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(main, java.awt.BorderLayout.CENTER);
 
@@ -2348,393 +2275,6 @@ public class Home extends javax.swing.JDialog {
         volumeControl(Double.parseDouble(value) / 100);
     }//GEN-LAST:event_slider1StateChanged
 
-    private void jPanel89MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel89MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel89MouseClicked
-
-    private void Imglbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl3MouseClicked
-        // TODO add your handling code here:
-        if (running) {
-            player.close();
-            running = false;
-            paused = false;
-            cursong = listSongName.get(2);
-            SongNamelbl.setText(listSongName.get(2));
-            Artistlbl.setText(listSongArtist.get(2));
-            Image image = icons[2].getImage();
-            icons[2] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[2]);
-            TotalTimelbl.setText(listSongDura.get(2));
-        } else {
-            cursong = listSongName.get(2);
-            SongNamelbl.setText(listSongName.get(2));
-            Artistlbl.setText(listSongArtist.get(2));
-            Image image = icons[2].getImage();
-            icons[2] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[2]);
-            TotalTimelbl.setText(listSongDura.get(2));
-        }
-        try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            PreparedStatement ps = con.prepareCall("Update NHAC set LUOTXEM=LUOTXEM + 1 where TENNHAC=?");
-            ps.setString(1, listSongName.get(2));
-            int kq = ps.executeUpdate();
-            ps.close();
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_Imglbl3MouseClicked
-
-    private void Artistlbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl3MouseClicked
-        // TODO add your handling code here:
-        if (player != null) {
-            player.close();
-            timer.stop();
-        }
-        String data1 = listSongArtist.get(2);
-        NgheSi mai = new NgheSi(null, forgot, data1);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_Artistlbl3MouseClicked
-
-    private void Songlbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl3MouseClicked
-        // TODO add your handling code here:
-        if (player != null) {
-            player.close();
-            timer.stop();
-        }
-        String data1 = listSongName.get(2);
-        String data2 = listSongDura.get(2);
-        ImageIcon data3 = icons[2];
-        String data4 = listSongLyr.get(2);
-        String data5 = listSongArtist.get(2);
-        chitietNhac mai = new chitietNhac(null, forgot);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl3MouseClicked
-
-    private void jPanel84MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel84MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel84MouseClicked
-
-    private void Imglbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl2MouseClicked
-        // TODO add your handling code here:
-        if (running) {
-            player.close();
-            running = false;
-            paused = false;
-            cursong = listSongName.get(1);
-            SongNamelbl.setText(listSongName.get(1));
-            Artistlbl.setText(listSongArtist.get(1));
-            Image image = icons[1].getImage();
-            icons[1] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[1]);
-            TotalTimelbl.setText(listSongDura.get(1));
-        } else {
-            cursong = listSongName.get(1);
-            SongNamelbl.setText(listSongName.get(1));
-            Artistlbl.setText(listSongArtist.get(1));
-            Image image = icons[1].getImage();
-            icons[1] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[1]);
-            TotalTimelbl.setText(listSongDura.get(1));
-        }
-        try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            PreparedStatement ps = con.prepareCall("Update NHAC set LUOTXEM=LUOTXEM + 1 where TENNHAC=?");
-            ps.setString(1, listSongName.get(1));
-            int kq = ps.executeUpdate();
-            ps.close();
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_Imglbl2MouseClicked
-
-    private void Artistlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl2MouseClicked
-        // TODO add your handling code here:
-        if (player != null) {
-            player.close();
-            timer.stop();
-        }
-        String data1 = listSongArtist.get(1);
-        NgheSi mai = new NgheSi(null, forgot, data1);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_Artistlbl2MouseClicked
-
-    private void Songlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl2MouseClicked
-        // TODO add your handling code here:
-        if (player != null) {
-            player.close();
-            timer.stop();
-        }
-        String data1 = listSongName.get(1);
-        String data2 = listSongDura.get(1);
-        ImageIcon data3 = icons[1];
-        String data4 = listSongLyr.get(1);
-        String data5 = listSongArtist.get(1);
-        chitietNhac mai = new chitietNhac(null, forgot);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl2MouseClicked
-
-    private void jPanel43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel43MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel43MouseClicked
-
-    private void Imglbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl1MouseClicked
-        // TODO add your handling code here:
-        if (running) {
-            player.close();
-            running = false;
-            paused = false;
-            cursong = listSongName.get(0);
-            SongNamelbl.setText(listSongName.get(0));
-            Artistlbl.setText(listSongArtist.get(0));
-            Image image = icons[0].getImage();
-            icons[0] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[0]);
-            TotalTimelbl.setText(listSongDura.get(0));
-        } else {
-            cursong = listSongName.get(0);
-            SongNamelbl.setText(listSongName.get(0));
-            Artistlbl.setText(listSongArtist.get(0));
-            Image image = icons[0].getImage();
-            icons[0] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[0]);
-            TotalTimelbl.setText(listSongDura.get(0));
-        }
-        try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            PreparedStatement ps = con.prepareCall("Update NHAC set LUOTXEM=LUOTXEM + 1 where TENNHAC=?");
-            ps.setString(1, listSongName.get(0));
-            int kq = ps.executeUpdate();
-            ps.close();
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_Imglbl1MouseClicked
-
-    private void Artistlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl1MouseClicked
-        // TODO add your handling code here:
-        if (player != null) {
-            player.close();
-            timer.stop();
-        }
-        String data1 = listSongArtist.get(0);
-        NgheSi mai = new NgheSi(null, forgot, data1);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_Artistlbl1MouseClicked
-
-    private void Songlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl1MouseClicked
-        // TODO add your handling code here:
-        if (player != null) {
-            player.close();
-            timer.stop();
-        }
-        String data1 = listSongName.get(0);
-        String data2 = listSongDura.get(0);
-        ImageIcon data3 = icons[0];
-        String data4 = listSongLyr.get(0);
-        String data5 = listSongArtist.get(0);
-        chitietNhac mai = new chitietNhac(null, forgot);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl1MouseClicked
-
-    private void Songlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl4MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Songlbl4MouseClicked
-
-    private void Artistlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl4MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Artistlbl4MouseClicked
-
-    private void Imglbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl4MouseClicked
-        try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            PreparedStatement ps = con.prepareCall("Update NHAC set LUOTXEM=LUOTXEM + 1 where TENNHAC=?");
-            ps.setString(1, listSongName.get(3));
-            int kq = ps.executeUpdate();
-            ps.close();
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_Imglbl4MouseClicked
-
-    private void jPanel51MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel51MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel51MouseClicked
-
-    private void Songlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl5MouseClicked
-           if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(4);
-            String data2 = listSongDura.get(4);
-            ImageIcon data3 = icons[4];
-            String data4 = listSongLyr.get(4);
-            String data5 = listSongArtist.get(4);
-            chitietNhac mai = new chitietNhac(null, forgot);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl5MouseClicked
-
-    private void Artistlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl5MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Artistlbl5MouseClicked
-
-    private void Imglbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl5MouseClicked
-        try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            PreparedStatement ps = con.prepareCall("Update NHAC set LUOTXEM=LUOTXEM + 1 where TENNHAC=?");
-            ps.setString(1, listSongName.get(4));
-            int kq = ps.executeUpdate();
-            ps.close();
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_Imglbl5MouseClicked
-
-    private void jPanel56MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel56MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel56MouseClicked
-
-    private void Songlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl6MouseClicked
-           if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(5);
-            String data2 = listSongDura.get(5);
-            ImageIcon data3 = icons[5];
-            String data4 = listSongLyr.get(5);
-            String data5 = listSongArtist.get(5);
-            chitietNhac mai = new chitietNhac(null, forgot);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl6MouseClicked
-
-    private void Artistlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl6MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Artistlbl6MouseClicked
-
-    private void Imglbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl6MouseClicked
-        try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            PreparedStatement ps = con.prepareCall("Update NHAC set LUOTXEM=LUOTXEM + 1 where TENNHAC=?");
-            ps.setString(1, listSongName.get(5));
-            int kq = ps.executeUpdate();
-            ps.close();
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_Imglbl6MouseClicked
-
-    private void jPanel90MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel90MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel90MouseClicked
-
-    private void Songlbl7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl7MouseClicked
-           if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(6);
-            String data2 = listSongDura.get(6);
-            ImageIcon data3 = icons[6];
-            String data4 = listSongLyr.get(6);
-            String data5 = listSongArtist.get(6);
-            chitietNhac mai = new chitietNhac(null, forgot);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl7MouseClicked
-
-    private void Artistlbl7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl7MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Artistlbl7MouseClicked
-
-    private void Imglbl7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl7MouseClicked
-        try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            PreparedStatement ps = con.prepareCall("Update NHAC set LUOTXEM=LUOTXEM + 1 where TENNHAC=?");
-            ps.setString(1, listSongName.get(6));
-            int kq = ps.executeUpdate();
-            ps.close();
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_Imglbl7MouseClicked
-
-    private void jPanel94MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel94MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel94MouseClicked
-
-    private void Songlbl8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl8MouseClicked
-           if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(7);
-            String data2 = listSongDura.get(7);
-            ImageIcon data3 = icons[7];
-            String data4 = listSongLyr.get(7);
-            String data5 = listSongArtist.get(7);
-            chitietNhac mai = new chitietNhac(null, forgot);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl8MouseClicked
-
-    private void Artistlbl8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl8MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Artistlbl8MouseClicked
-
-    private void Imglbl8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl8MouseClicked
-        try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            PreparedStatement ps = con.prepareCall("Update NHAC set LUOTXEM=LUOTXEM + 1 where TENNHAC=?");
-            ps.setString(1, listSongName.get(7));
-            int kq = ps.executeUpdate();
-            ps.close();
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_Imglbl8MouseClicked
-
-    private void jPanel64MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel64MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel64MouseClicked
-
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         // TODO add your handling code here:
         System.exit(0);
@@ -2752,12 +2292,12 @@ public class Home extends javax.swing.JDialog {
 
     private void btnMaximizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseClicked
         // TODO add your handling code here:
-//        if(this.getExtendedState()!= Home.MAXIMIZED_BOTH){
-//            this.setExtendedState(Home.MAXIMIZED_BOTH);
-//        }
-//        else{
-//            this.setExtendedState(Home.NORMAL);
-//        }
+        //        if(this.getExtendedState()!= Home.MAXIMIZED_BOTH){
+        //            this.setExtendedState(Home.MAXIMIZED_BOTH);
+        //        }
+        //        else{
+        //            this.setExtendedState(Home.NORMAL);
+        //        }
     }//GEN-LAST:event_btnMaximizeMouseClicked
 
     private void btnMaximizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseEntered
@@ -2785,6 +2325,16 @@ public class Home extends javax.swing.JDialog {
         changeColor(btnMinimize, new Color(222, 221, 217));
     }//GEN-LAST:event_btnMinimizeMouseExited
 
+    private void lblIcon_searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_searchMouseClicked
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        Main_search mai = new Main_search(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblIcon_searchMouseClicked
+
     private void lblSearch_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearch_menuMouseClicked
         if (player != null) {
             player.close();
@@ -2794,6 +2344,252 @@ public class Home extends javax.swing.JDialog {
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_lblSearch_menuMouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        load_data();
+        Image i = new javax.swing.ImageIcon(imageName).getImage();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemActionPerformed
+
+    private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTimKiemCaretUpdate
+
+    }//GEN-LAST:event_txtTimKiemCaretUpdate
+
+    private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel19MouseClicked
+
+    private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel18MouseClicked
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel14MouseClicked
+
+    private void jPanel43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel43MouseClicked
+        // TODO add your handling code here:
+        JFrame frame = new JFrame();
+        String data1 = listSongName.get(0);
+        String data2 = listSongDura.get(0);
+        ImageIcon data3 = icon;
+        String data4 = listSongLyr.get(0);
+        String data5 = listSongArtist.get(0);
+        chitietNhac_User mai = new chitietNhac_User(frame, forgot, data1, data2, data3, data4, data5);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_jPanel43MouseClicked
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        Image i = new javax.swing.ImageIcon(imageName).getImage();
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void Songlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl1MouseClicked
+        // TODO add your handling code here:
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongName.get(0);
+        String data2 = listSongDura.get(0);
+        ImageIcon data3 = icon;
+        String data4 = listSongLyr.get(0);
+        String data5 = listSongArtist.get(0);
+        chitietNhac_User mai = new chitietNhac_User(null, forgot, data1, data2, data3, data4, data5);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_Songlbl1MouseClicked
+
+    private void Artistlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl1MouseClicked
+        // TODO add your handling code here:
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongArtist.get(0);
+        NgheSi mai = new NgheSi(null, forgot, data1);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_Artistlbl1MouseClicked
+
+    private void Imglbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl1MouseClicked
+        // TODO add your handling code here:
+        if (running) {
+            player.close();
+            running = false;
+            paused = false;
+            cursong = listSongName.get(0);
+            SongNamelbl.setText(listSongName.get(0));
+            Artistlbl.setText(listSongArtist.get(0));
+            Image image = icon.getImage();
+            icon = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icon);
+            TotalTimelbl.setText(listSongDura.get(0));
+        } else {
+            cursong = listSongName.get(0);
+            SongNamelbl.setText(listSongName.get(0));
+            Artistlbl.setText(listSongArtist.get(0));
+            Image image = icon.getImage();
+            icon = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icon);
+            TotalTimelbl.setText(listSongDura.get(0));
+        }
+    }//GEN-LAST:event_Imglbl1MouseClicked
+
+    private void jPanel50MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel50MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel50MouseClicked
+
+    private void Songlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl2MouseClicked
+        // TODO add your handling code here:
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongName.get(1);
+        String data2 = listSongDura.get(1);
+        ImageIcon data3 = icon;
+        String data4 = listSongLyr.get(1);
+        String data5 = listSongArtist.get(1);
+        chitietNhac_User mai = new chitietNhac_User(null, forgot, data1, data2, data3, data4, data5);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_Songlbl2MouseClicked
+
+    private void Artistlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl2MouseClicked
+        // TODO add your handling code here:
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongArtist.get(1);
+        NgheSi mai = new NgheSi(null, forgot, data1);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_Artistlbl2MouseClicked
+
+    private void Imglbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl2MouseClicked
+        // TODO add your handling code here:
+        if (running) {
+            player.close();
+            running = false;
+            paused = false;
+            cursong = listSongName.get(1);
+            SongNamelbl.setText(listSongName.get(1));
+            Artistlbl.setText(listSongArtist.get(1));
+            Image image = icon.getImage();
+            icon = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icon);
+            TotalTimelbl.setText(listSongDura.get(1));
+        } else {
+            cursong = listSongName.get(1);
+            SongNamelbl.setText(listSongName.get(1));
+            Artistlbl.setText(listSongArtist.get(1));
+            Image image = icon.getImage();
+            icon = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icon);
+            TotalTimelbl.setText(listSongDura.get(1));
+        }
+    }//GEN-LAST:event_Imglbl2MouseClicked
+
+    private void jPanel92MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel92MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel92MouseClicked
+
+    private void Songlbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl3MouseClicked
+        // TODO add your handling code here:
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongName.get(2);
+        String data2 = listSongDura.get(2);
+        ImageIcon data3 = icon;
+        String data4 = listSongLyr.get(2);
+        String data5 = listSongArtist.get(2);
+        chitietNhac_User mai = new chitietNhac_User(null, forgot, data1, data2, data3, data4, data5);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_Songlbl3MouseClicked
+
+    private void Artistlbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl3MouseClicked
+        // TODO add your handling code here:
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongArtist.get(2);
+        NgheSi mai = new NgheSi(null, forgot, data1);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_Artistlbl3MouseClicked
+
+    private void Imglbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl3MouseClicked
+        // TODO add your handling code here:
+        if (running) {
+            player.close();
+            running = false;
+            paused = false;
+            cursong = listSongName.get(2);
+            SongNamelbl.setText(listSongName.get(2));
+            Artistlbl.setText(listSongArtist.get(2));
+            Image image = icon.getImage();
+            icon = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icon);
+            TotalTimelbl.setText(listSongDura.get(2));
+        } else {
+            cursong = listSongName.get(2);
+            SongNamelbl.setText(listSongName.get(2));
+            Artistlbl.setText(listSongArtist.get(2));
+            Image image = icon.getImage();
+            icon = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+            Songimglbl.setIcon(icon);
+            TotalTimelbl.setText(listSongDura.get(2));
+        }
+    }//GEN-LAST:event_Imglbl3MouseClicked
+
+    private void jPanel113MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel113MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel113MouseClicked
+
+    private void Songlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Songlbl4MouseClicked
+
+    private void Artistlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Artistlbl4MouseClicked
+
+    private void Imglbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl4MouseClicked
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("Update NHAC set LUOTXEM=LUOTXEM + 1 where TENNHAC=?");
+            ps.setString(1, listSongName.get(0));
+            int kq = ps.executeUpdate();
+            ps.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_Imglbl4MouseClicked
+
+    private void jPanel58MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel58MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel58MouseClicked
 
     private void lblHome_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHome_menuMouseClicked
         if (player != null) {
@@ -2872,20 +2668,20 @@ public class Home extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Home dialog = new Home(new javax.swing.JFrame(), true);
+                Main_search dialog = new Main_search(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -2908,52 +2704,56 @@ public class Home extends javax.swing.JDialog {
     private javax.swing.JLabel Artistlbl2;
     private javax.swing.JLabel Artistlbl3;
     private javax.swing.JLabel Artistlbl4;
-    private javax.swing.JLabel Artistlbl5;
-    private javax.swing.JLabel Artistlbl6;
-    private javax.swing.JLabel Artistlbl7;
-    private javax.swing.JLabel Artistlbl8;
     private javax.swing.JLabel Imglbl1;
     private javax.swing.JLabel Imglbl2;
     private javax.swing.JLabel Imglbl3;
     private javax.swing.JLabel Imglbl4;
-    private javax.swing.JLabel Imglbl5;
-    private javax.swing.JLabel Imglbl6;
-    private javax.swing.JLabel Imglbl7;
-    private javax.swing.JLabel Imglbl8;
     private javax.swing.JLabel SongNamelbl;
     private javax.swing.JLabel Songimglbl;
     private javax.swing.JLabel Songlbl1;
     private javax.swing.JLabel Songlbl2;
     private javax.swing.JLabel Songlbl3;
     private javax.swing.JLabel Songlbl4;
-    private javax.swing.JLabel Songlbl5;
-    private javax.swing.JLabel Songlbl6;
-    private javax.swing.JLabel Songlbl7;
-    private javax.swing.JLabel Songlbl8;
     private javax.swing.JLabel TotalTimelbl;
     private javax.swing.JPanel btnClose;
     private javax.swing.JPanel btnMaximize;
     private javax.swing.JPanel btnMinimize;
     private javax.swing.JPanel header;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel110;
+    private javax.swing.JPanel jPanel111;
+    private javax.swing.JPanel jPanel112;
+    private javax.swing.JPanel jPanel113;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
@@ -2983,13 +2783,10 @@ public class Home extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel54;
     private javax.swing.JPanel jPanel55;
     private javax.swing.JPanel jPanel56;
+    private javax.swing.JPanel jPanel57;
     private javax.swing.JPanel jPanel58;
-    private javax.swing.JPanel jPanel59;
     private javax.swing.JPanel jPanel60;
-    private javax.swing.JPanel jPanel61;
-    private javax.swing.JPanel jPanel62;
-    private javax.swing.JPanel jPanel63;
-    private javax.swing.JPanel jPanel64;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel83;
     private javax.swing.JPanel jPanel84;
     private javax.swing.JPanel jPanel85;
@@ -3010,8 +2807,8 @@ public class Home extends javax.swing.JDialog {
     private javax.swing.JLabel lblSearch_menu;
     private javax.swing.JLabel lblSearch_menu2;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JLabel lblUser;
     private javax.swing.JPanel main;
+    private javax.swing.JPanel main1;
     private javax.swing.JPanel menu;
     private javax.swing.JPanel menu_con;
     private javax.swing.JPanel musicPlayer;
@@ -3029,9 +2826,10 @@ public class Home extends javax.swing.JDialog {
     private javax.swing.JPanel pnl_vien4;
     private com.swanmusic.swing.Slider slider1;
     private com.swanmusic.swing.Slider slider2;
+    private javax.swing.JTextField txtTimKiem;
     private javax.swing.JPanel windoTtiling;
     // End of variables declaration//GEN-END:variables
-    private void volumeControl(Double valueToPlusMinus) {
+ private void volumeControl(Double valueToPlusMinus) {
         // Get Mixer Information From AudioSystem
         Mixer.Info[] mixers = AudioSystem.getMixerInfo();
         // Now use a for loop to list all mixers

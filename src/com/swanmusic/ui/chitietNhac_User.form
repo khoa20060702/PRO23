@@ -280,6 +280,9 @@
                 <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="value" type="int" value="0"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="slider2MouseReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1028,6 +1031,7 @@
                                     </Property>
                                   </Properties>
                                   <Events>
+                                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton3MouseClicked"/>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
                                   </Events>
                                 </Component>

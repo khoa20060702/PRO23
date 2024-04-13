@@ -288,7 +288,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                             JOptionPane.showMessageDialog(this, "không truy vấn đc");
             } else {
                    
-                        jLabel1.setVisible(true);
+                       jLabel1.setVisible(true);
                        jLabel2.setVisible(true);
                        jPanel43.setVisible(true);
                         jPanel24.setVisible(true);
@@ -307,7 +307,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 icons = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(0));
                 Image image = icons.getImage();
                 icons = new ImageIcon(image.getScaledInstance(jLabel7.getWidth(), jLabel7.getHeight(), image.SCALE_SMOOTH));
-                                upImage("Wn.jpg");
+                jLabel8.setIcon(icons);
                      
                       
                      
@@ -356,15 +356,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         center = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
         east = new javax.swing.JPanel();
-        information = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        panel4 = new com.swanmusic.swing.Panel();
-        waitingList = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        panel6 = new com.swanmusic.swing.Panel();
-        jButton11 = new javax.swing.JButton();
         jSplitPane2 = new javax.swing.JSplitPane();
         menu = new javax.swing.JPanel();
         trademark = new javax.swing.JPanel();
@@ -722,125 +713,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         east.setMaximumSize(new java.awt.Dimension(225, 508));
         east.setRequestFocusEnabled(false);
         east.setLayout(new java.awt.CardLayout());
-
-        information.setBackground(new java.awt.Color(0, 0, 0));
-        information.setMaximumSize(new java.awt.Dimension(225, 508));
-        information.setPreferredSize(new java.awt.Dimension(100, 508));
-        information.setLayout(new java.awt.BorderLayout());
-
-        jPanel5.setOpaque(false);
-        jPanel5.setPreferredSize(new java.awt.Dimension(100, 10));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        information.add(jPanel5, java.awt.BorderLayout.PAGE_START);
-
-        jPanel6.setOpaque(false);
-        jPanel6.setPreferredSize(new java.awt.Dimension(100, 10));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        information.add(jPanel6, java.awt.BorderLayout.PAGE_END);
-
-        panel4.setForeground(new java.awt.Color(255, 201, 221));
-        panel4.setPreferredSize(new java.awt.Dimension(100, 542));
-
-        javax.swing.GroupLayout panel4Layout = new javax.swing.GroupLayout(panel4);
-        panel4.setLayout(panel4Layout);
-        panel4Layout.setHorizontalGroup(
-            panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
-        );
-        panel4Layout.setVerticalGroup(
-            panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 479, Short.MAX_VALUE)
-        );
-
-        information.add(panel4, java.awt.BorderLayout.CENTER);
-
-        east.add(information, "card2");
-
-        waitingList.setBackground(new java.awt.Color(0, 0, 0));
-        waitingList.setMaximumSize(new java.awt.Dimension(225, 508));
-        waitingList.setPreferredSize(new java.awt.Dimension(100, 508));
-        waitingList.setLayout(new java.awt.BorderLayout());
-
-        jPanel3.setOpaque(false);
-        jPanel3.setPreferredSize(new java.awt.Dimension(100, 10));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        waitingList.add(jPanel3, java.awt.BorderLayout.PAGE_START);
-
-        jPanel4.setOpaque(false);
-        jPanel4.setPreferredSize(new java.awt.Dimension(100, 10));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        waitingList.add(jPanel4, java.awt.BorderLayout.PAGE_END);
-
-        panel6.setForeground(new java.awt.Color(255, 201, 221));
-        panel6.setPreferredSize(new java.awt.Dimension(100, 542));
-
-        jButton11.setText("jButton11");
-
-        javax.swing.GroupLayout panel6Layout = new javax.swing.GroupLayout(panel6);
-        panel6.setLayout(panel6Layout);
-        panel6Layout.setHorizontalGroup(
-            panel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel6Layout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(jButton11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panel6Layout.setVerticalGroup(
-            panel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel6Layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(jButton11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        waitingList.add(panel6, java.awt.BorderLayout.CENTER);
-
-        east.add(waitingList, "card3");
-
         jSplitPane1.setRightComponent(east);
 
         menu.setBackground(new java.awt.Color(0, 0, 0));
@@ -2512,15 +2384,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
         // TODO add your handling code here:
-        if(!loop)
-        {
-            loop = true;
-        }
-        else
-        {
-            loop = false;
-        }
-        loopSong();
+     
     }//GEN-LAST:event_jLabel17MouseClicked
 
     /**
@@ -2576,9 +2440,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JPanel east;
     private javax.swing.JPanel header;
     private javax.swing.JPanel homeSearch;
-    private javax.swing.JPanel information;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -2653,7 +2515,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
@@ -2663,13 +2524,11 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel43;
     private javax.swing.JPanel jPanel44;
     private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel47;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel53;
     private javax.swing.JPanel jPanel54;
     private javax.swing.JPanel jPanel55;
@@ -2677,7 +2536,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JPanel jPanel57;
     private javax.swing.JPanel jPanel58;
     private javax.swing.JPanel jPanel59;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel60;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -2722,12 +2580,9 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private com.swanmusic.swing.Panel panel2;
     private com.swanmusic.swing.Panel panel21;
     private com.swanmusic.swing.Panel panel3;
-    private com.swanmusic.swing.Panel panel4;
-    private com.swanmusic.swing.Panel panel6;
     private com.swanmusic.swing.Panel panelTrademark1;
     private javax.swing.JPanel trademark;
     private javax.swing.JTextField txtTimKiem;
-    private javax.swing.JPanel waitingList;
     private javax.swing.JPanel yourLibrary;
     // End of variables declaration//GEN-END:variables
 }
