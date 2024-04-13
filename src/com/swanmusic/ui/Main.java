@@ -276,12 +276,103 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         customSplitpaneUI();
         getAlbum();
         getSong();
-        Albumlbl1.setText(listAlbumName.get(0));
-        Albumlbl2.setText(listAlbumName.get(1));
-        Albumlbl3.setText(listAlbumName.get(2));
-        Albumlbl4.setText(listAlbumName.get(3));
-        Albumlbl5.setText(listAlbumName.get(4));
-        Songlbl1.setText(listSongName.get(0));
+        if(listAlbumName.size() > 0)
+        {
+        Albumlbl1.setText(listAlbumName.get(0));    
+        }
+        else
+        {
+        Albumlbl1.setVisible(false);
+        }
+        if(listAlbumName.size() > 1)
+        {
+        Albumlbl2.setText(listAlbumName.get(1));    
+        }
+        else
+        {
+        Albumlbl2.setVisible(false);
+        }
+        if(listAlbumName.size() > 2)
+        {
+        Albumlbl3.setText(listAlbumName.get(2));    
+        }
+        else
+        {
+        Albumlbl3.setVisible(false);
+        }
+        if(listAlbumName.size() > 3)
+        {
+        Albumlbl4.setText(listAlbumName.get(3));    
+        }
+        else
+        {
+        Albumlbl4.setVisible(false);
+        }
+        if(listAlbumName.size() > 4)
+        {
+        Albumlbl5.setText(listAlbumName.get(4));    
+        }
+        else
+        {
+        Albumlbl5.setVisible(false);
+        }
+        if(listAlbumName.size() > 5)
+        {
+        Albumlbl6.setText(listAlbumName.get(5));    
+        }
+        else
+        {
+        Albumlbl6.setVisible(false);
+        }
+        if(listSongName.size() > 0)
+        {
+        Songlbl1.setText(listSongName.get(0));  
+        }
+        else
+        {
+        Songlbl1.setVisible(false);
+        }
+        if(listSongName.size() > 1)
+        {
+        Songlbl2.setText(listSongName.get(1));  
+        }
+        else
+        {
+        Songlbl2.setVisible(false);
+        }
+        if(listSongName.size() > 2)
+        {
+        Songlbl3.setText(listSongName.get(2));  
+        }
+        else
+        {
+        Songlbl3.setVisible(false);
+        }
+        if(listSongName.size() > 3)
+        {
+        Songlbl4.setText(listSongName.get(3));  
+        }
+        else
+        {
+        Songlbl4.setVisible(false);
+        }
+        if(listSongName.size() > 4)
+        {
+        Songlbl1.setText(listSongName.get(0));  
+        }
+        else
+        {
+        Songlbl1.setVisible(false);
+        }
+        if(listAlbumName.size() > 5)
+        {
+        Albumlbl6.setText(listAlbumName.get(5));    
+        }
+        else
+        {
+        Albumlbl6.setVisible(false);
+        }        
+        
         Songlbl2.setText(listSongName.get(1));
         Songlbl3.setText(listSongName.get(2));
         Songlbl4.setText(listSongName.get(3));
@@ -2968,12 +3059,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 player.close();
                 timer.stop();
             }
-            String data1 = listSongName.get(1);
-            String data2 = listSongDura.get(1);
-            ImageIcon data3 = icons[1];
-            String data4 = listSongLyr.get(1);
-            String data5 = listSongArtist.get(1);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            String data1 = listSongArtist.get(1);
+            NgheSi mai = new NgheSi(this, forgot , data1);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl2MouseClicked
@@ -3002,12 +3089,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 player.close();
                 timer.stop();
             }
-            String data1 = listSongName.get(2);
-            String data2 = listSongDura.get(2);
-            ImageIcon data3 = icons[2];
-            String data4 = listSongLyr.get(2);
-            String data5 = listSongArtist.get(2);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            String data1 = listSongArtist.get(2);
+            NgheSi mai = new NgheSi(this, forgot , data1);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl3MouseClicked
@@ -3036,12 +3119,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 player.close();
                 timer.stop();
             }
-            String data1 = listSongName.get(3);
-            String data2 = listSongDura.get(3);
-            ImageIcon data3 = icons[3];
-            String data4 = listSongLyr.get(3);
-            String data5 = listSongArtist.get(3);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            String data1 = listSongArtist.get(3);
+            NgheSi mai = new NgheSi(this, forgot , data1);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl4MouseClicked
@@ -3070,12 +3149,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 player.close();
                 timer.stop();
             }
-            String data1 = listSongName.get(4);
-            String data2 = listSongDura.get(4);
-            ImageIcon data3 = icons[4];
-            String data4 = listSongLyr.get(4);
-            String data5 = listSongArtist.get(4);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            String data1 = listSongArtist.get(4);
+            NgheSi mai = new NgheSi(this, forgot , data1);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl5MouseClicked
@@ -3104,12 +3179,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 player.close();
                 timer.stop();
             }
-            String data1 = listSongName.get(5);
-            String data2 = listSongDura.get(5);
-            ImageIcon data3 = icons[5];
-            String data4 = listSongLyr.get(5);
-            String data5 = listSongArtist.get(5);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            String data1 = listSongArtist.get(5);
+            NgheSi mai = new NgheSi(this, forgot , data1);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl6MouseClicked
