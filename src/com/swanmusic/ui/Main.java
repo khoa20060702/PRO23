@@ -63,6 +63,8 @@ public class Main extends javax.swing.JFrame {
     public List<String> listSongLyr = new ArrayList<>();
     public List<String> listSongPic = new ArrayList<>();
     
+    public List<String> listPlaylistName = new ArrayList<>();
+    public List<String> listPlaylistSongs = new ArrayList<>();
     public ImageIcon[] icons = new ImageIcon[100];
 
     boolean running = false;
@@ -266,6 +268,27 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
          } catch (Exception e) {
              e.printStackTrace();
          }   
+    }    
+    public void getPlaylist()
+    {
+        int i = 0;
+              try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             PreparedStatement ps = con.prepareCall("select * from User_PlayList");
+             ResultSet rs = ps.executeQuery();
+             while(rs.next())
+             {
+             listPlaylistName.add(rs.getString("TENPLAYLIST"));
+             listPlaylistSongs.add(rs.getString("TENNHAC"));                 
+             }
+            rs.close();
+            ps.close();
+            con.close();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }   
     }
     void init(){
         this.setSize(1260, 682);
@@ -277,6 +300,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         customSplitpaneUI();
         getAlbum();
         getSong();
+        getPlaylist();
         if(listAlbumName.size() > 0)
         {
         Albumlbl1.setText(listAlbumName.get(0));    
@@ -396,6 +420,10 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         Albumlbl6.setVisible(false);
         Artistlbl6.setVisible(false);
         Imglbl6.setVisible(false);        
+        }
+        if(listPlaylistName.size() > 0)
+        {
+            Albumlbl6.setText(listPlaylistName.get(0));
         }
     } 
     
@@ -1257,7 +1285,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jLabel8.setText("ICON");
 
         Albumlbl7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Albumlbl7.setText("+");
+        Albumlbl7.setText("Playlist #1");
         Albumlbl7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Albumlbl7MouseClicked(evt);
@@ -1265,7 +1293,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         });
 
         Albumlbl8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Albumlbl8.setText("Playlist #1");
+        Albumlbl8.setText("+");
         Albumlbl8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Albumlbl8MouseClicked(evt);
@@ -1318,11 +1346,11 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 .addComponent(Albumlbl5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Albumlbl6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(Albumlbl8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Albumlbl7)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Albumlbl8)
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         yourLibrary.add(panel3, java.awt.BorderLayout.CENTER);
@@ -2716,7 +2744,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private void Albumlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl1MouseClicked
             String data1 = listAlbumName.get(0);
             ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
+            String data3 = "";
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2 , data3);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl1MouseClicked
@@ -2724,7 +2753,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private void Albumlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl2MouseClicked
             String data1 = listAlbumName.get(1);
             ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(1));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
+            String data3 = "";
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2 , data3);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl2MouseClicked
@@ -2733,7 +2763,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         // TODO add your handling code here:
             String data1 = listAlbumName.get(2);
             ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(2));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
+            String data3 = "";
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2 , data3);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl3MouseClicked
@@ -2742,7 +2773,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         // TODO add your handling code here:
             String data1 = listAlbumName.get(3);
             ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
+            String data3 = "";
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2 , data3);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl4MouseClicked
@@ -2751,16 +2783,18 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         // TODO add your handling code here:
             String data1 = listAlbumName.get(4);
             ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(4));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
+            String data3 = "";
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2 , data3);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl5MouseClicked
 
     private void Albumlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl6MouseClicked
         // TODO add your handling code here:
-            String data1 = listAlbumName.get(5);
+            String data1 = listPlaylistName.get(0);
             ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(5));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
+            String data3 = "";
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2 , data3);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl6MouseClicked
@@ -2786,7 +2820,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void jPanel99MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel99MouseClicked
         // TODO add your handling code here:
-  
+        
     }//GEN-LAST:event_jPanel99MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -3276,6 +3310,23 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         this.setVisible(false);
         mmm.setVisible(true); 
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void Albumlbl7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl7MouseClicked
+        // TODO add your handling code here:
+            String data1 = listPlaylistName.get(0);
+            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
+            String data3 = "playlist";
+            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2 , data3);
+            this.setVisible(false);
+            mai.setVisible(true);
+    }//GEN-LAST:event_Albumlbl7MouseClicked
+
+    private void Albumlbl8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl8MouseClicked
+        // TODO add your handling code here:
+        Playlist_Create pc = new Playlist_Create(this , forgot , null);
+        this.setVisible(false);
+        pc.setVisible(true);
+    }//GEN-LAST:event_Albumlbl8MouseClicked
 
     /**
      * @param args the command line arguments

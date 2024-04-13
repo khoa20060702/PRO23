@@ -48,6 +48,7 @@ public class chitietAlbum_User extends javax.swing.JDialog {
      */
     public String data1;
     public ImageIcon data2;
+    public String data3;
     boolean forgot = false;
     public static chitietAlbum_User album;
     public List<String> listAlbumName = new ArrayList<>();
@@ -61,9 +62,11 @@ public class chitietAlbum_User extends javax.swing.JDialog {
     public List<String> listSongAlb = new ArrayList<>();
     public List<String> listSongArtist = new ArrayList<>();
     public List<String> listSongDura = new ArrayList<>();
+    public List<String> listSongViews = new ArrayList<>();
     public List<String> listSongLyr = new ArrayList<>();
     public List<String> listSongPic = new ArrayList<>();
     
+    public List<String> listSongNamePl = new ArrayList<>();
     public ImageIcon[] icons = new ImageIcon[100];
 
     boolean running = false;
@@ -185,18 +188,29 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     totalTime = fi.available();
     player.play();
 }    
-    public chitietAlbum_User(java.awt.Frame parent, boolean modal , String data1 , ImageIcon data2) {
+    public chitietAlbum_User(java.awt.Frame parent, boolean modal , String data1 , ImageIcon data2 , String data3) {
         super(parent, modal);
         initComponents();
         init();
 
         this.data1 = data1;
         this.data2 = data2;
+        this.data3 = data3;
         AlbumNamelbl.setText(data1);
         Image image = data2.getImage();
         ImageIcon newscale = new ImageIcon(image.getScaledInstance(Albumimglbl.getWidth(), Albumimglbl.getHeight(), image.SCALE_SMOOTH));
         Albumimglbl.setIcon(newscale);
-        getSongs();
+        if(data3 != "playlist")
+        {
+        getSongs();    
+        }
+        else
+        {
+        getSongsPl();    
+        }
+        
+if(data3 != "playlist")
+{
 if(listSongName.size() > 0) {
     lblName7.setText(listSongName.get(0));
     lblUser15.setText(listSongDura.get(0));
@@ -241,12 +255,105 @@ else
     lblNumber10.setVisible(false);
     lblUser18.setVisible(false);
 }
+}
+else
+{
+if(listSongName.size() > 0) {
+    lblName7.setText(listSongName.get(0));
+    lblUser15.setText(listSongDura.get(0));
+    lblUser7.setText(listSongViews.get(0));
+}
+else
+{
+    lblName7.setVisible(false);
+    lblUser7.setVisible(false);
+    lblNumber7.setVisible(false);
+    lblUser15.setVisible(false);
+}
+if(listSongName.size() > 1) {
+    lblName8.setText(listSongName.get(1));
+    lblUser16.setText(listSongDura.get(1));
+    lblUser8.setText(listSongViews.get(1));
+}
+else
+{
+    lblName8.setVisible(false);
+    lblUser8.setVisible(false);
+    lblNumber8.setVisible(false);
+    lblUser16.setVisible(false);
+}
+if(listSongName.size() > 2) {
+    lblName9.setText(listSongName.get(2));
+    lblUser17.setText(listSongDura.get(2));
+    lblUser9.setText(listSongViews.get(2));
+}
+else
+{
+    lblName9.setVisible(false);
+    lblUser9.setVisible(false);
+    lblNumber9.setVisible(false);
+    lblUser17.setVisible(false);
+}
+if(listSongName.size() > 3) {
+    lblName10.setText(listSongName.get(3));
+    lblUser18.setText(listSongDura.get(3));
+    lblUser10.setText(listSongViews.get(3));
+} 
+else
+{
+    lblName10.setVisible(false);
+    lblUser10.setVisible(false);
+    lblNumber10.setVisible(false);
+    lblUser18.setVisible(false);
+}    
+}
     }
 
     void init() {
         this.setSize(1260, 682);
         this.setLocationRelativeTo(null);
  
+    }
+    public void getSongsPl()
+    {
+        int i = 0;
+        try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             PreparedStatement ps = con.prepareCall("select TENNHAC from USER_PLAYLIST where TENPLAYLIST like ? group by TENNHAC");
+             ps.setString(1, data1);
+             ResultSet rs = ps.executeQuery();
+             while(rs.next())
+             {
+                 listSongNamePl.add(rs.getString("TENNHAC"));
+             }
+             while(listSongNamePl.size() >= i)
+             {
+             url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             con = DriverManager.getConnection(url,"sa","");
+             ps = con.prepareCall("select * from NHAC where TENNHAC like ?");
+             ps.setString(1, listSongNamePl.get(i));
+             rs = ps.executeQuery();
+             while(rs.next())
+             {
+                listSongName.add(rs.getString("TENNHAC"));
+                listSongArtist.add(rs.getString("NGHESI"));
+                listSongCate.add(rs.getString("THELOAI"));
+                listSongViews.add(rs.getString("LUOTXEM"));
+                listSongDura.add(rs.getString("THOILUONG"));
+                listSongPic.add(rs.getString("ANH"));
+                icons[i] = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(i));
+                Image image = icons[i].getImage();
+                icons[i] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+                 System.out.println(listSongName.get(i));
+             }
+             i++;
+             }
+             
+        } catch (Exception e) {
+        }
     }
     public void getSongs()
     {
@@ -273,6 +380,7 @@ else
                 icons[i] = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(i));
                 Image image = icons[i].getImage();
                 icons[i] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+                  System.out.println(listSongNamePl.get(i));
                   i++;
             }
             rs.close();
@@ -305,6 +413,7 @@ else
         AlbumNamelbl = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
@@ -448,6 +557,15 @@ else
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("VSTRA . TGSN . TYRONEE . 2023 . 10 SONGS, 33 MIN");
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("+");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel5Layout = new javax.swing.GroupLayout(panel5);
         panel5.setLayout(panel5Layout);
         panel5Layout.setHorizontalGroup(
@@ -455,12 +573,22 @@ else
             .addGroup(panel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AlbumNamelbl)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panel5Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel5Layout.createSequentialGroup()
+                                .addGroup(panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(AlbumNamelbl)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(243, Short.MAX_VALUE))
+                            .addGroup(panel5Layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addContainerGap())))
         );
         panel5Layout.setVerticalGroup(
             panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -475,7 +603,9 @@ else
                         .addComponent(jLabel6))
                     .addGroup(panel5Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1223,6 +1353,14 @@ else
             new com.swanmusic.ui.Main_Search(null,true).setVisible(true); 
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        String data1 = AlbumNamelbl.getText();
+        Playlist_Create pc = new Playlist_Create(null , forgot , data1);
+        this.setVisible(false);
+        pc.setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1267,6 +1405,7 @@ else
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

@@ -1251,11 +1251,11 @@
                                       <Component id="Albumlbl5" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="Albumlbl6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="7" max="32767" attributes="0"/>
-                                      <Component id="Albumlbl8" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="Albumlbl7" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="Albumlbl7" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="Albumlbl8" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace pref="7" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1348,7 +1348,7 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Segoe UI" size="18" style="1"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="+"/>
+                                <Property name="text" type="java.lang.String" value="Playlist #1"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Albumlbl7MouseClicked"/>
@@ -1359,7 +1359,7 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Segoe UI" size="18" style="1"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="Playlist #1"/>
+                                <Property name="text" type="java.lang.String" value="+"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Albumlbl8MouseClicked"/>
