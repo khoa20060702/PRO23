@@ -2881,7 +2881,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void Imglbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl1MouseClicked
         // TODO add your handling code here:
-        if(running)
+        if(player != null)
         {
             player.close();
             running = false;
@@ -2908,7 +2908,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void Imglbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl2MouseClicked
         // TODO add your handling code here:
-        if(running)
+        if(player != null)
         {
             player.close();
             running = false;
@@ -2935,7 +2935,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void Imglbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl3MouseClicked
         // TODO add your handling code here:
-        if(running)
+        if(player != null)
         {
             player.close();
             running = false;
@@ -2962,7 +2962,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void Imglbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl4MouseClicked
         // TODO add your handling code here:
-        if(running)
+        if(player != null)
         {
             player.close();
             running = false;
@@ -2989,7 +2989,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void Imglbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl5MouseClicked
         // TODO add your handling code here:
-        if(running)
+        if(player != null)
         {
             player.close();
             running = false;
@@ -3016,7 +3016,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void Imglbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl6MouseClicked
         // TODO add your handling code here:
-        if(running)
+        if(player != null)
         {
             player.close();
             running = false;
