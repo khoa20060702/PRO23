@@ -32,12 +32,7 @@ public static Account acc;
 Main form = new Main();
 com.swanmusic.main.taikhoan_frmAdmin mau= new com.swanmusic.main.taikhoan_frmAdmin(main, forgot);
 com.swanmusic.ui.dangkyJDialog dk = new com.swanmusic.ui.dangkyJDialog(main, forgot);
-com.swanmusic.ui.quenmatkhauJDialog qmk = new com.swanmusic.ui.quenmatkhauJDialog(main, forgot);
-    void init(){
-        this.setSize(1242,682);
-        this.setLocationRelativeTo(null);
-        this.openChao();
-    }
+com.swanmusic.ui.quenmatkhauJDialog qmk = new com.swanmusic.ui.quenmatkhauJDialog(main, forgot);    
         AccountDAO dao = new AccountDAO();
      private void login() {
         String username = txtName.getText();
@@ -48,15 +43,16 @@ com.swanmusic.ui.quenmatkhauJDialog qmk = new com.swanmusic.ui.quenmatkhauJDialo
         } else {
                 if (acc.getMatkhau().equals(pass)) {
                     acc = aDAO.selectByID(username);
-                    Auth.USER = acc;
-                        if (acc.isVaiTro()==true) {
-                                MsgBox.alert(this, "vào admin");
+                    Auth.USER = acc;                 
+                        if (acc.isVaiTro()==true) {                    
+                                MsgBox.alert(this, "vào admin");                           
                                 mau.setVisible(true);
                                 this.setVisible(false);
                                 
-                    } else {
+                    } else {                       
                              MsgBox.alert(this, "vào user");
-                                form.setVisible(true);
+                                form.setAccount(acc);
+                                form.setVisible(true);                                
                                 this.setVisible(false);
                     }
                 } else {
@@ -67,6 +63,11 @@ com.swanmusic.ui.quenmatkhauJDialog qmk = new com.swanmusic.ui.quenmatkhauJDialo
      void openChao(){
          new chaoJDialog(null,true).setVisible(true);
      }
+     void init(){
+        this.setSize(1242,682);
+        this.setLocationRelativeTo(null);
+        this.openChao();
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

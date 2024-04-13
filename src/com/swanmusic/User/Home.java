@@ -839,7 +839,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         windoTtiling.setBackground(new java.awt.Color(0, 0, 0));
         windoTtiling.setPreferredSize(new java.awt.Dimension(1260, 40));
-        windoTtiling.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        windoTtiling.setLayout(new java.awt.BorderLayout());
         getContentPane().add(windoTtiling, java.awt.BorderLayout.PAGE_START);
 
         menu.setBackground(new java.awt.Color(0, 0, 0));
