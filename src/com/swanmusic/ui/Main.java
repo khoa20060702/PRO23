@@ -2855,7 +2855,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             ImageIcon data3 = icons[0];
             String data4 = listSongLyr.get(0);
             String data5 = listSongArtist.get(0);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+            chitietNhac_User mai = new chitietNhac_User(null, forgot, data1 , data2 , data3 , data4 , data5);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Songlbl1MouseClicked

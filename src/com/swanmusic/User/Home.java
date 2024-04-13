@@ -10,7 +10,9 @@ import com.swanmusic.entity.Nhac;
 import javax.swing.*;
 import com.swanmusic.swing.ComponentResizer;
 import com.swanmusic.swing.ScrollBar;
+import com.swanmusic.ui.NgheSi;
 import com.swanmusic.ui.chitietAlbum_User;
+import com.swanmusic.ui.chitietNhac_User;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.TextLayout;
@@ -282,7 +284,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
              e.printStackTrace();
          }   
     }
-    public Main() {
+    public Home() {
         initComponents();
         init();
         getAlbum();
@@ -2176,7 +2178,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             timer.stop();
         }
         String data1 = listSongArtist.get(2);
-        NgheSi mai = new NgheSi(this, forgot , data1);
+        NgheSi mai = new NgheSi(null, forgot , data1);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl3MouseClicked
@@ -2193,7 +2195,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         ImageIcon data3 = icons[2];
         String data4 = listSongLyr.get(2);
         String data5 = listSongArtist.get(2);
-        chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+        chitietNhac_User mai = new chitietNhac_User(null, forgot, data1 , data2 , data3 , data4 , data5);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Songlbl3MouseClicked
@@ -2237,7 +2239,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             timer.stop();
         }
         String data1 = listSongArtist.get(1);
-        NgheSi mai = new NgheSi(this, forgot , data1);
+        NgheSi mai = new NgheSi(null, forgot , data1);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl2MouseClicked
@@ -2254,7 +2256,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         ImageIcon data3 = icons[1];
         String data4 = listSongLyr.get(1);
         String data5 = listSongArtist.get(1);
-        chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+        chitietNhac_User mai = new chitietNhac_User(null, forgot, data1 , data2 , data3 , data4 , data5);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Songlbl2MouseClicked
@@ -2298,7 +2300,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             timer.stop();
         }
         String data1 = listSongArtist.get(0);
-        NgheSi mai = new NgheSi(this, forgot , data1);
+        NgheSi mai = new NgheSi(null, forgot , data1);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl1MouseClicked
@@ -2315,7 +2317,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         ImageIcon data3 = icons[0];
         String data4 = listSongLyr.get(0);
         String data5 = listSongArtist.get(0);
-        chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
+        chitietNhac_User mai = new chitietNhac_User(null, forgot, data1 , data2 , data3 , data4 , data5);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Songlbl1MouseClicked
@@ -2403,7 +2405,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private void Albumlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl1MouseClicked
         String data1 = listAlbumName.get(0);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
+            chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1 , data2);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl1MouseClicked
@@ -2411,7 +2413,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private void Albumlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl2MouseClicked
         String data1 = listAlbumName.get(1);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(1));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
+            chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1 , data2);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl2MouseClicked
@@ -2420,7 +2422,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         // TODO add your handling code here:
         String data1 = listAlbumName.get(2);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(2));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
+            chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1 , data2);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl3MouseClicked
@@ -2429,7 +2431,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         // TODO add your handling code here:
         String data1 = listAlbumName.get(3);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
+            chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1 , data2);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl4MouseClicked
@@ -2438,7 +2440,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         // TODO add your handling code here:
         String data1 = listAlbumName.get(4);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(4));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
+            chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1 , data2);
             this.setVisible(false);
             mai.setVisible(true);
     }//GEN-LAST:event_Albumlbl5MouseClicked
@@ -2610,4 +2612,50 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private com.swanmusic.swing.Slider slider2;
     private javax.swing.JPanel windoTtiling;
     // End of variables declaration//GEN-END:variables
+    private void volumeControl(Double valueToPlusMinus){
+        // Get Mixer Information From AudioSystem
+        Mixer.Info[] mixers = AudioSystem.getMixerInfo();
+        // Now use a for loop to list all mixers
+        for(Mixer.Info mixerInfo : mixers){
+            // Get Mixer
+            Mixer mixer = AudioSystem.getMixer(mixerInfo);
+            // Now Get Target Line
+            Line.Info[] lineInfos = mixer.getTargetLineInfo();
+            // Here again use for loop to list lines
+            for(Line.Info lineInfo : lineInfos){
+                // Make a null line
+                Line line = null;
+                // Make a boolean as opened
+                boolean opened = true;
+                // Now use try exception for opening a line
+                try{
+                    line = mixer.getLine(lineInfo);
+                    opened = line.isOpen() || line instanceof Clip;
+                    // Now Check If Line Is not Opened
+                    if(!opened){
+                        // Open Line
+                        line.open();
+                    }
+                    // Make a float control
+                    FloatControl volControl = (FloatControl) line.getControl(FloatControl.Type.VOLUME);
+                    // Get Current Volume Now
+                    float currentVolume = volControl.getValue();
+                    // Make a temp double variable and store valuePlusMinus
+                    Double volumeToCut = valueToPlusMinus;
+                    // Make a float and calculate the addition or subtraction in volume
+                    float changedCalc = (float) ((double)volumeToCut);
+                    // Now Set This Changed Value Into Volume Line.
+                    volControl.setValue(changedCalc);
+                    System.out.println(volControl.getValue());
+                }catch (LineUnavailableException lineException){
+                }catch (IllegalArgumentException illException){
+                }finally{
+                    // Close Line If it opened
+                    if(line != null && !opened){
+                        line.close();
+                    }
+                }
+            }
+        }
+    }
 }
