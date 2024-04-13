@@ -1709,8 +1709,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel25.setBackground(new java.awt.Color(255, 103, 158));
         jPanel25.setLayout(new java.awt.BorderLayout());
 
+        jPanel54.setBackground(new java.awt.Color(204, 255, 204));
         jPanel54.setName(""); // NOI18N
-        jPanel54.setOpaque(false);
         jPanel54.setPreferredSize(new java.awt.Dimension(200, 10));
 
         javax.swing.GroupLayout jPanel54Layout = new javax.swing.GroupLayout(jPanel54);

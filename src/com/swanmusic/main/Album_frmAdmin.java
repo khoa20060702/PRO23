@@ -722,7 +722,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -733,7 +733,7 @@ public class Album_frmAdmin extends javax.swing.JDialog {
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         QL.setOpaque(false);
@@ -742,11 +742,9 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         jPanel9.setOpaque(false);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("QUẢN LÝ ALBUM");
 
         lblTheloai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTheloai.setForeground(new java.awt.Color(0, 0, 0));
         lblTheloai.setText("Thể loại");
 
         txtTheloai.setBackground(new java.awt.Color(255, 145, 185));
@@ -797,13 +795,11 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         });
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblName.setForeground(new java.awt.Color(0, 0, 0));
         lblName.setText("Tên album");
 
         txtName.setBackground(new java.awt.Color(255, 145, 185));
 
         lblTime.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTime.setForeground(new java.awt.Color(0, 0, 0));
         lblTime.setText("Thời gian phát hành");
 
         txtNghesi.setBackground(new java.awt.Color(255, 145, 185));
@@ -814,7 +810,6 @@ public class Album_frmAdmin extends javax.swing.JDialog {
         });
 
         lblNghesi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNghesi.setForeground(new java.awt.Color(0, 0, 0));
         lblNghesi.setText("Nghệ sĩ");
 
         txtTime.setBackground(new java.awt.Color(255, 145, 185));
@@ -839,14 +834,14 @@ public class Album_frmAdmin extends javax.swing.JDialog {
             pnlHinh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHinh2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlHinh2Layout.setVerticalGroup(
             pnlHinh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHinh2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -873,10 +868,9 @@ public class Album_frmAdmin extends javax.swing.JDialog {
                             .addComponent(lblNghesi)
                             .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTime)
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblName)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6)))
+                            .addComponent(lblName)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
                         .addGap(120, 120, 120)
                         .addComponent(pnlHinh2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(288, Short.MAX_VALUE))
