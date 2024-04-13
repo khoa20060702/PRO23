@@ -202,12 +202,54 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         Songimglbl.setIcon(newscale);
         TotalTimelbl.setText(data2);
         cursong = data1.replace(" ","");
-        Albumlbl1.setText(listAlbumName.get(0));
-        Albumlbl2.setText(listAlbumName.get(1));
-        Albumlbl3.setText(listAlbumName.get(2));
-        Albumlbl4.setText(listAlbumName.get(3));
-        Albumlbl5.setText(listAlbumName.get(4));
-//        Albumlbl6.setText(listAlbumName.get(5));
+if(listAlbumName.size() > 0)
+        {
+        Albumlbl1.setText(listAlbumName.get(0));    
+        }
+        else
+        {
+        Albumlbl1.setVisible(false);
+        }
+        if(listAlbumName.size() > 1)
+        {
+        Albumlbl2.setText(listAlbumName.get(1));    
+        }
+        else
+        {
+        Albumlbl2.setVisible(false);
+        }
+        if(listAlbumName.size() > 2)
+        {
+        Albumlbl3.setText(listAlbumName.get(2));    
+        }
+        else
+        {
+        Albumlbl3.setVisible(false);
+        }
+        if(listAlbumName.size() > 3)
+        {
+        Albumlbl4.setText(listAlbumName.get(3));    
+        }
+        else
+        {
+        Albumlbl4.setVisible(false);
+        }
+        if(listAlbumName.size() > 4)
+        {
+        Albumlbl5.setText(listAlbumName.get(4));    
+        }
+        else
+        {
+        Albumlbl5.setVisible(false);
+        }
+        if(listAlbumName.size() > 5)
+        {
+        Albumlbl6.setText(listAlbumName.get(5));    
+        }
+        else
+        {
+        Albumlbl6.setVisible(false);
+        }
     }
 
     

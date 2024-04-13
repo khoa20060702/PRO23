@@ -327,69 +327,75 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         if(listSongName.size() > 0)
         {
         Songlbl1.setText(listSongName.get(0));  
+        Artistlbl1.setText(listSongArtist.get(0));
+        Imglbl1.setIcon(icons[0]);
         }
         else
         {
         Songlbl1.setVisible(false);
+        Artistlbl1.setVisible(false);
+        Imglbl1.setVisible(false);
         }
         if(listSongName.size() > 1)
         {
-        Songlbl2.setText(listSongName.get(1));  
+        Songlbl2.setText(listSongName.get(1));
+        Artistlbl2.setText(listSongArtist.get(1));
+        Imglbl2.setIcon(icons[1]);        
         }
         else
         {
         Songlbl2.setVisible(false);
+        Artistlbl2.setVisible(false);
+        Imglbl2.setVisible(false);        
         }
         if(listSongName.size() > 2)
         {
         Songlbl3.setText(listSongName.get(2));  
+        Artistlbl3.setText(listSongArtist.get(2));
+        Imglbl3.setIcon(icons[2]);        
         }
         else
         {
         Songlbl3.setVisible(false);
+        Artistlbl3.setVisible(false);
+        Imglbl3.setVisible(false);        
         }
         if(listSongName.size() > 3)
         {
-        Songlbl4.setText(listSongName.get(3));  
+        Songlbl4.setText(listSongName.get(3)); 
+        Artistlbl4.setText(listSongArtist.get(3));
+        Imglbl4.setIcon(icons[3]);          
         }
         else
         {
         Songlbl4.setVisible(false);
+        Artistlbl4.setVisible(false);
+        Imglbl4.setVisible(false);
         }
         if(listSongName.size() > 4)
         {
-        Songlbl1.setText(listSongName.get(0));  
+        Songlbl5.setText(listSongName.get(4));  
+        Artistlbl5.setText(listSongArtist.get(4));
+        Imglbl5.setIcon(icons[4]);                 
         }
         else
         {
-        Songlbl1.setVisible(false);
+        Songlbl5.setVisible(false);
+        Artistlbl5.setVisible(false);
+        Imglbl5.setVisible(false);        
         }
-        if(listAlbumName.size() > 5)
+        if(listSongName.size() > 5)
         {
-        Albumlbl6.setText(listAlbumName.get(5));    
+        Songlbl6.setText(listSongName.get(5));    
+        Artistlbl6.setText(listSongArtist.get(5));
+        Imglbl6.setIcon(icons[5]);           
         }
         else
         {
         Albumlbl6.setVisible(false);
-        }        
-        
-        Songlbl2.setText(listSongName.get(1));
-        Songlbl3.setText(listSongName.get(2));
-        Songlbl4.setText(listSongName.get(3));
-        Songlbl5.setText(listSongName.get(4));
-        Songlbl6.setText(listSongName.get(5));
-        Artistlbl1.setText(listSongArtist.get(0));
-        Artistlbl2.setText(listSongArtist.get(1));
-        Artistlbl3.setText(listSongArtist.get(2));
-        Artistlbl4.setText(listSongArtist.get(3));
-        Artistlbl5.setText(listSongArtist.get(4));
-        Artistlbl6.setText(listSongArtist.get(5));
-        Imglbl1.setIcon(icons[0]);
-        Imglbl2.setIcon(icons[1]);
-        Imglbl3.setIcon(icons[2]);
-        Imglbl4.setIcon(icons[3]);
-        Imglbl5.setIcon(icons[4]);
-        Imglbl6.setIcon(icons[5]);
+        Artistlbl6.setVisible(false);
+        Imglbl6.setVisible(false);        
+        }
     } 
     
     public void customSplitpaneUI() {
