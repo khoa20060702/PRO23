@@ -1,68 +1,56 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.swanmusic.ui;
 
-import com.swanmusic.entity.Album;
-import com.swanmusic.entity.Nhac;
-import javax.swing.*;
-import com.swanmusic.swing.ComponentResizer;
 import com.swanmusic.swing.ScrollBar;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.font.TextLayout;
-import java.awt.geom.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import javax.swing.plaf.basic.*;
-import java.awt.BorderLayout;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
+
+import com.swanmusic.entity.Nghesi;
+import com.swanmusic.entity.Nhac;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.Line;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.Mixer;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.Timer;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import org.apache.commons.lang3.StringUtils;
-public class Main extends javax.swing.JFrame {
-    public static chitietAlbum_User album;
-     boolean forgot = false;
+/**
+ *
+ * @author phuon
+ */
+public class Playlist_Create extends javax.swing.JDialog {
+public List<String> listAlbumPic = new ArrayList<>();
     public List<String> listAlbumName = new ArrayList<>();
     public List<String> listAlbumArtist = new ArrayList<>();
     public List<String> listAlbumCate = new ArrayList<>();
     public List<String> listAlbumDate = new ArrayList<>();
-    public List<String> listAlbumPic = new ArrayList<>();
     
     public List<String> listSongName = new ArrayList<>();
-    public List<String> listSongCate = new ArrayList<>();
-    public List<String> listSongAlb = new ArrayList<>();
     public List<String> listSongArtist = new ArrayList<>();
     public List<String> listSongDura = new ArrayList<>();
     public List<String> listSongLyr = new ArrayList<>();
-    public List<String> listSongPic = new ArrayList<>();
-    
-    public ImageIcon[] icons = new ImageIcon[100];
+    public List<String> listSongPic = new ArrayList<>();    
+    /**
+     * Creates new form Main_Search
+     */
+
 
     boolean running = false;
     boolean paused = false;
@@ -134,7 +122,7 @@ private boolean isStreamOpen = false;
                 ex.printStackTrace();
             }
             int percent = (int) (((double) current / (double) totalTime) * 100);
-            slider2.setValue(percent);
+            jSlider2.setValue(percent);
         }
     }
 });
@@ -198,7 +186,37 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     player = new Player(bi);
     totalTime = fi.available();
     player.play();
-}
+}    
+    public Playlist_Create(java.awt.Frame parent, boolean modal) {
+   
+        super(parent, modal);
+        initComponents();
+        jLabel1.setVisible(false);
+           jLabel2.setVisible(false);
+           jPanel43.setVisible(false);
+             jPanel24.setVisible(false);
+                 jPanel25.setVisible(false);
+                     jPanel26.setVisible(false);
+                         jPanel27.setVisible(false);
+                             jPanel28.setVisible(false);
+                                 jPanel29.setVisible(false);
+                                     jPanel30.setVisible(false);
+                                         jPanel31.setVisible(false);
+                                             jPanel32.setVisible(false);
+        customSplitpaneUI();
+        init();
+        getAlbum();
+        Albumlbl1.setText(listAlbumName.get(0));
+        Albumlbl2.setText(listAlbumName.get(1));
+        Albumlbl3.setText(listAlbumName.get(2));
+        Albumlbl4.setText(listAlbumName.get(3));
+        Albumlbl5.setText(listAlbumName.get(4));
+        Albumlbl6.setText(listAlbumName.get(5));
+        
+    }
+      String imageName ="src\\com\\swanmusic\\img\\Wn.jpg";
+      ImageIcon icons;
+      boolean forgot = false;
     public void getAlbum()
     {
         int i = 0;
@@ -209,7 +227,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
              PreparedStatement ps = con.prepareCall("select * from ALBUM");
              ResultSet rs = ps.executeQuery();
               while (rs.next()) {
-                Album al = new Album();
+                com.swanmusic.entity.Album al = new com.swanmusic.entity.Album();
                 al.setAlbumName(rs.getString("TENALBUM"));
                 listAlbumName.add(rs.getString("TENALBUM"));
                 al.setAlbumArtist(rs.getString("NGHESI"));
@@ -218,8 +236,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 listAlbumCate.add(rs.getString("THELOAI"));
                 al.setAlbumArtist(rs.getString("TG_PHATHANH"));
                 listAlbumArtist.add(rs.getString("TG_PHATHANH"));
-                al.setAlbumImage(rs.getString("ANH"));
-                listAlbumPic.add(rs.getString("ANH"));
+                al.setAlbumCategory(rs.getString("ANH"));
+                listAlbumCate.add(rs.getString("ANH"));
                   i++;
             }
             rs.close();
@@ -229,176 +247,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
              e.printStackTrace();
          }   
     }
-    public void getSong()
-    {
-        int i = 0;
-              try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select * from NHAC");
-             ResultSet rs = ps.executeQuery();
-              while (rs.next()) {
-                Nhac al = new Nhac();
-                al.setName(rs.getString("TENNHAC"));
-                listSongName.add(rs.getString("TENNHAC")); 
-                al.setCategory(rs.getString("THELOAI"));
-                listSongCate.add(rs.getString("THELOAI"));
-                al.setAlbum(rs.getString("ALBUM"));
-                listSongAlb.add(rs.getString("ALBUM"));
-                al.setArtist(rs.getString("NGHESI"));
-                listSongArtist.add(rs.getString("NGHESI"));
-                al.setDura(rs.getString("THOILUONG"));
-                listSongDura.add(rs.getString("THOILUONG"));
-                al.setLyr(rs.getString("LOIBAIHAT"));
-                listSongLyr.add(rs.getString("LOIBAIHAT"));
-                al.setImage(rs.getString("ANH"));
-                listSongPic.add(rs.getString("ANH"));
-                icons[i] = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(i));
-                Image image = icons[i].getImage();
-                icons[i] = new ImageIcon(image.getScaledInstance(Imglbl1.getWidth(), Imglbl1.getHeight(), image.SCALE_SMOOTH));
-                  i++;
-            }
-            rs.close();
-            ps.close();
-            con.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }   
-    }
-    void init(){
-        this.setSize(1260, 682);
-        this.setLocationRelativeTo(null);
-    }
-    public Main() {
-        initComponents();
-        init();
-        customSplitpaneUI();
-        getAlbum();
-        getSong();
-        if(listAlbumName.size() > 0)
-        {
-        Albumlbl1.setText(listAlbumName.get(0));    
-        }
-        else
-        {
-        Albumlbl1.setVisible(false);
-        }
-        if(listAlbumName.size() > 1)
-        {
-        Albumlbl2.setText(listAlbumName.get(1));    
-        }
-        else
-        {
-        Albumlbl2.setVisible(false);
-        }
-        if(listAlbumName.size() > 2)
-        {
-        Albumlbl3.setText(listAlbumName.get(2));    
-        }
-        else
-        {
-        Albumlbl3.setVisible(false);
-        }
-        if(listAlbumName.size() > 3)
-        {
-        Albumlbl4.setText(listAlbumName.get(3));    
-        }
-        else
-        {
-        Albumlbl4.setVisible(false);
-        }
-        if(listAlbumName.size() > 4)
-        {
-        Albumlbl5.setText(listAlbumName.get(4));    
-        }
-        else
-        {
-        Albumlbl5.setVisible(false);
-        }
-        if(listAlbumName.size() > 5)
-        {
-        Albumlbl6.setText(listAlbumName.get(5));    
-        }
-        else
-        {
-        Albumlbl6.setVisible(false);
-        }
-        if(listSongName.size() > 0)
-        {
-        Songlbl1.setText(listSongName.get(0));  
-        Artistlbl1.setText(listSongArtist.get(0));
-        Imglbl1.setIcon(icons[0]);
-        }
-        else
-        {
-        Songlbl1.setVisible(false);
-        Artistlbl1.setVisible(false);
-        Imglbl1.setVisible(false);
-        }
-        if(listSongName.size() > 1)
-        {
-        Songlbl2.setText(listSongName.get(1));
-        Artistlbl2.setText(listSongArtist.get(1));
-        Imglbl2.setIcon(icons[1]);        
-        }
-        else
-        {
-        Songlbl2.setVisible(false);
-        Artistlbl2.setVisible(false);
-        Imglbl2.setVisible(false);        
-        }
-        if(listSongName.size() > 2)
-        {
-        Songlbl3.setText(listSongName.get(2));  
-        Artistlbl3.setText(listSongArtist.get(2));
-        Imglbl3.setIcon(icons[2]);        
-        }
-        else
-        {
-        Songlbl3.setVisible(false);
-        Artistlbl3.setVisible(false);
-        Imglbl3.setVisible(false);        
-        }
-        if(listSongName.size() > 3)
-        {
-        Songlbl4.setText(listSongName.get(3)); 
-        Artistlbl4.setText(listSongArtist.get(3));
-        Imglbl4.setIcon(icons[3]);          
-        }
-        else
-        {
-        Songlbl4.setVisible(false);
-        Artistlbl4.setVisible(false);
-        Imglbl4.setVisible(false);
-        }
-        if(listSongName.size() > 4)
-        {
-        Songlbl5.setText(listSongName.get(4));  
-        Artistlbl5.setText(listSongArtist.get(4));
-        Imglbl5.setIcon(icons[4]);                 
-        }
-        else
-        {
-        Songlbl5.setVisible(false);
-        Artistlbl5.setVisible(false);
-        Imglbl5.setVisible(false);        
-        }
-        if(listSongName.size() > 5)
-        {
-        Songlbl6.setText(listSongName.get(5));    
-        Artistlbl6.setText(listSongArtist.get(5));
-        Imglbl6.setIcon(icons[5]);           
-        }
-        else
-        {
-        Albumlbl6.setVisible(false);
-        Artistlbl6.setVisible(false);
-        Imglbl6.setVisible(false);        
-        }
-    } 
-    
-    public void customSplitpaneUI() {
+     public void customSplitpaneUI() {
         // custom giao dien
         jSplitPane1.setUI(new BasicSplitPaneUI() {
             @Override
@@ -416,38 +265,92 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         });
         jScrollPane2.setVerticalScrollBar(new ScrollBar());
     }
-    public void changeColor(JPanel hover, Color rand){
-        hover.setBackground(rand);
+      public void upImage(String imageName) {
+        ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
+        Image image = icon.getImage();
+        ImageIcon icon1 = new ImageIcon(image.getScaledInstance(jLabel7.getWidth(), jLabel7.getHeight(), image.SCALE_SMOOTH));
+        jLabel7.setIcon(icon1);
     }
-    
+     public void load_data(){
+        try {
+            String url = "jdbc:sqlserver://localhost:1433;DatabaseName=SWAN;encrypt=false";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select TENNHAC,NGHESI,THOILUONG,LOIBAIHAT,ANH from NHAC where TENNHAC like ?");
+           String tennhac= String.valueOf(txtTimKiem.getText());
+             String nghesi= String.valueOf(txtTimKiem.getText());
+                ps.setString(1, tennhac);
+                   
+                ResultSet rs1=ps.executeQuery();
+          
+             
+                if (rs1.next()==false) {
+                            JOptionPane.showMessageDialog(this, "không truy vấn đc");
+            } else {
+                   
+                        jLabel1.setVisible(true);
+                       jLabel2.setVisible(true);
+                       jPanel43.setVisible(true);
+                        jPanel24.setVisible(true);
+                        jLabel7.setVisible(true);
+                    jLabel1.setText(rs1.getString("NGHESI"));
+                    listAlbumPic.add(rs1.getString("NGHESI"));
+                       jLabel2.setText(rs1.getString("TENNHAC"));
+                        listAlbumPic.add(rs1.getString("TENNHAC"));
+                        jLabel7.setText(rs1.getString("ANH"));
+
+                listSongName.add(rs1.getString("TENNHAC")); 
+                listSongArtist.add(rs1.getString("NGHESI"));
+                listSongDura.add(rs1.getString("THOILUONG"));
+                listSongLyr.add(rs1.getString("LOIBAIHAT"));
+                listSongPic.add(rs1.getString("ANH"));
+                icons = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(0));
+                Image image = icons.getImage();
+                icons = new ImageIcon(image.getScaledInstance(jLabel7.getWidth(), jLabel7.getHeight(), image.SCALE_SMOOTH));
+                                upImage("Wn.jpg");
+                     
+                      
+                     
+            }
+  
+            ps.close();
+            con.close();
+     
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+           
+                                             
+}
+        public void init(){
+            this.setSize(1260, 682);
+            this.setLocationRelativeTo(null);
+        }
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
         musicPlayer = new javax.swing.JPanel();
-        SongNamelbl = new javax.swing.JLabel();
-        Artistlbl = new javax.swing.JLabel();
+        jPanel37 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel40 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        TotalTimelbl = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        slider2 = new com.swanmusic.swing.Slider();
+        jSlider2 = new com.swanmusic.swing.Slider();
         jLabel47 = new javax.swing.JLabel();
-        slider1 = new com.swanmusic.swing.Slider();
-        Songimglbl = new javax.swing.JLabel();
+        jSlider1 = new com.swanmusic.swing.Slider();
         header = new javax.swing.JPanel();
-        jPanel22 = new javax.swing.JPanel();
-        btnClose = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        btnMaximize = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        btnMinimize = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         paddingWest = new javax.swing.JPanel();
         paddingEast = new javax.swing.JPanel();
         center = new javax.swing.JPanel();
@@ -487,8 +390,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         Albumlbl6 = new javax.swing.JLabel();
         Albumlbl5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        Albumlbl7 = new javax.swing.JLabel();
-        Albumlbl8 = new javax.swing.JLabel();
         main = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -502,6 +403,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jLabel14 = new javax.swing.JLabel();
         jPanel38 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        txtTimKiem = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
@@ -525,25 +428,25 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel45 = new javax.swing.JPanel();
         jPanel47 = new javax.swing.JPanel();
         jPanel43 = new javax.swing.JPanel();
-        Songlbl1 = new javax.swing.JLabel();
-        Artistlbl1 = new javax.swing.JLabel();
-        Imglbl1 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
         jPanel54 = new javax.swing.JPanel();
         jPanel55 = new javax.swing.JPanel();
         jPanel83 = new javax.swing.JPanel();
         jPanel84 = new javax.swing.JPanel();
-        Songlbl2 = new javax.swing.JLabel();
-        Artistlbl2 = new javax.swing.JLabel();
-        Imglbl2 = new javax.swing.JLabel();
+        panel12 = new com.swanmusic.swing.Panel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
         jPanel85 = new javax.swing.JPanel();
         jPanel86 = new javax.swing.JPanel();
         jPanel88 = new javax.swing.JPanel();
         jPanel89 = new javax.swing.JPanel();
-        Songlbl3 = new javax.swing.JLabel();
-        Artistlbl3 = new javax.swing.JLabel();
-        Imglbl3 = new javax.swing.JLabel();
+        panel13 = new com.swanmusic.swing.Panel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
         jPanel90 = new javax.swing.JPanel();
         jPanel91 = new javax.swing.JPanel();
@@ -560,27 +463,27 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel118 = new javax.swing.JPanel();
         jPanel119 = new javax.swing.JPanel();
         jPanel120 = new javax.swing.JPanel();
-        Songlbl4 = new javax.swing.JLabel();
-        Artistlbl4 = new javax.swing.JLabel();
-        Imglbl4 = new javax.swing.JLabel();
+        panel21 = new com.swanmusic.swing.Panel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
         jPanel29 = new javax.swing.JPanel();
         jPanel95 = new javax.swing.JPanel();
         jPanel96 = new javax.swing.JPanel();
         jPanel97 = new javax.swing.JPanel();
         jPanel98 = new javax.swing.JPanel();
         jPanel99 = new javax.swing.JPanel();
-        Songlbl5 = new javax.swing.JLabel();
-        Artistlbl5 = new javax.swing.JLabel();
-        Imglbl5 = new javax.swing.JLabel();
+        panel15 = new com.swanmusic.swing.Panel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
         jPanel100 = new javax.swing.JPanel();
         jPanel101 = new javax.swing.JPanel();
         jPanel102 = new javax.swing.JPanel();
         jPanel103 = new javax.swing.JPanel();
         jPanel104 = new javax.swing.JPanel();
-        Songlbl6 = new javax.swing.JLabel();
-        Artistlbl6 = new javax.swing.JLabel();
-        Imglbl6 = new javax.swing.JLabel();
+        panel16 = new com.swanmusic.swing.Panel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
         jPanel105 = new javax.swing.JPanel();
         jPanel106 = new javax.swing.JPanel();
@@ -596,21 +499,29 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jLabel24 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
 
-        jButton2.setText("jButton2");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         musicPlayer.setBackground(new java.awt.Color(0, 0, 0));
         musicPlayer.setPreferredSize(new java.awt.Dimension(1242, 90));
 
-        SongNamelbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        SongNamelbl.setForeground(new java.awt.Color(255, 255, 255));
-        SongNamelbl.setText("TÊN BÀI NHẠC");
+        javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
+        jPanel37.setLayout(jPanel37Layout);
+        jPanel37Layout.setHorizontalGroup(
+            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 83, Short.MAX_VALUE)
+        );
+        jPanel37Layout.setVerticalGroup(
+            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
-        Artistlbl.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        Artistlbl.setForeground(new java.awt.Color(122, 122, 122));
-        Artistlbl.setText("TÊN TÁC GIẢ");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("TÊN BÀI NHẠC");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(122, 122, 122));
+        jLabel4.setText("TÊN TÁC GIẢ");
 
         jPanel40.setOpaque(false);
 
@@ -627,9 +538,9 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             }
         });
 
-        TotalTimelbl.setBackground(new java.awt.Color(255, 255, 255));
-        TotalTimelbl.setForeground(new java.awt.Color(255, 255, 255));
-        TotalTimelbl.setText("00:00");
+        jLabel15.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("00:00");
 
         jLabel16.setBackground(new java.awt.Color(255, 255, 255));
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -652,18 +563,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             }
         });
 
-        slider2.setToolTipText("");
-        slider2.setValue(0);
-        slider2.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                slider2StateChanged(evt);
-            }
-        });
-        slider2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                slider2MouseReleased(evt);
-            }
-        });
+        jSlider2.setToolTipText("");
+        jSlider2.setValue(0);
 
         javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
         jPanel40.setLayout(jPanel40Layout);
@@ -675,9 +576,9 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                         .addContainerGap()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(slider2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TotalTimelbl))
+                        .addComponent(jLabel15))
                     .addGroup(jPanel40Layout.createSequentialGroup()
                         .addGap(106, 106, 106)
                         .addComponent(jLabel13)
@@ -707,8 +608,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel16)
-                        .addComponent(TotalTimelbl))
-                    .addComponent(slider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel15))
+                    .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGap(0, 70, Short.MAX_VALUE))
@@ -718,128 +619,67 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jLabel47.setForeground(new java.awt.Color(255, 255, 255));
         jLabel47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/loudspeaker-white.png"))); // NOI18N
 
-        slider1.setToolTipText("");
-        slider1.setValue(0);
-        slider1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                slider1StateChanged(evt);
-            }
-        });
+        jSlider1.setToolTipText("");
+        jSlider1.setValue(0);
 
         javax.swing.GroupLayout musicPlayerLayout = new javax.swing.GroupLayout(musicPlayer);
         musicPlayer.setLayout(musicPlayerLayout);
         musicPlayerLayout.setHorizontalGroup(
             musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, musicPlayerLayout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addComponent(Songimglbl, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(22, 22, 22)
+                .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Artistlbl)
-                    .addComponent(SongNamelbl))
-                .addGap(92, 92, 92)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addGap(144, 144, 144)
                 .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(152, 152, 152)
                 .addComponent(jLabel47)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(slider1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(142, 142, 142))
         );
         musicPlayerLayout.setVerticalGroup(
             musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(musicPlayerLayout.createSequentialGroup()
                 .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(musicPlayerLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(slider1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(musicPlayerLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Songimglbl, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, musicPlayerLayout.createSequentialGroup()
-                                .addComponent(SongNamelbl)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Artistlbl))
-                            .addComponent(jPanel40, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(10, Short.MAX_VALUE))
+                        .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(musicPlayerLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(musicPlayerLayout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel4))
+                                    .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(musicPlayerLayout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addComponent(jPanel37, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         getContentPane().add(musicPlayer, java.awt.BorderLayout.PAGE_END);
 
         header.setBackground(new java.awt.Color(255, 255, 255));
         header.setPreferredSize(new java.awt.Dimension(1242, 30));
-        header.setLayout(new java.awt.BorderLayout());
 
-        jPanel22.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel22.setPreferredSize(new java.awt.Dimension(120, 30));
-        jPanel22.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnClose.setBackground(new java.awt.Color(255, 255, 255));
-        btnClose.setPreferredSize(new java.awt.Dimension(40, 30));
-        btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCloseMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCloseMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCloseMouseExited(evt);
-            }
-        });
-        btnClose.setLayout(new java.awt.BorderLayout());
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/close-black.png"))); // NOI18N
-        btnClose.add(jLabel2, java.awt.BorderLayout.CENTER);
-
-        jPanel22.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, -1, -1));
-
-        btnMaximize.setBackground(new java.awt.Color(255, 255, 255));
-        btnMaximize.setPreferredSize(new java.awt.Dimension(40, 30));
-        btnMaximize.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnMaximizeMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMaximizeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMaximizeMouseExited(evt);
-            }
-        });
-        btnMaximize.setLayout(new java.awt.BorderLayout());
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/maximize (1).png"))); // NOI18N
-        btnMaximize.add(jLabel1, java.awt.BorderLayout.CENTER);
-
-        jPanel22.add(btnMaximize, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, -1));
-
-        btnMinimize.setBackground(new java.awt.Color(255, 255, 255));
-        btnMinimize.setPreferredSize(new java.awt.Dimension(40, 30));
-        btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnMinimizeMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMinimizeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMinimizeMouseExited(evt);
-            }
-        });
-        btnMinimize.setLayout(new java.awt.BorderLayout());
-
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/minus.png"))); // NOI18N
-        btnMinimize.add(jLabel7, java.awt.BorderLayout.CENTER);
-
-        jPanel22.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        header.add(jPanel22, java.awt.BorderLayout.LINE_END);
+        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
+        header.setLayout(headerLayout);
+        headerLayout.setHorizontalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1370, Short.MAX_VALUE)
+        );
+        headerLayout.setVerticalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
 
         getContentPane().add(header, java.awt.BorderLayout.PAGE_START);
 
@@ -854,7 +694,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         );
         paddingWestLayout.setVerticalGroup(
             paddingWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
 
         getContentPane().add(paddingWest, java.awt.BorderLayout.LINE_START);
@@ -870,7 +710,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         );
         paddingEastLayout.setVerticalGroup(
             paddingEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
 
         getContentPane().add(paddingEast, java.awt.BorderLayout.LINE_END);
@@ -880,7 +720,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         east.setBackground(new java.awt.Color(0, 0, 0));
         east.setMaximumSize(new java.awt.Dimension(225, 508));
-        east.setPreferredSize(new java.awt.Dimension(100, 508));
         east.setRequestFocusEnabled(false);
         east.setLayout(new java.awt.CardLayout());
 
@@ -896,7 +735,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 212, Short.MAX_VALUE)
+            .addGap(0, 320, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -912,7 +751,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 212, Short.MAX_VALUE)
+            .addGap(0, 320, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -928,11 +767,11 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         panel4.setLayout(panel4Layout);
         panel4Layout.setHorizontalGroup(
             panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 212, Short.MAX_VALUE)
+            .addGap(0, 320, Short.MAX_VALUE)
         );
         panel4Layout.setVerticalGroup(
             panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGap(0, 479, Short.MAX_VALUE)
         );
 
         information.add(panel4, java.awt.BorderLayout.CENTER);
@@ -951,7 +790,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 212, Short.MAX_VALUE)
+            .addGap(0, 320, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -967,7 +806,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 212, Short.MAX_VALUE)
+            .addGap(0, 320, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -995,7 +834,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             .addGroup(panel6Layout.createSequentialGroup()
                 .addGap(133, 133, 133)
                 .addComponent(jButton11)
-                .addContainerGap(394, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         waitingList.add(panel6, java.awt.BorderLayout.CENTER);
@@ -1150,7 +989,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         menu.add(homeSearch);
 
         yourLibrary.setBackground(new java.awt.Color(0, 0, 0));
-        yourLibrary.setPreferredSize(new java.awt.Dimension(220, 328));
         yourLibrary.setLayout(new java.awt.BorderLayout());
 
         jPanel14.setBackground(new java.awt.Color(0, 0, 0));
@@ -1193,70 +1031,24 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         Albumlbl2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Albumlbl2.setText("Playlist #1");
-        Albumlbl2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl2MouseClicked(evt);
-            }
-        });
 
         Albumlbl1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Albumlbl1.setText("Playlist #1");
-        Albumlbl1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl1MouseClicked(evt);
-            }
-        });
 
         Albumlbl4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Albumlbl4.setText("Playlist #1");
-        Albumlbl4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl4MouseClicked(evt);
-            }
-        });
 
         Albumlbl3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Albumlbl3.setText("Playlist #1");
-        Albumlbl3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl3MouseClicked(evt);
-            }
-        });
 
         Albumlbl6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Albumlbl6.setText("Playlist #1");
-        Albumlbl6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl6MouseClicked(evt);
-            }
-        });
 
         Albumlbl5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Albumlbl5.setText("Playlist #1");
-        Albumlbl5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl5MouseClicked(evt);
-            }
-        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("ICON");
-
-        Albumlbl7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Albumlbl7.setText("+");
-        Albumlbl7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl7MouseClicked(evt);
-            }
-        });
-
-        Albumlbl8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Albumlbl8.setText("Playlist #1");
-        Albumlbl8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl8MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout panel3Layout = new javax.swing.GroupLayout(panel3);
         panel3.setLayout(panel3Layout);
@@ -1278,12 +1070,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(jLabel8)
-                        .addGap(18, 18, 18))
-                    .addGroup(panel3Layout.createSequentialGroup()
-                        .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Albumlbl8)
-                            .addComponent(Albumlbl7))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18))))
         );
         panel3Layout.setVerticalGroup(
             panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1304,11 +1091,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 .addComponent(Albumlbl5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Albumlbl6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(Albumlbl8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Albumlbl7)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         yourLibrary.add(panel3, java.awt.BorderLayout.CENTER);
@@ -1332,7 +1115,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 799, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1348,7 +1131,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 799, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1362,8 +1145,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         jPanel9.setBackground(new java.awt.Color(153, 153, 255));
         jPanel9.setOpaque(false);
-        jPanel9.setPreferredSize(new java.awt.Dimension(649, 70));
-        jPanel9.setLayout(new java.awt.BorderLayout());
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel10.setOpaque(false);
         jPanel10.setPreferredSize(new java.awt.Dimension(649, 10));
@@ -1373,14 +1155,14 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 799, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel9.add(jPanel10, java.awt.BorderLayout.PAGE_START);
+        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, -1));
 
         jPanel11.setOpaque(false);
         jPanel11.setPreferredSize(new java.awt.Dimension(649, 10));
@@ -1389,14 +1171,14 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 799, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel9.add(jPanel11, java.awt.BorderLayout.PAGE_END);
+        jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 65, 800, -1));
 
         jPanel12.setBackground(new java.awt.Color(0, 0, 0));
         jPanel12.setOpaque(false);
@@ -1417,19 +1199,19 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jPanel9.add(jPanel12, java.awt.BorderLayout.LINE_START);
+        jPanel9.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, 55));
 
         jPanel38.setOpaque(false);
 
@@ -1442,19 +1224,44 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel38Layout.setHorizontalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel38Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addComponent(jButton6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel38Layout.setVerticalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel38Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel38Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addComponent(jButton6)
-                .addContainerGap())
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jPanel9.add(jPanel38, java.awt.BorderLayout.LINE_END);
+        jPanel9.add(jPanel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(721, 10, -1, -1));
+
+        jButton1.setBackground(new java.awt.Color(255, 201, 221));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setText("Tìm kiếm");
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(612, 20, 80, 50));
+
+        txtTimKiem.setBackground(new java.awt.Color(255, 103, 158));
+        txtTimKiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTimKiem.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtTimKiemCaretUpdate(evt);
+            }
+        });
+        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemActionPerformed(evt);
+            }
+        });
+        jPanel9.add(txtTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 570, 50));
 
         panel1.add(jPanel9, java.awt.BorderLayout.PAGE_START);
 
@@ -1468,7 +1275,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 799, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1488,7 +1295,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 387, Short.MAX_VALUE)
         );
 
         jPanel16.add(jPanel18, java.awt.BorderLayout.LINE_START);
@@ -1504,7 +1311,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 387, Short.MAX_VALUE)
         );
 
         jPanel16.add(jPanel19, java.awt.BorderLayout.LINE_END);
@@ -1633,7 +1440,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel23.setOpaque(false);
         jPanel23.setPreferredSize(new java.awt.Dimension(629, 252));
 
-        jPanel24.setBackground(new java.awt.Color(255, 103, 158));
+        jPanel24.setBackground(new java.awt.Color(0, 153, 153));
         jPanel24.setLayout(new java.awt.BorderLayout());
 
         jPanel44.setName(""); // NOI18N
@@ -1644,7 +1451,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel44.setLayout(jPanel44Layout);
         jPanel44Layout.setHorizontalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 205, Short.MAX_VALUE)
         );
         jPanel44Layout.setVerticalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1691,26 +1498,17 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             }
         });
 
-        Songlbl1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Songlbl1.setText("Tiêu đề");
-        Songlbl1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel7.setBackground(new java.awt.Color(255, 255, 51));
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Songlbl1MouseClicked(evt);
+                jLabel7MouseClicked(evt);
             }
         });
 
-        Artistlbl1.setText("mhgbnfm.......");
-        Artistlbl1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Artistlbl1MouseClicked(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setText("Tiêu đề");
 
-        Imglbl1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Imglbl1MouseClicked(evt);
-            }
-        });
+        jLabel2.setText("mhgbnfm.......");
 
         javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
         jPanel43.setLayout(jPanel43Layout);
@@ -1719,20 +1517,27 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             .addGroup(jPanel43Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Artistlbl1)
-                    .addComponent(Songlbl1)
-                    .addComponent(Imglbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addContainerGap(104, Short.MAX_VALUE))
+            .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel43Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(30, Short.MAX_VALUE)))
         );
         jPanel43Layout.setVerticalGroup(
             jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel43Layout.createSequentialGroup()
-                .addComponent(Imglbl1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
-                .addComponent(Songlbl1)
+                .addGap(169, 169, 169)
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(Artistlbl1)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addComponent(jLabel2)
+                .addGap(0, 14, Short.MAX_VALUE))
+            .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel43Layout.createSequentialGroup()
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 93, Short.MAX_VALUE)))
         );
 
         jPanel24.add(jPanel43, java.awt.BorderLayout.CENTER);
@@ -1742,8 +1547,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel25.setBackground(new java.awt.Color(255, 103, 158));
         jPanel25.setLayout(new java.awt.BorderLayout());
 
-        jPanel54.setBackground(new java.awt.Color(204, 255, 204));
         jPanel54.setName(""); // NOI18N
+        jPanel54.setOpaque(false);
         jPanel54.setPreferredSize(new java.awt.Dimension(200, 10));
 
         javax.swing.GroupLayout jPanel54Layout = new javax.swing.GroupLayout(jPanel54);
@@ -1791,32 +1596,22 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel25.add(jPanel83, java.awt.BorderLayout.LINE_END);
 
         jPanel84.setOpaque(false);
-        jPanel84.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel84MouseClicked(evt);
-            }
-        });
 
-        Songlbl2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Songlbl2.setText("Tiêu đề");
-        Songlbl2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Songlbl2MouseClicked(evt);
-            }
-        });
+        javax.swing.GroupLayout panel12Layout = new javax.swing.GroupLayout(panel12);
+        panel12.setLayout(panel12Layout);
+        panel12Layout.setHorizontalGroup(
+            panel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        panel12Layout.setVerticalGroup(
+            panel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
 
-        Artistlbl2.setText("mhgbnfm.......");
-        Artistlbl2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Artistlbl2MouseClicked(evt);
-            }
-        });
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel22.setText("Tiêu đề");
 
-        Imglbl2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Imglbl2MouseClicked(evt);
-            }
-        });
+        jLabel23.setText("mhgbnfm.......");
 
         javax.swing.GroupLayout jPanel84Layout = new javax.swing.GroupLayout(jPanel84);
         jPanel84.setLayout(jPanel84Layout);
@@ -1825,20 +1620,20 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             .addGroup(jPanel84Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel84Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Imglbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Artistlbl2)
-                    .addComponent(Songlbl2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel22)
+                    .addComponent(panel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel84Layout.setVerticalGroup(
             jPanel84Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel84Layout.createSequentialGroup()
-                .addComponent(Imglbl2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(panel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(Songlbl2)
+                .addComponent(jLabel22)
                 .addGap(18, 18, 18)
-                .addComponent(Artistlbl2)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addComponent(jLabel23)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel25.add(jPanel84, java.awt.BorderLayout.CENTER);
@@ -1897,32 +1692,22 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel26.add(jPanel88, java.awt.BorderLayout.LINE_END);
 
         jPanel89.setOpaque(false);
-        jPanel89.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel89MouseClicked(evt);
-            }
-        });
 
-        Songlbl3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Songlbl3.setText("Tiêu đề");
-        Songlbl3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Songlbl3MouseClicked(evt);
-            }
-        });
+        javax.swing.GroupLayout panel13Layout = new javax.swing.GroupLayout(panel13);
+        panel13.setLayout(panel13Layout);
+        panel13Layout.setHorizontalGroup(
+            panel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        panel13Layout.setVerticalGroup(
+            panel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
 
-        Artistlbl3.setText("mhgbnfm.......");
-        Artistlbl3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Artistlbl3MouseClicked(evt);
-            }
-        });
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel25.setText("Tiêu đề");
 
-        Imglbl3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Imglbl3MouseClicked(evt);
-            }
-        });
+        jLabel26.setText("mhgbnfm.......");
 
         javax.swing.GroupLayout jPanel89Layout = new javax.swing.GroupLayout(jPanel89);
         jPanel89.setLayout(jPanel89Layout);
@@ -1931,20 +1716,20 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             .addGroup(jPanel89Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Imglbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Artistlbl3)
-                    .addComponent(Songlbl3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel25)
+                    .addComponent(panel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel89Layout.setVerticalGroup(
             jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel89Layout.createSequentialGroup()
-                .addComponent(Imglbl3, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(panel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(Songlbl3)
+                .addComponent(jLabel25)
                 .addGap(18, 18, 18)
-                .addComponent(Artistlbl3)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addComponent(jLabel26)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel26.add(jPanel89, java.awt.BorderLayout.CENTER);
@@ -2045,7 +1830,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                     .addComponent(jLabel28)
                     .addComponent(jLabel27)
                     .addComponent(panel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel94Layout.setVerticalGroup(
             jPanel94Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2133,32 +1918,22 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel30.add(jPanel119, java.awt.BorderLayout.LINE_END);
 
         jPanel120.setOpaque(false);
-        jPanel120.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel120MouseClicked(evt);
-            }
-        });
 
-        Songlbl4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Songlbl4.setText("Tiêu đề");
-        Songlbl4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Songlbl4MouseClicked(evt);
-            }
-        });
+        javax.swing.GroupLayout panel21Layout = new javax.swing.GroupLayout(panel21);
+        panel21.setLayout(panel21Layout);
+        panel21Layout.setHorizontalGroup(
+            panel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        panel21Layout.setVerticalGroup(
+            panel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
 
-        Artistlbl4.setText("mhgbnfm.......");
-        Artistlbl4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Artistlbl4MouseClicked(evt);
-            }
-        });
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel31.setText("Tiêu đề");
 
-        Imglbl4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Imglbl4MouseClicked(evt);
-            }
-        });
+        jLabel32.setText("mhgbnfm.......");
 
         javax.swing.GroupLayout jPanel120Layout = new javax.swing.GroupLayout(jPanel120);
         jPanel120.setLayout(jPanel120Layout);
@@ -2167,19 +1942,19 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             .addGroup(jPanel120Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel120Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Imglbl4, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Artistlbl4)
-                    .addComponent(Songlbl4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel32)
+                    .addComponent(jLabel31)
+                    .addComponent(panel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel120Layout.setVerticalGroup(
             jPanel120Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel120Layout.createSequentialGroup()
-                .addComponent(Imglbl4, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(panel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(Songlbl4)
+                .addComponent(jLabel31)
                 .addGap(18, 18, 18)
-                .addComponent(Artistlbl4)
+                .addComponent(jLabel32)
                 .addGap(0, 59, Short.MAX_VALUE))
         );
 
@@ -2254,32 +2029,22 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel29.add(jPanel98, java.awt.BorderLayout.LINE_END);
 
         jPanel99.setOpaque(false);
-        jPanel99.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel99MouseClicked(evt);
-            }
-        });
 
-        Songlbl5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Songlbl5.setText("Tiêu đề");
-        Songlbl5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Songlbl5MouseClicked(evt);
-            }
-        });
+        javax.swing.GroupLayout panel15Layout = new javax.swing.GroupLayout(panel15);
+        panel15.setLayout(panel15Layout);
+        panel15Layout.setHorizontalGroup(
+            panel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        panel15Layout.setVerticalGroup(
+            panel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
 
-        Artistlbl5.setText("mhgbnfm.......");
-        Artistlbl5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Artistlbl5MouseClicked(evt);
-            }
-        });
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel29.setText("Tiêu đề");
 
-        Imglbl5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Imglbl5MouseClicked(evt);
-            }
-        });
+        jLabel30.setText("mhgbnfm.......");
 
         javax.swing.GroupLayout jPanel99Layout = new javax.swing.GroupLayout(jPanel99);
         jPanel99.setLayout(jPanel99Layout);
@@ -2288,19 +2053,19 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             .addGroup(jPanel99Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel99Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Imglbl5, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Artistlbl5)
-                    .addComponent(Songlbl5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel30)
+                    .addComponent(jLabel29)
+                    .addComponent(panel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel99Layout.setVerticalGroup(
             jPanel99Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel99Layout.createSequentialGroup()
-                .addComponent(Imglbl5, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(panel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(Songlbl5)
+                .addComponent(jLabel29)
                 .addGap(18, 18, 18)
-                .addComponent(Artistlbl5)
+                .addComponent(jLabel30)
                 .addGap(0, 59, Short.MAX_VALUE))
         );
 
@@ -2375,32 +2140,22 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel31.add(jPanel103, java.awt.BorderLayout.LINE_END);
 
         jPanel104.setOpaque(false);
-        jPanel104.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel104MouseClicked(evt);
-            }
-        });
 
-        Songlbl6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Songlbl6.setText("Tiêu đề");
-        Songlbl6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Songlbl6MouseClicked(evt);
-            }
-        });
+        javax.swing.GroupLayout panel16Layout = new javax.swing.GroupLayout(panel16);
+        panel16.setLayout(panel16Layout);
+        panel16Layout.setHorizontalGroup(
+            panel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        panel16Layout.setVerticalGroup(
+            panel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
 
-        Artistlbl6.setText("mhgbnfm.......");
-        Artistlbl6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Artistlbl6MouseClicked(evt);
-            }
-        });
+        jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel33.setText("Tiêu đề");
 
-        Imglbl6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Imglbl6MouseClicked(evt);
-            }
-        });
+        jLabel34.setText("mhgbnfm.......");
 
         javax.swing.GroupLayout jPanel104Layout = new javax.swing.GroupLayout(jPanel104);
         jPanel104.setLayout(jPanel104Layout);
@@ -2409,19 +2164,19 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
             .addGroup(jPanel104Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel104Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Imglbl6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Artistlbl6)
-                    .addComponent(Songlbl6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel34)
+                    .addComponent(jLabel33)
+                    .addComponent(panel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel104Layout.setVerticalGroup(
             jPanel104Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel104Layout.createSequentialGroup()
-                .addComponent(Imglbl6, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(panel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(Songlbl6)
+                .addComponent(jLabel33)
                 .addGap(18, 18, 18)
-                .addComponent(Artistlbl6)
+                .addComponent(jLabel34)
                 .addGap(0, 59, Short.MAX_VALUE))
         );
 
@@ -2638,11 +2393,11 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
         );
 
         jPanel16.add(jPanel20, java.awt.BorderLayout.CENTER);
@@ -2657,11 +2412,11 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 799, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 497, Short.MAX_VALUE)
         );
 
         main.add(jPanel1, "card5");
@@ -2675,100 +2430,55 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        if(player != null)
+        {
+        player.close();    
+        }
+            Main mai = new Main();
+            this.setVisible(false);
+            mai.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            Main_Search mai = new Main_Search(this, forgot);
-            this.setVisible(false);
-            mai.setVisible(true);        
+        this.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void Albumlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl1MouseClicked
-            String data1 = listAlbumName.get(0);
-            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Albumlbl1MouseClicked
-
-    private void Albumlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl2MouseClicked
-            String data1 = listAlbumName.get(1);
-            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(1));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Albumlbl2MouseClicked
-
-    private void Albumlbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl3MouseClicked
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
-            String data1 = listAlbumName.get(2);
-            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(2));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Albumlbl3MouseClicked
+    }//GEN-LAST:event_txtTimKiemActionPerformed
 
-    private void Albumlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl4MouseClicked
-        // TODO add your handling code here:
-            String data1 = listAlbumName.get(3);
-            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Albumlbl4MouseClicked
+    private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTimKiemCaretUpdate
 
-    private void Albumlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl5MouseClicked
-        // TODO add your handling code here:
-            String data1 = listAlbumName.get(4);
-            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(4));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Albumlbl5MouseClicked
+    }//GEN-LAST:event_txtTimKiemCaretUpdate
 
-    private void Albumlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl6MouseClicked
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-            String data1 = listAlbumName.get(5);
-            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(5));
-            chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Albumlbl6MouseClicked
+        load_data();
+         Image i = new javax.swing.ImageIcon(imageName).getImage();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+          Image i = new javax.swing.ImageIcon(imageName).getImage();
+    }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jPanel43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel43MouseClicked
         // TODO add your handling code here:
-
+            JFrame frame = new JFrame();
+            String data1 = listSongName.get(0);
+            String data2 = listSongDura.get(0);
+            ImageIcon data3 = icons;
+            String data4 = listSongLyr.get(0);
+            String data5 = listSongArtist.get(0);
+            chitietNhac_User mai = new chitietNhac_User(frame, forgot, data1 , data2 , data3 , data4 , data5);
+            this.setVisible(false);
+            mai.setVisible(true);        
     }//GEN-LAST:event_jPanel43MouseClicked
-
-    private void jPanel84MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel84MouseClicked
-        // TODO add your handling code here:        
-    }//GEN-LAST:event_jPanel84MouseClicked
-
-    private void jPanel89MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel89MouseClicked
-        // TODO add your handling code here:
-    
-    }//GEN-LAST:event_jPanel89MouseClicked
-
-    private void jPanel120MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel120MouseClicked
-        // TODO add your handling code here:
- 
-    }//GEN-LAST:event_jPanel120MouseClicked
-
-    private void jPanel99MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel99MouseClicked
-        // TODO add your handling code here:
-  
-    }//GEN-LAST:event_jPanel99MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
@@ -2798,7 +2508,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         }
         System.out.println("run"+running);
         System.out.println("pause"+paused);
-        
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
@@ -2813,449 +2522,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         }
         loopSong();
     }//GEN-LAST:event_jLabel17MouseClicked
-
-    private void jPanel104MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel104MouseClicked
-        // TODO add your handling code here:
-                    String data1 = listSongName.get(5);
-            String data2 = listSongDura.get(5);
-            ImageIcon data3 = icons[5];
-            String data4 = listSongLyr.get(5);
-            String data5 = listSongArtist.get(5);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_jPanel104MouseClicked
-
-    private void btnCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseEntered
-        // TODO add your handling code here:
-        changeColor(btnClose, new Color(255,103,158));
-    }//GEN-LAST:event_btnCloseMouseEntered
-
-    private void btnCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseExited
-        // TODO add your handling code here:
-        changeColor(btnClose, new Color(255,255,255));
-    }//GEN-LAST:event_btnCloseMouseExited
-
-    private void btnMaximizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseEntered
-        // TODO add your handling code here:
-        changeColor(btnMaximize, new Color(242,242,242));
-    }//GEN-LAST:event_btnMaximizeMouseEntered
-
-    private void btnMaximizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseExited
-        // TODO add your handling code here:
-        changeColor(btnMaximize, new Color(255,255,255));
-    }//GEN-LAST:event_btnMaximizeMouseExited
-
-    private void btnMinimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseEntered
-        // TODO add your handling code here:
-        changeColor(btnMinimize, new Color(242,242,242));
-    }//GEN-LAST:event_btnMinimizeMouseEntered
-
-    private void btnMinimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseExited
-        // TODO add your handling code here:
-        changeColor(btnMinimize, new Color(255,255,255));
-    }//GEN-LAST:event_btnMinimizeMouseExited
-
-    private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_btnCloseMouseClicked
-
-    private void btnMaximizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseClicked
-        // TODO add your handling code here:
-        if(this.getExtendedState()!= Main.MAXIMIZED_BOTH){
-          this.setExtendedState(Main.MAXIMIZED_BOTH);
-        }
-        else{
-            this.setExtendedState(Main.NORMAL);
-        }
-    }//GEN-LAST:event_btnMaximizeMouseClicked
-
-    private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
-        // TODO add your handling code here:
-        this.setExtendedState(Main.ICONIFIED);
-    }//GEN-LAST:event_btnMinimizeMouseClicked
-
-    private void Songlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl1MouseClicked
-        // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(0);
-            String data2 = listSongDura.get(0);
-            ImageIcon data3 = icons[0];
-            String data4 = listSongLyr.get(0);
-            String data5 = listSongArtist.get(0);
-            chitietNhac_User mai = new chitietNhac_User(null, forgot, data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl1MouseClicked
-
-    private void Artistlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl1MouseClicked
-        // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongArtist.get(0);
-            NgheSi mai = new NgheSi(this, forgot , data1);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Artistlbl1MouseClicked
-
-    private void Imglbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl1MouseClicked
-        // TODO add your handling code here:
-        if(player != null)
-        {
-            player.close();
-            running = false;
-            paused = false;
-            cursong = listSongName.get(0);
-            SongNamelbl.setText(listSongName.get(0));
-            Artistlbl.setText(listSongArtist.get(0));
-            Image image = icons[0].getImage();
-            icons[0] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[0]);
-            TotalTimelbl.setText(listSongDura.get(0));
-        }
-        else
-        {
-            cursong = listSongName.get(0);
-            SongNamelbl.setText(listSongName.get(0));
-            Artistlbl.setText(listSongArtist.get(0));
-            Image image = icons[0].getImage();
-            icons[0] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[0]);
-            TotalTimelbl.setText(listSongDura.get(0));
-        }
-    }//GEN-LAST:event_Imglbl1MouseClicked
-
-    private void Imglbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl2MouseClicked
-        // TODO add your handling code here:
-        if(player != null)
-        {
-            player.close();
-            running = false;
-            paused = false;
-            cursong = listSongName.get(1);
-            SongNamelbl.setText(listSongName.get(1));
-            Artistlbl.setText(listSongArtist.get(1));
-            Image image = icons[1].getImage();
-            icons[1] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[1]);
-            TotalTimelbl.setText(listSongDura.get(1));
-        }
-        else
-        {
-            cursong = listSongName.get(1);
-            SongNamelbl.setText(listSongName.get(1));
-            Artistlbl.setText(listSongArtist.get(1));
-            Image image = icons[1].getImage();
-            icons[1] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[1]);
-            TotalTimelbl.setText(listSongDura.get(1));
-        }
-    }//GEN-LAST:event_Imglbl2MouseClicked
-
-    private void Imglbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl3MouseClicked
-        // TODO add your handling code here:
-        if(player != null)
-        {
-            player.close();
-            running = false;
-            paused = false;
-            cursong = listSongName.get(2);
-            SongNamelbl.setText(listSongName.get(2));
-            Artistlbl.setText(listSongArtist.get(2));
-            Image image = icons[2].getImage();
-            icons[2] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[2]);
-            TotalTimelbl.setText(listSongDura.get(2));
-        }
-        else
-        {
-            cursong = listSongName.get(2);
-            SongNamelbl.setText(listSongName.get(2));
-            Artistlbl.setText(listSongArtist.get(2));
-            Image image = icons[2].getImage();
-            icons[2] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[2]);
-            TotalTimelbl.setText(listSongDura.get(2));
-        }
-    }//GEN-LAST:event_Imglbl3MouseClicked
-
-    private void Imglbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl4MouseClicked
-        // TODO add your handling code here:
-        if(player != null)
-        {
-            player.close();
-            running = false;
-            paused = false;
-            cursong = listSongName.get(3);
-            SongNamelbl.setText(listSongName.get(3));
-            Artistlbl.setText(listSongArtist.get(3));
-            Image image = icons[3].getImage();
-            icons[3] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[3]);
-            TotalTimelbl.setText(listSongDura.get(3));
-        }
-        else
-        {
-            cursong = listSongName.get(3);
-            SongNamelbl.setText(listSongName.get(3));
-            Artistlbl.setText(listSongArtist.get(3));
-            Image image = icons[3].getImage();
-            icons[3] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[3]);
-            TotalTimelbl.setText(listSongDura.get(3));
-        }
-    }//GEN-LAST:event_Imglbl4MouseClicked
-
-    private void Imglbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl5MouseClicked
-        // TODO add your handling code here:
-        if(player != null)
-        {
-            player.close();
-            running = false;
-            paused = false;
-            cursong = listSongName.get(4);
-            SongNamelbl.setText(listSongName.get(4));
-            Artistlbl.setText(listSongArtist.get(4));
-            Image image = icons[4].getImage();
-            icons[4] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[4]);
-            TotalTimelbl.setText(listSongDura.get(4));
-        }
-        else
-        {
-            cursong = listSongName.get(4);
-            SongNamelbl.setText(listSongName.get(4));
-            Artistlbl.setText(listSongArtist.get(4));
-            Image image = icons[4].getImage();
-            icons[4] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[4]);
-            TotalTimelbl.setText(listSongDura.get(4));
-        }
-    }//GEN-LAST:event_Imglbl5MouseClicked
-
-    private void Imglbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl6MouseClicked
-        // TODO add your handling code here:
-        if(player != null)
-        {
-            player.close();
-            running = false;
-            paused = false;
-            cursong = listSongName.get(5);
-            SongNamelbl.setText(listSongName.get(5));
-            Artistlbl.setText(listSongArtist.get(5));
-            Image image = icons[5].getImage();
-            icons[5] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[5]);
-            TotalTimelbl.setText(listSongDura.get(5));
-        }
-        else
-        {
-            cursong = listSongName.get(5);
-            SongNamelbl.setText(listSongName.get(5));
-            Artistlbl.setText(listSongArtist.get(5));
-            Image image = icons[5].getImage();
-            icons[5] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-            Songimglbl.setIcon(icons[5]);
-            TotalTimelbl.setText(listSongDura.get(5));
-        }
-    }//GEN-LAST:event_Imglbl6MouseClicked
-
-    private void Songlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl2MouseClicked
-        // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(1);
-            String data2 = listSongDura.get(1);
-            ImageIcon data3 = icons[1];
-            String data4 = listSongLyr.get(1);
-            String data5 = listSongArtist.get(1);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl2MouseClicked
-
-    private void Artistlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl2MouseClicked
-        // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongArtist.get(1);
-            NgheSi mai = new NgheSi(this, forgot , data1);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Artistlbl2MouseClicked
-
-    private void Songlbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl3MouseClicked
-        // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(2);
-            String data2 = listSongDura.get(2);
-            ImageIcon data3 = icons[2];
-            String data4 = listSongLyr.get(2);
-            String data5 = listSongArtist.get(2);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl3MouseClicked
-
-    private void Artistlbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl3MouseClicked
-        // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongArtist.get(2);
-            NgheSi mai = new NgheSi(this, forgot , data1);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Artistlbl3MouseClicked
-
-    private void Songlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl4MouseClicked
-        // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(3);
-            String data2 = listSongDura.get(3);
-            ImageIcon data3 = icons[3];
-            String data4 = listSongLyr.get(3);
-            String data5 = listSongArtist.get(3);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl4MouseClicked
-
-    private void Artistlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl4MouseClicked
-        // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongArtist.get(3);
-            NgheSi mai = new NgheSi(this, forgot , data1);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Artistlbl4MouseClicked
-
-    private void Songlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl5MouseClicked
-        // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(4);
-            String data2 = listSongDura.get(4);
-            ImageIcon data3 = icons[4];
-            String data4 = listSongLyr.get(4);
-            String data5 = listSongArtist.get(4);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl5MouseClicked
-
-    private void Artistlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl5MouseClicked
-        // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongArtist.get(4);
-            NgheSi mai = new NgheSi(this, forgot , data1);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Artistlbl5MouseClicked
-
-    private void Songlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl6MouseClicked
-        // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(5);
-            String data2 = listSongDura.get(5);
-            ImageIcon data3 = icons[5];
-            String data4 = listSongLyr.get(5);
-            String data5 = listSongArtist.get(5);
-            chitietNhac_User mai = new chitietNhac_User(this, forgot, data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Songlbl6MouseClicked
-
-    private void Artistlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl6MouseClicked
-        // TODO add your handling code here:
-            if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongArtist.get(5);
-            NgheSi mai = new NgheSi(this, forgot , data1);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Artistlbl6MouseClicked
-
-    private void slider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slider2StateChanged
-        // TODO add your handling code here:
-        buffer = slider2.getValue();
-        System.out.println(buffer/100);        
-    }//GEN-LAST:event_slider2StateChanged
-
-    private void slider2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_slider2MouseReleased
-        long skip = (long) (totalTime * ((double) buffer / 100));
-        try {
-            fi.skip(skip);
-            System.out.println(skip);
-            pause = fi.available();
-            player.close();
-            Thread runningThread = new Thread(play);
-            runningThread.start();
-
-            // Adjust the counter based on the new position
-            counter = (int) (skip / 1000);  // Assuming totalTime is in bytes and 1 second = 1000 bytes
-
-            // Restart the timer
-            timer.start();
-        } catch (IOException ex) {
-        }
-    }//GEN-LAST:event_slider2MouseReleased
-
-    private void slider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slider1StateChanged
-        // TODO add your handling code here:
-        String value = String.valueOf(slider1.getValue());
-        volumeControl(Double.parseDouble(value)/100);
-    }//GEN-LAST:event_slider1StateChanged
-
-    private void Albumlbl7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl7MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Albumlbl7MouseClicked
-
-    private void Albumlbl8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl8MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Albumlbl8MouseClicked
 
     /**
      * @param args the command line arguments
@@ -3274,21 +2540,28 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Playlist_Create.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Playlist_Create.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Playlist_Create.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Playlist_Create.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                Playlist_Create dialog = new Playlist_Create(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -3300,40 +2573,13 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel Albumlbl4;
     private javax.swing.JLabel Albumlbl5;
     private javax.swing.JLabel Albumlbl6;
-    private javax.swing.JLabel Albumlbl7;
-    private javax.swing.JLabel Albumlbl8;
-    private javax.swing.JLabel Artistlbl;
-    private javax.swing.JLabel Artistlbl1;
-    private javax.swing.JLabel Artistlbl2;
-    private javax.swing.JLabel Artistlbl3;
-    private javax.swing.JLabel Artistlbl4;
-    private javax.swing.JLabel Artistlbl5;
-    private javax.swing.JLabel Artistlbl6;
-    private javax.swing.JLabel Imglbl1;
-    private javax.swing.JLabel Imglbl2;
-    private javax.swing.JLabel Imglbl3;
-    private javax.swing.JLabel Imglbl4;
-    private javax.swing.JLabel Imglbl5;
-    private javax.swing.JLabel Imglbl6;
-    private javax.swing.JLabel SongNamelbl;
-    private javax.swing.JLabel Songimglbl;
-    private javax.swing.JLabel Songlbl1;
-    private javax.swing.JLabel Songlbl2;
-    private javax.swing.JLabel Songlbl3;
-    private javax.swing.JLabel Songlbl4;
-    private javax.swing.JLabel Songlbl5;
-    private javax.swing.JLabel Songlbl6;
-    private javax.swing.JLabel TotalTimelbl;
-    private javax.swing.JPanel btnClose;
-    private javax.swing.JPanel btnMaximize;
-    private javax.swing.JPanel btnMinimize;
     private javax.swing.JPanel center;
     private javax.swing.JPanel east;
     private javax.swing.JPanel header;
     private javax.swing.JPanel homeSearch;
     private javax.swing.JPanel information;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -3343,15 +2589,28 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel55;
@@ -3388,7 +2647,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
@@ -3403,6 +2661,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
+    private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
@@ -3441,6 +2700,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JPanel jPanel98;
     private javax.swing.JPanel jPanel99;
     private javax.swing.JScrollPane jScrollPane2;
+    private com.swanmusic.swing.Slider jSlider1;
+    private com.swanmusic.swing.Slider jSlider2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JPanel main;
@@ -3453,63 +2714,21 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JPanel paddingTrademark;
     private javax.swing.JPanel paddingWest;
     private com.swanmusic.swing.Panel panel1;
+    private com.swanmusic.swing.Panel panel12;
+    private com.swanmusic.swing.Panel panel13;
     private com.swanmusic.swing.Panel panel14;
+    private com.swanmusic.swing.Panel panel15;
+    private com.swanmusic.swing.Panel panel16;
     private com.swanmusic.swing.Panel panel17;
     private com.swanmusic.swing.Panel panel2;
+    private com.swanmusic.swing.Panel panel21;
     private com.swanmusic.swing.Panel panel3;
     private com.swanmusic.swing.Panel panel4;
     private com.swanmusic.swing.Panel panel6;
     private com.swanmusic.swing.Panel panelTrademark1;
-    private com.swanmusic.swing.Slider slider1;
-    private com.swanmusic.swing.Slider slider2;
     private javax.swing.JPanel trademark;
+    private javax.swing.JTextField txtTimKiem;
     private javax.swing.JPanel waitingList;
     private javax.swing.JPanel yourLibrary;
     // End of variables declaration//GEN-END:variables
-    private void volumeControl(Double valueToPlusMinus){
-        // Get Mixer Information From AudioSystem
-        Mixer.Info[] mixers = AudioSystem.getMixerInfo();
-        // Now use a for loop to list all mixers
-        for(Mixer.Info mixerInfo : mixers){
-            // Get Mixer
-            Mixer mixer = AudioSystem.getMixer(mixerInfo);
-            // Now Get Target Line
-            Line.Info[] lineInfos = mixer.getTargetLineInfo();
-            // Here again use for loop to list lines
-            for(Line.Info lineInfo : lineInfos){
-                // Make a null line
-                Line line = null;
-                // Make a boolean as opened
-                boolean opened = true;
-                // Now use try exception for opening a line
-                try{
-                    line = mixer.getLine(lineInfo);
-                    opened = line.isOpen() || line instanceof Clip;
-                    // Now Check If Line Is not Opened
-                    if(!opened){
-                        // Open Line
-                        line.open();
-                    }
-                    // Make a float control
-                    FloatControl volControl = (FloatControl) line.getControl(FloatControl.Type.VOLUME);
-                    // Get Current Volume Now
-                    float currentVolume = volControl.getValue();
-                    // Make a temp double variable and store valuePlusMinus
-                    Double volumeToCut = valueToPlusMinus;
-                    // Make a float and calculate the addition or subtraction in volume
-                    float changedCalc = (float) ((double)volumeToCut);
-                    // Now Set This Changed Value Into Volume Line.
-                    volControl.setValue(changedCalc);
-                    System.out.println(volControl.getValue());
-                }catch (LineUnavailableException lineException){
-                }catch (IllegalArgumentException illException){
-                }finally{
-                    // Close Line If it opened
-                    if(line != null && !opened){
-                        line.close();
-                    }
-                }
-            }
-        }
-    }
 }
