@@ -58,6 +58,118 @@ public class Home extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         init();
+        getAlbum();
+        getSong();
+             if(listAlbumName.size() > 0)
+        {
+        Album1.setText(listAlbumName.get(0));    
+        }
+        else
+        {
+        Album1.setVisible(false);
+        }
+        if(listAlbumName.size() > 1)
+        {
+        Album2.setText(listAlbumName.get(1));    
+        }
+        else
+        {
+        Album2.setVisible(false);
+        }
+        if(listAlbumName.size() > 2)
+        {
+        Album3.setText(listAlbumName.get(2));    
+        }
+        else
+        {
+        Album3.setVisible(false);
+        }
+        if(listAlbumName.size() > 3)
+        {
+        Album4.setText(listAlbumName.get(3));    
+        }
+        else
+        {
+        Album4.setVisible(false);
+        }
+        if(listAlbumName.size() > 4)
+        {
+        Album5.setText(listAlbumName.get(4));    
+        }
+        else
+        {
+        Album5.setVisible(false);
+        }
+        if(listSongName.size() > 0)
+        {
+        Songlbl6.setText(listSongName.get(0));  
+        }
+        else
+        {
+        Songlbl6.setVisible(false);
+        }
+        if(listSongName.size() > 1)
+        {
+        Songlbl7.setText(listSongName.get(1));  
+        }
+        else
+        {
+        Songlbl7.setVisible(false);
+        }
+        if(listSongName.size() > 2)
+        {
+        Songlbl8.setText(listSongName.get(2));  
+        }
+        else
+        {
+        Songlbl8.setVisible(false);
+        }
+        if(listSongName.size() > 3)
+        {
+        Songlbl4.setText(listSongName.get(3));  
+        }
+        else
+        {
+        Songlbl4.setVisible(false);
+        }
+        if(listSongName.size() > 4)
+        {
+        Songlbl1.setText(listSongName.get(0));  
+        }
+        else
+        {
+        Songlbl1.setVisible(false);
+        }
+        if(listAlbumName.size() > 5)
+        {
+        Songlbl2.setText(listAlbumName.get(5));    
+        }
+        else
+        {
+        Songlbl2.setVisible(false);
+        }        
+        
+        Songlbl2.setText(listSongName.get(1));
+        Songlbl3.setText(listSongName.get(2));
+        Songlbl4.setText(listSongName.get(3));
+        Songlbl5.setText(listSongName.get(4));
+        Songlbl6.setText(listSongName.get(5));
+        Artistlbl1.setText(listSongArtist.get(0));
+        Artistlbl2.setText(listSongArtist.get(1));
+        Artistlbl3.setText(listSongArtist.get(2));
+        Artistlbl4.setText(listSongArtist.get(3));
+        Artistlbl5.setText(listSongArtist.get(4));
+        Artistlbl6.setText(listSongArtist.get(5));
+        Artistlbl7.setText(listSongArtist.get(6));
+        Artistlbl8.setText(listSongArtist.get(7));
+        Imglbl1.setIcon(icons[0]);
+        Imglbl2.setIcon(icons[1]);
+        Imglbl3.setIcon(icons[2]);
+        Imglbl4.setIcon(icons[3]);
+        Imglbl5.setIcon(icons[4]);
+        Imglbl6.setIcon(icons[5]);
+        Imglbl7.setIcon(icons[6]);
+        Imglbl8.setIcon(icons[7]);
     }
     void init(){
         this.setSize(1260, 682);
@@ -284,118 +396,118 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
              e.printStackTrace();
          }   
     }
-    public Home() {
-        initComponents();
-        init();
-        getAlbum();
-        getSong();
-        if(listAlbumName.size() > 0)
-        {
-        Albumlbl1.setText(listAlbumName.get(0));    
-        }
-        else
-        {
-        Albumlbl1.setVisible(false);
-        }
-        if(listAlbumName.size() > 1)
-        {
-        Albumlbl2.setText(listAlbumName.get(1));    
-        }
-        else
-        {
-        Albumlbl2.setVisible(false);
-        }
-        if(listAlbumName.size() > 2)
-        {
-        Albumlbl3.setText(listAlbumName.get(2));    
-        }
-        else
-        {
-        Albumlbl3.setVisible(false);
-        }
-        if(listAlbumName.size() > 3)
-        {
-        Albumlbl4.setText(listAlbumName.get(3));    
-        }
-        else
-        {
-        Albumlbl4.setVisible(false);
-        }
-        if(listAlbumName.size() > 4)
-        {
-        Albumlbl5.setText(listAlbumName.get(4));    
-        }
-        else
-        {
-        Albumlbl5.setVisible(false);
-        }
-        if(listSongName.size() > 0)
-        {
-        Songlbl6.setText(listSongName.get(0));  
-        }
-        else
-        {
-        Songlbl6.setVisible(false);
-        }
-        if(listSongName.size() > 1)
-        {
-        Songlbl7.setText(listSongName.get(1));  
-        }
-        else
-        {
-        Songlbl7.setVisible(false);
-        }
-        if(listSongName.size() > 2)
-        {
-        Songlbl8.setText(listSongName.get(2));  
-        }
-        else
-        {
-        Songlbl8.setVisible(false);
-        }
-        if(listSongName.size() > 3)
-        {
-        Songlbl4.setText(listSongName.get(3));  
-        }
-        else
-        {
-        Songlbl4.setVisible(false);
-        }
-        if(listSongName.size() > 4)
-        {
-        Songlbl1.setText(listSongName.get(0));  
-        }
-        else
-        {
-        Songlbl1.setVisible(false);
-        }
-        if(listAlbumName.size() > 5)
-        {
-        Albumlbl2.setText(listAlbumName.get(5));    
-        }
-        else
-        {
-        Albumlbl2.setVisible(false);
-        }        
-        
-        Songlbl2.setText(listSongName.get(1));
-        Songlbl3.setText(listSongName.get(2));
-        Songlbl4.setText(listSongName.get(3));
-        Songlbl5.setText(listSongName.get(4));
-        Songlbl6.setText(listSongName.get(5));
-        Artistlbl1.setText(listSongArtist.get(0));
-        Artistlbl2.setText(listSongArtist.get(1));
-        Artistlbl3.setText(listSongArtist.get(2));
-        Artistlbl4.setText(listSongArtist.get(3));
-        Artistlbl5.setText(listSongArtist.get(4));
-        Artistlbl6.setText(listSongArtist.get(5));
-        Imglbl1.setIcon(icons[0]);
-        Imglbl2.setIcon(icons[1]);
-        Imglbl3.setIcon(icons[2]);
-        Imglbl4.setIcon(icons[3]);
-        Imglbl5.setIcon(icons[4]);
-        Imglbl6.setIcon(icons[5]);
-    } 
+//    public Home() {
+//        initComponents();
+//        init();
+//        getAlbum();
+//        getSong();
+//        if(listAlbumName.size() > 0)
+//        {
+//        Album1.setText(listAlbumName.get(0));    
+//        }
+//        else
+//        {
+//        Album1.setVisible(false);
+//        }
+//        if(listAlbumName.size() > 1)
+//        {
+//        Album2.setText(listAlbumName.get(1));    
+//        }
+//        else
+//        {
+//        Album2.setVisible(false);
+//        }
+//        if(listAlbumName.size() > 2)
+//        {
+//        Album3.setText(listAlbumName.get(2));    
+//        }
+//        else
+//        {
+//        Album3.setVisible(false);
+//        }
+//        if(listAlbumName.size() > 3)
+//        {
+//        Album4.setText(listAlbumName.get(3));    
+//        }
+//        else
+//        {
+//        Album4.setVisible(false);
+//        }
+//        if(listAlbumName.size() > 4)
+//        {
+//        Album5.setText(listAlbumName.get(4));    
+//        }
+//        else
+//        {
+//        Album5.setVisible(false);
+//        }
+//        if(listSongName.size() > 0)
+//        {
+//        Songlbl6.setText(listSongName.get(0));  
+//        }
+//        else
+//        {
+//        Songlbl6.setVisible(false);
+//        }
+//        if(listSongName.size() > 1)
+//        {
+//        Songlbl7.setText(listSongName.get(1));  
+//        }
+//        else
+//        {
+//        Songlbl7.setVisible(false);
+//        }
+//        if(listSongName.size() > 2)
+//        {
+//        Songlbl8.setText(listSongName.get(2));  
+//        }
+//        else
+//        {
+//        Songlbl8.setVisible(false);
+//        }
+//        if(listSongName.size() > 3)
+//        {
+//        Songlbl4.setText(listSongName.get(3));  
+//        }
+//        else
+//        {
+//        Songlbl4.setVisible(false);
+//        }
+//        if(listSongName.size() > 4)
+//        {
+//        Songlbl1.setText(listSongName.get(0));  
+//        }
+//        else
+//        {
+//        Songlbl1.setVisible(false);
+//        }
+//        if(listAlbumName.size() > 5)
+//        {
+//        Albumlbl2.setText(listAlbumName.get(5));    
+//        }
+//        else
+//        {
+//        Albumlbl2.setVisible(false);
+//        }        
+//        
+//        Songlbl2.setText(listSongName.get(1));
+//        Songlbl3.setText(listSongName.get(2));
+//        Songlbl4.setText(listSongName.get(3));
+//        Songlbl5.setText(listSongName.get(4));
+//        Songlbl6.setText(listSongName.get(5));
+//        Artistlbl1.setText(listSongArtist.get(0));
+//        Artistlbl2.setText(listSongArtist.get(1));
+//        Artistlbl3.setText(listSongArtist.get(2));
+//        Artistlbl4.setText(listSongArtist.get(3));
+//        Artistlbl5.setText(listSongArtist.get(4));
+//        Artistlbl6.setText(listSongArtist.get(5));
+//        Imglbl1.setIcon(icons[0]);
+//        Imglbl2.setIcon(icons[1]);
+//        Imglbl3.setIcon(icons[2]);
+//        Imglbl4.setIcon(icons[3]);
+//        Imglbl5.setIcon(icons[4]);
+//        Imglbl6.setIcon(icons[5]);
+//    } 
     
 //    public void customSplitpaneUI() {
 //        // custom giao dien
@@ -457,16 +569,16 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         pnl_search = new javax.swing.JPanel();
         lblIcon_search = new javax.swing.JLabel();
         lblSearch_menu = new javax.swing.JLabel();
-        pnl_search1 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
-        Albumlbl1 = new javax.swing.JLabel();
-        Albumlbl2 = new javax.swing.JLabel();
-        Albumlbl3 = new javax.swing.JLabel();
-        Albumlbl4 = new javax.swing.JLabel();
-        Albumlbl5 = new javax.swing.JLabel();
         pnl_search2 = new javax.swing.JPanel();
         lblIcon_search2 = new javax.swing.JLabel();
         lblSearch_menu2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        Album1 = new javax.swing.JLabel();
+        Album2 = new javax.swing.JLabel();
+        Album3 = new javax.swing.JLabel();
+        Album4 = new javax.swing.JLabel();
+        Album5 = new javax.swing.JLabel();
         main = new javax.swing.JPanel();
         pnlVien5 = new javax.swing.JPanel();
         pnlVien6 = new javax.swing.JPanel();
@@ -891,85 +1003,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
         menu_con.add(pnl_search, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 200, -1));
 
-        pnl_search1.setBackground(new java.awt.Color(51, 51, 51));
-
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel19.setText("DANH SÁCH");
-
-        Albumlbl1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Albumlbl1.setText("Playlist #1");
-        Albumlbl1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl1MouseClicked(evt);
-            }
-        });
-
-        Albumlbl2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Albumlbl2.setText("Playlist #1");
-        Albumlbl2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl2MouseClicked(evt);
-            }
-        });
-
-        Albumlbl3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Albumlbl3.setText("Playlist #1");
-        Albumlbl3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl3MouseClicked(evt);
-            }
-        });
-
-        Albumlbl4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Albumlbl4.setText("Playlist #1");
-        Albumlbl4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl4MouseClicked(evt);
-            }
-        });
-
-        Albumlbl5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Albumlbl5.setText("Playlist #1");
-        Albumlbl5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Albumlbl5MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnl_search1Layout = new javax.swing.GroupLayout(pnl_search1);
-        pnl_search1.setLayout(pnl_search1Layout);
-        pnl_search1Layout.setHorizontalGroup(
-            pnl_search1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_search1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnl_search1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Albumlbl5)
-                    .addComponent(Albumlbl4)
-                    .addComponent(Albumlbl3)
-                    .addComponent(Albumlbl2)
-                    .addComponent(Albumlbl1)
-                    .addComponent(jLabel19))
-                .addContainerGap(75, Short.MAX_VALUE))
-        );
-        pnl_search1Layout.setVerticalGroup(
-            pnl_search1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_search1Layout.createSequentialGroup()
-                .addComponent(jLabel19)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Albumlbl1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Albumlbl2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Albumlbl3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Albumlbl4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Albumlbl5)
-                .addGap(0, 18, Short.MAX_VALUE))
-        );
-
-        menu_con.add(pnl_search1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 200, 200));
-
         pnl_search2.setBackground(new java.awt.Color(51, 51, 51));
 
         lblIcon_search2.setBackground(new java.awt.Color(255, 255, 255));
@@ -999,6 +1032,69 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         );
 
         menu_con.add(pnl_search2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 60));
+
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("GỢI Ý ALBUM");
+
+        Album1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        Album1.setForeground(new java.awt.Color(255, 255, 255));
+        Album1.setText("Playlist 1");
+
+        Album2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        Album2.setForeground(new java.awt.Color(255, 255, 255));
+        Album2.setText("Playlist 1");
+
+        Album3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        Album3.setForeground(new java.awt.Color(255, 255, 255));
+        Album3.setText("Playlist 1");
+
+        Album4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        Album4.setForeground(new java.awt.Color(255, 255, 255));
+        Album4.setText("Playlist 1");
+
+        Album5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        Album5.setForeground(new java.awt.Color(255, 255, 255));
+        Album5.setText("Playlist 1");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Album1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Album5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 33, Short.MAX_VALUE))
+                    .addComponent(Album4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Album3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Album2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Album1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Album2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Album3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Album4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Album5)
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+
+        menu_con.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 200, 210));
 
         menu.add(menu_con, java.awt.BorderLayout.CENTER);
 
@@ -2402,49 +2498,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel64MouseClicked
 
-    private void Albumlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl1MouseClicked
-        String data1 = listAlbumName.get(0);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
-            chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1 , data2);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Albumlbl1MouseClicked
-
-    private void Albumlbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl2MouseClicked
-        String data1 = listAlbumName.get(1);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(1));
-            chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1 , data2);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Albumlbl2MouseClicked
-
-    private void Albumlbl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl3MouseClicked
-        // TODO add your handling code here:
-        String data1 = listAlbumName.get(2);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(2));
-            chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1 , data2);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Albumlbl3MouseClicked
-
-    private void Albumlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl4MouseClicked
-        // TODO add your handling code here:
-        String data1 = listAlbumName.get(3);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
-            chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1 , data2);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Albumlbl4MouseClicked
-
-    private void Albumlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl5MouseClicked
-        // TODO add your handling code here:
-        String data1 = listAlbumName.get(4);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(4));
-            chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1 , data2);
-            this.setVisible(false);
-            mai.setVisible(true);
-    }//GEN-LAST:event_Albumlbl5MouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -2488,11 +2541,19 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Album1;
+    private javax.swing.JLabel Album2;
+    private javax.swing.JLabel Album3;
+    private javax.swing.JLabel Album4;
+    private javax.swing.JLabel Album5;
     private javax.swing.JLabel Albumlbl1;
     private javax.swing.JLabel Albumlbl2;
     private javax.swing.JLabel Albumlbl3;
     private javax.swing.JLabel Albumlbl4;
-    private javax.swing.JLabel Albumlbl5;
+    private javax.swing.JLabel Albumlbl6;
+    private javax.swing.JLabel Albumlbl7;
+    private javax.swing.JLabel Albumlbl8;
+    private javax.swing.JLabel Albumlbl9;
     private javax.swing.JLabel Artistlbl;
     private javax.swing.JLabel Artistlbl1;
     private javax.swing.JLabel Artistlbl2;
@@ -2521,6 +2582,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel Songlbl7;
     private javax.swing.JLabel Songlbl8;
     private javax.swing.JLabel TotalTimelbl;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -2528,12 +2590,15 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel23;
@@ -2542,6 +2607,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
@@ -2605,7 +2671,6 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private javax.swing.JPanel pnlVien6;
     private javax.swing.JPanel pnlVien7;
     private javax.swing.JPanel pnl_search;
-    private javax.swing.JPanel pnl_search1;
     private javax.swing.JPanel pnl_search2;
     private javax.swing.JPanel pnl_vien4;
     private com.swanmusic.swing.Slider slider1;
