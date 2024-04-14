@@ -855,9 +855,10 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="lblName" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="303" pref="303" max="-2" attributes="0"/>
@@ -870,10 +871,6 @@
                                   </Group>
                                   <Component id="lblNumberPhone" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtNumberPhone" min="-2" pref="350" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="88" pref="88" max="-2" attributes="0"/>
-                                      <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                               </Group>
                               <EmptySpace pref="219" max="32767" attributes="0"/>
                           </Group>

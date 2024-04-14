@@ -711,6 +711,7 @@ public class chinhSuaThongTinCaNhan extends javax.swing.JDialog {
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUpdate)
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addComponent(lblName)
                         .addGap(303, 303, 303)
@@ -720,10 +721,7 @@ public class chinhSuaThongTinCaNhan extends javax.swing.JDialog {
                         .addGap(70, 70, 70)
                         .addComponent(txtEMAIL, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblNumberPhone)
-                    .addComponent(txtNumberPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(btnUpdate)))
+                    .addComponent(txtNumberPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(219, Short.MAX_VALUE))
         );
         jPanel20Layout.setVerticalGroup(

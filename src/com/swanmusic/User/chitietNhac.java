@@ -283,6 +283,7 @@ if(listAlbumName.size() > 0)
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSeparator1 = new javax.swing.JSeparator();
         musicPlayer = new javax.swing.JPanel();
         SongNamelbl = new javax.swing.JLabel();
         Artistlbl = new javax.swing.JLabel();
@@ -984,6 +985,7 @@ if(listAlbumName.size() > 0)
         SongLyrta.setEditable(false);
         SongLyrta.setBackground(new java.awt.Color(0, 0, 0));
         SongLyrta.setColumns(20);
+        SongLyrta.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         SongLyrta.setForeground(new java.awt.Color(255, 255, 255));
         SongLyrta.setRows(5);
         SongLyrta.setText("Nhìn theo bóng dáng ai dần xa\nVừa vội trao chiếc hôn chia lìa (mm-mm-mm-mm)\nDù rằng tim đã đau nhiều đêm\nChẳng biết cách ngăn nước mắt rơi (uhm)\nNgười đã bên ta, cuốn trôi hết chai sần\nNhững vết thương cũng cứ thế phai dần\nNgười là nắng bên đời\nNgười sưởi ấm ta rồi\nThe way you smile khiến ta biết rung động\nCó sai đâu nếu ta cứ mơ mộng ngồi đợi biết bao mùa\nTo say I love you so\nNhững giai điệu đã trao nhau giờ như vỡ tan\nTrái tim ta trót đau trước kỉ niệm lỡ mang\nĐến ngỡ ngàng\nHah-hah-hah-hah-hah-hah-hah-hah\nVẫn biết ơn phút giây khi người đến với đời\nNhững chú chim kéo nhau hót mừng người tới chơi\nDẫn lối tôi\nHah-hah-hah-hah-hah-hah-hah-hah\nNhìn theo bóng dáng ai dần xa\nVừa vội trao chiếc hôn chia lìa (mm-mm-mm-mm)\nDù rằng tim đã đau nhiều đêm\nChẳng biết cách ngăn nước mắt rơi (uhm)\nNgười đã bên ta, cuốn trôi hết chai sần\nNhững vết thương cũng cứ thế phai dần\nNgười là nắng bên đời\nNgười sưởi ấm ta rồi\nThe way you smile khiến ta biết rung động\nCó sai đâu nếu ta cứ mơ mộng ngồi đợi biết bao mùa\nTo say I love you so\nNhững giai điệu đã trao nhau giờ như vỡ tan\nTrái tim ta trót đau trước kỉ niệm lỡ mang\nĐến ngỡ ngàng\nHah-hah-hah-hah-hah-hah-hah-hah\nVẫn biết ơn phút giây khi người đến với đời\nNhững chú chim kéo nhau hót mừng người tới chơi\nDẫn lối tôi\nHah-hah-hah-hah-hah-hah-hah-hah");
@@ -998,7 +1000,9 @@ if(listAlbumName.size() > 0)
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1031, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1269,7 +1273,7 @@ if(listAlbumName.size() > 0)
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel40;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblHome_menu;
     private javax.swing.JLabel lblIcon_home;
     private javax.swing.JLabel lblIcon_search;
