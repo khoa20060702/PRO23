@@ -141,9 +141,7 @@ public class Home extends javax.swing.JDialog {
         Imglbl8.setIcon(icons[7]);
     }
 
-    Home() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
     void init() {
         this.setSize(1260, 682);
@@ -2816,43 +2814,43 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_lblIcon_homeMouseClicked
 
     private void Album1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album1MouseClicked
-        String data1 = listAlbumName.get(0);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
-        chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1, data2);
-        this.setVisible(false);
-        mai.setVisible(true);
+//        String data1 = listAlbumName.get(0);
+//        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
+//        chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1, data2);
+//        this.setVisible(false);
+//        mai.setVisible(true);
     }//GEN-LAST:event_Album1MouseClicked
 
     private void Album2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album2MouseClicked
-        String data1 = listAlbumName.get(1);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(1));
-        chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1, data2);
-        this.setVisible(false);
-        mai.setVisible(true);
+//        String data1 = listAlbumName.get(1);
+//        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(1));
+//        chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1, data2);
+//        this.setVisible(false);
+//        mai.setVisible(true);
     }//GEN-LAST:event_Album2MouseClicked
 
     private void Album3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album3MouseClicked
-        String data1 = listAlbumName.get(2);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(2));
-        chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1, data2);
-        this.setVisible(false);
-        mai.setVisible(true);
+//        String data1 = listAlbumName.get(2);
+//        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(2));
+//        chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1, data2);
+//        this.setVisible(false);
+//        mai.setVisible(true);
     }//GEN-LAST:event_Album3MouseClicked
 
     private void Album4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album4MouseClicked
-        String data1 = listAlbumName.get(3);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
-        chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1, data2);
-        this.setVisible(false);
-        mai.setVisible(true);
+//        String data1 = listAlbumName.get(3);
+//        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
+//        chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1, data2);
+//        this.setVisible(false);
+//        mai.setVisible(true);
     }//GEN-LAST:event_Album4MouseClicked
 
     private void Album5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album5MouseClicked
-        String data1 = listAlbumName.get(4);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(4));
-        chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1, data2);
-        this.setVisible(false);
-        mai.setVisible(true);
+//        String data1 = listAlbumName.get(4);
+//        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(4));
+//        chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1, data2);
+//        this.setVisible(false);
+//        mai.setVisible(true);
     }//GEN-LAST:event_Album5MouseClicked
 
     /**
@@ -3031,7 +3029,7 @@ public class Home extends javax.swing.JDialog {
     private com.swanmusic.swing.Slider slider2;
     private javax.swing.JPanel windoTtiling;
     // End of variables declaration//GEN-END:variables
-    private void volumeControl(Double valueToPlusMinus) {
+   private void volumeControl(Double valueToPlusMinus) {
         // Get Mixer Information From AudioSystem
         Mixer.Info[] mixers = AudioSystem.getMixerInfo();
         // Now use a for loop to list all mixers
