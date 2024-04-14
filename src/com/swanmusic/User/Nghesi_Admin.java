@@ -1067,6 +1067,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         jButton25.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton25.setForeground(new java.awt.Color(255, 255, 255));
         jButton25.setText("CHỈNH SỬA");
+        jButton25.setFocusPainted(false);
         jButton25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton25ActionPerformed(evt);
@@ -1077,6 +1078,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         jButton26.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton26.setForeground(new java.awt.Color(255, 255, 255));
         jButton26.setText("DANH SÁCH");
+        jButton26.setFocusPainted(false);
         jButton26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton26ActionPerformed(evt);
@@ -1221,10 +1223,12 @@ public class Nghesi_Admin extends javax.swing.JDialog {
 
     private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
         // TODO add your handling code here:
+        cardLayout.show(QL2, "cardChinhSua2");
     }//GEN-LAST:event_jButton26ActionPerformed
 
     private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
         // TODO add your handling code here:
+        cardLayout.show(QL2, "cardChinhSua1");
     }//GEN-LAST:event_jButton25ActionPerformed
 
     private void lblIcon_taiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_taiKhoanMouseClicked
