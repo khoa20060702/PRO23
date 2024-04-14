@@ -1,0 +1,1371 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ */
+package com.swanmusic.User;
+
+import com.swanmusic.ui.*;
+import com.swanmusic.User.*;
+import com.swanmusic.entity.Album;
+import com.swanmusic.swing.ComponentResizer;
+import com.swanmusic.swing.ScrollBar;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.Image;
+import javax.swing.JFileChooser;
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
+
+public class Album_Admin extends javax.swing.JDialog {
+    Boolean forgot = false;
+    /**
+     * Creates new form Album_Admin
+     */
+    public Album_Admin(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        init();
+        load_data();
+        navigatePages();
+    }
+    CardLayout cardLayout;
+
+    public void navigatePages() {
+
+        cardLayout = (CardLayout) (QL.getLayout());
+        // thay đổi kích thước của app
+        ComponentResizer resizer = new ComponentResizer();
+        resizer.registerComponent(this);
+    }
+
+//    public void customSplitpaneUI() {
+//        // Thiết lập màu trong suốt cho JSplitPane và các phần con của nó
+//        jSplitPane1.setUI(new BasicSplitPaneUI() {
+//            @Override
+//            public void installDefaults() {
+//                super.installDefaults();   
+//                splitPane.setOpaque(false);          
+//            }
+//        });
+//    }
+//    
+//    public Album_frmAdmin(java.awt.Frame parent, boolean modal) {
+//        super(parent, modal);
+//        initComponents();
+//        init();
+//        load_data();
+//        navigatePages();
+//        customSplitpaneUI();
+//    }
+    void init() {
+        this.setSize(1260, 682);
+        this.setLocationRelativeTo(null);
+        load_data();
+    }
+    ArrayList<Album> list = new ArrayList();
+    String imageName = null;
+    int index = 0;
+
+    public void upImage(String imageName) {
+        ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
+        Image image = icon.getImage();
+        ImageIcon icon1 = new ImageIcon(image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), image.SCALE_SMOOTH));
+        lblImage.setIcon(icon1);
+    }
+
+    public void load_data() {
+        list.clear();
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select * from ALBUM");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Album mu = new Album();
+                mu.setAlbumName(rs.getString("TENALBUM"));
+                mu.setAlbumArtist(rs.getString("NGHESI"));
+                mu.setAlbumCategory(rs.getString("THELOAI"));
+                mu.setAlbumReleaseTime(rs.getString("TG_PHATHANH"));
+                mu.setAlbumImage(rs.getString("ANH"));
+                list.add(mu);
+            }
+            DefaultTableModel model = (DefaultTableModel) tblAlbum.getModel();
+            model.setRowCount(0);
+            for (Album mu : list) {
+                Object[] row = new Object[]{mu.getAlbumName(), mu.getAlbumArtist(), mu.getAlbumCategory(), mu.getAlbumReleaseTime(), mu.getAlbumImage()};
+                model.addRow(row);
+            }
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showdetail() {
+        if (index >= 0) {
+            Album mu = list.get(index);
+            txtName.setText(mu.getAlbumName());
+            txtNghesi.setText(mu.getAlbumArtist());
+            txtTheloai.setText(mu.getAlbumCategory());
+            txtTime.setText(mu.getAlbumReleaseTime());
+            upImage(list.get(index).getAlbumImage());
+        }
+    }
+
+    public void them() {
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            upImage(imageName);
+            PreparedStatement ps = con.prepareCall("insert into ALBUM values(?,?,?,?,?)");
+            ps.setString(1, txtName.getText());
+            ps.setString(3, txtTheloai.getText());
+            ps.setString(4, txtTime.getText());
+            ps.setString(5, imageName);
+            ps.setString(2, txtNghesi.getText());
+            int kq = ps.executeUpdate();
+            if (kq == 1) {
+                JOptionPane.showMessageDialog(this, "Lưu thành công");
+            } else {
+                JOptionPane.showMessageDialog(this, "Lưu không thành công");
+            }
+            ps.close();
+            con.close();
+            load_data();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void xoa() {
+        try {
+            //1. url
+            String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareStatement("delete from ALBUM where TENALBUM = ?");
+            ps.setString(1, txtName.getText());
+            int kq = ps.executeUpdate();
+            if (kq == 1) {
+                JOptionPane.showMessageDialog(this, "thành công");
+                txtTime.setText(null);
+                txtNghesi.setText(null);
+                txtTheloai.setText(null);
+                txtName.setText(null);
+                upImage(null);
+            } else {
+                JOptionPane.showMessageDialog(this, "thất bại.");
+            }
+            ps.close();
+            con.close();
+            load_data();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sua() {
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            upImage(imageName);
+            PreparedStatement ps = con.prepareCall("update ALBUM set NGHESI = ?, THELOAI=?, TG_PHATHANH=?, ANH=? where TENALBUM = ?");
+            ps.setString(1, txtNghesi.getText());
+            ps.setString(2, txtTheloai.getText());
+            ps.setString(3, txtTime.getText());
+            ps.setString(4, imageName);
+            ps.setString(5, txtName.getText());
+            int kq = ps.executeUpdate();
+            if (kq == 1) {
+                JOptionPane.showMessageDialog(this, "Lưu thành công");
+                txtName.setText(null);
+                txtNghesi.setText(null);
+                txtTheloai.setText(null);
+                txtTime.setText(null);
+                upImage(null);
+            } else {
+                JOptionPane.showMessageDialog(this, "Lưu không thành công");
+            }
+            ps.close();
+            con.close();
+            load_data();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void moi() {
+        txtTime.setText(null);
+        txtNghesi.setText(null);
+        txtTheloai.setText(null);
+        txtName.setText(null);
+        upImage(null);
+    }
+
+    public void First() {
+        index = 0;
+        tblAlbum.setRowSelectionInterval(index, index);
+        showdetail();
+    }
+
+    public void prev() {
+        if (index > 0) {
+            index--;
+            tblAlbum.setRowSelectionInterval(index, index);
+            showdetail();
+        }
+    }
+
+    public void next() {
+        if (index < list.size() - 1) {
+            index++;
+            tblAlbum.setRowSelectionInterval(index, index);
+            showdetail();
+        }
+    }
+
+    public void last() {
+        index = list.size() - 1;
+        tblAlbum.setRowSelectionInterval(index, index);
+        showdetail();
+    }
+
+    void openTaiKhoan() {
+
+        this.setVisible(false);
+        new com.swanmusic.main.taikhoan_frmAdmin(null, true).setVisible(true);
+
+    }
+
+    void openNgheSi() {
+
+        this.setVisible(false);
+        new com.swanmusic.main.Nghesi_frmAdmin(null, true).setVisible(true);
+    }
+
+    void openNhac() {
+
+        this.setVisible(false);
+        new com.swanmusic.main.nhac_frmAdmin(null, true).setVisible(true);
+    }
+
+    void openAlbum() {
+        this.setVisible(false);
+        new com.swanmusic.main.Album_frmAdmin(null, true).setVisible(true);
+
+    }
+
+    public boolean validate_data() {
+        if (txtName.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Tên Nhạc không được để trống");
+            txtName.setBackground(Color.yellow);
+            txtName.requestFocus();
+            return false;
+        }
+
+        if (txtTheloai.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Thể loại không được để trống");
+            txtTheloai.setBackground(Color.yellow);
+            txtTheloai.requestFocus();
+            return false;
+        }
+
+        if (txtNghesi.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Nghệ sĩ không được để trống");
+            txtNghesi.setBackground(Color.yellow);
+            txtNghesi.requestFocus();
+            return false;
+        }
+
+        if (txtTime.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Thời lượng không được để trống");
+            txtTime.setBackground(Color.yellow);
+            txtTime.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    public void changeColor(JPanel hover, Color rand) {
+        hover.setBackground(rand);
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        windoTtiling = new javax.swing.JPanel();
+        header = new javax.swing.JPanel();
+        jPanel22 = new javax.swing.JPanel();
+        btnClose = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        btnMaximize = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        btnMinimize = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        menu = new javax.swing.JPanel();
+        pnlVien1 = new javax.swing.JPanel();
+        pnlVien2 = new javax.swing.JPanel();
+        pnlVien3 = new javax.swing.JPanel();
+        pnl_vien4 = new javax.swing.JPanel();
+        menu_con = new javax.swing.JPanel();
+        pnlTiltle = new javax.swing.JPanel();
+        lblTitle = new javax.swing.JLabel();
+        pnlHome = new javax.swing.JPanel();
+        lblIcon_home = new javax.swing.JLabel();
+        lblHome_menu = new javax.swing.JLabel();
+        pnl_search = new javax.swing.JPanel();
+        lblIcon_search = new javax.swing.JLabel();
+        lblSearch_menu = new javax.swing.JLabel();
+        pnl_search2 = new javax.swing.JPanel();
+        lblSearch_menu3 = new javax.swing.JLabel();
+        lblIcon_search3 = new javax.swing.JLabel();
+        pnl_search3 = new javax.swing.JPanel();
+        lblSearch_menu2 = new javax.swing.JLabel();
+        lblIcon_search2 = new javax.swing.JLabel();
+        main = new javax.swing.JPanel();
+        pnlVien5 = new javax.swing.JPanel();
+        pnlVien6 = new javax.swing.JPanel();
+        pnlVien7 = new javax.swing.JPanel();
+        panel4 = new com.swanmusic.swing.Panel();
+        QL = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        lblTheloai = new javax.swing.JLabel();
+        txtTheloai = new javax.swing.JTextField();
+        btnXoa = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnMoi = new javax.swing.JButton();
+        lblName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        lblTime = new javax.swing.JLabel();
+        txtNghesi = new javax.swing.JTextField();
+        lblNghesi = new javax.swing.JLabel();
+        txtTime = new javax.swing.JTextField();
+        pnlHinh2 = new javax.swing.JPanel();
+        lblImage = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblAlbum = new javax.swing.JTable();
+        lblTieude = new javax.swing.JLabel();
+        btnFirst = new javax.swing.JButton();
+        btnPrev = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
+        btnLast = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+
+        windoTtiling.setBackground(new java.awt.Color(0, 0, 0));
+        windoTtiling.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        header.setBackground(new java.awt.Color(0, 0, 0));
+        header.setPreferredSize(new java.awt.Dimension(1242, 30));
+        header.setLayout(new java.awt.BorderLayout());
+
+        jPanel22.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel22.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnClose.setBackground(new java.awt.Color(255, 255, 255));
+        btnClose.setPreferredSize(new java.awt.Dimension(40, 30));
+        btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCloseMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCloseMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCloseMouseExited(evt);
+            }
+        });
+        btnClose.setLayout(new java.awt.BorderLayout());
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/close-black.png"))); // NOI18N
+        jLabel2.setOpaque(true);
+        btnClose.add(jLabel2, java.awt.BorderLayout.CENTER);
+
+        jPanel22.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, -1, -1));
+
+        btnMaximize.setBackground(new java.awt.Color(255, 255, 255));
+        btnMaximize.setPreferredSize(new java.awt.Dimension(40, 30));
+        btnMaximize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMaximizeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMaximizeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMaximizeMouseExited(evt);
+            }
+        });
+        btnMaximize.setLayout(new java.awt.BorderLayout());
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/maximize (1).png"))); // NOI18N
+        jLabel3.setOpaque(true);
+        btnMaximize.add(jLabel3, java.awt.BorderLayout.CENTER);
+
+        jPanel22.add(btnMaximize, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, -1));
+
+        btnMinimize.setBackground(new java.awt.Color(255, 255, 255));
+        btnMinimize.setPreferredSize(new java.awt.Dimension(40, 30));
+        btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseExited(evt);
+            }
+        });
+        btnMinimize.setLayout(new java.awt.BorderLayout());
+
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/minus.png"))); // NOI18N
+        jLabel7.setOpaque(true);
+        btnMinimize.add(jLabel7, java.awt.BorderLayout.CENTER);
+
+        jPanel22.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        header.add(jPanel22, java.awt.BorderLayout.LINE_END);
+
+        windoTtiling.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 40));
+
+        getContentPane().add(windoTtiling, java.awt.BorderLayout.PAGE_START);
+
+        menu.setBackground(new java.awt.Color(0, 0, 0));
+        menu.setLayout(new java.awt.BorderLayout());
+
+        pnlVien1.setBackground(new java.awt.Color(255, 255, 255));
+        pnlVien1.setPreferredSize(new java.awt.Dimension(220, 10));
+
+        javax.swing.GroupLayout pnlVien1Layout = new javax.swing.GroupLayout(pnlVien1);
+        pnlVien1.setLayout(pnlVien1Layout);
+        pnlVien1Layout.setHorizontalGroup(
+            pnlVien1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 220, Short.MAX_VALUE)
+        );
+        pnlVien1Layout.setVerticalGroup(
+            pnlVien1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        menu.add(pnlVien1, java.awt.BorderLayout.PAGE_START);
+
+        pnlVien2.setBackground(new java.awt.Color(255, 255, 255));
+        pnlVien2.setPreferredSize(new java.awt.Dimension(220, 10));
+
+        javax.swing.GroupLayout pnlVien2Layout = new javax.swing.GroupLayout(pnlVien2);
+        pnlVien2.setLayout(pnlVien2Layout);
+        pnlVien2Layout.setHorizontalGroup(
+            pnlVien2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 220, Short.MAX_VALUE)
+        );
+        pnlVien2Layout.setVerticalGroup(
+            pnlVien2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        menu.add(pnlVien2, java.awt.BorderLayout.PAGE_END);
+
+        pnlVien3.setBackground(new java.awt.Color(255, 255, 255));
+        pnlVien3.setPreferredSize(new java.awt.Dimension(10, 532));
+
+        javax.swing.GroupLayout pnlVien3Layout = new javax.swing.GroupLayout(pnlVien3);
+        pnlVien3.setLayout(pnlVien3Layout);
+        pnlVien3Layout.setHorizontalGroup(
+            pnlVien3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        pnlVien3Layout.setVerticalGroup(
+            pnlVien3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 628, Short.MAX_VALUE)
+        );
+
+        menu.add(pnlVien3, java.awt.BorderLayout.LINE_START);
+
+        pnl_vien4.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_vien4.setPreferredSize(new java.awt.Dimension(10, 532));
+
+        javax.swing.GroupLayout pnl_vien4Layout = new javax.swing.GroupLayout(pnl_vien4);
+        pnl_vien4.setLayout(pnl_vien4Layout);
+        pnl_vien4Layout.setHorizontalGroup(
+            pnl_vien4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        pnl_vien4Layout.setVerticalGroup(
+            pnl_vien4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 628, Short.MAX_VALUE)
+        );
+
+        menu.add(pnl_vien4, java.awt.BorderLayout.LINE_END);
+
+        menu_con.setBackground(new java.awt.Color(0, 0, 0));
+        menu_con.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnlTiltle.setBackground(new java.awt.Color(255, 103, 158));
+
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("SWAN");
+        lblTitle.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout pnlTiltleLayout = new javax.swing.GroupLayout(pnlTiltle);
+        pnlTiltle.setLayout(pnlTiltleLayout);
+        pnlTiltleLayout.setHorizontalGroup(
+            pnlTiltleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTiltleLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(lblTitle)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        pnlTiltleLayout.setVerticalGroup(
+            pnlTiltleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTiltleLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(lblTitle)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        menu_con.add(pnlTiltle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, -1));
+
+        pnlHome.setBackground(new java.awt.Color(51, 51, 51));
+
+        lblIcon_home.setBackground(new java.awt.Color(255, 255, 255));
+        lblIcon_home.setForeground(new java.awt.Color(255, 255, 255));
+        lblIcon_home.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIcon_home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/users.png"))); // NOI18N
+        lblIcon_home.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblIcon_homeMouseClicked(evt);
+            }
+        });
+
+        lblHome_menu.setBackground(new java.awt.Color(255, 255, 255));
+        lblHome_menu.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblHome_menu.setForeground(new java.awt.Color(255, 255, 255));
+        lblHome_menu.setText("TÀI KHOẢN");
+        lblHome_menu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHome_menuMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlHomeLayout = new javax.swing.GroupLayout(pnlHome);
+        pnlHome.setLayout(pnlHomeLayout);
+        pnlHomeLayout.setHorizontalGroup(
+            pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHomeLayout.createSequentialGroup()
+                .addComponent(lblIcon_home, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblHome_menu)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlHomeLayout.setVerticalGroup(
+            pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHomeLayout.createSequentialGroup()
+                .addComponent(lblIcon_home, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(lblHome_menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        menu_con.add(pnlHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 200, 60));
+
+        pnl_search.setBackground(new java.awt.Color(51, 51, 51));
+
+        lblIcon_search.setBackground(new java.awt.Color(255, 255, 255));
+        lblIcon_search.setForeground(new java.awt.Color(255, 255, 255));
+        lblIcon_search.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIcon_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/music.png"))); // NOI18N
+
+        lblSearch_menu.setBackground(new java.awt.Color(255, 255, 255));
+        lblSearch_menu.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblSearch_menu.setForeground(new java.awt.Color(255, 255, 255));
+        lblSearch_menu.setText("NHẠC");
+        lblSearch_menu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSearch_menuMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnl_searchLayout = new javax.swing.GroupLayout(pnl_search);
+        pnl_search.setLayout(pnl_searchLayout);
+        pnl_searchLayout.setHorizontalGroup(
+            pnl_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_searchLayout.createSequentialGroup()
+                .addComponent(lblIcon_search, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSearch_menu)
+                .addContainerGap(62, Short.MAX_VALUE))
+        );
+        pnl_searchLayout.setVerticalGroup(
+            pnl_searchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_searchLayout.createSequentialGroup()
+                .addComponent(lblIcon_search, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(lblSearch_menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        menu_con.add(pnl_search, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 200, -1));
+
+        pnl_search2.setBackground(new java.awt.Color(51, 51, 51));
+
+        lblSearch_menu3.setBackground(new java.awt.Color(255, 255, 255));
+        lblSearch_menu3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblSearch_menu3.setForeground(new java.awt.Color(255, 255, 255));
+        lblSearch_menu3.setText("NGHỆ SĨ");
+
+        lblIcon_search3.setBackground(new java.awt.Color(255, 255, 255));
+        lblIcon_search3.setForeground(new java.awt.Color(255, 255, 255));
+        lblIcon_search3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIcon_search3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/artist.png"))); // NOI18N
+
+        javax.swing.GroupLayout pnl_search2Layout = new javax.swing.GroupLayout(pnl_search2);
+        pnl_search2.setLayout(pnl_search2Layout);
+        pnl_search2Layout.setHorizontalGroup(
+            pnl_search2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_search2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblIcon_search3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSearch_menu3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        pnl_search2Layout.setVerticalGroup(
+            pnl_search2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_search2Layout.createSequentialGroup()
+                .addGroup(pnl_search2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblIcon_search3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_search2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblSearch_menu3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10))
+        );
+
+        menu_con.add(pnl_search2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 60));
+
+        pnl_search3.setBackground(new java.awt.Color(51, 51, 51));
+
+        lblSearch_menu2.setBackground(new java.awt.Color(255, 255, 255));
+        lblSearch_menu2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblSearch_menu2.setForeground(new java.awt.Color(255, 255, 255));
+        lblSearch_menu2.setText("ALBUM");
+
+        lblIcon_search2.setBackground(new java.awt.Color(255, 255, 255));
+        lblIcon_search2.setForeground(new java.awt.Color(255, 255, 255));
+        lblIcon_search2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIcon_search2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/music-album.png"))); // NOI18N
+
+        javax.swing.GroupLayout pnl_search3Layout = new javax.swing.GroupLayout(pnl_search3);
+        pnl_search3.setLayout(pnl_search3Layout);
+        pnl_search3Layout.setHorizontalGroup(
+            pnl_search3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_search3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblIcon_search2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSearch_menu2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+        pnl_search3Layout.setVerticalGroup(
+            pnl_search3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_search3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblSearch_menu2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(lblIcon_search2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        menu_con.add(pnl_search3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 200, -1));
+
+        menu.add(menu_con, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(menu, java.awt.BorderLayout.LINE_START);
+
+        main.setBackground(new java.awt.Color(0, 0, 0));
+        main.setLayout(new java.awt.BorderLayout());
+
+        pnlVien5.setBackground(new java.awt.Color(255, 255, 255));
+        pnlVien5.setPreferredSize(new java.awt.Dimension(1040, 10));
+
+        javax.swing.GroupLayout pnlVien5Layout = new javax.swing.GroupLayout(pnlVien5);
+        pnlVien5.setLayout(pnlVien5Layout);
+        pnlVien5Layout.setHorizontalGroup(
+            pnlVien5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1041, Short.MAX_VALUE)
+        );
+        pnlVien5Layout.setVerticalGroup(
+            pnlVien5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        main.add(pnlVien5, java.awt.BorderLayout.PAGE_END);
+
+        pnlVien6.setBackground(new java.awt.Color(255, 255, 255));
+        pnlVien6.setPreferredSize(new java.awt.Dimension(1040, 10));
+
+        javax.swing.GroupLayout pnlVien6Layout = new javax.swing.GroupLayout(pnlVien6);
+        pnlVien6.setLayout(pnlVien6Layout);
+        pnlVien6Layout.setHorizontalGroup(
+            pnlVien6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1041, Short.MAX_VALUE)
+        );
+        pnlVien6Layout.setVerticalGroup(
+            pnlVien6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        main.add(pnlVien6, java.awt.BorderLayout.PAGE_START);
+
+        pnlVien7.setBackground(new java.awt.Color(255, 255, 255));
+        pnlVien7.setPreferredSize(new java.awt.Dimension(10, 532));
+
+        javax.swing.GroupLayout pnlVien7Layout = new javax.swing.GroupLayout(pnlVien7);
+        pnlVien7.setLayout(pnlVien7Layout);
+        pnlVien7Layout.setHorizontalGroup(
+            pnlVien7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        pnlVien7Layout.setVerticalGroup(
+            pnlVien7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 628, Short.MAX_VALUE)
+        );
+
+        main.add(pnlVien7, java.awt.BorderLayout.LINE_END);
+
+        panel4.setBackground(new java.awt.Color(0, 0, 0));
+        panel4.setForeground(new java.awt.Color(255, 201, 221));
+        panel4.setOpaque(true);
+
+        QL.setOpaque(false);
+        QL.setLayout(new java.awt.CardLayout());
+
+        jPanel9.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("QUẢN LÝ ALBUM");
+
+        lblTheloai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTheloai.setForeground(new java.awt.Color(255, 255, 255));
+        lblTheloai.setText("Thể loại");
+
+        txtTheloai.setBackground(new java.awt.Color(255, 145, 185));
+        txtTheloai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTheloai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTheloaiActionPerformed(evt);
+            }
+        });
+
+        btnXoa.setBackground(new java.awt.Color(255, 103, 158));
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+
+        btnThem.setBackground(new java.awt.Color(255, 103, 158));
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
+
+        btnSua.setBackground(new java.awt.Color(255, 103, 158));
+        btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSua.setForeground(new java.awt.Color(255, 255, 255));
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
+
+        btnMoi.setBackground(new java.awt.Color(255, 103, 158));
+        btnMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnMoi.setForeground(new java.awt.Color(255, 255, 255));
+        btnMoi.setText("Mới");
+        btnMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoiActionPerformed(evt);
+            }
+        });
+
+        lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
+        lblName.setText("Tên album");
+
+        txtName.setBackground(new java.awt.Color(255, 145, 185));
+        txtName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
+
+        lblTime.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTime.setForeground(new java.awt.Color(255, 255, 255));
+        lblTime.setText("Thời gian phát hành");
+
+        txtNghesi.setBackground(new java.awt.Color(255, 145, 185));
+        txtNghesi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtNghesi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNghesiActionPerformed(evt);
+            }
+        });
+
+        lblNghesi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNghesi.setForeground(new java.awt.Color(255, 255, 255));
+        lblNghesi.setText("Nghệ sĩ");
+
+        txtTime.setBackground(new java.awt.Color(255, 145, 185));
+        txtTime.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimeActionPerformed(evt);
+            }
+        });
+
+        pnlHinh2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlHinh2.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblImageMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlHinh2Layout = new javax.swing.GroupLayout(pnlHinh2);
+        pnlHinh2.setLayout(pnlHinh2Layout);
+        pnlHinh2Layout.setHorizontalGroup(
+            pnlHinh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHinh2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlHinh2Layout.setVerticalGroup(
+            pnlHinh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHinh2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(btnThem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnXoa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSua)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnMoi))
+                    .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTheloai)
+                    .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNghesi)
+                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTime)
+                    .addComponent(lblName)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(101, 101, 101)
+                .addComponent(pnlHinh2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(304, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(pnlHinh2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblTheloai)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblNghesi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblTime)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnXoa)
+                            .addComponent(btnThem)
+                            .addComponent(btnSua)
+                            .addComponent(btnMoi))))
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+
+        QL.add(jPanel9, "cardChinhSua1");
+
+        jPanel8.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel8.setOpaque(false);
+
+        tblAlbum.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Tên album", "Nghệ sĩ", "Thể loại", "Thời gian phát hành", "Ảnh"
+            }
+        ));
+        tblAlbum.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAlbumMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblAlbum);
+
+        lblTieude.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTieude.setForeground(new java.awt.Color(255, 255, 255));
+        lblTieude.setText("DANH SÁCH ALBUM");
+
+        btnFirst.setBackground(new java.awt.Color(255, 103, 158));
+        btnFirst.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnFirst.setForeground(new java.awt.Color(255, 255, 255));
+        btnFirst.setText("|<");
+        btnFirst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFirstActionPerformed(evt);
+            }
+        });
+
+        btnPrev.setBackground(new java.awt.Color(255, 103, 158));
+        btnPrev.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPrev.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrev.setText("<<");
+        btnPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrevActionPerformed(evt);
+            }
+        });
+
+        btnNext.setBackground(new java.awt.Color(255, 103, 158));
+        btnNext.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnNext.setForeground(new java.awt.Color(255, 255, 255));
+        btnNext.setText(">>");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextActionPerformed(evt);
+            }
+        });
+
+        btnLast.setBackground(new java.awt.Color(255, 103, 158));
+        btnLast.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLast.setForeground(new java.awt.Color(255, 255, 255));
+        btnLast.setText(">|");
+        btnLast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(54, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTieude)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel8Layout.createSequentialGroup()
+                            .addComponent(btnFirst)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnPrev)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnNext)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnLast))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 918, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(47, 47, 47))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(lblTieude)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFirst)
+                    .addComponent(btnPrev)
+                    .addComponent(btnNext)
+                    .addComponent(btnLast))
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+
+        QL.add(jPanel8, "cardChinhSua2");
+
+        jButton4.setBackground(new java.awt.Color(255, 103, 158));
+        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("CHỈNH SỬA");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setBackground(new java.awt.Color(255, 103, 158));
+        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("DANH SÁCH");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel4Layout = new javax.swing.GroupLayout(panel4);
+        panel4.setLayout(panel4Layout);
+        panel4Layout.setHorizontalGroup(
+            panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(QL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(panel4Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jButton4)
+                .addGap(18, 18, 18)
+                .addComponent(jButton7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel4Layout.setVerticalGroup(
+            panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel4Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(QL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        main.add(panel4, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(main, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnCloseMouseClicked
+
+    private void btnCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseEntered
+        // TODO add your handling code here:
+        changeColor(btnClose, new Color(222, 221, 217));
+    }//GEN-LAST:event_btnCloseMouseEntered
+
+    private void btnCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseExited
+        // TODO add your handling code here:
+        changeColor(btnClose, new Color(222, 221, 217));
+    }//GEN-LAST:event_btnCloseMouseExited
+
+    private void btnMaximizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseClicked
+        // TODO add your handling code here:
+        //        if(this.getExtendedState()!= Home.MAXIMIZED_BOTH){
+        //            this.setExtendedState(Home.MAXIMIZED_BOTH);
+        //        }
+        //        else{
+        //            this.setExtendedState(Home.NORMAL);
+        //        }
+    }//GEN-LAST:event_btnMaximizeMouseClicked
+
+    private void btnMaximizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseEntered
+        // TODO add your handling code here:
+        changeColor(btnMaximize, new Color(222, 221, 217));
+    }//GEN-LAST:event_btnMaximizeMouseEntered
+
+    private void btnMaximizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseExited
+        // TODO add your handling code here:
+        changeColor(btnMaximize, new Color(222, 221, 217));
+    }//GEN-LAST:event_btnMaximizeMouseExited
+
+    private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
+        // TODO add your handling code here:
+        // this.setExtendedState(Home.ICONIFIED);
+    }//GEN-LAST:event_btnMinimizeMouseClicked
+
+    private void btnMinimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseEntered
+        // TODO add your handling code here:
+        changeColor(btnMinimize, new Color(222, 221, 217));
+    }//GEN-LAST:event_btnMinimizeMouseEntered
+
+    private void btnMinimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseExited
+        // TODO add your handling code here:
+        changeColor(btnMinimize, new Color(222, 221, 217));
+    }//GEN-LAST:event_btnMinimizeMouseExited
+
+    private void lblIcon_homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_homeMouseClicked
+
+        Home mai = new Home(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblIcon_homeMouseClicked
+
+    private void lblHome_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHome_menuMouseClicked
+
+        Home mai = new Home(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblHome_menuMouseClicked
+
+    private void lblSearch_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearch_menuMouseClicked
+ 
+        Main_search mai = new Main_search(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblSearch_menuMouseClicked
+
+    private void txtTheloaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTheloaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTheloaiActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        xoa();
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        them();
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        sua();
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
+        // TODO add your handling code here:
+        moi();
+    }//GEN-LAST:event_btnMoiActionPerformed
+
+    private void txtNghesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNghesiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNghesiActionPerformed
+
+    private void txtTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimeActionPerformed
+
+    private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
+        // TODO add your handling code here:
+        JFileChooser file = new JFileChooser("src\\com\\swanmusic\\img\\");
+        int kq = file.showOpenDialog(file);
+        if (kq == JFileChooser.APPROVE_OPTION) {
+            imageName = file.getSelectedFile().getName();
+            upImage(imageName);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
+        }
+    }//GEN-LAST:event_lblImageMouseClicked
+
+    private void tblAlbumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlbumMouseClicked
+        // TODO add your handling code here:
+        index = tblAlbum.getSelectedRow();
+        showdetail();
+    }//GEN-LAST:event_tblAlbumMouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        cardLayout.show(QL, "cardChinhSua1");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        cardLayout.show(QL, "cardChinhSua2");
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
+
+    private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
+        First();
+    }//GEN-LAST:event_btnFirstActionPerformed
+
+    private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
+        prev();
+    }//GEN-LAST:event_btnPrevActionPerformed
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        next();
+    }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
+       last();
+    }//GEN-LAST:event_btnLastActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Album_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Album_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Album_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Album_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Album_Admin dialog = new Album_Admin(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel QL;
+    private javax.swing.JPanel btnClose;
+    private javax.swing.JButton btnFirst;
+    private javax.swing.JButton btnLast;
+    private javax.swing.JPanel btnMaximize;
+    private javax.swing.JPanel btnMinimize;
+    private javax.swing.JButton btnMoi;
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPrev;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.JPanel header;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblHome_menu;
+    private javax.swing.JLabel lblIcon_home;
+    private javax.swing.JLabel lblIcon_search;
+    private javax.swing.JLabel lblIcon_search2;
+    private javax.swing.JLabel lblIcon_search3;
+    private javax.swing.JLabel lblImage;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblNghesi;
+    private javax.swing.JLabel lblSearch_menu;
+    private javax.swing.JLabel lblSearch_menu2;
+    private javax.swing.JLabel lblSearch_menu3;
+    private javax.swing.JLabel lblTheloai;
+    private javax.swing.JLabel lblTieude;
+    private javax.swing.JLabel lblTime;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JPanel main;
+    private javax.swing.JPanel menu;
+    private javax.swing.JPanel menu_con;
+    private com.swanmusic.swing.Panel panel4;
+    private javax.swing.JPanel pnlHinh2;
+    private javax.swing.JPanel pnlHome;
+    private javax.swing.JPanel pnlTiltle;
+    private javax.swing.JPanel pnlVien1;
+    private javax.swing.JPanel pnlVien2;
+    private javax.swing.JPanel pnlVien3;
+    private javax.swing.JPanel pnlVien5;
+    private javax.swing.JPanel pnlVien6;
+    private javax.swing.JPanel pnlVien7;
+    private javax.swing.JPanel pnl_search;
+    private javax.swing.JPanel pnl_search2;
+    private javax.swing.JPanel pnl_search3;
+    private javax.swing.JPanel pnl_vien4;
+    private javax.swing.JTable tblAlbum;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtNghesi;
+    private javax.swing.JTextField txtTheloai;
+    private javax.swing.JTextField txtTime;
+    private javax.swing.JPanel windoTtiling;
+    // End of variables declaration//GEN-END:variables
+}

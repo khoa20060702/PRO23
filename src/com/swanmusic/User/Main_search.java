@@ -356,7 +356,7 @@ public class Main_search extends javax.swing.JDialog {
         ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
         Image image = icon.getImage();
         ImageIcon icon1 = new ImageIcon(image.getScaledInstance(jLabel8.getWidth(), jLabel8.getHeight(), image.SCALE_SMOOTH));
-        jLabel8.setIcon(icon1);
+        jLabel8.setIcon(icon);
     }
 
     public void load_data() {
@@ -370,7 +370,7 @@ public class Main_search extends javax.swing.JDialog {
             ps.setString(1, tennhac);
 
             ResultSet rs1 = ps.executeQuery();
-
+            int i = 0;
             if (rs1.next() == false) {
                 JOptionPane.showMessageDialog(this, "không truy vấn đc");
             } else {
@@ -393,7 +393,7 @@ public class Main_search extends javax.swing.JDialog {
                 listSongPic.add(rs1.getString("ANH"));
                 icon = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(0));
                 Image image = icon.getImage();
-                icon = new ImageIcon(image.getScaledInstance(jLabel8.getWidth(), jLabel8.getHeight(), image.SCALE_SMOOTH));
+                icon = new ImageIcon(image.getScaledInstance(Imglbl1.getWidth(), Imglbl1.getHeight(), image.SCALE_SMOOTH));
                 jLabel8.setIcon(icon);
 
             }
@@ -2408,6 +2408,7 @@ public class Main_search extends javax.swing.JDialog {
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         Image i = new javax.swing.ImageIcon(imageName).getImage();
+       
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void Songlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl1MouseClicked
