@@ -20,12 +20,12 @@ import java.util.logging.Logger;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Dangnhap extends javax.swing.JDialog {
-public static Main main;
-public static taikhoan_frmAdmin tk;
+public static Home main;
+public static taikhoan_Admin tk;
 public static Account acc;
     boolean viewPass = false;
     boolean forgot = false;
-    private dangnhapJDialog loginForm;
+    private Dangnhap loginForm;
     private AccountDAO aDAO = new AccountDAO();
 
     public Dangnhap(java.awt.Frame parent, boolean modal) {
@@ -33,10 +33,10 @@ public static Account acc;
         initComponents();
         init();
     }
-Main form = new Main();
-com.swanmusic.main.taikhoan_frmAdmin mau= new com.swanmusic.main.taikhoan_frmAdmin(main, forgot);
-com.swanmusic.ui.dangkyJDialog dk = new com.swanmusic.ui.dangkyJDialog(main, forgot);
-com.swanmusic.ui.quenmatkhauJDialog qmk = new com.swanmusic.ui.quenmatkhauJDialog(main, forgot);    
+//Main form = new Main();
+//com.swanmusic.User.taikhoan_Admin mau= new com.swanmusic.User.taikhoan_Admin(main, forgot);
+//com.swanmusic.User.dangky dk = new com.swanmusic.User.dangky(main, forgot);
+//com.swanmusic.User.quenmatkhau qmk = new com.swanmusic.User.quenmatkhau(main, forgot);    
         AccountDAO dao = new AccountDAO();
      private void login() {
         String username = txtName.getText();
@@ -50,13 +50,13 @@ com.swanmusic.ui.quenmatkhauJDialog qmk = new com.swanmusic.ui.quenmatkhauJDialo
                     Auth.USER = acc;                 
                         if (acc.isVaiTro()==true) {                    
                                 MsgBox.alert(this, "vào admin");                           
-                                mau.setVisible(true);
+                                new com.swanmusic.User.taikhoan_Admin(null, true).setVisible(true);
                                 this.setVisible(false);
                                 
                     } else {                       
                              MsgBox.alert(this, "vào user");
-                                form.setAccount(acc);
-                                form.setVisible(true);                                
+                                new Home(null,true).setAccount(acc);
+                                new Home(null,true).setVisible(true);                                
                                 this.setVisible(false);
                     }
                 } else {
@@ -65,7 +65,7 @@ com.swanmusic.ui.quenmatkhauJDialog qmk = new com.swanmusic.ui.quenmatkhauJDialo
         }
     }
      void openChao(){
-         new chaoJDialog(null,true).setVisible(true);
+         new chao(null,true).setVisible(true);
      }
      void init(){
         this.setSize(1242,682);
@@ -227,13 +227,13 @@ com.swanmusic.ui.quenmatkhauJDialog qmk = new com.swanmusic.ui.quenmatkhauJDialo
     private void lblQuenMKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMKMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        qmk.setVisible(true);
+        new com.swanmusic.User.quenmatkhau(null,true).setVisible(true);
     }//GEN-LAST:event_lblQuenMKMouseClicked
 
     private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        dk.setVisible(true);
+        new com.swanmusic.User.dangky(null, true).setVisible(true);
         //    try{
             //        Thread.sleep(1000);
             //    } catch(InterruptedException e) {

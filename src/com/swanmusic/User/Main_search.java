@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package com.swanmusic.User;
 
 import com.swanmusic.swing.ScrollBar;
@@ -9,9 +5,8 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import com.swanmusic.entity.Nghesi;
 import com.swanmusic.entity.Nhac;
-import com.swanmusic.ui.NgheSi;
-import com.swanmusic.ui.chitietAlbum_User;
-import com.swanmusic.ui.chitietNhac_User;
+import com.swanmusic.User.NgheSi;
+import com.swanmusic.User.*;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -2406,7 +2401,7 @@ public class Main_search extends javax.swing.JDialog {
         ImageIcon data3 = icon;
         String data4 = listSongLyr.get(0);
         String data5 = listSongArtist.get(0);
-        chitietNhac_User mai = new chitietNhac_User(frame, forgot, data1, data2, data3, data4, data5);
+        chitietNhac mai = new chitietNhac(frame, forgot, data1, data2, data3, data4, data5);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_jPanel43MouseClicked

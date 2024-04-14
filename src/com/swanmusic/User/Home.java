@@ -4,16 +4,14 @@
  */
 package com.swanmusic.User;
 
+import com.swanmusic.entity.Account;
 import com.swanmusic.swing.ScrollBar;
 import com.swanmusic.entity.Album;
 import com.swanmusic.entity.Nhac;
 import javax.swing.*;
 import com.swanmusic.swing.ComponentResizer;
 import com.swanmusic.swing.ScrollBar;
-import com.swanmusic.ui.Main_Search;
-import com.swanmusic.ui.NgheSi;
-import com.swanmusic.ui.chitietAlbum_User;
-import com.swanmusic.ui.chitietNhac_User;
+import com.swanmusic.User.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.TextLayout;
@@ -141,7 +139,7 @@ public class Home extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         jScrollPane2.setVerticalScrollBar(new ScrollBar());
     }
-    public static chitietAlbum_User album;
+    public static chitietAlbum album;
     boolean forgot = false;
     public List<String> listAlbumName = new ArrayList<>();
     public List<String> listAlbumArtist = new ArrayList<>();
@@ -514,6 +512,10 @@ public class Home extends javax.swing.JDialog {
 //        });
 //        jScrollPane2.setVerticalScrollBar(new ScrollBar());
 //    }
+    private static Account acc;
+    public void setAccount(Account account) {
+        this.acc = account;
+    }
     public void changeColor(JPanel hover, Color rand) {
         hover.setBackground(rand);
     }

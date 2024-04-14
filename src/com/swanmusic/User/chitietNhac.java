@@ -6,8 +6,8 @@ package com.swanmusic.User;
 
 import com.swanmusic.entity.Nhac;
 import com.swanmusic.swing.ScrollBar;
-import com.swanmusic.ui.Main;
-import com.swanmusic.ui.chitietAlbum_User;
+import com.swanmusic.User.Home;
+import com.swanmusic.User.chitietAlbum;
 import java.awt.Frame;
 import java.awt.Image;
 import java.io.BufferedInputStream;

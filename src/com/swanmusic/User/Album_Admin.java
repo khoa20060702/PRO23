@@ -4,7 +4,6 @@
  */
 package com.swanmusic.User;
 
-import com.swanmusic.ui.*;
 import com.swanmusic.User.*;
 import com.swanmusic.entity.Album;
 import com.swanmusic.swing.ComponentResizer;

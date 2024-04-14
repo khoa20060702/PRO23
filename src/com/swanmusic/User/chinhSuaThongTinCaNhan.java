@@ -4,7 +4,7 @@
  */
 package com.swanmusic.User;
 
-import com.swanmusic.ui.*;
+import com.swanmusic.User.*;
 import com.swanmusic.entity.*;
 import com.swanmusic.dao.*;
 import java.sql.Connection;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 
-import com.swanmusic.ui.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

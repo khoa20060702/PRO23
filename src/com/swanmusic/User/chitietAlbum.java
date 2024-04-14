@@ -6,7 +6,7 @@ package com.swanmusic.User;
 
 import com.swanmusic.entity.Album;
 import com.swanmusic.entity.Nhac;
-import com.swanmusic.ui.*;
+import com.swanmusic.User.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -45,7 +45,7 @@ public class chitietAlbum extends javax.swing.JDialog {
     public ImageIcon data2;
     public String data3;
     boolean forgot = false;
-    public static chitietAlbum_User album;
+    public static chitietAlbum album;
     public List<String> listAlbumName = new ArrayList<>();
     public List<String> listAlbumArtist = new ArrayList<>();
     public List<String> listAlbumCate = new ArrayList<>();
@@ -1663,7 +1663,7 @@ public class chitietAlbum extends javax.swing.JDialog {
     private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
         // TODO add your handling code here:
         String data1 = AlbumNamelbl.getText();
-        Playlist_Create pc = new Playlist_Create(null, forgot, data1);
+        add_playlist pc = new add_playlist(null, forgot, data1);
         this.setVisible(false);
         pc.setVisible(true);
     }//GEN-LAST:event_jLabel19MouseClicked

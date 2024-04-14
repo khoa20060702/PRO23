@@ -1,7 +1,7 @@
 
 package com.swanmusic.User;
 
-import com.swanmusic.ui.*;
+import com.swanmusic.User.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -261,7 +261,7 @@ int otp;
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new dangnhapJDialog(null,true).setVisible(true);
+        new Dangnhap(null,true).setVisible(true);
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**

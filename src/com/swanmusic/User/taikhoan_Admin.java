@@ -1,6 +1,6 @@
 package com.swanmusic.User;
 
-import com.swanmusic.ui.*;
+import com.swanmusic.User.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

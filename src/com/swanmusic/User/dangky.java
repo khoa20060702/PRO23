@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package com.swanmusic.User;
-import com.swanmusic.ui.*;
+import com.swanmusic.User.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ import com.swanmusic.entity.Account;
  * @author phuon
  */
 public class dangky extends javax.swing.JDialog {
-public static Main main;
+public static Home main;
 //public static Main main;
     boolean forgot = false;
 //    dangnhapJDialog dn = new dangnhapJDialog(main, forgot);
@@ -325,7 +325,7 @@ public static Main main;
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new dangnhapJDialog(null,true).setVisible(true);
+        new com.swanmusic.User.Dangnhap(null,true).setVisible(true);
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**

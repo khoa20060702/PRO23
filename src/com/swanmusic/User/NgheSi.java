@@ -4,10 +4,10 @@
  */
 package com.swanmusic.User;
 
-import com.swanmusic.ui.*;
+import com.swanmusic.User.*;
 import com.swanmusic.entity.Nhac;
 import com.swanmusic.swing.*;
-import static com.swanmusic.ui.dangnhapJDialog.main;
+import static com.swanmusic.User.Dangnhap.*;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -1756,9 +1756,9 @@ if(listAlbumName.size() > 0)
             {
                 player.close();
             }
-        Main mai = new Main();
+        
             this.setVisible(false);
-            mai.setVisible(true);
+            new Home(null,true).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -1769,7 +1769,7 @@ if(listAlbumName.size() > 0)
                 timer.stop();
             }
             this.setVisible(false);
-            new com.swanmusic.ui.Main_Search(null,true).setVisible(true);
+            new com.swanmusic.User.Main_search(null,true).setVisible(true);
              
     }//GEN-LAST:event_jButton5ActionPerformed
 
