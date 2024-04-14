@@ -108,13 +108,10 @@ public class Home extends javax.swing.JDialog {
         } else {
             Songlbl1.setVisible(false);
         }
-        if(listPlaylistName.size() > 0)
-        {
-        Album5.setText(listPlaylistName.get(0));    
-        }
-        else
-        {
-        Album5.setVisible(false);
+        if (listPlaylistName.size() > 0) {
+            Album5.setText(listPlaylistName.get(0));
+        } else {
+            Album5.setVisible(false);
         }
         Songlbl2.setText(listSongName.get(1));
         Songlbl3.setText(listSongName.get(2));
@@ -138,8 +135,6 @@ public class Home extends javax.swing.JDialog {
         Imglbl7.setIcon(icons[6]);
         Imglbl8.setIcon(icons[7]);
     }
-
-    
 
     void init() {
         this.setSize(1260, 682);
@@ -302,26 +297,26 @@ public class Home extends javax.swing.JDialog {
         totalTime = fi.available();
         player.play();
     }
-    public void getPlaylist()
-    {
+
+    public void getPlaylist() {
         int i = 0;
-              try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select TENPLAYLIST from User_PlayList group by TENPLAYLIST");
-             ResultSet rs = ps.executeQuery();
-             while(rs.next())
-             {
-             listPlaylistName.add(rs.getString("TENPLAYLIST"));                
-             }
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select TENPLAYLIST from User_PlayList group by TENPLAYLIST");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listPlaylistName.add(rs.getString("TENPLAYLIST"));
+            }
             rs.close();
             ps.close();
             con.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
     public void getAlbum() {
         int i = 0;
         try {
@@ -571,8 +566,8 @@ public class Home extends javax.swing.JDialog {
         lblIcon_search = new javax.swing.JLabel();
         lblSearch_menu = new javax.swing.JLabel();
         pnl_search2 = new javax.swing.JPanel();
-        lblIcon_search2 = new javax.swing.JLabel();
-        lblSearch_menu2 = new javax.swing.JLabel();
+        lblIIcon_AddPlaylist = new javax.swing.JLabel();
+        lblAdd_Playlist = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Album1 = new javax.swing.JLabel();
@@ -1074,6 +1069,11 @@ public class Home extends javax.swing.JDialog {
         lblIcon_search.setForeground(new java.awt.Color(255, 255, 255));
         lblIcon_search.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblIcon_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/search.png"))); // NOI18N
+        lblIcon_search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblIcon_searchMouseClicked(evt);
+            }
+        });
 
         lblSearch_menu.setBackground(new java.awt.Color(255, 255, 255));
         lblSearch_menu.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -1107,18 +1107,23 @@ public class Home extends javax.swing.JDialog {
 
         pnl_search2.setBackground(new java.awt.Color(51, 51, 51));
 
-        lblIcon_search2.setBackground(new java.awt.Color(255, 255, 255));
-        lblIcon_search2.setForeground(new java.awt.Color(255, 255, 255));
-        lblIcon_search2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblIcon_search2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/playlist.png"))); // NOI18N
-
-        lblSearch_menu2.setBackground(new java.awt.Color(255, 255, 255));
-        lblSearch_menu2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblSearch_menu2.setForeground(new java.awt.Color(255, 255, 255));
-        lblSearch_menu2.setText("+ Playlist");
-        lblSearch_menu2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblIIcon_AddPlaylist.setBackground(new java.awt.Color(255, 255, 255));
+        lblIIcon_AddPlaylist.setForeground(new java.awt.Color(255, 255, 255));
+        lblIIcon_AddPlaylist.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIIcon_AddPlaylist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/playlist.png"))); // NOI18N
+        lblIIcon_AddPlaylist.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblSearch_menu2MouseClicked(evt);
+                lblIIcon_AddPlaylistMouseClicked(evt);
+            }
+        });
+
+        lblAdd_Playlist.setBackground(new java.awt.Color(255, 255, 255));
+        lblAdd_Playlist.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblAdd_Playlist.setForeground(new java.awt.Color(255, 255, 255));
+        lblAdd_Playlist.setText("+ Playlist");
+        lblAdd_Playlist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAdd_PlaylistMouseClicked(evt);
             }
         });
 
@@ -1127,15 +1132,15 @@ public class Home extends javax.swing.JDialog {
         pnl_search2Layout.setHorizontalGroup(
             pnl_search2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_search2Layout.createSequentialGroup()
-                .addComponent(lblIcon_search2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblIIcon_AddPlaylist, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblSearch_menu2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblAdd_Playlist, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnl_search2Layout.setVerticalGroup(
             pnl_search2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblSearch_menu2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblIcon_search2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(lblAdd_Playlist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblIIcon_AddPlaylist, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
         menu_con.add(pnl_search2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 60));
@@ -2431,7 +2436,7 @@ public class Home extends javax.swing.JDialog {
         ImageIcon data3 = icons[2];
         String data4 = listSongLyr.get(2);
         String data5 = listSongArtist.get(2);
-        chitietNhac mai = new chitietNhac(null, forgot , data1 , data2 , data3 , data4 , data5);
+        chitietNhac mai = new chitietNhac(null, forgot, data1, data2, data3, data4, data5);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Songlbl3MouseClicked
@@ -2499,7 +2504,7 @@ public class Home extends javax.swing.JDialog {
         ImageIcon data3 = icons[1];
         String data4 = listSongLyr.get(1);
         String data5 = listSongArtist.get(1);
-        chitietNhac mai = new chitietNhac(null, forgot , data1 , data2 , data3 , data4 , data5);
+        chitietNhac mai = new chitietNhac(null, forgot, data1, data2, data3, data4, data5);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Songlbl2MouseClicked
@@ -2567,7 +2572,7 @@ public class Home extends javax.swing.JDialog {
         ImageIcon data3 = icons[0];
         String data4 = listSongLyr.get(0);
         String data5 = listSongArtist.get(0);
-        chitietNhac mai = new chitietNhac(null, forgot , data1 , data2 , data3 , data4 , data5);
+        chitietNhac mai = new chitietNhac(null, forgot, data1, data2, data3, data4, data5);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Songlbl1MouseClicked
@@ -2600,19 +2605,18 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_jPanel51MouseClicked
 
     private void Songlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl5MouseClicked
-           if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(4);
-            String data2 = listSongDura.get(4);
-            ImageIcon data3 = icons[4];
-            String data4 = listSongLyr.get(4);
-            String data5 = listSongArtist.get(4);
-            chitietNhac mai = new chitietNhac(null, forgot , data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongName.get(4);
+        String data2 = listSongDura.get(4);
+        ImageIcon data3 = icons[4];
+        String data4 = listSongLyr.get(4);
+        String data5 = listSongArtist.get(4);
+        chitietNhac mai = new chitietNhac(null, forgot, data1, data2, data3, data4, data5);
+        this.setVisible(false);
+        mai.setVisible(true);
     }//GEN-LAST:event_Songlbl5MouseClicked
 
     private void Artistlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl5MouseClicked
@@ -2639,19 +2643,18 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_jPanel56MouseClicked
 
     private void Songlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl6MouseClicked
-           if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(5);
-            String data2 = listSongDura.get(5);
-            ImageIcon data3 = icons[5];
-            String data4 = listSongLyr.get(5);
-            String data5 = listSongArtist.get(5);
-            chitietNhac mai = new chitietNhac(null, forgot , data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongName.get(5);
+        String data2 = listSongDura.get(5);
+        ImageIcon data3 = icons[5];
+        String data4 = listSongLyr.get(5);
+        String data5 = listSongArtist.get(5);
+        chitietNhac mai = new chitietNhac(null, forgot, data1, data2, data3, data4, data5);
+        this.setVisible(false);
+        mai.setVisible(true);
     }//GEN-LAST:event_Songlbl6MouseClicked
 
     private void Artistlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl6MouseClicked
@@ -2678,19 +2681,18 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_jPanel90MouseClicked
 
     private void Songlbl7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl7MouseClicked
-           if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(6);
-            String data2 = listSongDura.get(6);
-            ImageIcon data3 = icons[6];
-            String data4 = listSongLyr.get(6);
-            String data5 = listSongArtist.get(6);
-            chitietNhac mai = new chitietNhac(null, forgot , data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongName.get(6);
+        String data2 = listSongDura.get(6);
+        ImageIcon data3 = icons[6];
+        String data4 = listSongLyr.get(6);
+        String data5 = listSongArtist.get(6);
+        chitietNhac mai = new chitietNhac(null, forgot, data1, data2, data3, data4, data5);
+        this.setVisible(false);
+        mai.setVisible(true);
     }//GEN-LAST:event_Songlbl7MouseClicked
 
     private void Artistlbl7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl7MouseClicked
@@ -2717,19 +2719,18 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_jPanel94MouseClicked
 
     private void Songlbl8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl8MouseClicked
-           if(player != null)
-            {
-                player.close();
-                timer.stop();
-            }
-            String data1 = listSongName.get(7);
-            String data2 = listSongDura.get(7);
-            ImageIcon data3 = icons[7];
-            String data4 = listSongLyr.get(7);
-            String data5 = listSongArtist.get(7);
-            chitietNhac mai = new chitietNhac(null, forgot , data1 , data2 , data3 , data4 , data5);
-            this.setVisible(false);
-            mai.setVisible(true);
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongName.get(7);
+        String data2 = listSongDura.get(7);
+        ImageIcon data3 = icons[7];
+        String data4 = listSongLyr.get(7);
+        String data5 = listSongArtist.get(7);
+        chitietNhac mai = new chitietNhac(null, forgot, data1, data2, data3, data4, data5);
+        this.setVisible(false);
+        mai.setVisible(true);
     }//GEN-LAST:event_Songlbl8MouseClicked
 
     private void Artistlbl8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl8MouseClicked
@@ -2839,7 +2840,7 @@ public class Home extends javax.swing.JDialog {
         String data1 = listAlbumName.get(0);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
         String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album1MouseClicked
@@ -2848,7 +2849,7 @@ public class Home extends javax.swing.JDialog {
         String data1 = listAlbumName.get(1);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(1));
         String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album2MouseClicked
@@ -2857,7 +2858,7 @@ public class Home extends javax.swing.JDialog {
         String data1 = listAlbumName.get(2);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(2));
         String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album3MouseClicked
@@ -2866,24 +2867,50 @@ public class Home extends javax.swing.JDialog {
         String data1 = listAlbumName.get(3);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
         String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album4MouseClicked
 
     private void Album5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album5MouseClicked
-            String data1 = listPlaylistName.get(0);
-            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
-            String data3 = "playlist";
-            chitietAlbum mai = new chitietAlbum(null, forgot, data1 , data2 , data3);
-            this.setVisible(false);
-            mai.setVisible(true);
+        String data1 = listPlaylistName.get(0);
+        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
+        String data3 = "playlist";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
+        this.setVisible(false);
+        mai.setVisible(true);
     }//GEN-LAST:event_Album5MouseClicked
 
-    private void lblSearch_menu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearch_menu2MouseClicked
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_lblSearch_menu2MouseClicked
+    private void lblAdd_PlaylistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdd_PlaylistMouseClicked
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        add_playlist mai = new add_playlist(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblAdd_PlaylistMouseClicked
+
+    private void lblIcon_searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_searchMouseClicked
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        Main_search mai = new Main_search(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblIcon_searchMouseClicked
+
+    private void lblIIcon_AddPlaylistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIIcon_AddPlaylistMouseClicked
+
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        add_playlist mai = new add_playlist(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblIIcon_AddPlaylistMouseClicked
 
     /**
      * @param args the command line arguments
@@ -3033,12 +3060,12 @@ public class Home extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel93;
     private javax.swing.JPanel jPanel94;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblAdd_Playlist;
     private javax.swing.JLabel lblHome_menu;
+    private javax.swing.JLabel lblIIcon_AddPlaylist;
     private javax.swing.JLabel lblIcon_home;
     private javax.swing.JLabel lblIcon_search;
-    private javax.swing.JLabel lblIcon_search2;
     private javax.swing.JLabel lblSearch_menu;
-    private javax.swing.JLabel lblSearch_menu2;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUser;
     private javax.swing.JPanel main;

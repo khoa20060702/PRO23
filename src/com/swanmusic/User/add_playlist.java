@@ -4,14 +4,8 @@
  */
 package com.swanmusic.User;
 
-import com.swanmusic.swing.ScrollBar;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
-
-import com.swanmusic.entity.Nghesi;
 import com.swanmusic.entity.Nhac;
-import com.swanmusic.ui.NgheSi;
-import com.swanmusic.ui.chitietAlbum_User;
-import com.swanmusic.ui.chitietNhac_User;
+import com.swanmusic.swing.ScrollBar;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -25,8 +19,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -38,28 +30,32 @@ import javax.sound.sampled.Line;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import org.apache.commons.lang3.StringUtils;
 
-public class Main_search extends javax.swing.JDialog {
+/**
+ *
+ * @author phuon
+ */
+public class add_playlist extends javax.swing.JDialog {
 
     /**
-     * Creates new form Main_search
+     * Creates new form add_playlist
      */
-    public Main_search(java.awt.Frame parent, boolean modal) {
+    public add_playlist(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-//          jLabel1.setVisible(false);
         jPanel43.setVisible(false);
-        jPanel24.setVisible(false);
-        jPanel25.setVisible(false);
-        jPanel26.setVisible(false);
-        jPanel27.setVisible(false);
+//        jPanel2.setVisible(false);
+//        jPanel25.setVisible(false);
+//        jPanel26.setVisible(false);
+//        jPanel27.setVisible(false);
 //                                 jPanel29.setVisible(false);
 //                                     jPanel30.setVisible(false);
 //                                         jPanel31.setVisible(false);
@@ -169,6 +165,7 @@ public class Main_search extends javax.swing.JDialog {
     private Timer timer;
     private Timer timer1;
     private int counter = 0;
+    public boolean allow = false;
     public List<String> listLyrics = new ArrayList<>();
     /**
      * Creates new form NewJFrame
@@ -284,26 +281,26 @@ public class Main_search extends javax.swing.JDialog {
     String imageName = "src\\com\\swanmusic\\img\\Wn.jpg";
     ImageIcon icon;
     boolean forgot = false;
-    public void getPlaylist()
-    {
+
+    public void getPlaylist() {
         int i = 0;
-              try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select TENPLAYLIST from User_PlayList group by TENPLAYLIST");
-             ResultSet rs = ps.executeQuery();
-             while(rs.next())
-             {
-             listPlaylistName.add(rs.getString("TENPLAYLIST"));                
-             }
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select TENPLAYLIST from User_PlayList group by TENPLAYLIST");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listPlaylistName.add(rs.getString("TENPLAYLIST"));
+            }
             rs.close();
             ps.close();
             con.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
     public void getAlbum() {
         int i = 0;
         try {
@@ -355,8 +352,8 @@ public class Main_search extends javax.swing.JDialog {
     public void upImage(String imageName) {
         ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
         Image image = icon.getImage();
-        ImageIcon icon1 = new ImageIcon(image.getScaledInstance(jLabel8.getWidth(), jLabel8.getHeight(), image.SCALE_SMOOTH));
-        jLabel8.setIcon(icon);
+        ImageIcon icon1 = new ImageIcon(image.getScaledInstance(jLabel18.getWidth(), jLabel18.getHeight(), image.SCALE_SMOOTH));
+        jLabel14.setIcon(icon);
     }
 
     public void load_data() {
@@ -375,17 +372,16 @@ public class Main_search extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "không truy vấn đc");
             } else {
 
-                jLabel4.setVisible(true);
+                jLabel14.setVisible(true);
                 jLabel2.setVisible(true);
                 jPanel43.setVisible(true);
                 jPanel24.setVisible(true);
-                jLabel8.setVisible(true);
-                jLabel4.setText(rs1.getString("NGHESI"));
+                jLabel18.setVisible(true);
+                jLabel18.setText(rs1.getString("NGHESI"));
                 listAlbumPic.add(rs1.getString("NGHESI"));
-                jLabel11.setText(rs1.getString("TENNHAC"));
+                jLabel19.setText(rs1.getString("TENNHAC"));
                 listAlbumPic.add(rs1.getString("TENNHAC"));
-                jLabel8.setText(rs1.getString("ANH"));
-
+                jLabel14.setText(rs1.getString("ANH"));
                 listSongName.add(rs1.getString("TENNHAC"));
                 listSongArtist.add(rs1.getString("NGHESI"));
                 listSongDura.add(rs1.getString("THOILUONG"));
@@ -393,8 +389,8 @@ public class Main_search extends javax.swing.JDialog {
                 listSongPic.add(rs1.getString("ANH"));
                 icon = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(0));
                 Image image = icon.getImage();
-                icon = new ImageIcon(image.getScaledInstance(Imglbl1.getWidth(), Imglbl1.getHeight(), image.SCALE_SMOOTH));
-                jLabel8.setIcon(icon);
+                icon = new ImageIcon(image.getScaledInstance(jLabel14.getWidth(), jLabel14.getHeight(), image.SCALE_SMOOTH));
+                jLabel14.setIcon(icon);
 
             }
 
@@ -527,36 +523,15 @@ public class Main_search extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         jPanel23 = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
-        jPanel44 = new javax.swing.JPanel();
-        jPanel45 = new javax.swing.JPanel();
-        jPanel47 = new javax.swing.JPanel();
-        jPanel43 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        txtTenPlaylist = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         jPanel25 = new javax.swing.JPanel();
         jPanel54 = new javax.swing.JPanel();
         jPanel55 = new javax.swing.JPanel();
-        jPanel83 = new javax.swing.JPanel();
-        jPanel84 = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        jPanel59 = new javax.swing.JPanel();
+        jPanel43 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jPanel26 = new javax.swing.JPanel();
-        jPanel85 = new javax.swing.JPanel();
-        jPanel86 = new javax.swing.JPanel();
-        jPanel88 = new javax.swing.JPanel();
-        jPanel89 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jPanel27 = new javax.swing.JPanel();
-        jPanel90 = new javax.swing.JPanel();
-        jPanel91 = new javax.swing.JPanel();
-        jPanel93 = new javax.swing.JPanel();
-        jPanel94 = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel35 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -610,11 +585,6 @@ public class Main_search extends javax.swing.JDialog {
         Artistlbl.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         Artistlbl.setForeground(new java.awt.Color(122, 122, 122));
         Artistlbl.setText("TÊN TÁC GIẢ");
-        Artistlbl.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ArtistlblMouseClicked(evt);
-            }
-        });
 
         jPanel40.setOpaque(false);
 
@@ -778,7 +748,6 @@ public class Main_search extends javax.swing.JDialog {
         getContentPane().add(musicPlayer, java.awt.BorderLayout.PAGE_END);
 
         windoTtiling.setBackground(new java.awt.Color(0, 0, 0));
-        windoTtiling.setPreferredSize(new java.awt.Dimension(1260, 40));
         windoTtiling.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         header.setBackground(new java.awt.Color(0, 0, 0));
@@ -1063,11 +1032,21 @@ public class Main_search extends javax.swing.JDialog {
         lblIcon_search2.setForeground(new java.awt.Color(255, 255, 255));
         lblIcon_search2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblIcon_search2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/playlist.png"))); // NOI18N
+        lblIcon_search2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblIcon_search2MouseClicked(evt);
+            }
+        });
 
         lblSearch_menu2.setBackground(new java.awt.Color(255, 255, 255));
         lblSearch_menu2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblSearch_menu2.setForeground(new java.awt.Color(255, 255, 255));
         lblSearch_menu2.setText("+ Playlist");
+        lblSearch_menu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSearch_menu2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_search2Layout = new javax.swing.GroupLayout(pnl_search2);
         pnl_search2.setLayout(pnl_search2Layout);
@@ -1189,7 +1168,7 @@ public class Main_search extends javax.swing.JDialog {
         pnlVien5.setLayout(pnlVien5Layout);
         pnlVien5Layout.setHorizontalGroup(
             pnlVien5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1050, Short.MAX_VALUE)
+            .addGap(0, 1041, Short.MAX_VALUE)
         );
         pnlVien5Layout.setVerticalGroup(
             pnlVien5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1205,7 +1184,7 @@ public class Main_search extends javax.swing.JDialog {
         pnlVien6.setLayout(pnlVien6Layout);
         pnlVien6Layout.setHorizontalGroup(
             pnlVien6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1050, Short.MAX_VALUE)
+            .addGap(0, 1041, Short.MAX_VALUE)
         );
         pnlVien6Layout.setVerticalGroup(
             pnlVien6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1260,7 +1239,7 @@ public class Main_search extends javax.swing.JDialog {
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("TÌM KIẾM");
+        jLabel12.setText("TẠO PLAYLIST");
 
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
@@ -1283,112 +1262,45 @@ public class Main_search extends javax.swing.JDialog {
         jPanel24.setBackground(new java.awt.Color(0, 153, 153));
         jPanel24.setLayout(new java.awt.BorderLayout());
 
-        jPanel44.setBackground(new java.awt.Color(255, 103, 158));
-        jPanel44.setName(""); // NOI18N
-        jPanel44.setPreferredSize(new java.awt.Dimension(200, 10));
-
-        javax.swing.GroupLayout jPanel44Layout = new javax.swing.GroupLayout(jPanel44);
-        jPanel44.setLayout(jPanel44Layout);
-        jPanel44Layout.setHorizontalGroup(
-            jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 209, Short.MAX_VALUE)
-        );
-        jPanel44Layout.setVerticalGroup(
-            jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        jPanel24.add(jPanel44, java.awt.BorderLayout.PAGE_START);
-
-        jPanel45.setBackground(new java.awt.Color(255, 103, 158));
-
-        javax.swing.GroupLayout jPanel45Layout = new javax.swing.GroupLayout(jPanel45);
-        jPanel45.setLayout(jPanel45Layout);
-        jPanel45Layout.setHorizontalGroup(
-            jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel45Layout.setVerticalGroup(
-            jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 233, Short.MAX_VALUE)
-        );
-
-        jPanel24.add(jPanel45, java.awt.BorderLayout.LINE_START);
-
-        jPanel47.setBackground(new java.awt.Color(255, 103, 158));
-        jPanel47.setPreferredSize(new java.awt.Dimension(10, 232));
-
-        javax.swing.GroupLayout jPanel47Layout = new javax.swing.GroupLayout(jPanel47);
-        jPanel47.setLayout(jPanel47Layout);
-        jPanel47Layout.setHorizontalGroup(
-            jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel47Layout.setVerticalGroup(
-            jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 233, Short.MAX_VALUE)
-        );
-
-        jPanel24.add(jPanel47, java.awt.BorderLayout.LINE_END);
-
-        jPanel43.setBackground(new java.awt.Color(255, 103, 158));
-        jPanel43.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel43MouseClicked(evt);
+        txtTenPlaylist.setBackground(new java.awt.Color(255, 103, 158));
+        txtTenPlaylist.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTenPlaylist.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtTenPlaylistCaretUpdate(evt);
+            }
+        });
+        txtTenPlaylist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTenPlaylistActionPerformed(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("Tiêu đề");
-
-        jLabel11.setText("mhgbnfm.......");
-
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton2.setBackground(new java.awt.Color(255, 103, 158));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("TẠO");
+        jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton2.setBorderPainted(false);
+        jButton2.setFocusPainted(false);
+        jButton2.setOpaque(true);
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel8MouseClicked(evt);
+                jButton2MouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
-        jPanel43.setLayout(jPanel43Layout);
-        jPanel43Layout.setHorizontalGroup(
-            jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel43Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-        jPanel43Layout.setVerticalGroup(
-            jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel43Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addGap(0, 14, Short.MAX_VALUE))
-        );
-
-        jPanel24.add(jPanel43, java.awt.BorderLayout.CENTER);
-
-        jPanel23.add(jPanel24);
 
         jPanel25.setBackground(new java.awt.Color(255, 103, 158));
         jPanel25.setLayout(new java.awt.BorderLayout());
 
+        jPanel54.setBackground(new java.awt.Color(255, 103, 158));
         jPanel54.setName(""); // NOI18N
-        jPanel54.setOpaque(false);
         jPanel54.setPreferredSize(new java.awt.Dimension(200, 10));
 
         javax.swing.GroupLayout jPanel54Layout = new javax.swing.GroupLayout(jPanel54);
         jPanel54.setLayout(jPanel54Layout);
         jPanel54Layout.setHorizontalGroup(
             jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 209, Short.MAX_VALUE)
         );
         jPanel54Layout.setVerticalGroup(
             jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1397,7 +1309,7 @@ public class Main_search extends javax.swing.JDialog {
 
         jPanel25.add(jPanel54, java.awt.BorderLayout.PAGE_START);
 
-        jPanel55.setOpaque(false);
+        jPanel55.setBackground(new java.awt.Color(255, 103, 158));
 
         javax.swing.GroupLayout jPanel55Layout = new javax.swing.GroupLayout(jPanel55);
         jPanel55.setLayout(jPanel55Layout);
@@ -1407,257 +1319,118 @@ public class Main_search extends javax.swing.JDialog {
         );
         jPanel55Layout.setVerticalGroup(
             jPanel55Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
+            .addGap(0, 233, Short.MAX_VALUE)
         );
 
         jPanel25.add(jPanel55, java.awt.BorderLayout.LINE_START);
 
-        jPanel83.setOpaque(false);
-        jPanel83.setPreferredSize(new java.awt.Dimension(10, 232));
+        jPanel59.setBackground(new java.awt.Color(255, 103, 158));
+        jPanel59.setPreferredSize(new java.awt.Dimension(10, 232));
 
-        javax.swing.GroupLayout jPanel83Layout = new javax.swing.GroupLayout(jPanel83);
-        jPanel83.setLayout(jPanel83Layout);
-        jPanel83Layout.setHorizontalGroup(
-            jPanel83Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel59Layout = new javax.swing.GroupLayout(jPanel59);
+        jPanel59.setLayout(jPanel59Layout);
+        jPanel59Layout.setHorizontalGroup(
+            jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
-        jPanel83Layout.setVerticalGroup(
-            jPanel83Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
+        jPanel59Layout.setVerticalGroup(
+            jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 233, Short.MAX_VALUE)
         );
 
-        jPanel25.add(jPanel83, java.awt.BorderLayout.LINE_END);
+        jPanel25.add(jPanel59, java.awt.BorderLayout.LINE_END);
 
-        jPanel84.setOpaque(false);
+        jPanel43.setBackground(new java.awt.Color(255, 103, 158));
+        jPanel43.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel43MouseClicked(evt);
+            }
+        });
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel22.setText("Tiêu đề");
-
-        jLabel23.setText("mhgbnfm.......");
-
+        jLabel14.setBackground(new java.awt.Color(255, 103, 158));
+        jLabel14.setOpaque(true);
         jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel14MouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel84Layout = new javax.swing.GroupLayout(jPanel84);
-        jPanel84.setLayout(jPanel84Layout);
-        jPanel84Layout.setHorizontalGroup(
-            jPanel84Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel84Layout.createSequentialGroup()
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel18.setText("Tiêu đề");
+
+        jLabel19.setText("mhgbnfm.......");
+
+        javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
+        jPanel43.setLayout(jPanel43Layout);
+        jPanel43Layout.setHorizontalGroup(
+            jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel43Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel84Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel22))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel18))
+                .addContainerGap(104, Short.MAX_VALUE))
+            .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel43Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
-        jPanel84Layout.setVerticalGroup(
-            jPanel84Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel84Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addGap(23, 23, 23)
-                .addComponent(jLabel22)
+        jPanel43Layout.setVerticalGroup(
+            jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel43Layout.createSequentialGroup()
+                .addGap(169, 169, 169)
+                .addComponent(jLabel18)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel23)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addComponent(jLabel19)
+                .addGap(0, 14, Short.MAX_VALUE))
+            .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel43Layout.createSequentialGroup()
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 94, Short.MAX_VALUE)))
         );
 
-        jPanel25.add(jPanel84, java.awt.BorderLayout.CENTER);
+        jPanel25.add(jPanel43, java.awt.BorderLayout.CENTER);
 
-        jPanel23.add(jPanel25);
-
-        jPanel26.setBackground(new java.awt.Color(255, 103, 158));
-        jPanel26.setLayout(new java.awt.BorderLayout());
-
-        jPanel85.setName(""); // NOI18N
-        jPanel85.setOpaque(false);
-        jPanel85.setPreferredSize(new java.awt.Dimension(200, 10));
-
-        javax.swing.GroupLayout jPanel85Layout = new javax.swing.GroupLayout(jPanel85);
-        jPanel85.setLayout(jPanel85Layout);
-        jPanel85Layout.setHorizontalGroup(
-            jPanel85Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel23Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel23Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTenPlaylist, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(675, Short.MAX_VALUE))
+            .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel23Layout.createSequentialGroup()
+                    .addGap(0, 403, Short.MAX_VALUE)
+                    .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 404, Short.MAX_VALUE)))
         );
-        jPanel85Layout.setVerticalGroup(
-            jPanel85Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        jPanel26.add(jPanel85, java.awt.BorderLayout.PAGE_START);
-
-        jPanel86.setOpaque(false);
-
-        javax.swing.GroupLayout jPanel86Layout = new javax.swing.GroupLayout(jPanel86);
-        jPanel86.setLayout(jPanel86Layout);
-        jPanel86Layout.setHorizontalGroup(
-            jPanel86Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel86Layout.setVerticalGroup(
-            jPanel86Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        jPanel26.add(jPanel86, java.awt.BorderLayout.LINE_START);
-
-        jPanel88.setOpaque(false);
-        jPanel88.setPreferredSize(new java.awt.Dimension(10, 232));
-
-        javax.swing.GroupLayout jPanel88Layout = new javax.swing.GroupLayout(jPanel88);
-        jPanel88.setLayout(jPanel88Layout);
-        jPanel88Layout.setHorizontalGroup(
-            jPanel88Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel88Layout.setVerticalGroup(
-            jPanel88Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        jPanel26.add(jPanel88, java.awt.BorderLayout.LINE_END);
-
-        jPanel89.setOpaque(false);
-
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel25.setText("Tiêu đề");
-
-        jLabel26.setText("mhgbnfm.......");
-
-        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel18MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel89Layout = new javax.swing.GroupLayout(jPanel89);
-        jPanel89.setLayout(jPanel89Layout);
-        jPanel89Layout.setHorizontalGroup(
-            jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel89Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel26)
-                    .addComponent(jLabel25))
-                .addContainerGap(95, Short.MAX_VALUE))
-            .addGroup(jPanel89Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel89Layout.setVerticalGroup(
-            jPanel89Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel89Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addGap(23, 23, 23)
-                .addComponent(jLabel25)
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(255, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtTenPlaylist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel26)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addComponent(jButton2)
+                .addGap(174, 174, 174))
+            .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel23Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
-
-        jPanel26.add(jPanel89, java.awt.BorderLayout.CENTER);
-
-        jPanel23.add(jPanel26);
-
-        jPanel27.setBackground(new java.awt.Color(255, 103, 158));
-        jPanel27.setLayout(new java.awt.BorderLayout());
-
-        jPanel90.setName(""); // NOI18N
-        jPanel90.setOpaque(false);
-        jPanel90.setPreferredSize(new java.awt.Dimension(200, 10));
-
-        javax.swing.GroupLayout jPanel90Layout = new javax.swing.GroupLayout(jPanel90);
-        jPanel90.setLayout(jPanel90Layout);
-        jPanel90Layout.setHorizontalGroup(
-            jPanel90Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel90Layout.setVerticalGroup(
-            jPanel90Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        jPanel27.add(jPanel90, java.awt.BorderLayout.PAGE_START);
-
-        jPanel91.setOpaque(false);
-
-        javax.swing.GroupLayout jPanel91Layout = new javax.swing.GroupLayout(jPanel91);
-        jPanel91.setLayout(jPanel91Layout);
-        jPanel91Layout.setHorizontalGroup(
-            jPanel91Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel91Layout.setVerticalGroup(
-            jPanel91Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        jPanel27.add(jPanel91, java.awt.BorderLayout.LINE_START);
-
-        jPanel93.setOpaque(false);
-        jPanel93.setPreferredSize(new java.awt.Dimension(10, 232));
-
-        javax.swing.GroupLayout jPanel93Layout = new javax.swing.GroupLayout(jPanel93);
-        jPanel93.setLayout(jPanel93Layout);
-        jPanel93Layout.setHorizontalGroup(
-            jPanel93Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-        jPanel93Layout.setVerticalGroup(
-            jPanel93Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        jPanel27.add(jPanel93, java.awt.BorderLayout.LINE_END);
-
-        jPanel94.setOpaque(false);
-
-        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel27.setText("Tiêu đề");
-
-        jLabel28.setText("mhgbnfm.......");
-
-        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel19MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel94Layout = new javax.swing.GroupLayout(jPanel94);
-        jPanel94.setLayout(jPanel94Layout);
-        jPanel94Layout.setHorizontalGroup(
-            jPanel94Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel94Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel94Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel28)
-                    .addComponent(jLabel27))
-                .addContainerGap(95, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel94Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel94Layout.setVerticalGroup(
-            jPanel94Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel94Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addGap(23, 23, 23)
-                .addComponent(jLabel27)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel28)
-                .addGap(0, 13, Short.MAX_VALUE))
-        );
-
-        jPanel27.add(jPanel94, java.awt.BorderLayout.CENTER);
-
-        jPanel23.add(jPanel27);
 
         jPanel35.setBackground(new java.awt.Color(51, 51, 51));
         jPanel35.setPreferredSize(new java.awt.Dimension(629, 27));
@@ -2149,8 +1922,8 @@ public class Main_search extends javax.swing.JDialog {
                             .addGroup(jPanel33Layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
                                 .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 934, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 72, Short.MAX_VALUE)))
+                            .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 1016, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 51, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel33Layout.createSequentialGroup()
                 .addGap(200, 200, 200)
@@ -2205,7 +1978,7 @@ public class Main_search extends javax.swing.JDialog {
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1040, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1031, Short.MAX_VALUE)
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2294,6 +2067,10 @@ public class Main_search extends javax.swing.JDialog {
         volumeControl(Double.parseDouble(value) / 100);
     }//GEN-LAST:event_slider1StateChanged
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         // TODO add your handling code here:
         System.exit(0);
@@ -2329,6 +2106,10 @@ public class Main_search extends javax.swing.JDialog {
         changeColor(btnMaximize, new Color(222, 221, 217));
     }//GEN-LAST:event_btnMaximizeMouseExited
 
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel7MouseClicked
+
     private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
         // TODO add your handling code here:
         // this.setExtendedState(Home.ICONIFIED);
@@ -2343,6 +2124,26 @@ public class Main_search extends javax.swing.JDialog {
         // TODO add your handling code here:
         changeColor(btnMinimize, new Color(222, 221, 217));
     }//GEN-LAST:event_btnMinimizeMouseExited
+
+    private void lblIcon_homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_homeMouseClicked
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        Home mai = new Home(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblIcon_homeMouseClicked
+
+    private void lblHome_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHome_menuMouseClicked
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        Home mai = new Home(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblHome_menuMouseClicked
 
     private void lblIcon_searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_searchMouseClicked
         if (player != null) {
@@ -2364,57 +2165,64 @@ public class Main_search extends javax.swing.JDialog {
         mai.setVisible(true);
     }//GEN-LAST:event_lblSearch_menuMouseClicked
 
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel7MouseClicked
+    private void Album1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album1MouseClicked
+        String data1 = listAlbumName.get(0);
+        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
+        String data3 = "";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_Album1MouseClicked
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_jLabel2MouseClicked
+    private void Album2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album2MouseClicked
+        String data1 = listAlbumName.get(1);
+        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(1));
+        String data3 = "";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_Album2MouseClicked
+
+    private void Album3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album3MouseClicked
+        String data1 = listAlbumName.get(2);
+        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(2));
+        String data3 = "";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_Album3MouseClicked
+
+    private void Album4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album4MouseClicked
+        String data1 = listAlbumName.get(3);
+        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
+        String data3 = "";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_Album4MouseClicked
+
+    private void Album5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album5MouseClicked
+        String data1 = listPlaylistName.get(0);
+        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
+        String data3 = "playlist";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_Album5MouseClicked
+
+    private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTimKiemCaretUpdate
+
+    }//GEN-LAST:event_txtTimKiemCaretUpdate
+
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         load_data();
         Image i = new javax.swing.ImageIcon(imageName).getImage();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimKiemActionPerformed
-
-    private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTimKiemCaretUpdate
-
-    }//GEN-LAST:event_txtTimKiemCaretUpdate
-
-    private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel19MouseClicked
-
-    private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel18MouseClicked
-
-    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel14MouseClicked
-
-    private void jPanel43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel43MouseClicked
-        // TODO add your handling code here:
-        JFrame frame = new JFrame();
-        String data1 = listSongName.get(0);
-        String data2 = listSongDura.get(0);
-        ImageIcon data3 = icon;
-        String data4 = listSongLyr.get(0);
-        String data5 = listSongArtist.get(0);
-        chitietNhac_User mai = new chitietNhac_User(frame, forgot, data1, data2, data3, data4, data5);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_jPanel43MouseClicked
-
-    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        Image i = new javax.swing.ImageIcon(imageName).getImage();
-       
-    }//GEN-LAST:event_jLabel8MouseClicked
 
     private void Songlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl1MouseClicked
         // TODO add your handling code here:
@@ -2586,7 +2394,7 @@ public class Main_search extends javax.swing.JDialog {
 
     private void Songlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl4MouseClicked
         // TODO add your handling code here:
-                if (player != null) {
+        if (player != null) {
             player.close();
             timer.stop();
         }
@@ -2617,7 +2425,7 @@ public class Main_search extends javax.swing.JDialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
-                if (running) {
+        if (running) {
             player.close();
             running = false;
             paused = false;
@@ -2643,74 +2451,69 @@ public class Main_search extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel58MouseClicked
 
-    private void lblHome_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHome_menuMouseClicked
-        if (player != null) {
-            player.close();
-            timer.stop();
-        }
-        Home mai = new Home(null, forgot);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_lblHome_menuMouseClicked
+    private void txtTenPlaylistCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTenPlaylistCaretUpdate
 
-    private void lblIcon_homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_homeMouseClicked
-        if (player != null) {
-            player.close();
-            timer.stop();
-        }
-        Home mai = new Home(null, forgot);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_lblIcon_homeMouseClicked
+    }//GEN-LAST:event_txtTenPlaylistCaretUpdate
 
-    private void Album1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album1MouseClicked
-        String data1 = listAlbumName.get(0);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
-        String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_Album1MouseClicked
-
-    private void Album2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album2MouseClicked
-        String data1 = listAlbumName.get(1);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(1));
-                String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_Album2MouseClicked
-
-    private void Album3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album3MouseClicked
-        String data1 = listAlbumName.get(2);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(2));
-                String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_Album3MouseClicked
-
-    private void Album4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album4MouseClicked
-        String data1 = listAlbumName.get(3);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
-                String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_Album4MouseClicked
-
-    private void Album5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album5MouseClicked
-        String data1 = listPlaylistName.get(0);
-        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
-                String data3 = "playlist";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
-        this.setVisible(false);
-        mai.setVisible(true);
-    }//GEN-LAST:event_Album5MouseClicked
-
-    private void ArtistlblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArtistlblMouseClicked
+    private void txtTenPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenPlaylistActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ArtistlblMouseClicked
+    }//GEN-LAST:event_txtTenPlaylistActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        if (allow) {
+            try {
+                String url = "jdbc:sqlserver://localhost:1433;DatabaseName=SWAN;encrypt=false";
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Connection con = DriverManager.getConnection(url, "sa", "");
+                PreparedStatement ps = con.prepareCall("insert into USER_PLAYLIST values (? , ?)");
+                ps.setString(1, txtTenPlaylist.getText());
+                ps.setString(2, txtTimKiem.getText());
+
+                ResultSet rs1 = ps.executeQuery();
+            } catch (Exception e) {
+            }
+
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jPanel43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel43MouseClicked
+        // TODO add your handling code here:
+        JFrame frame = new JFrame();
+        String data1 = listSongName.get(0);
+        String data2 = listSongDura.get(0);
+        ImageIcon data3 = icon;
+        String data4 = listSongLyr.get(0);
+        String data5 = listSongArtist.get(0);
+        chitietNhac mai = new chitietNhac(frame, forgot, data1, data2, data3, data4, data5);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_jPanel43MouseClicked
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        // TODO add your handling code here:
+        Image i = new javax.swing.ImageIcon(imageName).getImage();
+    }//GEN-LAST:event_jLabel14MouseClicked
+
+    private void lblSearch_menu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearch_menu2MouseClicked
+                if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        add_playlist mai = new add_playlist(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblSearch_menu2MouseClicked
+
+    private void lblIcon_search2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_search2MouseClicked
+                if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        add_playlist mai = new add_playlist(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblIcon_search2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -2729,20 +2532,20 @@ public class Main_search extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main_search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(add_playlist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main_search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(add_playlist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main_search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(add_playlist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main_search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(add_playlist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Main_search dialog = new Main_search(new javax.swing.JFrame(), true);
+                add_playlist dialog = new add_playlist(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -2781,9 +2584,9 @@ public class Main_search extends javax.swing.JDialog {
     private javax.swing.JPanel btnMinimize;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -2793,19 +2596,11 @@ public class Main_search extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel110;
     private javax.swing.JPanel jPanel111;
@@ -2819,8 +2614,6 @@ public class Main_search extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
-    private javax.swing.JPanel jPanel26;
-    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
@@ -2831,10 +2624,7 @@ public class Main_search extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel41;
     private javax.swing.JPanel jPanel43;
-    private javax.swing.JPanel jPanel44;
-    private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel46;
-    private javax.swing.JPanel jPanel47;
     private javax.swing.JPanel jPanel48;
     private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel50;
@@ -2846,20 +2636,11 @@ public class Main_search extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel56;
     private javax.swing.JPanel jPanel57;
     private javax.swing.JPanel jPanel58;
+    private javax.swing.JPanel jPanel59;
     private javax.swing.JPanel jPanel60;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel83;
-    private javax.swing.JPanel jPanel84;
-    private javax.swing.JPanel jPanel85;
-    private javax.swing.JPanel jPanel86;
     private javax.swing.JPanel jPanel87;
-    private javax.swing.JPanel jPanel88;
-    private javax.swing.JPanel jPanel89;
-    private javax.swing.JPanel jPanel90;
-    private javax.swing.JPanel jPanel91;
     private javax.swing.JPanel jPanel92;
-    private javax.swing.JPanel jPanel93;
-    private javax.swing.JPanel jPanel94;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblHome_menu;
     private javax.swing.JLabel lblIcon_home;
@@ -2887,10 +2668,11 @@ public class Main_search extends javax.swing.JDialog {
     private javax.swing.JPanel pnl_vien4;
     private com.swanmusic.swing.Slider slider1;
     private com.swanmusic.swing.Slider slider2;
+    private javax.swing.JTextField txtTenPlaylist;
     private javax.swing.JTextField txtTimKiem;
     private javax.swing.JPanel windoTtiling;
     // End of variables declaration//GEN-END:variables
- private void volumeControl(Double valueToPlusMinus) {
+private void volumeControl(Double valueToPlusMinus) {
         // Get Mixer Information From AudioSystem
         Mixer.Info[] mixers = AudioSystem.getMixerInfo();
         // Now use a for loop to list all mixers
