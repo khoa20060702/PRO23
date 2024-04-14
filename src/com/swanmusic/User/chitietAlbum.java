@@ -1660,9 +1660,9 @@ public class chitietAlbum extends javax.swing.JDialog {
     private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
         // TODO add your handling code here:
         String data1 = AlbumNamelbl.getText();
-        add_playlist pc = new add_playlist(null, forgot, data1);
+        
         this.setVisible(false);
-        pc.setVisible(true);
+        new add_playlist(null, true).setVisible(true);
     }//GEN-LAST:event_jLabel19MouseClicked
 
     private void lblName7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblName7MouseClicked
