@@ -1062,11 +1062,21 @@ public class Main_search extends javax.swing.JDialog {
         lblIcon_search2.setForeground(new java.awt.Color(255, 255, 255));
         lblIcon_search2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblIcon_search2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/playlist.png"))); // NOI18N
+        lblIcon_search2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblIcon_search2MouseClicked(evt);
+            }
+        });
 
         lblSearch_menu2.setBackground(new java.awt.Color(255, 255, 255));
         lblSearch_menu2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblSearch_menu2.setForeground(new java.awt.Color(255, 255, 255));
-        lblSearch_menu2.setText("+ Playlist");
+        lblSearch_menu2.setText("+ ALBUM");
+        lblSearch_menu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSearch_menu2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_search2Layout = new javax.swing.GroupLayout(pnl_search2);
         pnl_search2.setLayout(pnl_search2Layout);
@@ -2701,6 +2711,26 @@ public class Main_search extends javax.swing.JDialog {
     private void ArtistlblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArtistlblMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_ArtistlblMouseClicked
+
+    private void lblSearch_menu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearch_menu2MouseClicked
+         if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        add_playlist mai = new add_playlist(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblSearch_menu2MouseClicked
+
+    private void lblIcon_search2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_search2MouseClicked
+          if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        add_playlist mai = new add_playlist(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_lblIcon_search2MouseClicked
 
     /**
      * @param args the command line arguments

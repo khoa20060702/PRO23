@@ -2479,7 +2479,7 @@ public class Home extends javax.swing.JDialog {
             timer.stop();
         }
         String data1 = listSongArtist.get(1);
-        NgheSi mai = new NgheSi(null, forgot, data1);
+        chitietNghesi mai = new chitietNghesi(null, forgot, data1);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl2MouseClicked
@@ -2573,7 +2573,14 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_Songlbl4MouseClicked
 
     private void Artistlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl4MouseClicked
-        // TODO add your handling code here:
+         if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongArtist.get(3);
+        chitietNghesi mai = new chitietNghesi(null, forgot, data1);
+        this.setVisible(false);
+        mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl4MouseClicked
 
     private void Imglbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl4MouseClicked
@@ -2611,7 +2618,14 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_Songlbl5MouseClicked
 
     private void Artistlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl5MouseClicked
-        // TODO add your handling code here:
+         if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongArtist.get(3);
+        chitietNghesi mai = new chitietNghesi(null, forgot, data1);
+        this.setVisible(false);
+        mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl5MouseClicked
 
     private void Imglbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl5MouseClicked
@@ -2649,7 +2663,14 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_Songlbl6MouseClicked
 
     private void Artistlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl6MouseClicked
-        // TODO add your handling code here:
+         if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongArtist.get(5);
+        chitietNghesi mai = new chitietNghesi(null, forgot, data1);
+        this.setVisible(false);
+        mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl6MouseClicked
 
     private void Imglbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl6MouseClicked
@@ -2687,7 +2708,14 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_Songlbl7MouseClicked
 
     private void Artistlbl7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl7MouseClicked
-        // TODO add your handling code here:
+         if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongArtist.get(6);
+        chitietNghesi mai = new chitietNghesi(null, forgot, data1);
+        this.setVisible(false);
+        mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl7MouseClicked
 
     private void Imglbl7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl7MouseClicked
@@ -2725,7 +2753,14 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_Songlbl8MouseClicked
 
     private void Artistlbl8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl8MouseClicked
-        // TODO add your handling code here:
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        String data1 = listSongArtist.get(7);
+        chitietNghesi mai = new chitietNghesi(null, forgot, data1);
+        this.setVisible(false);
+        mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl8MouseClicked
 
     private void Imglbl8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Imglbl8MouseClicked
