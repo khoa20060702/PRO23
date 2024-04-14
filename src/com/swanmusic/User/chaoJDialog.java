@@ -24,24 +24,22 @@ public class chaoJDialog extends javax.swing.JDialog {
         initComponents();
         init();
     }
-    
-    void init(){
-        this.setSize(1242,682);
+
+    void init() {
+        this.setSize(1242, 682);
         this.setLocationRelativeTo(null);
-        new Timer(5,new ActionListener() {
+        new Timer(5, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              int value = pgbChao.getValue();
-            if(value < 100)
-            {
-                pgbChao.setValue(value+1);
-                lblLoading.setText("Loading.."+value+"%");
+                int value = pgbChao.getValue();
+                if (value < 100) {
+                    pgbChao.setValue(value + 1);
+                    lblLoading.setText("Loading.." + value + "%");
+                } else {
+                    chaoJDialog.this.dispose();
+                }
             }
-            else{
-                chaoJDialog.this.dispose();
-            }
-        }
-            }).start();
+        }).start();
     }
 
     /**

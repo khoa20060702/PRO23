@@ -1,4 +1,3 @@
-
 package com.swanmusic.User;
 
 import com.swanmusic.ui.*;
@@ -20,27 +19,28 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 import javax.swing.table.DefaultTableModel;
 
 public class Nghesi_Admin extends javax.swing.JDialog {
+
     Boolean forgot = false;
     ArrayList<Nghesi> list = new ArrayList();
     int index = 0;
     String imageName = null;
     CardLayout cardLayout;
-    
+
     public void navigatePages() {
 
-    cardLayout = (CardLayout) (QL2.getLayout());
+        cardLayout = (CardLayout) (QL2.getLayout());
         // thay đổi kích thước của app
         ComponentResizer resizer = new ComponentResizer();
         resizer.registerComponent(this);
     }
-     
+
     public void upImage(String imageName) {
         ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
         Image image = icon.getImage();
         ImageIcon icon1 = new ImageIcon(image.getScaledInstance(lblhinh.getWidth(), lblhinh.getHeight(), image.SCALE_SMOOTH));
         lblhinh.setIcon(icon1);
     }
-    
+
     public Nghesi_Admin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -48,102 +48,96 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         navigatePages();
 
     }
-    
-    public void init(){
+
+    public void init() {
         this.setSize(1260, 682);
         this.setLocationRelativeTo(null);
         load_data();
     }
-    
-    
-    public void load_data(){
-         list.clear();
-         try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select * from NGHESI");
-             ResultSet rs = ps.executeQuery();
-              while (rs.next()) {
+
+    public void load_data() {
+        list.clear();
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select * from NGHESI");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
                 Nghesi si = new Nghesi();
                 si.setName(rs.getString("TENNGHESI"));
                 si.setSl_album(Integer.parseInt(rs.getString("SL_ALBUM")));
                 si.setSl_dsnhac(Integer.parseInt(rs.getString("SL_DSNHAC")));
-                si.setAnh(rs.getString("ANH")); 
+                si.setAnh(rs.getString("ANH"));
                 list.add(si);
             }
             DefaultTableModel model = (DefaultTableModel) tblNghesi.getModel();
             model.setRowCount(0);
             for (Nghesi si : list) {
-                Object[] row = new Object[]{si.getName(),si.getSl_album(),si.getSl_dsnhac(),si.getAnh()};
+                Object[] row = new Object[]{si.getName(), si.getSl_album(), si.getSl_dsnhac(), si.getAnh()};
                 model.addRow(row);
             }
             rs.close();
             ps.close();
             con.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-}
-     
-     public void showdetail(){
-         if(index >=0){
-             Nghesi si = list.get(index);
-             txtName.setText(si.getName());
-             txtSLAlbum.setText(String.valueOf(si.getSl_album()));
-             txtSLNhac.setText(String.valueOf(si.getSl_dsnhac()));
-             upImage(list.get(index).getAnh());
-         }
-     }
-     
-     
-     public void them(){
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showdetail() {
+        if (index >= 0) {
+            Nghesi si = list.get(index);
+            txtName.setText(si.getName());
+            txtSLAlbum.setText(String.valueOf(si.getSl_album()));
+            txtSLNhac.setText(String.valueOf(si.getSl_dsnhac()));
+            upImage(list.get(index).getAnh());
+        }
+    }
+
+    public void them() {
         try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             if(validate_data()){
-             upImage(imageName);
-             PreparedStatement ps = con.prepareCall("insert into NGHESI values(?,?,?,?)");
-             ps.setString(1, txtName.getText());
-             ps.setString(2,txtSLAlbum.getText());
-             ps.setString(3, txtSLNhac.getText());
-             ps.setString(4, imageName);
-             int kq = ps.executeUpdate();
-             if(kq == 1){
-                 JOptionPane.showMessageDialog( this,"Lưu thành công");
-             }
-             else{
-                 JOptionPane.showMessageDialog(this, "Lưu không thành công");
-             }
-             ps.close();
-            con.close();
-            load_data();
-             }
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-     }
-     
-     public void xoa(){
-              try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            if (validate_data()) {
+                upImage(imageName);
+                PreparedStatement ps = con.prepareCall("insert into NGHESI values(?,?,?,?)");
+                ps.setString(1, txtName.getText());
+                ps.setString(2, txtSLAlbum.getText());
+                ps.setString(3, txtSLNhac.getText());
+                ps.setString(4, imageName);
+                int kq = ps.executeUpdate();
+                if (kq == 1) {
+                    JOptionPane.showMessageDialog(this, "Lưu thành công");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lưu không thành công");
+                }
+                ps.close();
+                con.close();
+                load_data();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void xoa() {
+        try {
             //1. url
             String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN;encrypt=true;trustServerCertificate=true";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url,"sa","");
+            Connection con = DriverManager.getConnection(url, "sa", "");
             PreparedStatement ps = con.prepareStatement("delete from NGHESI where TENNGHESI = ?");
             ps.setString(1, txtName.getText());
             int kq = ps.executeUpdate();
-            if (kq == 1)
-            {
+            if (kq == 1) {
                 JOptionPane.showMessageDialog(this, "thành công");
                 txtName.setText(null);
                 txtSLAlbum.setText(null);
                 txtSLNhac.setText(null);
                 upImage(null);
-            }
-            else
-            {
+            } else {
                 JOptionPane.showMessageDialog(this, "thất bại.");
             }
             ps.close();
@@ -151,141 +145,141 @@ public class Nghesi_Admin extends javax.swing.JDialog {
             load_data();
         } catch (Exception e) {
             e.printStackTrace();
-        }                   
-     }
-     
-     
-     public void sua(){
-                  try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             if(validate_data()){
-             upImage(imageName);
-             PreparedStatement ps = con.prepareCall("update NGHESI set SL_ALBUM = ?, SL_DSNHAC=?, ANH=? where TENNGHESI = ?");
-             ps.setString(1, txtSLAlbum.getText());
-             ps.setString(2,txtSLNhac.getText());
-             ps.setString(3, imageName);
-             ps.setString(4,txtName.getText());
-             int kq = ps.executeUpdate();
-             if(kq == 1){
-                 JOptionPane.showMessageDialog( this,"Lưu thành công");
-                txtName.setText(null);
-                txtSLAlbum.setText(null);
-                txtSLNhac.setText(null);
-                upImage(null);
-             }
-             else{
-                 JOptionPane.showMessageDialog(this, "Lưu không thành công");
-             }
-            ps.close();
-            con.close();
-            load_data();
-             }
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-     }
-     
-     public void moi(){
+        }
+    }
+
+    public void sua() {
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            if (validate_data()) {
+                upImage(imageName);
+                PreparedStatement ps = con.prepareCall("update NGHESI set SL_ALBUM = ?, SL_DSNHAC=?, ANH=? where TENNGHESI = ?");
+                ps.setString(1, txtSLAlbum.getText());
+                ps.setString(2, txtSLNhac.getText());
+                ps.setString(3, imageName);
+                ps.setString(4, txtName.getText());
+                int kq = ps.executeUpdate();
+                if (kq == 1) {
+                    JOptionPane.showMessageDialog(this, "Lưu thành công");
+                    txtName.setText(null);
+                    txtSLAlbum.setText(null);
+                    txtSLNhac.setText(null);
+                    upImage(null);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lưu không thành công");
+                }
+                ps.close();
+                con.close();
+                load_data();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void moi() {
         txtName.setText(null);
         txtSLAlbum.setText(null);
         txtSLNhac.setText(null);
         upImage(null);
-     }
-     
-     public void First(){
+    }
+
+    public void First() {
         index = 0;
         tblNghesi.setRowSelectionInterval(index, index);
         showdetail();
-     }
-     
-     public void prev(){
-        if(index > 0)
-        {
-            index --;
+    }
+
+    public void prev() {
+        if (index > 0) {
+            index--;
             tblNghesi.setRowSelectionInterval(index, index);
             showdetail();
         }
-     }
-     
-     public void next(){
-           if (index < list.size()-1)
-        {
-            index ++;
+    }
+
+    public void next() {
+        if (index < list.size() - 1) {
+            index++;
             tblNghesi.setRowSelectionInterval(index, index);
             showdetail();
         }
-     }
-     
-     public void last(){
-        index = list.size()-1;
+    }
+
+    public void last() {
+        index = list.size() - 1;
         tblNghesi.setRowSelectionInterval(index, index);
         showdetail();
-     }
-    
-    void openTaiKhoan(){
-        this.setVisible(false);
-        new taikhoan_Admin(null,true).setVisible(true);       
     }
-    void openNgheSi(){
-        
+
+    void openTaiKhoan() {
         this.setVisible(false);
-        new Nghesi_Admin(null,true).setVisible(true);
+        new taikhoan_Admin(null, true).setVisible(true);
     }
-    void openNhac(){
-        
+
+    void openNgheSi() {
+
         this.setVisible(false);
-        new nhac_Admin(null,true).setVisible(true);
+        new Nghesi_Admin(null, true).setVisible(true);
     }
-    void openAlbum(){
+
+    void openNhac() {
+
         this.setVisible(false);
-        new Album_Admin(null,true).setVisible(true);  
+        new nhac_Admin(null, true).setVisible(true);
     }
-    
-    
+
+    void openAlbum() {
+        this.setVisible(false);
+        new Album_Admin(null, true).setVisible(true);
+    }
+
     public boolean validate_data() {
         if (txtName.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Tên nghệ sĩ không được để trống");
             txtName.setBackground(Color.yellow);
             txtName.requestFocus();
-            return false; 
+            return false;
         }
         if (txtSLAlbum.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Số lượng Album không được để trống");
             txtSLAlbum.setBackground(Color.yellow);
             txtSLAlbum.requestFocus();
-            return false; 
+            return false;
         }
-        
+
         try {
             int slalbum = Integer.parseInt(txtSLAlbum.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Số lượng Album phải là số");
             txtSLAlbum.setBackground(Color.yellow);
             txtSLAlbum.requestFocus();
-            return false;  
+            return false;
         }
-        
-         if (txtSLNhac.getText().trim().length() == 0) {
+
+        if (txtSLNhac.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Số lượng nhạc không được để trống");
             txtSLNhac.setBackground(Color.yellow);
             txtSLNhac.requestFocus();
-            return false; 
+            return false;
         }
-         try {
+        try {
             int slnhac = Integer.parseInt(txtSLNhac.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Số lượng Nhạc phải là số");
             txtSLNhac.setBackground(Color.yellow);
             txtSLNhac.requestFocus();
-            return false;     
+            return false;
         }
-         return true;
+        return true;
     }
+
     public void changeColor(JPanel hover, Color rand) {
         hover.setBackground(rand);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1137,11 +1131,11 @@ public class Nghesi_Admin extends javax.swing.JDialog {
     private void btnMaximizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseClicked
         // TODO add your handling code here:
         //        if(this.getExtendedState()!= Home.MAXIMIZED_BOTH){
-            //            this.setExtendedState(Home.MAXIMIZED_BOTH);
-            //        }
+        //            this.setExtendedState(Home.MAXIMIZED_BOTH);
+        //        }
         //        else{
-            //            this.setExtendedState(Home.NORMAL);
-            //        }
+        //            this.setExtendedState(Home.NORMAL);
+        //        }
     }//GEN-LAST:event_btnMaximizeMouseClicked
 
     private void btnMaximizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseEntered
@@ -1195,13 +1189,13 @@ public class Nghesi_Admin extends javax.swing.JDialog {
 
     private void lblhinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblhinhMouseClicked
         JFileChooser file = new JFileChooser("src\\com\\swanmusic\\img\\");
-            int kq = file.showOpenDialog(file);
-            if (kq == JFileChooser.APPROVE_OPTION) {
-                imageName = file.getSelectedFile().getName();
-                upImage(imageName);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
-            }
+        int kq = file.showOpenDialog(file);
+        if (kq == JFileChooser.APPROVE_OPTION) {
+            imageName = file.getSelectedFile().getName();
+            upImage(imageName);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
+        }
     }//GEN-LAST:event_lblhinhMouseClicked
 
     private void tblNghesiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNghesiMouseClicked
@@ -1218,11 +1212,11 @@ public class Nghesi_Admin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPrev2ActionPerformed
 
     private void btnNext2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext2ActionPerformed
-       next();
+        next();
     }//GEN-LAST:event_btnNext2ActionPerformed
 
     private void btnLast2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLast2ActionPerformed
-       last();
+        last();
     }//GEN-LAST:event_btnLast2ActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed

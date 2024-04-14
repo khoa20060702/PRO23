@@ -23,12 +23,14 @@ import lab8_new1.SendMail;
 import java.util.Random;
 
 /**
-/**
+ * /**
  *
  * @author phuon
  */
 public class quenmatkhauJDialog extends javax.swing.JDialog {
-int otp;
+
+    int otp;
+
     /**
      * Creates new form quenmatkhauJDialog
      */
@@ -37,9 +39,9 @@ int otp;
         initComponents();
         init();
     }
-    
-        void init(){
-        this.setSize(1242,682);
+
+    void init() {
+        this.setSize(1242, 682);
         this.setLocationRelativeTo(null);
     }
 
@@ -188,7 +190,7 @@ int otp;
 
     private void btnGuimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuimaActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             // TODO add your handling code here:
             Properties p = new Properties();
             p.put("mail.smtp.auth", "true");
@@ -200,18 +202,18 @@ int otp;
             final String accountPassword = "hjhs sujj qdpf qwkp";
             Session s = Session.getInstance(p,
                     new javax.mail.Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(accountName, accountPassword);
-                        }
-                    });
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(accountName, accountPassword);
+                }
+            });
             // --------
-            Random random=new Random();
-            int min =1000;
-             int max =9999;
-             otp=random.nextInt(max-min)+min;
+            Random random = new Random();
+            int min = 1000;
+            int max = 9999;
+            otp = random.nextInt(max - min) + min;
             String from = "tranhtbts00531@fpt.edu.vn";
             String to = txtEmail.getText();
-            String body =String.valueOf(otp);
+            String body = String.valueOf(otp);
             Message msg = new MimeMessage(s);
             // gán giá trị cho các thuộc tính của đối tượng msg
             msg.setFrom(new InternetAddress(from));
@@ -229,23 +231,21 @@ int otp;
 
     private void btnDatLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatLaiActionPerformed
         // TODO add your handling code here:
-         int otp2=Integer.parseInt(txtMaXM.getText());
-        if(otp==otp2)
-        {
+        int otp2 = Integer.parseInt(txtMaXM.getText());
+        if (otp == otp2) {
             JOptionPane.showMessageDialog(this, "Mã xác minh trùng khớp");
+        } else {
+            JOptionPane.showMessageDialog(this, "Mã xác minh không trùng khớp");
         }
-        else{
-              JOptionPane.showMessageDialog(this, "Mã xác minh không trùng khớp");
-        }
-          try {
+        try {
             String url = "jdbc:sqlserver://localhost:1433;DatabaseName=SWAN;encrypt=false";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con = DriverManager.getConnection(url, "sa", "");
             PreparedStatement ps = con.prepareCall("update TAIKHOAN set MATKHAU = ? where EMAIL = ?");
-           
+
             ps.setString(2, txtEmail.getText());
             ps.setString(1, txtNhapMKMoi1.getText());
-         
+
             int kq = ps.executeUpdate();
             if (kq == 1) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
@@ -254,17 +254,17 @@ int otp;
             }
             ps.close();
             con.close();
-     
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-           
+
     }//GEN-LAST:event_btnDatLaiActionPerformed
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new dangnhapJDialog(null,true).setVisible(true);
+        new dangnhapJDialog(null, true).setVisible(true);
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**

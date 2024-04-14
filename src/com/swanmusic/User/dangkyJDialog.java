@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package com.swanmusic.User;
+
 import com.swanmusic.ui.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,28 +16,32 @@ import java.awt.Image;
 import javax.swing.JFileChooser;
 import javax.swing.*;
 import com.swanmusic.entity.Account;
+
 /**
  *
  * @author phuon
  */
 public class dangkyJDialog extends javax.swing.JDialog {
-public static Main main;
+
+    public static Main main;
 //public static Main main;
     boolean forgot = false;
 //    dangnhapJDialog dn = new dangnhapJDialog(main, forgot);
-    
+
     public dangkyJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         init();
     }
-          ArrayList<Account> list = new ArrayList();
-        void init(){
-        this.setSize(1242,682);
+    ArrayList<Account> list = new ArrayList();
+
+    void init() {
+        this.setSize(1242, 682);
         this.setLocationRelativeTo(null);
 
     }
-        public void load_data() {
+
+    public void load_data() {
         list.clear();
         try {
             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
@@ -48,10 +53,10 @@ public static Main main;
                 Account mu = new Account();
                 mu.setTENTK(rs.getString("TENTAIKHOAN"));
                 mu.setMatkhau(rs.getString("MATKHAU"));
-                 boolean IsRole = rs.getBoolean("VAITRO"); 
+                boolean IsRole = rs.getBoolean("VAITRO");
                 mu.setVaiTro(IsRole);
                 mu.setEmail(rs.getString("EMAIL"));
-                   mu.setSODIENTHOAI(rs.getString("SODIENTHOAI"));
+                mu.setSODIENTHOAI(rs.getString("SODIENTHOAI"));
                 list.add(mu);
             }
 //            DefaultTableModel model = (DefaultTableModel) tbl.getModel();
@@ -63,6 +68,7 @@ public static Main main;
             e.printStackTrace();
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -240,17 +246,17 @@ public static Main main;
 
     private void txtNameCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNameCaretUpdate
         // TODO add your handling code here:
-             if (!txtName.getText().equals("")) {
+        if (!txtName.getText().equals("")) {
             jLabel7.setText("");
         } else {
             jLabel7.setText("Tên tài khoản");
         }
-                    
+
     }//GEN-LAST:event_txtNameCaretUpdate
 
     private void txtPassCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPassCaretUpdate
         // TODO add your handling code here:
-           if (!txtPass.getText().equals("")) {
+        if (!txtPass.getText().equals("")) {
             jLabel4.setText("");
         } else {
             jLabel4.setText("Mật khẩu");
@@ -268,7 +274,7 @@ public static Main main;
 
     private void txtEmailCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtEmailCaretUpdate
         // TODO add your handling code here:
-         if (!txtEmail.getText().equals("")) {
+        if (!txtEmail.getText().equals("")) {
             jLabel6.setText("");
         } else {
             jLabel6.setText("Email");
@@ -277,16 +283,16 @@ public static Main main;
 
     private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
         // TODO add your handling code here:
-          String account = txtName.getText();
+        String account = txtName.getText();
         String password = txtPass.getText();
         String checkpass = txtNhaplaiMK.getText();
         String email = txtEmail.getText();
-        if (account.isEmpty() || password.isEmpty() || checkpass.isEmpty() ||email.isEmpty()) {
+        if (account.isEmpty() || password.isEmpty() || checkpass.isEmpty() || email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin!");
         } else if (!password.equals(checkpass)) {
             JOptionPane.showMessageDialog(this, "Mật khẩu không khớp!");
         } else {
-                try {
+            try {
                 String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 Connection con = DriverManager.getConnection(url, "sa", "");
@@ -310,7 +316,7 @@ public static Main main;
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new dangnhapJDialog(null,true).setVisible(true);
+        new dangnhapJDialog(null, true).setVisible(true);
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**

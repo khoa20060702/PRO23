@@ -284,26 +284,26 @@ public class Main_search extends javax.swing.JDialog {
     String imageName = "src\\com\\swanmusic\\img\\Wn.jpg";
     ImageIcon icon;
     boolean forgot = false;
-    public void getPlaylist()
-    {
+
+    public void getPlaylist() {
         int i = 0;
-              try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select TENPLAYLIST from User_PlayList group by TENPLAYLIST");
-             ResultSet rs = ps.executeQuery();
-             while(rs.next())
-             {
-             listPlaylistName.add(rs.getString("TENPLAYLIST"));                
-             }
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select TENPLAYLIST from User_PlayList group by TENPLAYLIST");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listPlaylistName.add(rs.getString("TENPLAYLIST"));
+            }
             rs.close();
             ps.close();
             con.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
     public void getAlbum() {
         int i = 0;
         try {
@@ -2413,7 +2413,7 @@ public class Main_search extends javax.swing.JDialog {
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         Image i = new javax.swing.ImageIcon(imageName).getImage();
-       
+
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void Songlbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl1MouseClicked
@@ -2586,7 +2586,7 @@ public class Main_search extends javax.swing.JDialog {
 
     private void Songlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Songlbl4MouseClicked
         // TODO add your handling code here:
-                if (player != null) {
+        if (player != null) {
             player.close();
             timer.stop();
         }
@@ -2617,7 +2617,7 @@ public class Main_search extends javax.swing.JDialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
-                if (running) {
+        if (running) {
             player.close();
             running = false;
             paused = false;
@@ -2667,7 +2667,7 @@ public class Main_search extends javax.swing.JDialog {
         String data1 = listAlbumName.get(0);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
         String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album1MouseClicked
@@ -2675,8 +2675,8 @@ public class Main_search extends javax.swing.JDialog {
     private void Album2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album2MouseClicked
         String data1 = listAlbumName.get(1);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(1));
-                String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        String data3 = "";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album2MouseClicked
@@ -2684,8 +2684,8 @@ public class Main_search extends javax.swing.JDialog {
     private void Album3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album3MouseClicked
         String data1 = listAlbumName.get(2);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(2));
-                String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        String data3 = "";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album3MouseClicked
@@ -2693,8 +2693,8 @@ public class Main_search extends javax.swing.JDialog {
     private void Album4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album4MouseClicked
         String data1 = listAlbumName.get(3);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
-                String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        String data3 = "";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album4MouseClicked
@@ -2702,8 +2702,8 @@ public class Main_search extends javax.swing.JDialog {
     private void Album5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album5MouseClicked
         String data1 = listPlaylistName.get(0);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
-                String data3 = "playlist";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        String data3 = "playlist";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album5MouseClicked
@@ -2713,7 +2713,7 @@ public class Main_search extends javax.swing.JDialog {
     }//GEN-LAST:event_ArtistlblMouseClicked
 
     private void lblSearch_menu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearch_menu2MouseClicked
-         if (player != null) {
+        if (player != null) {
             player.close();
             timer.stop();
         }
@@ -2723,7 +2723,7 @@ public class Main_search extends javax.swing.JDialog {
     }//GEN-LAST:event_lblSearch_menu2MouseClicked
 
     private void lblIcon_search2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_search2MouseClicked
-          if (player != null) {
+        if (player != null) {
             player.close();
             timer.stop();
         }

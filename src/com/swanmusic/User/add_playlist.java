@@ -2237,7 +2237,7 @@ public class add_playlist extends javax.swing.JDialog {
             timer.stop();
         }
         String data1 = listSongArtist.get(0);
-        NgheSi mai = new NgheSi(null, forgot, data1);
+        chitietNghesi mai = new chitietNghesi(null, forgot, data1);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl1MouseClicked
@@ -2293,7 +2293,7 @@ public class add_playlist extends javax.swing.JDialog {
             timer.stop();
         }
         String data1 = listSongArtist.get(1);
-        NgheSi mai = new NgheSi(null, forgot, data1);
+        chitietNghesi mai = new chitietNghesi(null, forgot, data1);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl2MouseClicked
@@ -2486,7 +2486,7 @@ public class add_playlist extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void lblSearch_menu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearch_menu2MouseClicked
-                if (player != null) {
+        if (player != null) {
             player.close();
             timer.stop();
         }
@@ -2496,7 +2496,7 @@ public class add_playlist extends javax.swing.JDialog {
     }//GEN-LAST:event_lblSearch_menu2MouseClicked
 
     private void lblIcon_search2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_search2MouseClicked
-                if (player != null) {
+        if (player != null) {
             player.close();
             timer.stop();
         }

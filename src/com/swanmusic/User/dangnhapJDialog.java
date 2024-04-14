@@ -1,4 +1,3 @@
-
 package com.swanmusic.User;
 
 import com.swanmusic.ui.*;
@@ -17,9 +16,10 @@ import java.util.logging.Logger;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class dangnhapJDialog extends javax.swing.JDialog {
-public static Main main;
-public static taikhoan_frmAdmin tk;
-public static Account acc;
+
+    public static Main main;
+    public static taikhoan_frmAdmin tk;
+    public static Account acc;
     boolean viewPass = false;
     boolean forgot = false;
     private dangnhapJDialog loginForm;
@@ -30,45 +30,49 @@ public static Account acc;
         initComponents();
         init();
     }
-Main form = new Main();
-com.swanmusic.main.taikhoan_frmAdmin mau= new com.swanmusic.main.taikhoan_frmAdmin(main, forgot);
-com.swanmusic.ui.dangkyJDialog dk = new com.swanmusic.ui.dangkyJDialog(main, forgot);
-com.swanmusic.ui.quenmatkhauJDialog qmk = new com.swanmusic.ui.quenmatkhauJDialog(main, forgot);    
-        AccountDAO dao = new AccountDAO();
-     private void login() {
+    Main form = new Main();
+    com.swanmusic.main.taikhoan_frmAdmin mau = new com.swanmusic.main.taikhoan_frmAdmin(main, forgot);
+    com.swanmusic.ui.dangkyJDialog dk = new com.swanmusic.ui.dangkyJDialog(main, forgot);
+    com.swanmusic.ui.quenmatkhauJDialog qmk = new com.swanmusic.ui.quenmatkhauJDialog(main, forgot);
+    AccountDAO dao = new AccountDAO();
+
+    private void login() {
         String username = txtName.getText();
         String pass = new String(txtPass.getPassword());
         acc = dao.selectByID(username);
         if (acc == null) {
             MsgBox.alert(this, "Tên tài khoản không đúng");
         } else {
-                if (acc.getMatkhau().equals(pass)) {
-                    acc = aDAO.selectByID(username);
-                    Auth.USER = acc;                 
-                        if (acc.isVaiTro()==true) {                    
-                                MsgBox.alert(this, "vào admin");                           
-                                mau.setVisible(true);
-                                this.setVisible(false);
-                                
-                    } else {                       
-                             MsgBox.alert(this, "vào user");
-                                form.setAccount(acc);
-                                form.setVisible(true);                                
-                                this.setVisible(false);
-                    }
+            if (acc.getMatkhau().equals(pass)) {
+                acc = aDAO.selectByID(username);
+                Auth.USER = acc;
+                if (acc.isVaiTro() == true) {
+                    MsgBox.alert(this, "vào admin");
+                    mau.setVisible(true);
+                    this.setVisible(false);
+
                 } else {
-                    MsgBox.alert(this, "Mật khẩu không đúng");
+                    MsgBox.alert(this, "vào user");
+                    form.setAccount(acc);
+                    form.setVisible(true);
+                    this.setVisible(false);
                 }
+            } else {
+                MsgBox.alert(this, "Mật khẩu không đúng");
+            }
         }
     }
-     void openChao(){
-         new chaoJDialog(null,true).setVisible(true);
-     }
-     void init(){
-        this.setSize(1242,682);
+
+    void openChao() {
+        new chaoJDialog(null, true).setVisible(true);
+    }
+
+    void init() {
+        this.setSize(1242, 682);
         this.setLocationRelativeTo(null);
         this.openChao();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -202,28 +206,26 @@ com.swanmusic.ui.quenmatkhauJDialog qmk = new com.swanmusic.ui.quenmatkhauJDialo
     private void btnDangNhap1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhap1ActionPerformed
         // TODO add your handling code here:
         login();
-        
+
     }//GEN-LAST:event_btnDangNhap1ActionPerformed
 
     private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
         // TODO add your handling code here:
-    this.setVisible(false);
-    dk.setVisible(true); 
+        this.setVisible(false);
+        dk.setVisible(true);
 //    try{
 //        Thread.sleep(1000);
 //    } catch(InterruptedException e) {
 //        e.printStackTrace();
 //    }
-    
-    
-    
-    
+
+
     }//GEN-LAST:event_btnDangKyActionPerformed
 
     private void lblQuenMKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMKMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-    qmk.setVisible(true); 
+        qmk.setVisible(true);
     }//GEN-LAST:event_lblQuenMKMouseClicked
 
     public static void main(String args[]) {

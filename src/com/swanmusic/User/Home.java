@@ -658,6 +658,7 @@ public class Home extends javax.swing.JDialog {
         Songlbl8 = new javax.swing.JLabel();
         Artistlbl8 = new javax.swing.JLabel();
         Imglbl8 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -1318,7 +1319,7 @@ public class Home extends javax.swing.JDialog {
             .addGroup(jPanel28Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel12)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(842, Short.MAX_VALUE))
         );
         jPanel28Layout.setVerticalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2229,6 +2230,14 @@ public class Home extends javax.swing.JDialog {
 
         jPanel34.add(jPanel41);
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/profile-user.png"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
         jPanel33Layout.setHorizontalGroup(
@@ -2241,11 +2250,17 @@ public class Home extends javax.swing.JDialog {
                     .addComponent(jPanel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
                     .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel33Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel33Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2255,7 +2270,7 @@ public class Home extends javax.swing.JDialog {
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(101, 101, 101)
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel60Layout = new javax.swing.GroupLayout(jPanel60);
@@ -2573,7 +2588,7 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_Songlbl4MouseClicked
 
     private void Artistlbl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl4MouseClicked
-         if (player != null) {
+        if (player != null) {
             player.close();
             timer.stop();
         }
@@ -2618,7 +2633,7 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_Songlbl5MouseClicked
 
     private void Artistlbl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl5MouseClicked
-         if (player != null) {
+        if (player != null) {
             player.close();
             timer.stop();
         }
@@ -2663,7 +2678,7 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_Songlbl6MouseClicked
 
     private void Artistlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl6MouseClicked
-         if (player != null) {
+        if (player != null) {
             player.close();
             timer.stop();
         }
@@ -2708,7 +2723,7 @@ public class Home extends javax.swing.JDialog {
     }//GEN-LAST:event_Songlbl7MouseClicked
 
     private void Artistlbl7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Artistlbl7MouseClicked
-         if (player != null) {
+        if (player != null) {
             player.close();
             timer.stop();
         }
@@ -2938,6 +2953,16 @@ public class Home extends javax.swing.JDialog {
         mai.setVisible(true);
     }//GEN-LAST:event_lblIIcon_AddPlaylistMouseClicked
 
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        if (player != null) {
+            player.close();
+            timer.stop();
+        }
+        chinhSuaThongTinCaNhan mai = new chinhSuaThongTinCaNhan(null, forgot);
+        this.setVisible(false);
+        mai.setVisible(true);
+    }//GEN-LAST:event_jLabel4MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -3028,6 +3053,7 @@ public class Home extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;

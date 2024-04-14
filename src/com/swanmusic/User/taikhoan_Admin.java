@@ -1,4 +1,3 @@
-
 package com.swanmusic.User;
 
 import com.swanmusic.ui.*;
@@ -22,17 +21,18 @@ import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 public class taikhoan_Admin extends javax.swing.JDialog {
-    
+
     CardLayout cardLayout;
     Boolean forgot = false;
+
     public void navigatePages() {
 
-    cardLayout = (CardLayout) (QL.getLayout());
+        cardLayout = (CardLayout) (QL.getLayout());
         // thay đổi kích thước của app
         ComponentResizer resizer = new ComponentResizer();
         resizer.registerComponent(this);
     }
-     
+
     public taikhoan_Admin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -40,116 +40,118 @@ public class taikhoan_Admin extends javax.swing.JDialog {
         load_data();
         navigatePages();
     }
-         ArrayList<Account> list = new ArrayList();
-         Account acc;
-         int index = 0;
-         int row = -1;
-         boolean isEdit = false;
-         AccountDAO dao = new AccountDAO();
-          public void load_data(){
-         list.clear();
-         try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select * from TAIKHOAN");
-             ResultSet rs = ps.executeQuery();
-              while (rs.next()) {
+    ArrayList<Account> list = new ArrayList();
+    Account acc;
+    int index = 0;
+    int row = -1;
+    boolean isEdit = false;
+    AccountDAO dao = new AccountDAO();
+
+    public void load_data() {
+        list.clear();
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select * from TAIKHOAN");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
                 Account acc = new Account();
                 acc.setTENTK(rs.getString("TENTAIKHOAN"));
-                boolean IsRole = rs.getBoolean("VAITRO"); 
+                boolean IsRole = rs.getBoolean("VAITRO");
                 acc.setVaiTro(IsRole);
                 acc.setEmail(rs.getString("EMAIL"));
                 acc.setSODIENTHOAI(rs.getString("SODIENTHOAI"));
-           
+
                 list.add(acc);
             }
             DefaultTableModel model = (DefaultTableModel) tblGridView.getModel();
             model.setRowCount(0);
             for (Account acc : list) {
-                   String role = acc.isVaiTro()? "User" : "Admin";
-                Object[] row = new Object[]{acc.getTENTK(),acc.isVaiTro()?"User":"Admin",acc.getEmail(),acc.getSODIENTHOAI()};
+                String role = acc.isVaiTro() ? "User" : "Admin";
+                Object[] row = new Object[]{acc.getTENTK(), acc.isVaiTro() ? "User" : "Admin", acc.getEmail(), acc.getSODIENTHOAI()};
                 model.addRow(row);
             }
             rs.close();
             ps.close();
             con.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-} 
-            public void showdetail(){
-         if(index >=0){
-             Account mu = list.get(index);
-             txtName.setText(mu.getTENTK());
-             txtEMAIL.setText(mu.getEmail());
-             txtNumberPhone.setText(mu.getSODIENTHOAI());
-             if (mu.isVaiTro()) {
-                 rdoUser.setSelected(true);
-             }else{
-                    rdoAdmin.setSelected(true);
-             }
-         }
-     }
-       
-       void init()
-       {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showdetail() {
+        if (index >= 0) {
+            Account mu = list.get(index);
+            txtName.setText(mu.getTENTK());
+            txtEMAIL.setText(mu.getEmail());
+            txtNumberPhone.setText(mu.getSODIENTHOAI());
+            if (mu.isVaiTro()) {
+                rdoUser.setSelected(true);
+            } else {
+                rdoAdmin.setSelected(true);
+            }
+        }
+    }
+
+    void init() {
         this.setSize(1260, 682);
         this.setLocationRelativeTo(null);
-     
-    }
-        
-    void openTaiKhoan(){
-        this.setVisible(false);
-        new taikhoan_Admin(null,true).setVisible(true);       
-    }
-    void openNgheSi(){
-        
-        this.setVisible(false);
-        new Nghesi_Admin(null,true).setVisible(true);
-    }
-    void openNhac(){
-        
-        this.setVisible(false);
-        new nhac_Admin(null,true).setVisible(true);
-    }
-    void openAlbum(){
-        this.setVisible(false);
-        new Album_Admin(null,true).setVisible(true);
-        
-    }
-    
 
-        public static boolean isEmailValid(String email) {
+    }
+
+    void openTaiKhoan() {
+        this.setVisible(false);
+        new taikhoan_Admin(null, true).setVisible(true);
+    }
+
+    void openNgheSi() {
+
+        this.setVisible(false);
+        new Nghesi_Admin(null, true).setVisible(true);
+    }
+
+    void openNhac() {
+
+        this.setVisible(false);
+        new nhac_Admin(null, true).setVisible(true);
+    }
+
+    void openAlbum() {
+        this.setVisible(false);
+        new Album_Admin(null, true).setVisible(true);
+
+    }
+
+    public static boolean isEmailValid(String email) {
         String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
-}
-        
-        public static boolean isPhoneValid(String phone) {
+    }
+
+    public static boolean isPhoneValid(String phone) {
         String regex = "^(\\+84|0)(\\d{1,3})([\\.\\-\\s])?(\\d{3})([\\.\\-\\s])?(\\d{3})$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(phone);
         return matcher.matches();
-}
-        
-        public static boolean isNameValid(String name) {
+    }
+
+    public static boolean isNameValid(String name) {
         String regex = "^[a-zA-Z0-9-_.]+$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(name);
         return matcher.matches();
-}
+    }
 
-        
-     public boolean validate_data() {
+    public boolean validate_data() {
         if (txtName.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Tên tài khoản không được để trống");
             txtName.setBackground(Color.yellow);
             txtName.requestFocus();
-            return false; 
+            return false;
         }
-        
+
         String name = txtName.getText();
         if (!isNameValid(name)) {
             JOptionPane.showMessageDialog(this, "Tên tài khoản không được viết có dấu");
@@ -157,28 +159,27 @@ public class taikhoan_Admin extends javax.swing.JDialog {
             txtName.requestFocus();
             return false;
         }
-        
+
         if (txtEMAIL.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Email không được để trống");
             txtEMAIL.setBackground(Color.yellow);
             txtEMAIL.requestFocus();
             return false;
         }
-        
-         String email = txtEMAIL.getText();
+
+        String email = txtEMAIL.getText();
         if (!isEmailValid(email)) {
             JOptionPane.showMessageDialog(this, "Email phải đúng chính quy (VD: example@gmail.com)");
             txtEMAIL.setBackground(Color.yellow);
             txtEMAIL.requestFocus();
             return false;
-            }
+        }
         if (txtNumberPhone.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Số điện thoại không được để trống");
             txtNumberPhone.setBackground(Color.yellow);
-            txtNumberPhone.requestFocus();   
+            txtNumberPhone.requestFocus();
             return false;
         }
-        
 
         try {
             int phonenumber = Integer.parseInt(txtNumberPhone.getText());
@@ -186,7 +187,7 @@ public class taikhoan_Admin extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Số điện thoại phải là số");
             txtNumberPhone.setBackground(Color.yellow);
             txtNumberPhone.requestFocus();
-            return false;          
+            return false;
         }
         String phone = txtNumberPhone.getText();
         if (!isPhoneValid(phone)) {
@@ -194,19 +195,20 @@ public class taikhoan_Admin extends javax.swing.JDialog {
             txtNumberPhone.setBackground(Color.yellow);
             txtNumberPhone.requestFocus();
             return false;
-            }
+        }
         if (phone.length() != 10 && phone.length() != 11) {
-            JOptionPane.showMessageDialog(this,"Số điện thoại phải 10 hoặc 11 số");
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 hoặc 11 số");
             txtNumberPhone.setBackground(Color.yellow);
             txtNumberPhone.requestFocus();
             return false;
         }
-         return true; 
+        return true;
     }
 
     public void changeColor(JPanel hover, Color rand) {
         hover.setBackground(rand);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -952,11 +954,11 @@ public class taikhoan_Admin extends javax.swing.JDialog {
     private void btnMaximizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseClicked
         // TODO add your handling code here:
         //        if(this.getExtendedState()!= Home.MAXIMIZED_BOTH){
-            //            this.setExtendedState(Home.MAXIMIZED_BOTH);
-            //        }
+        //            this.setExtendedState(Home.MAXIMIZED_BOTH);
+        //        }
         //        else{
-            //            this.setExtendedState(Home.NORMAL);
-            //        }
+        //            this.setExtendedState(Home.NORMAL);
+        //        }
     }//GEN-LAST:event_btnMaximizeMouseClicked
 
     private void btnMaximizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseEntered
@@ -986,17 +988,17 @@ public class taikhoan_Admin extends javax.swing.JDialog {
 
     private void lblIcon_taiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_taiKhoanMouseClicked
         this.openTaiKhoan();
-      
+
     }//GEN-LAST:event_lblIcon_taiKhoanMouseClicked
 
     private void lbl_taiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_taiKhoanMouseClicked
-    this.openTaiKhoan();
-      
+        this.openTaiKhoan();
+
     }//GEN-LAST:event_lbl_taiKhoanMouseClicked
 
     private void lbl_nhacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_nhacMouseClicked
         this.openNhac();
-      
+
     }//GEN-LAST:event_lbl_nhacMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -1032,7 +1034,7 @@ public class taikhoan_Admin extends javax.swing.JDialog {
             String url = "jdbc:sqlserver://localhost:1433;DatabaseName=SWAN;encrypt=false";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con = DriverManager.getConnection(url, "sa", "");
-            if(validate_data()){
+            if (validate_data()) {
                 PreparedStatement ps = con.prepareCall("update TAIKHOAN set VAITRO = ?, EMAIL = ?, SODIENTHOAI = ? where TENTAIKHOAN = ?");
                 boolean isFemale = rdoUser.isSelected();
                 ps.setBoolean(1, isFemale);

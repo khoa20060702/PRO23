@@ -39,10 +39,9 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import org.apache.commons.lang3.StringUtils;
 
-
 public class chitietAlbum extends javax.swing.JDialog {
 
-     public String data1;
+    public String data1;
     public ImageIcon data2;
     public String data3;
     boolean forgot = false;
@@ -52,7 +51,7 @@ public class chitietAlbum extends javax.swing.JDialog {
     public List<String> listAlbumCate = new ArrayList<>();
     public List<String> listAlbumDate = new ArrayList<>();
     public List<String> listAlbumPic = new ArrayList<>();
-    
+
     public List<String> listSongName = new ArrayList<>();
     public List<String> listSongCate = new ArrayList<>();
     public List<String> listSongAlb = new ArrayList<>();
@@ -61,7 +60,7 @@ public class chitietAlbum extends javax.swing.JDialog {
     public List<String> listSongViews = new ArrayList<>();
     public List<String> listSongLyr = new ArrayList<>();
     public List<String> listSongPic = new ArrayList<>();
-    
+
     public List<String> listSongNamePl = new ArrayList<>();
     public ImageIcon[] icons = new ImageIcon[100];
 
@@ -96,15 +95,16 @@ public class chitietAlbum extends javax.swing.JDialog {
     /**
      * Creates new form NewJFrame
      */
-    ArrayList<Nhac> list = new ArrayList();    
+    ArrayList<Nhac> list = new ArrayList();
 
     public void pauseSong() throws IOException, InterruptedException {
         pause = fi.available();
         player.close();
     }
+
     public void resume() throws IOException, JavaLayerException {
         try {
-        fi.skip(totalTime - pause);
+            fi.skip(totalTime - pause);
 
         } catch (Exception e) {
         }
@@ -115,28 +115,28 @@ public class chitietAlbum extends javax.swing.JDialog {
     private Runnable play = new Runnable() {
         @Override
         public void run() {
-            f = new File(songdir+StringUtils.deleteWhitespace(cursong)+".mp3");
+            f = new File(songdir + StringUtils.deleteWhitespace(cursong) + ".mp3");
             try {
                 fi = new FileInputStream(f);
                 bi = new BufferedInputStream(fi);
                 player = new Player(bi);
                 totalTime = fi.available();
-    timer = new Timer(1000, new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (player != null && !player.isComplete()) {
-            long current = 0;
-            try {
-                current =  totalTime - fi.available();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            int percent = (int) (((double) current / (double) totalTime) * 100);
-            slider2.setValue(percent);
-        }
-    }
-});
-    timer.start();  
+                timer = new Timer(1000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (player != null && !player.isComplete()) {
+                            long current = 0;
+                            try {
+                                current = totalTime - fi.available();
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                            int percent = (int) (((double) current / (double) totalTime) * 100);
+                            slider2.setValue(percent);
+                        }
+                    }
+                });
+                timer.start();
 
                 if (pause <= -1) {
                     player.play();
@@ -150,44 +150,46 @@ public class chitietAlbum extends javax.swing.JDialog {
             }
         }
     };
-public void loopSong() {
-    // Create a new thread to play the song in a loop
-    Thread loopThread = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            try {
-                // Loop as long as the player is not closed
-                while (player != null && loop) {
-                    // If the song has finished playing, start it again
-                    if (player.isComplete()) {
-                        player.close();
-                        playSong();
+
+    public void loopSong() {
+        // Create a new thread to play the song in a loop
+        Thread loopThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Loop as long as the player is not closed
+                    while (player != null && loop) {
+                        // If the song has finished playing, start it again
+                        if (player.isComplete()) {
+                            player.close();
+                            playSong();
+                        }
+                        // Sleep for a short duration to reduce CPU usage
+                        Thread.sleep(100);
                     }
-                    // Sleep for a short duration to reduce CPU usage
-                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                } catch (JavaLayerException ex) {
+                    Logger.getLogger(pro23.NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(pro23.NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            } catch (JavaLayerException ex) {
-                Logger.getLogger(pro23.NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(pro23.NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-    });
-    // Start the loop thread
-    loopThread.start();
-} 
-public void playSong() throws FileNotFoundException, JavaLayerException, IOException {
-    fi = new FileInputStream(f);
-    bi = new BufferedInputStream(fi);
-    player = new Player(bi);
-    totalTime = fi.available();
-    player.play();
-}    
+        });
+        // Start the loop thread
+        loopThread.start();
+    }
+
+    public void playSong() throws FileNotFoundException, JavaLayerException, IOException {
+        fi = new FileInputStream(f);
+        bi = new BufferedInputStream(fi);
+        player = new Player(bi);
+        totalTime = fi.available();
+        player.play();
+    }
 
 // ĐOẠN NÀY LỖI
-    public chitietAlbum(java.awt.Frame parent, boolean modal , String data1 , ImageIcon data2 , String data3) {
+    public chitietAlbum(java.awt.Frame parent, boolean modal, String data1, ImageIcon data2, String data3) {
         super(parent, modal);
         initComponents();
         init();
@@ -200,13 +202,10 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         Image image = data2.getImage();
         ImageIcon newscale = new ImageIcon(image.getScaledInstance(Albumimglbl.getWidth(), Albumimglbl.getHeight(), image.SCALE_SMOOTH));
         Albumimglbl.setIcon(newscale);
-        if(data3 != "playlist")
-        {
-        getSongs();    
-        }
-        else
-        {
-        getSongsPl();    
+        if (data3 != "playlist") {
+            getSongs();
+        } else {
+            getSongsPl();
         }
         if (listAlbumName.size() > 0) {
             Album1.setText(listAlbumName.get(0));
@@ -233,142 +232,122 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         } else {
             Album5.setVisible(false);
         }
-        
-if(data3 != "playlist")
-{
-if(listSongName.size() > 0) {
-    lblName7.setText(listSongName.get(0));
-    lblUser15.setText(listSongDura.get(0));
-}
-else
-{
-    lblName7.setVisible(false);
-    lblUser7.setVisible(false);
-    lblNumber7.setVisible(false);
-    lblUser15.setVisible(false);
-}
-if(listSongName.size() > 1) {
-    lblName8.setText(listSongName.get(1));
-    lblUser16.setText(listSongDura.get(1));
-}
-else
-{
-    lblName8.setVisible(false);
-    lblUser8.setVisible(false);
-    lblNumber8.setVisible(false);
-    lblUser16.setVisible(false);
-}
-if(listSongName.size() > 2) {
-    lblName9.setText(listSongName.get(2));
-    lblUser17.setText(listSongDura.get(2));
-}
-else
-{
-    lblName9.setVisible(false);
-    lblUser9.setVisible(false);
-    lblNumber9.setVisible(false);
-    lblUser17.setVisible(false);
-}
-if(listSongName.size() > 3) {
-    lblName10.setText(listSongName.get(3));
-    lblUser18.setText(listSongDura.get(3));
-} 
-else
-{
-    lblName10.setVisible(false);
-    lblUser10.setVisible(false);
-    lblNumber10.setVisible(false);
-    lblUser18.setVisible(false);
-}
-}
-else
-{
-if(listSongName.size() > 0) {
-    lblName7.setText(listSongName.get(0));
-    lblUser15.setText(listSongDura.get(0));
-    lblUser7.setText(listSongViews.get(0));
-}
-else
-{
-    lblName7.setVisible(false);
-    lblUser7.setVisible(false);
-    lblNumber7.setVisible(false);
-    lblUser15.setVisible(false);
-}
-if(listSongName.size() > 1) {
-    lblName8.setText(listSongName.get(1));
-    lblUser16.setText(listSongDura.get(1));
-    lblUser8.setText(listSongViews.get(1));
-}
-else
-{
-    lblName8.setVisible(false);
-    lblUser8.setVisible(false);
-    lblNumber8.setVisible(false);
-    lblUser16.setVisible(false);
-}
-if(listSongName.size() > 2) {
-    lblName9.setText(listSongName.get(2));
-    lblUser17.setText(listSongDura.get(2));
-    lblUser9.setText(listSongViews.get(2));
-}
-else
-{
-    lblName9.setVisible(false);
-    lblUser9.setVisible(false);
-    lblNumber9.setVisible(false);
-    lblUser17.setVisible(false);
-}
-if(listSongName.size() > 3) {
-    lblName10.setText(listSongName.get(3));
-    lblUser18.setText(listSongDura.get(3));
-    lblUser10.setText(listSongViews.get(3));
-} 
-else
-{
-    lblName10.setVisible(false);
-    lblUser10.setVisible(false);
-    lblNumber10.setVisible(false);
-    lblUser18.setVisible(false);
-}    
-}
+
+        if (data3 != "playlist") {
+            if (listSongName.size() > 0) {
+                lblName7.setText(listSongName.get(0));
+                lblUser15.setText(listSongDura.get(0));
+            } else {
+                lblName7.setVisible(false);
+                lblUser7.setVisible(false);
+                lblNumber7.setVisible(false);
+                lblUser15.setVisible(false);
+            }
+            if (listSongName.size() > 1) {
+                lblName8.setText(listSongName.get(1));
+                lblUser16.setText(listSongDura.get(1));
+            } else {
+                lblName8.setVisible(false);
+                lblUser8.setVisible(false);
+                lblNumber8.setVisible(false);
+                lblUser16.setVisible(false);
+            }
+            if (listSongName.size() > 2) {
+                lblName9.setText(listSongName.get(2));
+                lblUser17.setText(listSongDura.get(2));
+            } else {
+                lblName9.setVisible(false);
+                lblUser9.setVisible(false);
+                lblNumber9.setVisible(false);
+                lblUser17.setVisible(false);
+            }
+            if (listSongName.size() > 3) {
+                lblName10.setText(listSongName.get(3));
+                lblUser18.setText(listSongDura.get(3));
+            } else {
+                lblName10.setVisible(false);
+                lblUser10.setVisible(false);
+                lblNumber10.setVisible(false);
+                lblUser18.setVisible(false);
+            }
+        } else {
+            if (listSongName.size() > 0) {
+                lblName7.setText(listSongName.get(0));
+                lblUser15.setText(listSongDura.get(0));
+                lblUser7.setText(listSongViews.get(0));
+            } else {
+                lblName7.setVisible(false);
+                lblUser7.setVisible(false);
+                lblNumber7.setVisible(false);
+                lblUser15.setVisible(false);
+            }
+            if (listSongName.size() > 1) {
+                lblName8.setText(listSongName.get(1));
+                lblUser16.setText(listSongDura.get(1));
+                lblUser8.setText(listSongViews.get(1));
+            } else {
+                lblName8.setVisible(false);
+                lblUser8.setVisible(false);
+                lblNumber8.setVisible(false);
+                lblUser16.setVisible(false);
+            }
+            if (listSongName.size() > 2) {
+                lblName9.setText(listSongName.get(2));
+                lblUser17.setText(listSongDura.get(2));
+                lblUser9.setText(listSongViews.get(2));
+            } else {
+                lblName9.setVisible(false);
+                lblUser9.setVisible(false);
+                lblNumber9.setVisible(false);
+                lblUser17.setVisible(false);
+            }
+            if (listSongName.size() > 3) {
+                lblName10.setText(listSongName.get(3));
+                lblUser18.setText(listSongDura.get(3));
+                lblUser10.setText(listSongViews.get(3));
+            } else {
+                lblName10.setVisible(false);
+                lblUser10.setVisible(false);
+                lblNumber10.setVisible(false);
+                lblUser18.setVisible(false);
+            }
+        }
     }
 
     void init() {
         this.setSize(1260, 682);
         this.setLocationRelativeTo(null);
- 
+
     }
-        public void getPlaylist()
-    {
+
+    public void getPlaylist() {
         int i = 0;
-              try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select TENPLAYLIST from User_PlayList group by TENPLAYLIST");
-             ResultSet rs = ps.executeQuery();
-             while(rs.next())
-             {
-             listPlaylistName.add(rs.getString("TENPLAYLIST"));                
-             }
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select TENPLAYLIST from User_PlayList group by TENPLAYLIST");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listPlaylistName.add(rs.getString("TENPLAYLIST"));
+            }
             rs.close();
             ps.close();
             con.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-        public void getAlbum()
-    {
+
+    public void getAlbum() {
         int i = 0;
-              try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select * from ALBUM");
-             ResultSet rs = ps.executeQuery();
-              while (rs.next()) {
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select * from ALBUM");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
                 com.swanmusic.entity.Album al = new com.swanmusic.entity.Album();
                 al.setAlbumName(rs.getString("TENALBUM"));
                 listAlbumName.add(rs.getString("TENALBUM"));
@@ -380,67 +359,64 @@ else
                 listAlbumArtist.add(rs.getString("TG_PHATHANH"));
                 al.setAlbumImage(rs.getString("ANH"));
                 listAlbumPic.add(rs.getString("ANH"));
-                  i++;
+                i++;
             }
             rs.close();
             ps.close();
             con.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    public void getSongsPl()
-    {
+
+    public void getSongsPl() {
         int i = 0;
         try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select TENNHAC from USER_PLAYLIST where TENPLAYLIST like ? group by TENNHAC");
-             ps.setString(1, data1);
-             ResultSet rs = ps.executeQuery();
-             while(rs.next())
-             {
-                 listSongNamePl.add(rs.getString("TENNHAC"));
-             }
-             while(listSongNamePl.size() >= i)
-             {
-             url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             con = DriverManager.getConnection(url,"sa","");
-             ps = con.prepareCall("select * from NHAC where TENNHAC like ?");
-             ps.setString(1, listSongNamePl.get(i));
-             rs = ps.executeQuery();
-             while(rs.next())
-             {
-                listSongName.add(rs.getString("TENNHAC"));
-                listSongArtist.add(rs.getString("NGHESI"));
-                listSongCate.add(rs.getString("THELOAI"));
-                listSongViews.add(rs.getString("LUOTXEM"));
-                listSongDura.add(rs.getString("THOILUONG"));
-                listSongPic.add(rs.getString("ANH"));
-                icons[i] = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(i));
-                Image image = icons[i].getImage();
-                icons[i] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-                 System.out.println(listSongName.get(i));
-             }
-             i++;
-             }
-             
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select TENNHAC from USER_PLAYLIST where TENPLAYLIST like ? group by TENNHAC");
+            ps.setString(1, data1);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listSongNamePl.add(rs.getString("TENNHAC"));
+            }
+            while (listSongNamePl.size() >= i) {
+                url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                con = DriverManager.getConnection(url, "sa", "");
+                ps = con.prepareCall("select * from NHAC where TENNHAC like ?");
+                ps.setString(1, listSongNamePl.get(i));
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    listSongName.add(rs.getString("TENNHAC"));
+                    listSongArtist.add(rs.getString("NGHESI"));
+                    listSongCate.add(rs.getString("THELOAI"));
+                    listSongViews.add(rs.getString("LUOTXEM"));
+                    listSongDura.add(rs.getString("THOILUONG"));
+                    listSongPic.add(rs.getString("ANH"));
+                    icons[i] = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(i));
+                    Image image = icons[i].getImage();
+                    icons[i] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
+                    System.out.println(listSongName.get(i));
+                }
+                i++;
+            }
+
         } catch (Exception e) {
         }
     }
-    public void getSongs()
-    {
+
+    public void getSongs() {
         int i = 0;
-              try {
-             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-             Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select * from NHAC where ALBUM like ?");
-             ps.setString(1,data1);
-             ResultSet rs = ps.executeQuery();
-              while (rs.next()) {
+        try {
+            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(url, "sa", "");
+            PreparedStatement ps = con.prepareCall("select * from NHAC where ALBUM like ?");
+            ps.setString(1, data1);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
                 Nhac al = new Nhac();
                 al.setName(rs.getString("TENNHAC"));
                 listSongName.add(rs.getString("TENNHAC"));
@@ -455,20 +431,21 @@ else
                 icons[i] = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(i));
                 Image image = icons[i].getImage();
                 icons[i] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
-                  System.out.println(listSongName.get(i));
-                  i++;
+                System.out.println(listSongName.get(i));
+                i++;
             }
             rs.close();
             ps.close();
             con.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }   
-    } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-     public void changeColor(JPanel hover, Color rand) {
+    public void changeColor(JPanel hover, Color rand) {
         hover.setBackground(rand);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1493,16 +1470,13 @@ else
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
-        if(!running)
-        {
+        if (!running) {
             jLabel5.setIcon(new ImageIcon("src\\com.swanmusic.icon\\play-white.png"));
             running = true;
             paused = false;
             Thread runningSong = new Thread(play);
             runningSong.start();
-        }
-        else if(running)
-        {
+        } else if (running) {
             jLabel5.setIcon(new ImageIcon("src\\com.swanmusic.icon\\pause-white.png"));
             running = false;
             paused = true;
@@ -1510,25 +1484,21 @@ else
                 pauseSong();
             } catch (Exception e) {
             }
-        }
-        else if(paused){
+        } else if (paused) {
             try {
                 resume();
             } catch (Exception e) {
             }
         }
-        System.out.println("run"+running);
-        System.out.println("pause"+paused);
+        System.out.println("run" + running);
+        System.out.println("pause" + paused);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
         // TODO add your handling code here:
-        if(!loop)
-        {
+        if (!loop) {
             loop = true;
-        }
-        else
-        {
+        } else {
             loop = false;
         }
         loopSong();
@@ -1537,7 +1507,7 @@ else
     private void slider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slider2StateChanged
         // TODO add your handling code here:
         buffer = slider2.getValue();
-        System.out.println(buffer/100);
+        System.out.println(buffer / 100);
     }//GEN-LAST:event_slider2StateChanged
 
     private void slider2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_slider2MouseReleased
@@ -1562,7 +1532,7 @@ else
     private void slider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slider1StateChanged
         // TODO add your handling code here:
         String value = String.valueOf(slider1.getValue());
-        volumeControl(Double.parseDouble(value)/100);
+        volumeControl(Double.parseDouble(value) / 100);
     }//GEN-LAST:event_slider1StateChanged
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
@@ -1583,11 +1553,11 @@ else
     private void btnMaximizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseClicked
         // TODO add your handling code here:
         //        if(this.getExtendedState()!= Home.MAXIMIZED_BOTH){
-            //            this.setExtendedState(Home.MAXIMIZED_BOTH);
-            //        }
+        //            this.setExtendedState(Home.MAXIMIZED_BOTH);
+        //        }
         //        else{
-            //            this.setExtendedState(Home.NORMAL);
-            //        }
+        //            this.setExtendedState(Home.NORMAL);
+        //        }
     }//GEN-LAST:event_btnMaximizeMouseClicked
 
     private void btnMaximizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseEntered
@@ -1649,7 +1619,7 @@ else
         String data1 = listAlbumName.get(0);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
         String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album1MouseClicked
@@ -1657,8 +1627,8 @@ else
     private void Album2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album2MouseClicked
         String data1 = listAlbumName.get(1);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(1));
-                String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        String data3 = "";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album2MouseClicked
@@ -1666,8 +1636,8 @@ else
     private void Album3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album3MouseClicked
         String data1 = listAlbumName.get(2);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(2));
-                String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        String data3 = "";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album3MouseClicked
@@ -1675,8 +1645,8 @@ else
     private void Album4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album4MouseClicked
         String data1 = listAlbumName.get(3);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
-                String data3 = "";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        String data3 = "";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album4MouseClicked
@@ -1684,8 +1654,8 @@ else
     private void Album5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album5MouseClicked
         String data1 = listPlaylistName.get(0);
         ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
-                String data3 = "playlist";
-        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2 , data3);
+        String data3 = "playlist";
+        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2, data3);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Album5MouseClicked
@@ -1693,15 +1663,14 @@ else
     private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
         // TODO add your handling code here:
         String data1 = AlbumNamelbl.getText();
-        Playlist_Create pc = new Playlist_Create(null , forgot , data1);
+        Playlist_Create pc = new Playlist_Create(null, forgot, data1);
         this.setVisible(false);
         pc.setVisible(true);
     }//GEN-LAST:event_jLabel19MouseClicked
 
     private void lblName7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblName7MouseClicked
         // TODO add your handling code here:
-        if(running)
-        {
+        if (running) {
             player.close();
             running = false;
             paused = false;
@@ -1712,9 +1681,7 @@ else
             icons[0] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
             Songimglbl.setIcon(icons[0]);
             TotalTimelbl.setText(listSongDura.get(0));
-        }
-        else
-        {
+        } else {
             cursong = listSongName.get(0);
             SongNamelbl.setText(listSongName.get(0));
             Artistlbl.setText(listSongArtist.get(0));
@@ -1727,8 +1694,7 @@ else
 
     private void lblName8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblName8MouseClicked
         // TODO add your handling code here:
-        if(running)
-        {
+        if (running) {
             player.close();
             running = false;
             paused = false;
@@ -1739,9 +1705,7 @@ else
             icons[1] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
             Songimglbl.setIcon(icons[1]);
             TotalTimelbl.setText(listSongDura.get(1));
-        }
-        else
-        {
+        } else {
             cursong = listSongName.get(1);
             SongNamelbl.setText(listSongName.get(1));
             Artistlbl.setText(listSongArtist.get(1));
@@ -1754,8 +1718,7 @@ else
 
     private void lblName9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblName9MouseClicked
         // TODO add your handling code here:
-        if(running)
-        {
+        if (running) {
             player.close();
             running = false;
             paused = false;
@@ -1766,9 +1729,7 @@ else
             icons[2] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
             Songimglbl.setIcon(icons[2]);
             TotalTimelbl.setText(listSongDura.get(2));
-        }
-        else
-        {
+        } else {
             cursong = listSongName.get(2);
             SongNamelbl.setText(listSongName.get(2));
             Artistlbl.setText(listSongArtist.get(2));
@@ -1781,8 +1742,7 @@ else
 
     private void lblName10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblName10MouseClicked
         // TODO add your handling code here:
-        if(running)
-        {
+        if (running) {
             player.close();
             running = false;
             paused = false;
@@ -1793,9 +1753,7 @@ else
             icons[3] = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
             Songimglbl.setIcon(icons[3]);
             TotalTimelbl.setText(listSongDura.get(3));
-        }
-        else
-        {
+        } else {
             cursong = listSongName.get(3);
             SongNamelbl.setText(listSongName.get(3));
             Artistlbl.setText(listSongArtist.get(3));
