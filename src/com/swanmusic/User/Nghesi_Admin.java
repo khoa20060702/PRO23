@@ -1,170 +1,149 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package com.swanmusic.User;
 
 import com.swanmusic.ui.*;
-import com.swanmusic.User.*;
-import com.swanmusic.entity.Album;
+import com.swanmusic.entity.Nghesi;
 import com.swanmusic.swing.ComponentResizer;
-import com.swanmusic.swing.ScrollBar;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
+import javax.swing.table.DefaultTableModel;
 
-public class Album_Admin extends javax.swing.JDialog {
+public class Nghesi_Admin extends javax.swing.JDialog {
     Boolean forgot = false;
-    /**
-     * Creates new form Album_Admin
-     */
-    public Album_Admin(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        init();
-        load_data();
-        navigatePages();
-    }
+    ArrayList<Nghesi> list = new ArrayList();
+    int index = 0;
+    String imageName = null;
     CardLayout cardLayout;
-
+    
     public void navigatePages() {
 
-        cardLayout = (CardLayout) (QL.getLayout());
+    cardLayout = (CardLayout) (QL2.getLayout());
         // thay đổi kích thước của app
         ComponentResizer resizer = new ComponentResizer();
         resizer.registerComponent(this);
     }
+     
+    public void upImage(String imageName) {
+        ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
+        Image image = icon.getImage();
+        ImageIcon icon1 = new ImageIcon(image.getScaledInstance(lblhinh.getWidth(), lblhinh.getHeight(), image.SCALE_SMOOTH));
+        lblhinh.setIcon(icon1);
+    }
+    
+    public Nghesi_Admin(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        init();
+        navigatePages();
 
-//    public void customSplitpaneUI() {
-//        // Thiết lập màu trong suốt cho JSplitPane và các phần con của nó
-//        jSplitPane1.setUI(new BasicSplitPaneUI() {
-//            @Override
-//            public void installDefaults() {
-//                super.installDefaults();   
-//                splitPane.setOpaque(false);          
-//            }
-//        });
-//    }
-//    
-//    public Album_frmAdmin(java.awt.Frame parent, boolean modal) {
-//        super(parent, modal);
-//        initComponents();
-//        init();
-//        load_data();
-//        navigatePages();
-//        customSplitpaneUI();
-//    }
-    void init() {
+    }
+    
+    public void init(){
         this.setSize(1260, 682);
         this.setLocationRelativeTo(null);
         load_data();
     }
-    ArrayList<Album> list = new ArrayList();
-    String imageName = null;
-    int index = 0;
-
-    public void upImage(String imageName) {
-        ImageIcon icon = new ImageIcon("src\\com\\swanmusic\\img\\" + imageName);
-        Image image = icon.getImage();
-        ImageIcon icon1 = new ImageIcon(image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), image.SCALE_SMOOTH));
-        lblImage.setIcon(icon1);
-    }
-
-    public void load_data() {
-        list.clear();
-        try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            PreparedStatement ps = con.prepareCall("select * from ALBUM");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Album mu = new Album();
-                mu.setAlbumName(rs.getString("TENALBUM"));
-                mu.setAlbumArtist(rs.getString("NGHESI"));
-                mu.setAlbumCategory(rs.getString("THELOAI"));
-                mu.setAlbumReleaseTime(rs.getString("TG_PHATHANH"));
-                mu.setAlbumImage(rs.getString("ANH"));
-                list.add(mu);
+    
+    
+    public void load_data(){
+         list.clear();
+         try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             PreparedStatement ps = con.prepareCall("select * from NGHESI");
+             ResultSet rs = ps.executeQuery();
+              while (rs.next()) {
+                Nghesi si = new Nghesi();
+                si.setName(rs.getString("TENNGHESI"));
+                si.setSl_album(Integer.parseInt(rs.getString("SL_ALBUM")));
+                si.setSl_dsnhac(Integer.parseInt(rs.getString("SL_DSNHAC")));
+                si.setAnh(rs.getString("ANH")); 
+                list.add(si);
             }
-            DefaultTableModel model = (DefaultTableModel) tblAlbum.getModel();
+            DefaultTableModel model = (DefaultTableModel) tblNghesi.getModel();
             model.setRowCount(0);
-            for (Album mu : list) {
-                Object[] row = new Object[]{mu.getAlbumName(), mu.getAlbumArtist(), mu.getAlbumCategory(), mu.getAlbumReleaseTime(), mu.getAlbumImage()};
+            for (Nghesi si : list) {
+                Object[] row = new Object[]{si.getName(),si.getSl_album(),si.getSl_dsnhac(),si.getAnh()};
                 model.addRow(row);
             }
             rs.close();
             ps.close();
             con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void showdetail() {
-        if (index >= 0) {
-            Album mu = list.get(index);
-            txtName.setText(mu.getAlbumName());
-            txtNghesi.setText(mu.getAlbumArtist());
-            txtTheloai.setText(mu.getAlbumCategory());
-            txtTime.setText(mu.getAlbumReleaseTime());
-            upImage(list.get(index).getAlbumImage());
-        }
-    }
-
-    public void them() {
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+}
+     
+     public void showdetail(){
+         if(index >=0){
+             Nghesi si = list.get(index);
+             txtName.setText(si.getName());
+             txtSLAlbum.setText(String.valueOf(si.getSl_album()));
+             txtSLNhac.setText(String.valueOf(si.getSl_dsnhac()));
+             upImage(list.get(index).getAnh());
+         }
+     }
+     
+     
+     public void them(){
         try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            upImage(imageName);
-            PreparedStatement ps = con.prepareCall("insert into ALBUM values(?,?,?,?,?)");
-            ps.setString(1, txtName.getText());
-            ps.setString(3, txtTheloai.getText());
-            ps.setString(4, txtTime.getText());
-            ps.setString(5, imageName);
-            ps.setString(2, txtNghesi.getText());
-            int kq = ps.executeUpdate();
-            if (kq == 1) {
-                JOptionPane.showMessageDialog(this, "Lưu thành công");
-            } else {
-                JOptionPane.showMessageDialog(this, "Lưu không thành công");
-            }
-            ps.close();
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             if(validate_data()){
+             upImage(imageName);
+             PreparedStatement ps = con.prepareCall("insert into NGHESI values(?,?,?,?)");
+             ps.setString(1, txtName.getText());
+             ps.setString(2,txtSLAlbum.getText());
+             ps.setString(3, txtSLNhac.getText());
+             ps.setString(4, imageName);
+             int kq = ps.executeUpdate();
+             if(kq == 1){
+                 JOptionPane.showMessageDialog( this,"Lưu thành công");
+             }
+             else{
+                 JOptionPane.showMessageDialog(this, "Lưu không thành công");
+             }
+             ps.close();
             con.close();
             load_data();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void xoa() {
-        try {
+             }
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+     }
+     
+     public void xoa(){
+              try {
             //1. url
             String url = "jdbc:sqlserver://localhost:1433;databaseName = SWAN;encrypt=true;trustServerCertificate=true";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            PreparedStatement ps = con.prepareStatement("delete from ALBUM where TENALBUM = ?");
+            Connection con = DriverManager.getConnection(url,"sa","");
+            PreparedStatement ps = con.prepareStatement("delete from NGHESI where TENNGHESI = ?");
             ps.setString(1, txtName.getText());
             int kq = ps.executeUpdate();
-            if (kq == 1) {
+            if (kq == 1)
+            {
                 JOptionPane.showMessageDialog(this, "thành công");
-                txtTime.setText(null);
-                txtNghesi.setText(null);
-                txtTheloai.setText(null);
                 txtName.setText(null);
+                txtSLAlbum.setText(null);
+                txtSLNhac.setText(null);
                 upImage(null);
-            } else {
+            }
+            else
+            {
                 JOptionPane.showMessageDialog(this, "thất bại.");
             }
             ps.close();
@@ -172,76 +151,79 @@ public class Album_Admin extends javax.swing.JDialog {
             load_data();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void sua() {
-        try {
-            String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection(url, "sa", "");
-            upImage(imageName);
-            PreparedStatement ps = con.prepareCall("update ALBUM set NGHESI = ?, THELOAI=?, TG_PHATHANH=?, ANH=? where TENALBUM = ?");
-            ps.setString(1, txtNghesi.getText());
-            ps.setString(2, txtTheloai.getText());
-            ps.setString(3, txtTime.getText());
-            ps.setString(4, imageName);
-            ps.setString(5, txtName.getText());
-            int kq = ps.executeUpdate();
-            if (kq == 1) {
-                JOptionPane.showMessageDialog(this, "Lưu thành công");
+        }                   
+     }
+     
+     
+     public void sua(){
+                  try {
+             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
+             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             Connection con = DriverManager.getConnection(url,"sa","");
+             if(validate_data()){
+             upImage(imageName);
+             PreparedStatement ps = con.prepareCall("update NGHESI set SL_ALBUM = ?, SL_DSNHAC=?, ANH=? where TENNGHESI = ?");
+             ps.setString(1, txtSLAlbum.getText());
+             ps.setString(2,txtSLNhac.getText());
+             ps.setString(3, imageName);
+             ps.setString(4,txtName.getText());
+             int kq = ps.executeUpdate();
+             if(kq == 1){
+                 JOptionPane.showMessageDialog( this,"Lưu thành công");
                 txtName.setText(null);
-                txtNghesi.setText(null);
-                txtTheloai.setText(null);
-                txtTime.setText(null);
+                txtSLAlbum.setText(null);
+                txtSLNhac.setText(null);
                 upImage(null);
-            } else {
-                JOptionPane.showMessageDialog(this, "Lưu không thành công");
-            }
+             }
+             else{
+                 JOptionPane.showMessageDialog(this, "Lưu không thành công");
+             }
             ps.close();
             con.close();
             load_data();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void moi() {
-        txtTime.setText(null);
-        txtNghesi.setText(null);
-        txtTheloai.setText(null);
+             }
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+     }
+     
+     public void moi(){
         txtName.setText(null);
+        txtSLAlbum.setText(null);
+        txtSLNhac.setText(null);
         upImage(null);
-    }
-
-    public void First() {
+     }
+     
+     public void First(){
         index = 0;
-        tblAlbum.setRowSelectionInterval(index, index);
+        tblNghesi.setRowSelectionInterval(index, index);
         showdetail();
-    }
-
-    public void prev() {
-        if (index > 0) {
-            index--;
-            tblAlbum.setRowSelectionInterval(index, index);
+     }
+     
+     public void prev(){
+        if(index > 0)
+        {
+            index --;
+            tblNghesi.setRowSelectionInterval(index, index);
             showdetail();
         }
-    }
-
-    public void next() {
-        if (index < list.size() - 1) {
-            index++;
-            tblAlbum.setRowSelectionInterval(index, index);
+     }
+     
+     public void next(){
+           if (index < list.size()-1)
+        {
+            index ++;
+            tblNghesi.setRowSelectionInterval(index, index);
             showdetail();
         }
-    }
-
-    public void last() {
-        index = list.size() - 1;
-        tblAlbum.setRowSelectionInterval(index, index);
+     }
+     
+     public void last(){
+        index = list.size()-1;
+        tblNghesi.setRowSelectionInterval(index, index);
         showdetail();
-    }
-
+     }
+    
     void openTaiKhoan(){
         this.setVisible(false);
         new taikhoan_Admin(null,true).setVisible(true);       
@@ -260,43 +242,50 @@ public class Album_Admin extends javax.swing.JDialog {
         this.setVisible(false);
         new Album_Admin(null,true).setVisible(true);  
     }
-
+    
+    
     public boolean validate_data() {
         if (txtName.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Tên Nhạc không được để trống");
+            JOptionPane.showMessageDialog(this, "Tên nghệ sĩ không được để trống");
             txtName.setBackground(Color.yellow);
             txtName.requestFocus();
-            return false;
+            return false; 
         }
-
-        if (txtTheloai.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Thể loại không được để trống");
-            txtTheloai.setBackground(Color.yellow);
-            txtTheloai.requestFocus();
-            return false;
+        if (txtSLAlbum.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Số lượng Album không được để trống");
+            txtSLAlbum.setBackground(Color.yellow);
+            txtSLAlbum.requestFocus();
+            return false; 
         }
-
-        if (txtNghesi.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Nghệ sĩ không được để trống");
-            txtNghesi.setBackground(Color.yellow);
-            txtNghesi.requestFocus();
-            return false;
+        
+        try {
+            int slalbum = Integer.parseInt(txtSLAlbum.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Số lượng Album phải là số");
+            txtSLAlbum.setBackground(Color.yellow);
+            txtSLAlbum.requestFocus();
+            return false;  
         }
-
-        if (txtTime.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Thời lượng không được để trống");
-            txtTime.setBackground(Color.yellow);
-            txtTime.requestFocus();
-            return false;
+        
+         if (txtSLNhac.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Số lượng nhạc không được để trống");
+            txtSLNhac.setBackground(Color.yellow);
+            txtSLNhac.requestFocus();
+            return false; 
         }
-
-        return true;
+         try {
+            int slnhac = Integer.parseInt(txtSLNhac.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Số lượng Nhạc phải là số");
+            txtSLNhac.setBackground(Color.yellow);
+            txtSLNhac.requestFocus();
+            return false;     
+        }
+         return true;
     }
-
     public void changeColor(JPanel hover, Color rand) {
         hover.setBackground(rand);
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -334,34 +323,32 @@ public class Album_Admin extends javax.swing.JDialog {
         pnlVien5 = new javax.swing.JPanel();
         pnlVien6 = new javax.swing.JPanel();
         pnlVien7 = new javax.swing.JPanel();
-        panel4 = new com.swanmusic.swing.Panel();
-        QL = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        lblTheloai = new javax.swing.JLabel();
-        txtTheloai = new javax.swing.JTextField();
-        btnXoa = new javax.swing.JButton();
-        btnThem = new javax.swing.JButton();
-        btnSua = new javax.swing.JButton();
-        btnMoi = new javax.swing.JButton();
+        panel11 = new com.swanmusic.swing.Panel();
+        QL2 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        lblTime = new javax.swing.JLabel();
-        txtNghesi = new javax.swing.JTextField();
-        lblNghesi = new javax.swing.JLabel();
-        txtTime = new javax.swing.JTextField();
-        pnlHinh2 = new javax.swing.JPanel();
-        lblImage = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblAlbum = new javax.swing.JTable();
-        lblTieude = new javax.swing.JLabel();
-        btnFirst = new javax.swing.JButton();
-        btnPrev = new javax.swing.JButton();
-        btnNext = new javax.swing.JButton();
-        btnLast = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        txtSLAlbum = new javax.swing.JTextField();
+        lblTheloai = new javax.swing.JLabel();
+        lblNhac = new javax.swing.JLabel();
+        txtSLNhac = new javax.swing.JTextField();
+        btnThem = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnMoi = new javax.swing.JButton();
+        pnlHinh = new javax.swing.JPanel();
+        lblhinh = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        lblTieude2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblNghesi = new javax.swing.JTable();
+        btnFirst2 = new javax.swing.JButton();
+        btnPrev2 = new javax.swing.JButton();
+        btnNext2 = new javax.swing.JButton();
+        btnLast2 = new javax.swing.JButton();
+        jButton25 = new javax.swing.JButton();
+        jButton26 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -500,7 +487,7 @@ public class Album_Admin extends javax.swing.JDialog {
         );
         pnlVien3Layout.setVerticalGroup(
             pnlVien3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 628, Short.MAX_VALUE)
+            .addGap(0, 622, Short.MAX_VALUE)
         );
 
         menu.add(pnlVien3, java.awt.BorderLayout.LINE_START);
@@ -516,7 +503,7 @@ public class Album_Admin extends javax.swing.JDialog {
         );
         pnl_vien4Layout.setVerticalGroup(
             pnl_vien4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 628, Short.MAX_VALUE)
+            .addGap(0, 622, Short.MAX_VALUE)
         );
 
         menu.add(pnl_vien4, java.awt.BorderLayout.LINE_END);
@@ -539,7 +526,7 @@ public class Album_Admin extends javax.swing.JDialog {
             .addGroup(pnlTiltleLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(lblTitle)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         pnlTiltleLayout.setVerticalGroup(
             pnlTiltleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -758,7 +745,7 @@ public class Album_Admin extends javax.swing.JDialog {
         pnlVien5.setLayout(pnlVien5Layout);
         pnlVien5Layout.setHorizontalGroup(
             pnlVien5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1041, Short.MAX_VALUE)
+            .addGap(0, 1040, Short.MAX_VALUE)
         );
         pnlVien5Layout.setVerticalGroup(
             pnlVien5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -774,7 +761,7 @@ public class Album_Admin extends javax.swing.JDialog {
         pnlVien6.setLayout(pnlVien6Layout);
         pnlVien6Layout.setHorizontalGroup(
             pnlVien6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1041, Short.MAX_VALUE)
+            .addGap(0, 1040, Short.MAX_VALUE)
         );
         pnlVien6Layout.setVerticalGroup(
             pnlVien6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -794,43 +781,54 @@ public class Album_Admin extends javax.swing.JDialog {
         );
         pnlVien7Layout.setVerticalGroup(
             pnlVien7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 628, Short.MAX_VALUE)
+            .addGap(0, 622, Short.MAX_VALUE)
         );
 
         main.add(pnlVien7, java.awt.BorderLayout.LINE_END);
 
-        panel4.setBackground(new java.awt.Color(0, 0, 0));
-        panel4.setForeground(new java.awt.Color(255, 201, 221));
-        panel4.setOpaque(true);
+        panel11.setBackground(new java.awt.Color(0, 0, 0));
+        panel11.setForeground(new java.awt.Color(255, 201, 221));
+        panel11.setOpaque(true);
 
-        QL.setOpaque(false);
-        QL.setLayout(new java.awt.CardLayout());
+        QL2.setOpaque(false);
+        QL2.setLayout(new java.awt.CardLayout());
 
-        jPanel9.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel12.setOpaque(false);
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("QUẢN LÝ ALBUM");
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("QUẢN LÝ NGHỆ SĨ");
 
-        lblTheloai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTheloai.setForeground(new java.awt.Color(255, 255, 255));
-        lblTheloai.setText("Thể loại");
+        lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
+        lblName.setText("Tên nghệ sĩ");
 
-        txtTheloai.setBackground(new java.awt.Color(255, 145, 185));
-        txtTheloai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtTheloai.addActionListener(new java.awt.event.ActionListener() {
+        txtName.setBackground(new java.awt.Color(255, 145, 185));
+        txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTheloaiActionPerformed(evt);
+                txtNameActionPerformed(evt);
             }
         });
 
-        btnXoa.setBackground(new java.awt.Color(255, 103, 158));
-        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
-        btnXoa.setText("Xóa");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+        txtSLAlbum.setBackground(new java.awt.Color(255, 145, 185));
+        txtSLAlbum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
+                txtSLAlbumActionPerformed(evt);
+            }
+        });
+
+        lblTheloai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTheloai.setForeground(new java.awt.Color(255, 255, 255));
+        lblTheloai.setText("SL Album");
+
+        lblNhac.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNhac.setForeground(new java.awt.Color(255, 255, 255));
+        lblNhac.setText("SL Nhạc");
+
+        txtSLNhac.setBackground(new java.awt.Color(255, 145, 185));
+        txtSLNhac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSLNhacActionPerformed(evt);
             }
         });
 
@@ -841,6 +839,16 @@ public class Album_Admin extends javax.swing.JDialog {
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
+            }
+        });
+
+        btnXoa.setBackground(new java.awt.Color(255, 103, 158));
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
             }
         });
 
@@ -864,284 +872,245 @@ public class Album_Admin extends javax.swing.JDialog {
             }
         });
 
-        lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblName.setForeground(new java.awt.Color(255, 255, 255));
-        lblName.setText("Tên album");
+        pnlHinh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        txtName.setBackground(new java.awt.Color(255, 145, 185));
-        txtName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
-            }
-        });
-
-        lblTime.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTime.setForeground(new java.awt.Color(255, 255, 255));
-        lblTime.setText("Thời gian phát hành");
-
-        txtNghesi.setBackground(new java.awt.Color(255, 145, 185));
-        txtNghesi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtNghesi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNghesiActionPerformed(evt);
-            }
-        });
-
-        lblNghesi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNghesi.setForeground(new java.awt.Color(255, 255, 255));
-        lblNghesi.setText("Nghệ sĩ");
-
-        txtTime.setBackground(new java.awt.Color(255, 145, 185));
-        txtTime.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTimeActionPerformed(evt);
-            }
-        });
-
-        pnlHinh2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pnlHinh2.setPreferredSize(new java.awt.Dimension(200, 200));
-
-        lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblhinh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblImageMouseClicked(evt);
+                lblhinhMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout pnlHinh2Layout = new javax.swing.GroupLayout(pnlHinh2);
-        pnlHinh2.setLayout(pnlHinh2Layout);
-        pnlHinh2Layout.setHorizontalGroup(
-            pnlHinh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHinh2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlHinhLayout = new javax.swing.GroupLayout(pnlHinh);
+        pnlHinh.setLayout(pnlHinhLayout);
+        pnlHinhLayout.setHorizontalGroup(
+            pnlHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHinhLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(lblhinh, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        pnlHinh2Layout.setVerticalGroup(
-            pnlHinh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHinh2Layout.createSequentialGroup()
+        pnlHinhLayout.setVerticalGroup(
+            pnlHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHinhLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(lblhinh, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(btnThem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnXoa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSua)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnMoi))
-                    .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTheloai)
-                    .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNghesi)
-                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTime)
-                    .addComponent(lblName)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(101, 101, 101)
-                .addComponent(pnlHinh2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(304, Short.MAX_VALUE))
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(lblName))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSLAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNhac)
+                            .addComponent(txtSLNhac, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTheloai)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addComponent(btnThem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnXoa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSua)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnMoi)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(384, 384, 384))))
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(pnlHinh2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblTheloai)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblNghesi)
+                        .addComponent(txtSLAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblNhac)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTime)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSLNhac, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnXoa)
                             .addComponent(btnThem)
                             .addComponent(btnSua)
-                            .addComponent(btnMoi))))
-                .addContainerGap(80, Short.MAX_VALUE))
+                            .addComponent(btnMoi)))
+                    .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
 
-        QL.add(jPanel9, "cardChinhSua1");
+        QL2.add(jPanel12, "cardChinhSua1");
 
-        jPanel8.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel8.setOpaque(false);
+        jPanel13.setOpaque(false);
 
-        tblAlbum.setModel(new javax.swing.table.DefaultTableModel(
+        lblTieude2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTieude2.setForeground(new java.awt.Color(255, 255, 255));
+        lblTieude2.setText("DANH SÁCH NGHỆ SĨ");
+
+        tblNghesi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Tên album", "Nghệ sĩ", "Thể loại", "Thời gian phát hành", "Ảnh"
+                "Tên nghệ sĩ", "SL Album", "SL Nhạc", "Ảnh"
             }
         ));
-        tblAlbum.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblNghesi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAlbumMouseClicked(evt);
+                tblNghesiMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblAlbum);
+        jScrollPane3.setViewportView(tblNghesi);
 
-        lblTieude.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTieude.setForeground(new java.awt.Color(255, 255, 255));
-        lblTieude.setText("DANH SÁCH ALBUM");
-
-        btnFirst.setBackground(new java.awt.Color(255, 103, 158));
-        btnFirst.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnFirst.setForeground(new java.awt.Color(255, 255, 255));
-        btnFirst.setText("|<");
-        btnFirst.addActionListener(new java.awt.event.ActionListener() {
+        btnFirst2.setBackground(new java.awt.Color(255, 103, 158));
+        btnFirst2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnFirst2.setForeground(new java.awt.Color(255, 255, 255));
+        btnFirst2.setText("|<");
+        btnFirst2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFirstActionPerformed(evt);
+                btnFirst2ActionPerformed(evt);
             }
         });
 
-        btnPrev.setBackground(new java.awt.Color(255, 103, 158));
-        btnPrev.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnPrev.setForeground(new java.awt.Color(255, 255, 255));
-        btnPrev.setText("<<");
-        btnPrev.addActionListener(new java.awt.event.ActionListener() {
+        btnPrev2.setBackground(new java.awt.Color(255, 103, 158));
+        btnPrev2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPrev2.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrev2.setText("<<");
+        btnPrev2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrevActionPerformed(evt);
+                btnPrev2ActionPerformed(evt);
             }
         });
 
-        btnNext.setBackground(new java.awt.Color(255, 103, 158));
-        btnNext.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnNext.setForeground(new java.awt.Color(255, 255, 255));
-        btnNext.setText(">>");
-        btnNext.addActionListener(new java.awt.event.ActionListener() {
+        btnNext2.setBackground(new java.awt.Color(255, 103, 158));
+        btnNext2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnNext2.setForeground(new java.awt.Color(255, 255, 255));
+        btnNext2.setText(">>");
+        btnNext2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNextActionPerformed(evt);
+                btnNext2ActionPerformed(evt);
             }
         });
 
-        btnLast.setBackground(new java.awt.Color(255, 103, 158));
-        btnLast.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnLast.setForeground(new java.awt.Color(255, 255, 255));
-        btnLast.setText(">|");
-        btnLast.addActionListener(new java.awt.event.ActionListener() {
+        btnLast2.setBackground(new java.awt.Color(255, 103, 158));
+        btnLast2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLast2.setForeground(new java.awt.Color(255, 255, 255));
+        btnLast2.setText(">|");
+        btnLast2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLastActionPerformed(evt);
+                btnLast2ActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTieude)
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel8Layout.createSequentialGroup()
-                            .addComponent(btnFirst)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnPrev)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnNext)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnLast))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 918, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(47, 47, 47))
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(lblTieude2)
+                        .addGap(684, 684, 684))
+                    .addComponent(jScrollPane3)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(btnFirst2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPrev2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNext2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLast2)
+                        .addGap(15, 15, 15)))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(lblTieude)
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(lblTieude2)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFirst)
-                    .addComponent(btnPrev)
-                    .addComponent(btnNext)
-                    .addComponent(btnLast))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFirst2)
+                    .addComponent(btnPrev2)
+                    .addComponent(btnNext2)
+                    .addComponent(btnLast2))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
-        QL.add(jPanel8, "cardChinhSua2");
+        QL2.add(jPanel13, "cardChinhSua2");
 
-        jButton4.setBackground(new java.awt.Color(255, 103, 158));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("CHỈNH SỬA");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButton25.setBackground(new java.awt.Color(255, 103, 158));
+        jButton25.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton25.setForeground(new java.awt.Color(255, 255, 255));
+        jButton25.setText("CHỈNH SỬA");
+        jButton25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButton25ActionPerformed(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(255, 103, 158));
-        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("DANH SÁCH");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        jButton26.setBackground(new java.awt.Color(255, 103, 158));
+        jButton26.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton26.setForeground(new java.awt.Color(255, 255, 255));
+        jButton26.setText("DANH SÁCH");
+        jButton26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                jButton26ActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout panel4Layout = new javax.swing.GroupLayout(panel4);
-        panel4.setLayout(panel4Layout);
-        panel4Layout.setHorizontalGroup(
-            panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout panel11Layout = new javax.swing.GroupLayout(panel11);
+        panel11.setLayout(panel11Layout);
+        panel11Layout.setHorizontalGroup(
+            panel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(QL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(QL2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(panel4Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jButton4)
+            .addGroup(panel11Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jButton25)
                 .addGap(18, 18, 18)
-                .addComponent(jButton7)
+                .addComponent(jButton26)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        panel4Layout.setVerticalGroup(
-            panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel4Layout.createSequentialGroup()
+        panel11Layout.setVerticalGroup(
+            panel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel11Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton25, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(jButton26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(QL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(QL2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        main.add(panel4, java.awt.BorderLayout.CENTER);
+        main.add(panel11, java.awt.BorderLayout.LINE_START);
 
         getContentPane().add(main, java.awt.BorderLayout.CENTER);
 
@@ -1166,11 +1135,11 @@ public class Album_Admin extends javax.swing.JDialog {
     private void btnMaximizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseClicked
         // TODO add your handling code here:
         //        if(this.getExtendedState()!= Home.MAXIMIZED_BOTH){
-        //            this.setExtendedState(Home.MAXIMIZED_BOTH);
-        //        }
+            //            this.setExtendedState(Home.MAXIMIZED_BOTH);
+            //        }
         //        else{
-        //            this.setExtendedState(Home.NORMAL);
-        //        }
+            //            this.setExtendedState(Home.NORMAL);
+            //        }
     }//GEN-LAST:event_btnMaximizeMouseClicked
 
     private void btnMaximizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseEntered
@@ -1198,83 +1167,65 @@ public class Album_Admin extends javax.swing.JDialog {
         changeColor(btnMinimize, new Color(222, 221, 217));
     }//GEN-LAST:event_btnMinimizeMouseExited
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        cardLayout.show(QL, "cardChinhSua2");
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        cardLayout.show(QL, "cardChinhSua1");
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
-        last();
-    }//GEN-LAST:event_btnLastActionPerformed
-
-    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        next();
-    }//GEN-LAST:event_btnNextActionPerformed
-
-    private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
-        prev();
-    }//GEN-LAST:event_btnPrevActionPerformed
-
-    private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
-        First();
-    }//GEN-LAST:event_btnFirstActionPerformed
-
-    private void tblAlbumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlbumMouseClicked
+    private void txtSLAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSLAlbumActionPerformed
         // TODO add your handling code here:
-        index = tblAlbum.getSelectedRow();
-        showdetail();
-    }//GEN-LAST:event_tblAlbumMouseClicked
+    }//GEN-LAST:event_txtSLAlbumActionPerformed
 
-    private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
+    private void txtSLNhacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSLNhacActionPerformed
         // TODO add your handling code here:
-        JFileChooser file = new JFileChooser("src\\com\\swanmusic\\img\\");
-            int kq = file.showOpenDialog(file);
-            if (kq == JFileChooser.APPROVE_OPTION) {
-                imageName = file.getSelectedFile().getName();
-                upImage(imageName);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
-            }
-    }//GEN-LAST:event_lblImageMouseClicked
+    }//GEN-LAST:event_txtSLNhacActionPerformed
 
-    private void txtTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimeActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimeActionPerformed
+    }//GEN-LAST:event_btnThemActionPerformed
 
-    private void txtNghesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNghesiActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNghesiActionPerformed
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMoiActionPerformed
+
+    private void lblhinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblhinhMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblhinhMouseClicked
+
+    private void tblNghesiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNghesiMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblNghesiMouseClicked
+
+    private void btnFirst2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirst2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFirst2ActionPerformed
+
+    private void btnPrev2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrev2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPrev2ActionPerformed
+
+    private void btnNext2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNext2ActionPerformed
+
+    private void btnLast2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLast2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLast2ActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
-    private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
         // TODO add your handling code here:
-        moi();
-    }//GEN-LAST:event_btnMoiActionPerformed
+    }//GEN-LAST:event_jButton26ActionPerformed
 
-    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
         // TODO add your handling code here:
-        sua();
-    }//GEN-LAST:event_btnSuaActionPerformed
-
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
-        them();
-    }//GEN-LAST:event_btnThemActionPerformed
-
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
-        xoa();
-    }//GEN-LAST:event_btnXoaActionPerformed
-
-    private void txtTheloaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTheloaiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTheloaiActionPerformed
+    }//GEN-LAST:event_jButton25ActionPerformed
 
     private void lblIcon_taiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIcon_taiKhoanMouseClicked
         this.openTaiKhoan();
@@ -1353,20 +1304,20 @@ public class Album_Admin extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Album_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Nghesi_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Album_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Nghesi_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Album_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Nghesi_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Album_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Nghesi_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Album_Admin dialog = new Album_Admin(new javax.swing.JFrame(), true);
+                Nghesi_Admin dialog = new Nghesi_Admin(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1379,49 +1330,48 @@ public class Album_Admin extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel QL;
+    private javax.swing.JPanel QL2;
     private javax.swing.JPanel btnClose;
-    private javax.swing.JButton btnFirst;
-    private javax.swing.JButton btnLast;
+    private javax.swing.JButton btnFirst2;
+    private javax.swing.JButton btnLast2;
     private javax.swing.JPanel btnMaximize;
     private javax.swing.JPanel btnMinimize;
     private javax.swing.JButton btnMoi;
-    private javax.swing.JButton btnNext;
-    private javax.swing.JButton btnPrev;
+    private javax.swing.JButton btnNext2;
+    private javax.swing.JButton btnPrev2;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JPanel header;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton25;
+    private javax.swing.JButton jButton26;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel22;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblIcon_album;
     private javax.swing.JLabel lblIcon_ngheSi;
     private javax.swing.JLabel lblIcon_nhac;
     private javax.swing.JLabel lblIcon_taiKhoan;
-    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblName;
-    private javax.swing.JLabel lblNghesi;
+    private javax.swing.JLabel lblNhac;
     private javax.swing.JLabel lblTheloai;
-    private javax.swing.JLabel lblTieude;
-    private javax.swing.JLabel lblTime;
+    private javax.swing.JLabel lblTieude2;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lbl_album;
     private javax.swing.JLabel lbl_ngheSi;
     private javax.swing.JLabel lbl_nhac;
     private javax.swing.JLabel lbl_taiKhoan;
+    private javax.swing.JLabel lblhinh;
     private javax.swing.JPanel main;
     private javax.swing.JPanel menu;
     private javax.swing.JPanel menu_con;
-    private com.swanmusic.swing.Panel panel4;
-    private javax.swing.JPanel pnlHinh2;
+    private com.swanmusic.swing.Panel panel11;
+    private javax.swing.JPanel pnlHinh;
     private javax.swing.JPanel pnlTiltle;
     private javax.swing.JPanel pnlVien1;
     private javax.swing.JPanel pnlVien2;
@@ -1434,11 +1384,10 @@ public class Album_Admin extends javax.swing.JDialog {
     private javax.swing.JPanel pnl_nhac;
     private javax.swing.JPanel pnl_taiKhoan;
     private javax.swing.JPanel pnl_vien4;
-    private javax.swing.JTable tblAlbum;
+    private javax.swing.JTable tblNghesi;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtNghesi;
-    private javax.swing.JTextField txtTheloai;
-    private javax.swing.JTextField txtTime;
+    private javax.swing.JTextField txtSLAlbum;
+    private javax.swing.JTextField txtSLNhac;
     private javax.swing.JPanel windoTtiling;
     // End of variables declaration//GEN-END:variables
 }

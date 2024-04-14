@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="undecorated" type="boolean" value="true"/>
@@ -403,12 +403,15 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="pnlHome">
+            <Container class="javax.swing.JPanel" name="pnl_taiKhoan">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnl_taiKhoanMouseClicked"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="0" y="110" width="200" height="60"/>
@@ -419,9 +422,9 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblIcon_home" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="lblIcon_taiKhoan" min="-2" pref="56" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblHome_menu" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_taiKhoan" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -429,15 +432,15 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblIcon_home" pref="54" max="32767" attributes="0"/>
+                          <Component id="lblIcon_taiKhoan" pref="54" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblHome_menu" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lbl_taiKhoan" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblIcon_home">
+                <Component class="javax.swing.JLabel" name="lblIcon_taiKhoan">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -451,10 +454,10 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblIcon_homeMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblIcon_taiKhoanMouseClicked"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblHome_menu">
+                <Component class="javax.swing.JLabel" name="lbl_taiKhoan">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -468,17 +471,20 @@
                     <Property name="text" type="java.lang.String" value="T&#xc0;I KHO&#x1ea2;N"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblHome_menuMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_taiKhoanMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="pnl_search">
+            <Container class="javax.swing.JPanel" name="pnl_nhac">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnl_nhacMouseClicked"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="0" y="180" width="200" height="-1"/>
@@ -489,25 +495,25 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblIcon_search" min="-2" pref="62" max="-2" attributes="0"/>
+                          <Component id="lblIcon_nhac" min="-2" pref="62" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblSearch_menu" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="62" max="32767" attributes="0"/>
+                          <Component id="lbl_nhac" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="64" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblIcon_search" pref="54" max="32767" attributes="0"/>
+                          <Component id="lblIcon_nhac" pref="54" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblSearch_menu" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lbl_nhac" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblIcon_search">
+                <Component class="javax.swing.JLabel" name="lblIcon_nhac">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -520,8 +526,11 @@
                       <Image iconType="3" name="/com/swanmusic/icon/music.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblIcon_nhacMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblSearch_menu">
+                <Component class="javax.swing.JLabel" name="lbl_nhac">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -535,17 +544,20 @@
                     <Property name="text" type="java.lang.String" value="NH&#x1ea0;C"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSearch_menuMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_nhacMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="pnl_search2">
+            <Container class="javax.swing.JPanel" name="pnl_ngheSi">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnl_ngheSiMouseClicked"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="0" y="250" width="200" height="60"/>
@@ -557,9 +569,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblIcon_search3" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="lblIcon_ngheSi" min="-2" pref="56" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblSearch_menu3" min="-2" pref="114" max="-2" attributes="0"/>
+                          <Component id="lbl_ngheSi" min="-2" pref="114" max="-2" attributes="0"/>
                           <EmptySpace pref="18" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -568,10 +580,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lblIcon_search3" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lblIcon_ngheSi" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="lblSearch_menu3" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <Component id="lbl_ngheSi" min="-2" pref="60" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -580,7 +592,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblSearch_menu3">
+                <Component class="javax.swing.JLabel" name="lbl_ngheSi">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -593,8 +605,11 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="NGH&#x1ec6; S&#x128;"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_ngheSiMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblIcon_search3">
+                <Component class="javax.swing.JLabel" name="lblIcon_ngheSi">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -607,15 +622,21 @@
                       <Image iconType="3" name="/com/swanmusic/icon/artist.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblIcon_ngheSiMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="pnl_search3">
+            <Container class="javax.swing.JPanel" name="pnl_album">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnl_albumMouseClicked"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="0" y="320" width="200" height="-1"/>
@@ -627,9 +648,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="lblIcon_search2" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="lblIcon_album" min="-2" pref="56" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblSearch_menu2" min="-2" pref="114" max="-2" attributes="0"/>
+                          <Component id="lbl_album" min="-2" pref="114" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -638,14 +659,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="lblSearch_menu2" min="-2" pref="60" max="-2" attributes="0"/>
+                          <Component id="lbl_album" min="-2" pref="60" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblIcon_search2" max="32767" attributes="0"/>
+                      <Component id="lblIcon_album" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblSearch_menu2">
+                <Component class="javax.swing.JLabel" name="lbl_album">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -658,8 +679,11 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="ALBUM"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_albumMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblIcon_search2">
+                <Component class="javax.swing.JLabel" name="lblIcon_album">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -672,6 +696,9 @@
                       <Image iconType="3" name="/com/swanmusic/icon/music-album.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblIcon_albumMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

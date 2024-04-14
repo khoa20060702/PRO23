@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package com.swanmusic.main;
 
 import com.swanmusic.ui.*;
@@ -21,10 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author phuon
- */
 public class Nghesi_frmAdmin extends javax.swing.JDialog {
     
     ArrayList<Nghesi> list = new ArrayList();

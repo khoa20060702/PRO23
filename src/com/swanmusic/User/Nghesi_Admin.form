@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="undecorated" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -18,7 +19,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-86,0,0,4,-30"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-86,0,0,4,-20"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -56,7 +57,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="jPanel27">
+            <Container class="javax.swing.JPanel" name="jPanel22">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -210,7 +211,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="menu1">
+    <Container class="javax.swing.JPanel" name="menu">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -370,7 +371,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="32" max="32767" attributes="0"/>
+                          <EmptySpace pref="31" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -402,12 +403,15 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="pnlHome">
+            <Container class="javax.swing.JPanel" name="pnl_taiKhoan">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnl_taiKhoanMouseClicked"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="0" y="110" width="200" height="60"/>
@@ -418,9 +422,9 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblIcon_home" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="lblIcon_taiKhoan" min="-2" pref="56" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblHome_menu" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_taiKhoan" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -428,15 +432,15 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblIcon_home" pref="54" max="32767" attributes="0"/>
+                          <Component id="lblIcon_taiKhoan" pref="54" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblHome_menu" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lbl_taiKhoan" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblIcon_home">
+                <Component class="javax.swing.JLabel" name="lblIcon_taiKhoan">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -450,10 +454,10 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblIcon_homeMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblIcon_taiKhoanMouseClicked"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblHome_menu">
+                <Component class="javax.swing.JLabel" name="lbl_taiKhoan">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -467,17 +471,20 @@
                     <Property name="text" type="java.lang.String" value="T&#xc0;I KHO&#x1ea2;N"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblHome_menuMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_taiKhoanMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="pnl_search">
+            <Container class="javax.swing.JPanel" name="pnl_nhac">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnl_nhacMouseClicked"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="0" y="180" width="200" height="-1"/>
@@ -488,25 +495,25 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblIcon_search" min="-2" pref="62" max="-2" attributes="0"/>
+                          <Component id="lblIcon_nhac" min="-2" pref="62" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblSearch_menu" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="62" max="32767" attributes="0"/>
+                          <Component id="lbl_nhac" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="64" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblIcon_search" pref="54" max="32767" attributes="0"/>
+                          <Component id="lblIcon_nhac" pref="54" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblSearch_menu" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lbl_nhac" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblIcon_search">
+                <Component class="javax.swing.JLabel" name="lblIcon_nhac">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -519,8 +526,11 @@
                       <Image iconType="3" name="/com/swanmusic/icon/music.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblIcon_nhacMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblSearch_menu">
+                <Component class="javax.swing.JLabel" name="lbl_nhac">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -534,17 +544,20 @@
                     <Property name="text" type="java.lang.String" value="NH&#x1ea0;C"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSearch_menuMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_nhacMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="pnl_search2">
+            <Container class="javax.swing.JPanel" name="pnl_ngheSi">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnl_ngheSiMouseClicked"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="0" y="250" width="200" height="60"/>
@@ -556,9 +569,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblIcon_search3" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="lblIcon_ngheSi" min="-2" pref="56" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblSearch_menu3" min="-2" pref="114" max="-2" attributes="0"/>
+                          <Component id="lbl_ngheSi" min="-2" pref="114" max="-2" attributes="0"/>
                           <EmptySpace pref="18" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -567,10 +580,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lblIcon_search3" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lblIcon_ngheSi" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="lblSearch_menu3" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <Component id="lbl_ngheSi" min="-2" pref="60" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -579,7 +592,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblSearch_menu3">
+                <Component class="javax.swing.JLabel" name="lbl_ngheSi">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -592,8 +605,11 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="NGH&#x1ec6; S&#x128;"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_ngheSiMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblIcon_search3">
+                <Component class="javax.swing.JLabel" name="lblIcon_ngheSi">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -606,15 +622,21 @@
                       <Image iconType="3" name="/com/swanmusic/icon/artist.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblIcon_ngheSiMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="pnl_search3">
+            <Container class="javax.swing.JPanel" name="pnl_album">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnl_albumMouseClicked"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="0" y="320" width="200" height="-1"/>
@@ -626,9 +648,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="lblIcon_search2" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="lblIcon_album" min="-2" pref="56" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblSearch_menu2" min="-2" pref="114" max="-2" attributes="0"/>
+                          <Component id="lbl_album" min="-2" pref="114" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -637,14 +659,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="lblSearch_menu2" min="-2" pref="60" max="-2" attributes="0"/>
+                          <Component id="lbl_album" min="-2" pref="60" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblIcon_search2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblIcon_album" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblSearch_menu2">
+                <Component class="javax.swing.JLabel" name="lbl_album">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -657,8 +679,11 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="ALBUM"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_albumMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblIcon_search2">
+                <Component class="javax.swing.JLabel" name="lblIcon_album">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -671,6 +696,9 @@
                       <Image iconType="3" name="/com/swanmusic/icon/music-album.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblIcon_albumMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -678,7 +706,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="main1">
+    <Container class="javax.swing.JPanel" name="main">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -776,568 +804,6 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Container class="com.swanmusic.swing.Panel" name="panel9">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="dd" green="c9" red="ff" type="rgb"/>
-            </Property>
-            <Property name="opaque" type="boolean" value="true"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-              <BorderConstraints direction="Center"/>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="QL1" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jButton19" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton20" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jButton19" alignment="1" pref="50" max="32767" attributes="0"/>
-                          <Component id="jButton20" alignment="1" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="QL1" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Container class="javax.swing.JPanel" name="QL1">
-              <Properties>
-                <Property name="opaque" type="boolean" value="false"/>
-              </Properties>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
-              <SubComponents>
-                <Container class="javax.swing.JPanel" name="jPanel10">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="0" type="rgb"/>
-                    </Property>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                      <CardConstraints cardName="cardChinhSua1"/>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="btnThem1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnXoa1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnSua1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnMoi1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="txtTheloai" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
-                                  <Component id="lblTheloai1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtNghesi" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
-                                  <Component id="lblNghesi" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtTime" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
-                                  <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblName1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtName1" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
-                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
-                              <Component id="pnlHinh2" min="-2" pref="228" max="-2" attributes="0"/>
-                              <EmptySpace pref="256" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                                      <Component id="pnlHinh2" min="-2" pref="228" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="lblName1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtName1" min="-2" pref="43" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="lblTheloai1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtTheloai" min="-2" pref="43" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="lblNghesi" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtNghesi" min="-2" pref="43" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="lblTime" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="txtTime" min="-2" pref="43" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="btnXoa1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnThem1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnSua1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnMoi1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace pref="74" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel8">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="24" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; ALBUM"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="lblTheloai1">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="18" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Th&#x1ec3; lo&#x1ea1;i"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtTheloai">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="b9" green="91" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="14" style="1"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTheloaiActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnXoa1">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="9e" green="67" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="12" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoa1ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnThem1">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="9e" green="67" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="12" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThem1ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnSua1">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="9e" green="67" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="12" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSua1ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnMoi1">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="9e" green="67" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="12" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="M&#x1edb;i"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMoi1ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="lblName1">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="18" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="T&#xea;n album"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtName1">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="b9" green="91" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="14" style="1"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtName1ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="lblTime">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="18" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian ph&#xe1;t h&#xe0;nh"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtNghesi">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="b9" green="91" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="14" style="1"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNghesiActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="lblNghesi">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="18" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Ngh&#x1ec7; s&#x129;"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtTime">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="b9" green="91" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="14" style="1"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTimeActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Container class="javax.swing.JPanel" name="pnlHinh2">
-                      <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                            <BevelBorder/>
-                          </Border>
-                        </Property>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[200, 200]"/>
-                        </Property>
-                      </Properties>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblImage" pref="212" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblImage" pref="212" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="lblImage">
-                          <Events>
-                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblImageMouseClicked"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="jPanel11">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="0" type="rgb"/>
-                    </Property>
-                    <Property name="opaque" type="boolean" value="false"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                      <CardConstraints cardName="cardChinhSua2"/>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblTieude1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="btnFirst1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnPrev1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnNext1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnLast1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jScrollPane2" alignment="1" min="-2" pref="918" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="lblTieude1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" min="-2" pref="368" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnFirst1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnPrev1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnNext1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnLast1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTable" name="tblAlbum">
-                          <Properties>
-                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="5" rowCount="4">
-                                <Column editable="true" title="T&#xea;n album" type="java.lang.Object"/>
-                                <Column editable="true" title="Ngh&#x1ec7; s&#x129;" type="java.lang.Object"/>
-                                <Column editable="true" title="Th&#x1ec3; lo&#x1ea1;i" type="java.lang.Object"/>
-                                <Column editable="true" title="Th&#x1edd;i gian ph&#xe1;t h&#xe0;nh" type="java.lang.Object"/>
-                                <Column editable="true" title="&#x1ea2;nh" type="java.lang.Object"/>
-                              </Table>
-                            </Property>
-                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                            </Property>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblAlbumMouseClicked"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Component class="javax.swing.JLabel" name="lblTieude1">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="24" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="DANH S&#xc1;CH ALBUM"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnFirst1">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="9e" green="67" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="12" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="|&lt;"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFirst1ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnPrev1">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="9e" green="67" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="12" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="&lt;&lt;"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrev1ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnNext1">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="9e" green="67" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="12" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="&gt;&gt;"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNext1ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnLast1">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="9e" green="67" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="12" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="&gt;|"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLast1ActionPerformed"/>
-                      </Events>
-                    </Component>
-                  </SubComponents>
-                </Container>
-              </SubComponents>
-            </Container>
-            <Component class="javax.swing.JButton" name="jButton19">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="9e" green="67" red="ff" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="18" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="CH&#x1ec8;NH S&#x1eec;A"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton20">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="9e" green="67" red="ff" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="18" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="DANH S&#xc1;CH"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
-              </Events>
-            </Component>
-          </SubComponents>
-        </Container>
         <Container class="com.swanmusic.swing.Panel" name="panel11">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1413,29 +879,29 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblName2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtSLAlbum1" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
-                                          <Component id="lblNhac1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtSLNhac1" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
-                                          <Component id="lblTheloai2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtName2" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
+                                          <Component id="txtSLAlbum" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
+                                          <Component id="lblNhac" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtSLNhac" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
+                                          <Component id="lblTheloai" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtName" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="btnThem2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btnThem" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="btnXoa2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btnXoa" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="btnSua2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btnSua" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="btnMoi2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btnMoi" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="pnlHinh1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="pnlHinh" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="384" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -1448,28 +914,28 @@
                               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="lblName2" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txtName2" min="-2" pref="43" max="-2" attributes="0"/>
+                                      <Component id="txtName" min="-2" pref="43" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="lblTheloai2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblTheloai" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtSLAlbum1" min="-2" pref="43" max="-2" attributes="0"/>
+                                      <Component id="txtSLAlbum" min="-2" pref="43" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="lblNhac1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblNhac" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="txtSLNhac1" min="-2" pref="43" max="-2" attributes="0"/>
+                                      <Component id="txtSLNhac" min="-2" pref="43" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="btnXoa2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnThem2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnSua2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnMoi2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnXoa" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnThem" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnSua" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnMoi" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="pnlHinh1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="pnlHinh" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="137" max="32767" attributes="0"/>
                           </Group>
@@ -1482,61 +948,76 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="24" style="1"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; NGH&#x1ec6; S&#x128;"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lblName2">
+                    <Component class="javax.swing.JLabel" name="lblName">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="18" style="1"/>
+                        </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="T&#xea;n ngh&#x1ec7; s&#x129;"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtName2">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="b9" green="91" red="ff" type="rgb"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtSLAlbum1">
+                    <Component class="javax.swing.JTextField" name="txtName">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="b9" green="91" red="ff" type="rgb"/>
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSLAlbum1ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNameActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lblTheloai2">
+                    <Component class="javax.swing.JTextField" name="txtSLAlbum">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="b9" green="91" red="ff" type="rgb"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSLAlbumActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblTheloai">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="18" style="1"/>
+                        </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="SL Album"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lblNhac1">
+                    <Component class="javax.swing.JLabel" name="lblNhac">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="18" style="1"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="SL Nh&#x1ea1;c"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtSLNhac1">
+                    <Component class="javax.swing.JTextField" name="txtSLNhac">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="b9" green="91" red="ff" type="rgb"/>
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSLNhac1ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSLNhacActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnThem2">
+                    <Component class="javax.swing.JButton" name="btnThem">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="9e" green="67" red="ff" type="rgb"/>
@@ -1550,10 +1031,10 @@
                         <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThem2ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnXoa2">
+                    <Component class="javax.swing.JButton" name="btnXoa">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="9e" green="67" red="ff" type="rgb"/>
@@ -1567,10 +1048,10 @@
                         <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoa2ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnSua2">
+                    <Component class="javax.swing.JButton" name="btnSua">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="9e" green="67" red="ff" type="rgb"/>
@@ -1584,10 +1065,10 @@
                         <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSua2ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuaActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnMoi2">
+                    <Component class="javax.swing.JButton" name="btnMoi">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="9e" green="67" red="ff" type="rgb"/>
@@ -1601,10 +1082,10 @@
                         <Property name="text" type="java.lang.String" value="M&#x1edb;i"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMoi2ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMoiActionPerformed"/>
                       </Events>
                     </Component>
-                    <Container class="javax.swing.JPanel" name="pnlHinh1">
+                    <Container class="javax.swing.JPanel" name="pnlHinh">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -1618,7 +1099,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblhinh1" pref="264" max="32767" attributes="0"/>
+                                  <Component id="lblhinh" pref="264" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -1627,16 +1108,16 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblhinh1" pref="271" max="32767" attributes="0"/>
+                                  <Component id="lblhinh" pref="271" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="lblhinh1">
+                        <Component class="javax.swing.JLabel" name="lblhinh">
                           <Events>
-                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblhinh1MouseClicked"/>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblhinhMouseClicked"/>
                           </Events>
                         </Component>
                       </SubComponents>
@@ -1693,7 +1174,7 @@
                                   <Component id="btnNext2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnLast2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="57" max="32767" attributes="0"/>
+                              <EmptySpace pref="61" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1717,7 +1198,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="tblNghesi1">
+                        <Component class="javax.swing.JTable" name="tblNghesi">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="4" rowCount="4">
@@ -1732,7 +1213,7 @@
                             </Property>
                           </Properties>
                           <Events>
-                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblNghesi1MouseClicked"/>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblNghesiMouseClicked"/>
                           </Events>
                         </Component>
                       </SubComponents>
