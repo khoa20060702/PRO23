@@ -853,7 +853,7 @@ public class Main_search extends javax.swing.JDialog {
 
         header.add(jPanel22, java.awt.BorderLayout.LINE_END);
 
-        windoTtiling.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, -1));
+        windoTtiling.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 40));
 
         getContentPane().add(windoTtiling, java.awt.BorderLayout.PAGE_START);
 

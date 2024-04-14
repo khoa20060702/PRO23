@@ -908,7 +908,7 @@ public class Home extends javax.swing.JDialog {
 
         header.add(jPanel22, java.awt.BorderLayout.LINE_END);
 
-        windoTtiling.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, -1));
+        windoTtiling.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 40));
 
         getContentPane().add(windoTtiling, java.awt.BorderLayout.PAGE_START);
 
@@ -2816,7 +2816,7 @@ public class Home extends javax.swing.JDialog {
     private void Album1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Album1MouseClicked
 //        String data1 = listAlbumName.get(0);
 //        ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(0));
-//        chitietAlbum_User mai = new chitietAlbum_User(null, forgot, data1, data2);
+//        chitietAlbum mai = new chitietAlbum(null, forgot, data1, data2);
 //        this.setVisible(false);
 //        mai.setVisible(true);
     }//GEN-LAST:event_Album1MouseClicked
