@@ -331,6 +331,14 @@ public class nhac_Admin extends javax.swing.JDialog {
         pnlVien7 = new javax.swing.JPanel();
         panel4 = new com.swanmusic.swing.Panel();
         QL = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        lblTieude = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblNhac = new javax.swing.JTable();
+        btnFirst = new javax.swing.JButton();
+        btnPrev = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
+        btnLast = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         lblTheloai = new javax.swing.JLabel();
@@ -349,14 +357,6 @@ public class nhac_Admin extends javax.swing.JDialog {
         btnSua = new javax.swing.JButton();
         lblThoiLuong = new javax.swing.JLabel();
         txtThoiLuong = new javax.swing.JTextField();
-        jPanel8 = new javax.swing.JPanel();
-        lblTieude = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblNhac = new javax.swing.JTable();
-        btnFirst = new javax.swing.JButton();
-        btnPrev = new javax.swing.JButton();
-        btnNext = new javax.swing.JButton();
-        btnLast = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
@@ -497,7 +497,7 @@ public class nhac_Admin extends javax.swing.JDialog {
         );
         pnlVien3Layout.setVerticalGroup(
             pnlVien3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+            .addGap(0, 625, Short.MAX_VALUE)
         );
 
         menu.add(pnlVien3, java.awt.BorderLayout.LINE_START);
@@ -513,7 +513,7 @@ public class nhac_Admin extends javax.swing.JDialog {
         );
         pnl_vien4Layout.setVerticalGroup(
             pnl_vien4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+            .addGap(0, 625, Short.MAX_VALUE)
         );
 
         menu.add(pnl_vien4, java.awt.BorderLayout.LINE_END);
@@ -791,7 +791,7 @@ public class nhac_Admin extends javax.swing.JDialog {
         );
         pnlVien7Layout.setVerticalGroup(
             pnlVien7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+            .addGap(0, 625, Short.MAX_VALUE)
         );
 
         main.add(pnlVien7, java.awt.BorderLayout.LINE_END);
@@ -803,6 +803,110 @@ public class nhac_Admin extends javax.swing.JDialog {
         QL.setOpaque(false);
         QL.setLayout(new java.awt.CardLayout());
 
+        jPanel8.setOpaque(false);
+
+        lblTieude.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTieude.setForeground(new java.awt.Color(255, 255, 255));
+        lblTieude.setText("DANH SÁCH NHẠC");
+
+        tblNhac.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Tên nhạc", "Thể loại", "Album", "Nghệ sĩ", "Thời lượng", "Ảnh"
+            }
+        ));
+        tblNhac.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNhacMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblNhac);
+
+        btnFirst.setBackground(new java.awt.Color(255, 103, 158));
+        btnFirst.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnFirst.setForeground(new java.awt.Color(255, 255, 255));
+        btnFirst.setText("|<");
+        btnFirst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFirstActionPerformed(evt);
+            }
+        });
+
+        btnPrev.setBackground(new java.awt.Color(255, 103, 158));
+        btnPrev.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPrev.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrev.setText("<<");
+        btnPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrevActionPerformed(evt);
+            }
+        });
+
+        btnNext.setBackground(new java.awt.Color(255, 103, 158));
+        btnNext.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnNext.setForeground(new java.awt.Color(255, 255, 255));
+        btnNext.setText(">>");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextActionPerformed(evt);
+            }
+        });
+
+        btnLast.setBackground(new java.awt.Color(255, 103, 158));
+        btnLast.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLast.setForeground(new java.awt.Color(255, 255, 255));
+        btnLast.setText(">|");
+        btnLast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(lblTieude)
+                        .addGap(684, 684, 684))
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(btnFirst)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPrev)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNext)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLast)
+                        .addGap(15, 15, 15)))
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(lblTieude)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFirst)
+                    .addComponent(btnPrev)
+                    .addComponent(btnNext)
+                    .addComponent(btnLast))
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
+
+        QL.add(jPanel8, "cardChinhSua2");
+
         jPanel9.setOpaque(false);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -813,7 +917,8 @@ public class nhac_Admin extends javax.swing.JDialog {
         lblTheloai.setForeground(new java.awt.Color(255, 255, 255));
         lblTheloai.setText("Thể loại");
 
-        txtTheloai.setBackground(new java.awt.Color(255, 145, 185));
+        txtTheloai.setBackground(new java.awt.Color(102, 102, 102));
+        txtTheloai.setForeground(new java.awt.Color(255, 255, 255));
         txtTheloai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTheloaiActionPerformed(evt);
@@ -824,13 +929,15 @@ public class nhac_Admin extends javax.swing.JDialog {
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Tên nhạc");
 
-        txtName.setBackground(new java.awt.Color(255, 145, 185));
+        txtName.setBackground(new java.awt.Color(102, 102, 102));
+        txtName.setForeground(new java.awt.Color(255, 255, 255));
 
         lblAlbum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblAlbum.setForeground(new java.awt.Color(255, 255, 255));
         lblAlbum.setText("Album");
 
-        txtNghesi.setBackground(new java.awt.Color(255, 145, 185));
+        txtNghesi.setBackground(new java.awt.Color(102, 102, 102));
+        txtNghesi.setForeground(new java.awt.Color(255, 255, 255));
         txtNghesi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNghesiActionPerformed(evt);
@@ -841,7 +948,8 @@ public class nhac_Admin extends javax.swing.JDialog {
         lblNghesi.setForeground(new java.awt.Color(255, 255, 255));
         lblNghesi.setText("Nghệ sĩ");
 
-        txtAlbum.setBackground(new java.awt.Color(255, 145, 185));
+        txtAlbum.setBackground(new java.awt.Color(102, 102, 102));
+        txtAlbum.setForeground(new java.awt.Color(255, 255, 255));
         txtAlbum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAlbumActionPerformed(evt);
@@ -917,7 +1025,8 @@ public class nhac_Admin extends javax.swing.JDialog {
         lblThoiLuong.setForeground(new java.awt.Color(255, 255, 255));
         lblThoiLuong.setText("Thời lượng");
 
-        txtThoiLuong.setBackground(new java.awt.Color(255, 145, 185));
+        txtThoiLuong.setBackground(new java.awt.Color(102, 102, 102));
+        txtThoiLuong.setForeground(new java.awt.Color(255, 255, 255));
         txtThoiLuong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtThoiLuongActionPerformed(evt);
@@ -940,11 +1049,8 @@ public class nhac_Admin extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnMoi))
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(36, 36, 36)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblName)
-                            .addComponent(txtThoiLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblThoiLuong)
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNghesi, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -954,20 +1060,23 @@ public class nhac_Admin extends javax.swing.JDialog {
                                     .addComponent(txtAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblTheloai)
                                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                                .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(lblName)
+                                    .addComponent(txtThoiLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblThoiLuong))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(305, 305, 305))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel6)
-                .addGap(18, 35, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(lblName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -998,117 +1107,14 @@ public class nhac_Admin extends javax.swing.JDialog {
                     .addComponent(btnThem)
                     .addComponent(btnSua)
                     .addComponent(btnMoi))
-                .addContainerGap())
+                .addGap(16, 16, 16))
         );
 
         QL.add(jPanel9, "cardChinhSua1");
 
-        jPanel8.setOpaque(false);
-
-        lblTieude.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTieude.setForeground(new java.awt.Color(255, 255, 255));
-        lblTieude.setText("DANH SÁCH NHẠC");
-
-        tblNhac.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Tên nhạc", "Thể loại", "Album", "Nghệ sĩ", "Thời lượng", "Ảnh"
-            }
-        ));
-        tblNhac.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblNhacMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblNhac);
-
-        btnFirst.setBackground(new java.awt.Color(255, 103, 158));
-        btnFirst.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnFirst.setForeground(new java.awt.Color(255, 255, 255));
-        btnFirst.setText("|<");
-        btnFirst.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFirstActionPerformed(evt);
-            }
-        });
-
-        btnPrev.setBackground(new java.awt.Color(255, 103, 158));
-        btnPrev.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnPrev.setForeground(new java.awt.Color(255, 255, 255));
-        btnPrev.setText("<<");
-        btnPrev.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrevActionPerformed(evt);
-            }
-        });
-
-        btnNext.setBackground(new java.awt.Color(255, 103, 158));
-        btnNext.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnNext.setForeground(new java.awt.Color(255, 255, 255));
-        btnNext.setText(">>");
-        btnNext.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNextActionPerformed(evt);
-            }
-        });
-
-        btnLast.setBackground(new java.awt.Color(255, 103, 158));
-        btnLast.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnLast.setForeground(new java.awt.Color(255, 255, 255));
-        btnLast.setText(">|");
-        btnLast.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLastActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(lblTieude)
-                        .addGap(684, 684, 684))
-                    .addComponent(jScrollPane1)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(btnFirst)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPrev)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNext)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnLast)
-                        .addGap(15, 15, 15)))
-                .addContainerGap(92, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(lblTieude)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFirst)
-                    .addComponent(btnPrev)
-                    .addComponent(btnNext)
-                    .addComponent(btnLast))
-                .addContainerGap(61, Short.MAX_VALUE))
-        );
-
-        QL.add(jPanel8, "cardChinhSua2");
-
         jButton7.setBackground(new java.awt.Color(255, 103, 158));
         jButton7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("DANH SÁCH");
         jButton7.setFocusPainted(false);
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -1119,6 +1125,7 @@ public class nhac_Admin extends javax.swing.JDialog {
 
         jButton4.setBackground(new java.awt.Color(255, 103, 158));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("CHỈNH SỬA");
         jButton4.setFocusPainted(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -1136,21 +1143,21 @@ public class nhac_Admin extends javax.swing.JDialog {
                 .addComponent(QL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(panel4Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(41, 41, 41)
                 .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton7)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel4Layout.setVerticalGroup(
             panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel4Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addGroup(panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(QL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(QL, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

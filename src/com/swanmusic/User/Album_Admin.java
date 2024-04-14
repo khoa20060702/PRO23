@@ -816,8 +816,9 @@ public class Album_Admin extends javax.swing.JDialog {
         lblTheloai.setForeground(new java.awt.Color(255, 255, 255));
         lblTheloai.setText("Thể loại");
 
-        txtTheloai.setBackground(new java.awt.Color(255, 145, 185));
+        txtTheloai.setBackground(new java.awt.Color(102, 102, 102));
         txtTheloai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTheloai.setForeground(new java.awt.Color(255, 255, 255));
         txtTheloai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTheloaiActionPerformed(evt);
@@ -868,8 +869,9 @@ public class Album_Admin extends javax.swing.JDialog {
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Tên album");
 
-        txtName.setBackground(new java.awt.Color(255, 145, 185));
+        txtName.setBackground(new java.awt.Color(102, 102, 102));
         txtName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtName.setForeground(new java.awt.Color(255, 255, 255));
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameActionPerformed(evt);
@@ -880,8 +882,9 @@ public class Album_Admin extends javax.swing.JDialog {
         lblTime.setForeground(new java.awt.Color(255, 255, 255));
         lblTime.setText("Thời gian phát hành");
 
-        txtNghesi.setBackground(new java.awt.Color(255, 145, 185));
+        txtNghesi.setBackground(new java.awt.Color(102, 102, 102));
         txtNghesi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtNghesi.setForeground(new java.awt.Color(255, 255, 255));
         txtNghesi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNghesiActionPerformed(evt);
@@ -892,8 +895,9 @@ public class Album_Admin extends javax.swing.JDialog {
         lblNghesi.setForeground(new java.awt.Color(255, 255, 255));
         lblNghesi.setText("Nghệ sĩ");
 
-        txtTime.setBackground(new java.awt.Color(255, 145, 185));
+        txtTime.setBackground(new java.awt.Color(102, 102, 102));
         txtTime.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTime.setForeground(new java.awt.Color(255, 255, 255));
         txtTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTimeActionPerformed(evt);
@@ -1061,7 +1065,7 @@ public class Album_Admin extends javax.swing.JDialog {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTieude)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1079,7 +1083,7 @@ public class Album_Admin extends javax.swing.JDialog {
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(27, 27, 27)
                 .addComponent(lblTieude)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1089,7 +1093,7 @@ public class Album_Admin extends javax.swing.JDialog {
                     .addComponent(btnPrev)
                     .addComponent(btnNext)
                     .addComponent(btnLast))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         QL.add(jPanel8, "cardChinhSua2");
@@ -1125,7 +1129,7 @@ public class Album_Admin extends javax.swing.JDialog {
                 .addComponent(QL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(panel4Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(41, 41, 41)
                 .addComponent(jButton4)
                 .addGap(18, 18, 18)
                 .addComponent(jButton7)

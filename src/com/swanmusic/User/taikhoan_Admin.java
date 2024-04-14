@@ -204,6 +204,35 @@ public class taikhoan_Admin extends javax.swing.JDialog {
         }
         return true;
     }
+    public void First(){
+        index = 0;
+        tblGridView.setRowSelectionInterval(index, index);
+        showdetail();
+     }
+     
+     public void prev(){
+        if(index > 0)
+        {
+            index --;
+            tblGridView.setRowSelectionInterval(index, index);
+            showdetail();
+        }
+     }
+     
+     public void next(){
+           if (index < list.size()-1)
+        {
+            index ++;
+            tblGridView.setRowSelectionInterval(index, index);
+            showdetail();
+        }
+     }
+     
+     public void last(){
+        index = list.size()-1;
+        tblGridView.setRowSelectionInterval(index, index);
+        showdetail();
+     }
 
     public void changeColor(JPanel hover, Color rand) {
         hover.setBackground(rand);
@@ -213,6 +242,7 @@ public class taikhoan_Admin extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         windoTtiling = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
@@ -717,33 +747,30 @@ public class taikhoan_Admin extends javax.swing.JDialog {
         QL.setLayout(new java.awt.CardLayout());
 
         jPanel9.setOpaque(false);
-        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("QUẢN LÝ TÀI KHOẢN");
-        jPanel9.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 6, -1, -1));
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Tên tài khoản");
-        jPanel9.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 50, -1, -1));
 
-        txtName.setBackground(new java.awt.Color(255, 145, 185));
-        jPanel9.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 93, 350, 43));
+        txtName.setEditable(false);
+        txtName.setBackground(new java.awt.Color(102, 102, 102));
+        txtName.setForeground(new java.awt.Color(255, 255, 255));
 
         lblROLE.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblROLE.setForeground(new java.awt.Color(255, 255, 255));
         lblROLE.setText("Vai trò:");
-        jPanel9.add(lblROLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 154, -1, -1));
 
+        buttonGroup1.add(rdoAdmin);
         rdoAdmin.setForeground(new java.awt.Color(255, 255, 255));
         rdoAdmin.setText("Admin");
-        jPanel9.add(rdoAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 192, 100, -1));
 
+        buttonGroup1.add(rdoUser);
         rdoUser.setForeground(new java.awt.Color(255, 255, 255));
         rdoUser.setText("User");
-        jPanel9.add(rdoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 192, 100, -1));
 
         btnDelete.setBackground(new java.awt.Color(255, 103, 158));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -754,7 +781,6 @@ public class taikhoan_Admin extends javax.swing.JDialog {
                 btnDeleteActionPerformed(evt);
             }
         });
-        jPanel9.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 242, -1, -1));
 
         btnUpdate.setBackground(new java.awt.Color(255, 103, 158));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -765,7 +791,6 @@ public class taikhoan_Admin extends javax.swing.JDialog {
                 btnUpdateActionPerformed(evt);
             }
         });
-        jPanel9.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 242, -1, -1));
 
         btnNew.setBackground(new java.awt.Color(255, 103, 158));
         btnNew.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -776,23 +801,87 @@ public class taikhoan_Admin extends javax.swing.JDialog {
                 btnNewActionPerformed(evt);
             }
         });
-        jPanel9.add(btnNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 242, -1, -1));
 
-        txtEMAIL.setBackground(new java.awt.Color(255, 145, 185));
-        jPanel9.add(txtEMAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 93, 350, 43));
+        txtEMAIL.setBackground(new java.awt.Color(102, 102, 102));
+        txtEMAIL.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtNumberPhone.setBackground(new java.awt.Color(255, 145, 185));
-        jPanel9.add(txtNumberPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 181, 350, 43));
+        txtNumberPhone.setBackground(new java.awt.Color(102, 102, 102));
+        txtNumberPhone.setForeground(new java.awt.Color(255, 255, 255));
 
         lblEMAIL.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblEMAIL.setForeground(new java.awt.Color(255, 255, 255));
         lblEMAIL.setText("Email");
-        jPanel9.add(lblEMAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 50, -1, -1));
 
         lblNumberPhone.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblNumberPhone.setForeground(new java.awt.Color(255, 255, 255));
         lblNumberPhone.setText("Số điện thoại");
-        jPanel9.add(lblNumberPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 154, -1, -1));
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(lblName)
+                        .addGap(303, 303, 303)
+                        .addComponent(lblEMAIL))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70)
+                        .addComponent(txtEMAIL, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(lblNumberPhone)
+                        .addGap(308, 308, 308)
+                        .addComponent(lblROLE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(txtNumberPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70)
+                        .addComponent(rdoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(rdoUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(btnDelete)
+                        .addGap(16, 16, 16)
+                        .addComponent(btnUpdate)
+                        .addGap(16, 16, 16)
+                        .addComponent(btnNew))
+                    .addComponent(jLabel6))
+                .addGap(212, 212, 212))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblName)
+                    .addComponent(lblEMAIL))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEMAIL, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNumberPhone)
+                    .addComponent(lblROLE))
+                .addGap(2, 2, 2)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNumberPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rdoAdmin)
+                            .addComponent(rdoUser))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDelete)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnNew))
+                .addContainerGap())
+        );
 
         QL.add(jPanel9, "cardChinhSua1");
 
@@ -825,21 +914,41 @@ public class taikhoan_Admin extends javax.swing.JDialog {
         btnFirst.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnFirst.setForeground(new java.awt.Color(255, 255, 255));
         btnFirst.setText("|<");
+        btnFirst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFirstActionPerformed(evt);
+            }
+        });
 
         btnPrev.setBackground(new java.awt.Color(255, 103, 158));
         btnPrev.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnPrev.setForeground(new java.awt.Color(255, 255, 255));
         btnPrev.setText("<<");
+        btnPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrevActionPerformed(evt);
+            }
+        });
 
         btnNext.setBackground(new java.awt.Color(255, 103, 158));
         btnNext.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnNext.setForeground(new java.awt.Color(255, 255, 255));
         btnNext.setText(">>");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextActionPerformed(evt);
+            }
+        });
 
         btnLast.setBackground(new java.awt.Color(255, 103, 158));
         btnLast.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLast.setForeground(new java.awt.Color(255, 255, 255));
         btnLast.setText(">|");
+        btnLast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -884,6 +993,7 @@ public class taikhoan_Admin extends javax.swing.JDialog {
 
         jButton4.setBackground(new java.awt.Color(255, 103, 158));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("CHỈNH SỬA");
         jButton4.setFocusPainted(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -894,6 +1004,7 @@ public class taikhoan_Admin extends javax.swing.JDialog {
 
         jButton7.setBackground(new java.awt.Color(255, 103, 158));
         jButton7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("DANH SÁCH");
         jButton7.setFocusPainted(false);
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -911,7 +1022,7 @@ public class taikhoan_Admin extends javax.swing.JDialog {
                 .addComponent(QL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(panel4Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(41, 41, 41)
                 .addComponent(jButton4)
                 .addGap(18, 18, 18)
                 .addComponent(jButton7)
@@ -921,9 +1032,9 @@ public class taikhoan_Admin extends javax.swing.JDialog {
             panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel4Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(QL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1129,6 +1240,26 @@ public class taikhoan_Admin extends javax.swing.JDialog {
         this.openAlbum();
     }//GEN-LAST:event_lbl_albumMouseClicked
 
+    private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
+        // TODO add your handling code here:
+        First();
+    }//GEN-LAST:event_btnFirstActionPerformed
+
+    private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
+        // TODO add your handling code here:
+        prev();
+    }//GEN-LAST:event_btnPrevActionPerformed
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        // TODO add your handling code here:
+        next();
+    }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
+        // TODO add your handling code here:
+        last();
+    }//GEN-LAST:event_btnLastActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1183,6 +1314,7 @@ public class taikhoan_Admin extends javax.swing.JDialog {
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton7;

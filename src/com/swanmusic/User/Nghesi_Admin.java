@@ -739,7 +739,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         pnlVien5.setLayout(pnlVien5Layout);
         pnlVien5Layout.setHorizontalGroup(
             pnlVien5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1040, Short.MAX_VALUE)
+            .addGap(0, 1048, Short.MAX_VALUE)
         );
         pnlVien5Layout.setVerticalGroup(
             pnlVien5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -755,7 +755,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         pnlVien6.setLayout(pnlVien6Layout);
         pnlVien6Layout.setHorizontalGroup(
             pnlVien6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1040, Short.MAX_VALUE)
+            .addGap(0, 1048, Short.MAX_VALUE)
         );
         pnlVien6Layout.setVerticalGroup(
             pnlVien6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -797,14 +797,16 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Tên nghệ sĩ");
 
-        txtName.setBackground(new java.awt.Color(255, 145, 185));
+        txtName.setBackground(new java.awt.Color(102, 102, 102));
+        txtName.setForeground(new java.awt.Color(255, 255, 255));
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameActionPerformed(evt);
             }
         });
 
-        txtSLAlbum.setBackground(new java.awt.Color(255, 145, 185));
+        txtSLAlbum.setBackground(new java.awt.Color(102, 102, 102));
+        txtSLAlbum.setForeground(new java.awt.Color(255, 255, 255));
         txtSLAlbum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSLAlbumActionPerformed(evt);
@@ -819,7 +821,8 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         lblNhac.setForeground(new java.awt.Color(255, 255, 255));
         lblNhac.setText("SL Nhạc");
 
-        txtSLNhac.setBackground(new java.awt.Color(255, 145, 185));
+        txtSLNhac.setBackground(new java.awt.Color(102, 102, 102));
+        txtSLNhac.setForeground(new java.awt.Color(255, 255, 255));
         txtSLNhac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSLNhacActionPerformed(evt);
@@ -896,13 +899,8 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(lblName))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSLAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -920,16 +918,21 @@ public class Nghesi_Admin extends javax.swing.JDialog {
                                 .addComponent(btnMoi)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(384, 384, 384))))
+                        .addGap(384, 384, 384))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(lblName))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(17, 17, 17)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -948,7 +951,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
                             .addComponent(btnSua)
                             .addComponent(btnMoi)))
                     .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         QL2.add(jPanel12, "cardChinhSua1");
@@ -1022,7 +1025,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(lblTieude2)
@@ -1037,12 +1040,12 @@ public class Nghesi_Admin extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLast2)
                         .addGap(15, 15, 15)))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(27, 27, 27)
                 .addComponent(lblTieude2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1052,7 +1055,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
                     .addComponent(btnPrev2)
                     .addComponent(btnNext2)
                     .addComponent(btnLast2))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         QL2.add(jPanel13, "cardChinhSua2");
@@ -1088,7 +1091,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
                 .addComponent(QL2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(panel11Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(41, 41, 41)
                 .addComponent(jButton25)
                 .addGap(18, 18, 18)
                 .addComponent(jButton26)
