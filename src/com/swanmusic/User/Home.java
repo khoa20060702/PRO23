@@ -2959,7 +2959,9 @@ public class Home extends javax.swing.JDialog {
             player.close();
             timer.stop();
         }
+        
         chinhSuaThongTinCaNhan mai = new chinhSuaThongTinCaNhan(null, forgot);
+        mai.setAccount(acc);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_jLabel4MouseClicked
