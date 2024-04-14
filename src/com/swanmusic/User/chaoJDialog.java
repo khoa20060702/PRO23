@@ -23,6 +23,7 @@ public class chaoJDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         init();
+        new dangnhapJDialog(null, true).setVisible(true);
     }
 
     void init() {
@@ -40,6 +41,7 @@ public class chaoJDialog extends javax.swing.JDialog {
                 }
             }
         }).start();
+        new dangnhapJDialog(null, true).setVisible(true);
     }
 
     /**

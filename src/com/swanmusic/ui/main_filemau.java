@@ -27,21 +27,6 @@ public class main_filemau extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        musicPlayer = new javax.swing.JPanel();
-        SongNamelbl = new javax.swing.JLabel();
-        Artistlbl = new javax.swing.JLabel();
-        jPanel40 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        TotalTimelbl = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        slider2 = new com.swanmusic.swing.Slider();
-        jLabel47 = new javax.swing.JLabel();
-        slider1 = new com.swanmusic.swing.Slider();
-        Songimglbl = new javax.swing.JLabel();
         windoTtiling = new javax.swing.JPanel();
         menu = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -54,178 +39,6 @@ public class main_filemau extends javax.swing.JDialog {
         jPanel7 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        musicPlayer.setBackground(new java.awt.Color(0, 0, 0));
-        musicPlayer.setPreferredSize(new java.awt.Dimension(1242, 90));
-
-        SongNamelbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        SongNamelbl.setForeground(new java.awt.Color(255, 255, 255));
-        SongNamelbl.setText("TÊN BÀI NHẠC");
-
-        Artistlbl.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        Artistlbl.setForeground(new java.awt.Color(122, 122, 122));
-        Artistlbl.setText("TÊN TÁC GIẢ");
-
-        jPanel40.setOpaque(false);
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/back-white 2.png"))); // NOI18N
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/play-white.png"))); // NOI18N
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-
-        TotalTimelbl.setBackground(new java.awt.Color(255, 255, 255));
-        TotalTimelbl.setForeground(new java.awt.Color(255, 255, 255));
-        TotalTimelbl.setText("00:00");
-
-        jLabel16.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("00:00");
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/next-white.png"))); // NOI18N
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/shuffle-white.png"))); // NOI18N
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/repeat-white.png"))); // NOI18N
-        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel17MouseClicked(evt);
-            }
-        });
-
-        slider2.setToolTipText("");
-        slider2.setValue(0);
-        slider2.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                slider2StateChanged(evt);
-            }
-        });
-        slider2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                slider2MouseReleased(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
-        jPanel40.setLayout(jPanel40Layout);
-        jPanel40Layout.setHorizontalGroup(
-            jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel40Layout.createSequentialGroup()
-                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel40Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(slider2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TotalTimelbl))
-                    .addGroup(jPanel40Layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(jLabel13)
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel9)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel5)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel10)
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel17)))
-                .addContainerGap(17, Short.MAX_VALUE))
-            .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 508, Short.MAX_VALUE))
-        );
-        jPanel40Layout.setVerticalGroup(
-            jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel40Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel16)
-                        .addComponent(TotalTimelbl))
-                    .addComponent(slider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-            .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 70, Short.MAX_VALUE))
-        );
-
-        jLabel47.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel47.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com.swanmusic.icon/loudspeaker-white.png"))); // NOI18N
-
-        slider1.setToolTipText("");
-        slider1.setValue(0);
-        slider1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                slider1StateChanged(evt);
-            }
-        });
-
-        javax.swing.GroupLayout musicPlayerLayout = new javax.swing.GroupLayout(musicPlayer);
-        musicPlayer.setLayout(musicPlayerLayout);
-        musicPlayerLayout.setHorizontalGroup(
-            musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, musicPlayerLayout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addComponent(Songimglbl, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Artistlbl)
-                    .addComponent(SongNamelbl))
-                .addGap(101, 101, 101)
-                .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(143, 143, 143)
-                .addComponent(jLabel47)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(slider1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
-        );
-        musicPlayerLayout.setVerticalGroup(
-            musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(musicPlayerLayout.createSequentialGroup()
-                .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(musicPlayerLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, musicPlayerLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(slider1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, musicPlayerLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(musicPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Songimglbl, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, musicPlayerLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(SongNamelbl)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Artistlbl)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap(10, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(musicPlayer, java.awt.BorderLayout.PAGE_END);
 
         windoTtiling.setBackground(new java.awt.Color(255, 204, 204));
         windoTtiling.setPreferredSize(new java.awt.Dimension(1260, 40));
@@ -279,7 +92,7 @@ public class main_filemau extends javax.swing.JDialog {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGap(0, 622, Short.MAX_VALUE)
         );
 
         menu.add(jPanel3, java.awt.BorderLayout.LINE_START);
@@ -295,7 +108,7 @@ public class main_filemau extends javax.swing.JDialog {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGap(0, 622, Short.MAX_VALUE)
         );
 
         menu.add(jPanel4, java.awt.BorderLayout.LINE_END);
@@ -347,7 +160,7 @@ public class main_filemau extends javax.swing.JDialog {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGap(0, 622, Short.MAX_VALUE)
         );
 
         main.add(jPanel7, java.awt.BorderLayout.LINE_END);
@@ -356,81 +169,6 @@ public class main_filemau extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        // TODO add your handling code here:
-        if(!running)
-        {
-            jLabel5.setIcon(new ImageIcon("src\\com.swanmusic.icon\\play-white.png"));
-            running = true;
-            paused = false;
-            Thread runningSong = new Thread(play);
-            runningSong.start();
-        }
-        else if(running)
-        {
-            jLabel5.setIcon(new ImageIcon("src\\com.swanmusic.icon\\pause-white.png"));
-            running = false;
-            paused = true;
-            try {
-                pauseSong();
-            } catch (Exception e) {
-            }
-        }
-        else if(paused){
-            try {
-                resume();
-            } catch (Exception e) {
-            }
-        }
-        System.out.println("run"+running);
-        System.out.println("pause"+paused);
-
-    }//GEN-LAST:event_jLabel5MouseClicked
-
-    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
-        // TODO add your handling code here:
-        if(!loop)
-        {
-            loop = true;
-        }
-        else
-        {
-            loop = false;
-        }
-        loopSong();
-    }//GEN-LAST:event_jLabel17MouseClicked
-
-    private void slider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slider2StateChanged
-        // TODO add your handling code here:
-        buffer = slider2.getValue();
-        System.out.println(buffer/100);
-    }//GEN-LAST:event_slider2StateChanged
-
-    private void slider2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_slider2MouseReleased
-        long skip = (long) (totalTime * ((double) buffer / 100));
-        try {
-            fi.skip(skip);
-            System.out.println(skip);
-            pause = fi.available();
-            player.close();
-            Thread runningThread = new Thread(play);
-            runningThread.start();
-
-            // Adjust the counter based on the new position
-            counter = (int) (skip / 1000);  // Assuming totalTime is in bytes and 1 second = 1000 bytes
-
-            // Restart the timer
-            timer.start();
-        } catch (IOException ex) {
-        }
-    }//GEN-LAST:event_slider2MouseReleased
-
-    private void slider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slider1StateChanged
-        // TODO add your handling code here:
-        String value = String.valueOf(slider1.getValue());
-        volumeControl(Double.parseDouble(value)/100);
-    }//GEN-LAST:event_slider1StateChanged
 
     /**
      * @param args the command line arguments
@@ -475,30 +213,15 @@ public class main_filemau extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Artistlbl;
-    private javax.swing.JLabel SongNamelbl;
-    private javax.swing.JLabel Songimglbl;
-    private javax.swing.JLabel TotalTimelbl;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel main;
     private javax.swing.JPanel menu;
-    private javax.swing.JPanel musicPlayer;
-    private com.swanmusic.swing.Slider slider1;
-    private com.swanmusic.swing.Slider slider2;
     private javax.swing.JPanel windoTtiling;
     // End of variables declaration//GEN-END:variables
 }

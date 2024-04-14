@@ -47,12 +47,12 @@ public class dangnhapJDialog extends javax.swing.JDialog {
                 acc = aDAO.selectByID(username);
                 Auth.USER = acc;
                 if (acc.isVaiTro() == true) {
-                    MsgBox.alert(this, "vào admin");
+                  //  MsgBox.alert(this, "vào admin");
                     mau.setVisible(true);
                     this.setVisible(false);
 
                 } else {
-                    MsgBox.alert(this, "vào user");
+                 //   MsgBox.alert(this, "vào user");
                     form.setAccount(acc);
                     form.setVisible(true);
                     this.setVisible(false);
@@ -117,14 +117,17 @@ public class dangnhapJDialog extends javax.swing.JDialog {
         panel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 460, 50));
 
         lblPass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPass.setForeground(java.awt.Color.white);
         lblPass.setText("Mật khẩu:");
         panel1.add(lblPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 210, -1, -1));
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblName.setForeground(java.awt.Color.white);
         lblName.setText("Tên tài khoản:");
         panel1.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 130, -1, -1));
 
         rdoNhoMK.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        rdoNhoMK.setForeground(java.awt.Color.white);
         rdoNhoMK.setText("Nhớ mật khẩu ?");
         rdoNhoMK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,14 +157,16 @@ public class dangnhapJDialog extends javax.swing.JDialog {
         });
         panel1.add(btnDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 440, 460, 60));
 
+        lblDT2.setForeground(java.awt.Color.white);
         lblDT2.setText("-----------------------------------");
         panel1.add(lblDT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 400, 170, -1));
 
+        lblDT.setForeground(java.awt.Color.white);
         lblDT.setText("-----------------------------------");
         panel1.add(lblDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 400, 190, -1));
 
         lblRanhGioi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblRanhGioi.setForeground(new java.awt.Color(153, 153, 153));
+        lblRanhGioi.setForeground(java.awt.Color.white);
         lblRanhGioi.setText("Hoặc tiếp tục với");
         panel1.add(lblRanhGioi, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 400, -1, -1));
 
@@ -178,6 +183,7 @@ public class dangnhapJDialog extends javax.swing.JDialog {
         panel1.add(btnDangNhap1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, 460, 60));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("ĐĂNG NHẬP");
         panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, -1));
 
