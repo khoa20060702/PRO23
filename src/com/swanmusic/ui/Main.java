@@ -276,12 +276,11 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
              String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
              Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
              Connection con = DriverManager.getConnection(url,"sa","");
-             PreparedStatement ps = con.prepareCall("select * from User_PlayList");
+             PreparedStatement ps = con.prepareCall("select TENPLAYLIST from User_PlayList group by TENPLAYLIST");
              ResultSet rs = ps.executeQuery();
              while(rs.next())
              {
-             listPlaylistName.add(rs.getString("TENPLAYLIST"));
-             listPlaylistSongs.add(rs.getString("TENNHAC"));                 
+             listPlaylistName.add(rs.getString("TENPLAYLIST"));                
              }
             rs.close();
             ps.close();
@@ -341,9 +340,9 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         {
         Albumlbl5.setVisible(false);
         }
-        if(listAlbumName.size() > 5)
+        if(listPlaylistName.size() > 0)
         {
-        Albumlbl6.setText(listAlbumName.get(5));    
+        Albumlbl6.setText(listPlaylistName.get(0));    
         }
         else
         {
@@ -2792,8 +2791,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
     private void Albumlbl6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl6MouseClicked
         // TODO add your handling code here:
             String data1 = listPlaylistName.get(0);
-            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(5));
-            String data3 = "";
+            ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
+            String data3 = "playlist";
             chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2 , data3);
             this.setVisible(false);
             mai.setVisible(true);
@@ -3313,7 +3312,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
 
     private void Albumlbl7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Albumlbl7MouseClicked
         // TODO add your handling code here:
-            String data1 = listPlaylistName.get(0);
+            String data1 = listPlaylistName.get(1);
             ImageIcon data2 = new ImageIcon("src\\com\\swanmusic\\img\\" + listAlbumPic.get(3));
             String data3 = "playlist";
             chitietAlbum_User mai = new chitietAlbum_User(this, forgot, data1 , data2 , data3);

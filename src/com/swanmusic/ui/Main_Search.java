@@ -206,12 +206,7 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         customSplitpaneUI();
         init();
         getAlbum();
-        Albumlbl1.setText(listAlbumName.get(0));
-        Albumlbl2.setText(listAlbumName.get(1));
-        Albumlbl3.setText(listAlbumName.get(2));
-        Albumlbl4.setText(listAlbumName.get(3));
-        Albumlbl5.setText(listAlbumName.get(4));
-        Albumlbl6.setText(listAlbumName.get(5));
+
         
     }
       String imageName ="src\\com\\swanmusic\\img\\Wn.jpg";

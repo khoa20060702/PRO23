@@ -892,6 +892,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="+ Playlist"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSearch_menu2MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
