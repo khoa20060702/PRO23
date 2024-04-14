@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package com.swanmusic.User;
 
 import com.swanmusic.ui.*;
@@ -22,26 +19,20 @@ import javax.swing.JOptionPane;
 import lab8_new1.SendMail;
 import java.util.Random;
 
-/**
- * /**
- *
- * @author phuon
- */
-public class quenmatkhauJDialog extends javax.swing.JDialog {
 
-    int otp;
-
+public class quenmatkhau extends javax.swing.JDialog {
+int otp;
     /**
      * Creates new form quenmatkhauJDialog
      */
-    public quenmatkhauJDialog(java.awt.Frame parent, boolean modal) {
+    public quenmatkhau(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         init();
     }
-
-    void init() {
-        this.setSize(1242, 682);
+    
+        void init(){
+        this.setSize(1242,682);
         this.setLocationRelativeTo(null);
     }
 
@@ -72,10 +63,9 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         panel1.setBackground(new java.awt.Color(255, 201, 221));
-        panel1.setForeground(new java.awt.Color(255, 201, 221));
         panel1.setToolTipText("");
         panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -88,6 +78,7 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
         panel1.add(txtMaXM, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 300, 220, 50));
 
         lblNhapMKMoi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNhapMKMoi.setForeground(new java.awt.Color(255, 255, 255));
         lblNhapMKMoi.setText("Nhập mật khẩu mới:");
         panel1.add(lblNhapMKMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, -1, -1));
 
@@ -103,14 +94,16 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
         });
         panel1.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 510, 460, 60));
 
+        lblDT2.setForeground(new java.awt.Color(255, 255, 255));
         lblDT2.setText("-----------------------------------");
         panel1.add(lblDT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 470, 170, -1));
 
+        lblDT.setForeground(new java.awt.Color(255, 255, 255));
         lblDT.setText("-----------------------------------");
         panel1.add(lblDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 470, 190, -1));
 
         lblRanhGioi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblRanhGioi.setForeground(new java.awt.Color(153, 153, 153));
+        lblRanhGioi.setForeground(new java.awt.Color(255, 255, 255));
         lblRanhGioi.setText("Hoặc tiếp tục với");
         panel1.add(lblRanhGioi, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 470, -1, -1));
 
@@ -127,10 +120,12 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
         panel1.add(btnDatLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 460, 60));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("QUÊN MẬT KHẨU");
         panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, -1));
 
         lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblEmail.setForeground(new java.awt.Color(255, 255, 255));
         lblEmail.setText("Email:");
         panel1.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 120, -1, -1));
 
@@ -190,7 +185,7 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
 
     private void btnGuimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuimaActionPerformed
         // TODO add your handling code here:
-        try {
+         try {
             // TODO add your handling code here:
             Properties p = new Properties();
             p.put("mail.smtp.auth", "true");
@@ -202,18 +197,18 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
             final String accountPassword = "hjhs sujj qdpf qwkp";
             Session s = Session.getInstance(p,
                     new javax.mail.Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(accountName, accountPassword);
-                }
-            });
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(accountName, accountPassword);
+                        }
+                    });
             // --------
-            Random random = new Random();
-            int min = 1000;
-            int max = 9999;
-            otp = random.nextInt(max - min) + min;
+            Random random=new Random();
+            int min =1000;
+             int max =9999;
+             otp=random.nextInt(max-min)+min;
             String from = "tranhtbts00531@fpt.edu.vn";
             String to = txtEmail.getText();
-            String body = String.valueOf(otp);
+            String body =String.valueOf(otp);
             Message msg = new MimeMessage(s);
             // gán giá trị cho các thuộc tính của đối tượng msg
             msg.setFrom(new InternetAddress(from));
@@ -231,21 +226,23 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
 
     private void btnDatLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatLaiActionPerformed
         // TODO add your handling code here:
-        int otp2 = Integer.parseInt(txtMaXM.getText());
-        if (otp == otp2) {
+         int otp2=Integer.parseInt(txtMaXM.getText());
+        if(otp==otp2)
+        {
             JOptionPane.showMessageDialog(this, "Mã xác minh trùng khớp");
-        } else {
-            JOptionPane.showMessageDialog(this, "Mã xác minh không trùng khớp");
         }
-        try {
+        else{
+              JOptionPane.showMessageDialog(this, "Mã xác minh không trùng khớp");
+        }
+          try {
             String url = "jdbc:sqlserver://localhost:1433;DatabaseName=SWAN;encrypt=false";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con = DriverManager.getConnection(url, "sa", "");
             PreparedStatement ps = con.prepareCall("update TAIKHOAN set MATKHAU = ? where EMAIL = ?");
-
+           
             ps.setString(2, txtEmail.getText());
             ps.setString(1, txtNhapMKMoi1.getText());
-
+         
             int kq = ps.executeUpdate();
             if (kq == 1) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
@@ -254,17 +251,17 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
             }
             ps.close();
             con.close();
-
+     
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+           
     }//GEN-LAST:event_btnDatLaiActionPerformed
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new dangnhapJDialog(null, true).setVisible(true);
+        new dangnhapJDialog(null,true).setVisible(true);
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**
@@ -284,13 +281,13 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(quenmatkhauJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(quenmatkhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(quenmatkhauJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(quenmatkhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(quenmatkhauJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(quenmatkhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(quenmatkhauJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(quenmatkhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -298,7 +295,7 @@ public class quenmatkhauJDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                quenmatkhauJDialog dialog = new quenmatkhauJDialog(new javax.swing.JFrame(), true);
+                quenmatkhau dialog = new quenmatkhau(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

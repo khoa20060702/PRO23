@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package com.swanmusic.User;
-
 import com.swanmusic.ui.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,32 +15,28 @@ import java.awt.Image;
 import javax.swing.JFileChooser;
 import javax.swing.*;
 import com.swanmusic.entity.Account;
-
 /**
  *
  * @author phuon
  */
-public class dangkyJDialog extends javax.swing.JDialog {
-
-    public static Main main;
+public class dangky extends javax.swing.JDialog {
+public static Main main;
 //public static Main main;
     boolean forgot = false;
 //    dangnhapJDialog dn = new dangnhapJDialog(main, forgot);
-
-    public dangkyJDialog(java.awt.Frame parent, boolean modal) {
+    
+    public dangky(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         init();
     }
-    ArrayList<Account> list = new ArrayList();
-
-    void init() {
-        this.setSize(1242, 682);
+          ArrayList<Account> list = new ArrayList();
+        void init(){
+        this.setSize(1242,682);
         this.setLocationRelativeTo(null);
 
     }
-
-    public void load_data() {
+        public void load_data() {
         list.clear();
         try {
             String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
@@ -53,10 +48,10 @@ public class dangkyJDialog extends javax.swing.JDialog {
                 Account mu = new Account();
                 mu.setTENTK(rs.getString("TENTAIKHOAN"));
                 mu.setMatkhau(rs.getString("MATKHAU"));
-                boolean IsRole = rs.getBoolean("VAITRO");
+                 boolean IsRole = rs.getBoolean("VAITRO"); 
                 mu.setVaiTro(IsRole);
                 mu.setEmail(rs.getString("EMAIL"));
-                mu.setSODIENTHOAI(rs.getString("SODIENTHOAI"));
+                   mu.setSODIENTHOAI(rs.getString("SODIENTHOAI"));
                 list.add(mu);
             }
 //            DefaultTableModel model = (DefaultTableModel) tbl.getModel();
@@ -68,7 +63,6 @@ public class dangkyJDialog extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -102,11 +96,11 @@ public class dangkyJDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        nenden.setBackground(new java.awt.Color(0, 0, 0));
+        nenden.setBackground(new java.awt.Color(255, 255, 255));
+        nenden.setForeground(new java.awt.Color(255, 255, 255));
         nenden.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panel1.setBackground(new java.awt.Color(255, 201, 221));
-        panel1.setForeground(new java.awt.Color(255, 201, 221));
         panel1.setToolTipText("");
         panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -143,11 +137,15 @@ public class dangkyJDialog extends javax.swing.JDialog {
         });
         panel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 170, 460, 50));
 
+        lblPass.setBackground(new java.awt.Color(255, 255, 255));
         lblPass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPass.setForeground(new java.awt.Color(255, 255, 255));
         lblPass.setText("Mật khẩu:");
         panel1.add(lblPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, -1, -1));
 
+        lblName.setBackground(new java.awt.Color(255, 255, 255));
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Tên tài khoản:");
         panel1.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, -1, -1));
 
@@ -163,14 +161,19 @@ public class dangkyJDialog extends javax.swing.JDialog {
         });
         panel1.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 540, 460, 60));
 
+        lblDT2.setBackground(new java.awt.Color(255, 255, 255));
+        lblDT2.setForeground(new java.awt.Color(255, 255, 255));
         lblDT2.setText("-----------------------------------");
         panel1.add(lblDT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 500, 170, -1));
 
+        lblDT.setBackground(new java.awt.Color(255, 255, 255));
+        lblDT.setForeground(new java.awt.Color(255, 255, 255));
         lblDT.setText("-----------------------------------");
         panel1.add(lblDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 500, 190, -1));
 
+        lblRanhGioi.setBackground(new java.awt.Color(255, 255, 255));
         lblRanhGioi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblRanhGioi.setForeground(new java.awt.Color(153, 153, 153));
+        lblRanhGioi.setForeground(new java.awt.Color(255, 255, 255));
         lblRanhGioi.setText("Hoặc tiếp tục với");
         panel1.add(lblRanhGioi, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 500, -1, -1));
 
@@ -186,11 +189,15 @@ public class dangkyJDialog extends javax.swing.JDialog {
         });
         panel1.add(btnDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 420, 460, 60));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("ĐĂNG KÝ");
         panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, -1, -1));
 
+        lblNhaplaiMK.setBackground(new java.awt.Color(255, 255, 255));
         lblNhaplaiMK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNhaplaiMK.setForeground(new java.awt.Color(255, 255, 255));
         lblNhaplaiMK.setText("Nhập lại mật khẩu:");
         panel1.add(lblNhaplaiMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, -1, -1));
 
@@ -209,7 +216,9 @@ public class dangkyJDialog extends javax.swing.JDialog {
         });
         panel1.add(txtNhaplaiMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 460, 50));
 
+        lblEmail.setBackground(new java.awt.Color(255, 255, 255));
         lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblEmail.setForeground(new java.awt.Color(255, 255, 255));
         lblEmail.setText("Email:");
         panel1.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, -1, -1));
 
@@ -246,17 +255,17 @@ public class dangkyJDialog extends javax.swing.JDialog {
 
     private void txtNameCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNameCaretUpdate
         // TODO add your handling code here:
-        if (!txtName.getText().equals("")) {
+             if (!txtName.getText().equals("")) {
             jLabel7.setText("");
         } else {
             jLabel7.setText("Tên tài khoản");
         }
-
+                    
     }//GEN-LAST:event_txtNameCaretUpdate
 
     private void txtPassCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPassCaretUpdate
         // TODO add your handling code here:
-        if (!txtPass.getText().equals("")) {
+           if (!txtPass.getText().equals("")) {
             jLabel4.setText("");
         } else {
             jLabel4.setText("Mật khẩu");
@@ -274,7 +283,7 @@ public class dangkyJDialog extends javax.swing.JDialog {
 
     private void txtEmailCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtEmailCaretUpdate
         // TODO add your handling code here:
-        if (!txtEmail.getText().equals("")) {
+         if (!txtEmail.getText().equals("")) {
             jLabel6.setText("");
         } else {
             jLabel6.setText("Email");
@@ -283,16 +292,16 @@ public class dangkyJDialog extends javax.swing.JDialog {
 
     private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
         // TODO add your handling code here:
-        String account = txtName.getText();
+          String account = txtName.getText();
         String password = txtPass.getText();
         String checkpass = txtNhaplaiMK.getText();
         String email = txtEmail.getText();
-        if (account.isEmpty() || password.isEmpty() || checkpass.isEmpty() || email.isEmpty()) {
+        if (account.isEmpty() || password.isEmpty() || checkpass.isEmpty() ||email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin!");
         } else if (!password.equals(checkpass)) {
             JOptionPane.showMessageDialog(this, "Mật khẩu không khớp!");
         } else {
-            try {
+                try {
                 String url = "jdbc:sqlserver://localHost:1433;DatabaseName=SWAN;encrypt=true;trustServerCertificate=true";
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 Connection con = DriverManager.getConnection(url, "sa", "");
@@ -316,7 +325,7 @@ public class dangkyJDialog extends javax.swing.JDialog {
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new dangnhapJDialog(null, true).setVisible(true);
+        new dangnhapJDialog(null,true).setVisible(true);
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**
@@ -336,13 +345,13 @@ public class dangkyJDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(dangkyJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dangky.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(dangkyJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dangky.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(dangkyJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dangky.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(dangkyJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dangky.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -350,7 +359,7 @@ public class dangkyJDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                dangkyJDialog dialog = new dangkyJDialog(new javax.swing.JFrame(), true);
+                dangky dialog = new dangky(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

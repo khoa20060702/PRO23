@@ -69,10 +69,9 @@ int otp;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         panel1.setBackground(new java.awt.Color(255, 201, 221));
-        panel1.setForeground(new java.awt.Color(255, 201, 221));
         panel1.setToolTipText("");
         panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -85,6 +84,7 @@ int otp;
         panel1.add(txtMaXM, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 300, 220, 50));
 
         lblNhapMKMoi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNhapMKMoi.setForeground(new java.awt.Color(255, 255, 255));
         lblNhapMKMoi.setText("Nhập mật khẩu mới:");
         panel1.add(lblNhapMKMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, -1, -1));
 
@@ -100,14 +100,16 @@ int otp;
         });
         panel1.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 510, 460, 60));
 
+        lblDT2.setForeground(new java.awt.Color(255, 255, 255));
         lblDT2.setText("-----------------------------------");
         panel1.add(lblDT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 470, 170, -1));
 
+        lblDT.setForeground(new java.awt.Color(255, 255, 255));
         lblDT.setText("-----------------------------------");
         panel1.add(lblDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 470, 190, -1));
 
         lblRanhGioi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblRanhGioi.setForeground(new java.awt.Color(153, 153, 153));
+        lblRanhGioi.setForeground(new java.awt.Color(255, 255, 255));
         lblRanhGioi.setText("Hoặc tiếp tục với");
         panel1.add(lblRanhGioi, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 470, -1, -1));
 
@@ -124,10 +126,12 @@ int otp;
         panel1.add(btnDatLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 460, 60));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("QUÊN MẬT KHẨU");
         panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, -1));
 
         lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblEmail.setForeground(new java.awt.Color(255, 255, 255));
         lblEmail.setText("Email:");
         panel1.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 120, -1, -1));
 
