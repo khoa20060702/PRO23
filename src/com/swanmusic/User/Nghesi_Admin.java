@@ -487,7 +487,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         );
         pnlVien3Layout.setVerticalGroup(
             pnlVien3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+            .addGap(0, 620, Short.MAX_VALUE)
         );
 
         menu.add(pnlVien3, java.awt.BorderLayout.LINE_START);
@@ -503,7 +503,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         );
         pnl_vien4Layout.setVerticalGroup(
             pnl_vien4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+            .addGap(0, 620, Short.MAX_VALUE)
         );
 
         menu.add(pnl_vien4, java.awt.BorderLayout.LINE_END);
@@ -526,7 +526,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
             .addGroup(pnlTiltleLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(lblTitle)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         pnlTiltleLayout.setVerticalGroup(
             pnlTiltleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -620,7 +620,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
                 .addComponent(lblIcon_nhac, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbl_nhac)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         pnl_nhacLayout.setVerticalGroup(
             pnl_nhacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -745,7 +745,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         pnlVien5.setLayout(pnlVien5Layout);
         pnlVien5Layout.setHorizontalGroup(
             pnlVien5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1040, Short.MAX_VALUE)
+            .addGap(0, 1030, Short.MAX_VALUE)
         );
         pnlVien5Layout.setVerticalGroup(
             pnlVien5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -761,7 +761,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         pnlVien6.setLayout(pnlVien6Layout);
         pnlVien6Layout.setHorizontalGroup(
             pnlVien6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1040, Short.MAX_VALUE)
+            .addGap(0, 1030, Short.MAX_VALUE)
         );
         pnlVien6Layout.setVerticalGroup(
             pnlVien6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -781,7 +781,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         );
         pnlVien7Layout.setVerticalGroup(
             pnlVien7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+            .addGap(0, 620, Short.MAX_VALUE)
         );
 
         main.add(pnlVien7, java.awt.BorderLayout.LINE_END);
@@ -954,7 +954,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
                             .addComponent(btnSua)
                             .addComponent(btnMoi)))
                     .addComponent(pnlHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         QL2.add(jPanel12, "cardChinhSua1");
@@ -1058,7 +1058,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
                     .addComponent(btnPrev2)
                     .addComponent(btnNext2)
                     .addComponent(btnLast2))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         QL2.add(jPanel13, "cardChinhSua2");
@@ -1108,7 +1108,7 @@ public class Nghesi_Admin extends javax.swing.JDialog {
                     .addComponent(jButton25, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                     .addComponent(jButton26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(QL2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(QL2, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1178,43 +1178,51 @@ public class Nghesi_Admin extends javax.swing.JDialog {
     }//GEN-LAST:event_txtSLNhacActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
+        them();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
+        xoa();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
+        sua();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
-        // TODO add your handling code here:
+        moi();
     }//GEN-LAST:event_btnMoiActionPerformed
 
     private void lblhinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblhinhMouseClicked
-        // TODO add your handling code here:
+        JFileChooser file = new JFileChooser("src\\com\\swanmusic\\img\\");
+            int kq = file.showOpenDialog(file);
+            if (kq == JFileChooser.APPROVE_OPTION) {
+                imageName = file.getSelectedFile().getName();
+                upImage(imageName);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
+            }
     }//GEN-LAST:event_lblhinhMouseClicked
 
     private void tblNghesiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNghesiMouseClicked
-        // TODO add your handling code here:
+        index = tblNghesi.getSelectedRow();
+        showdetail();
     }//GEN-LAST:event_tblNghesiMouseClicked
 
     private void btnFirst2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirst2ActionPerformed
-        // TODO add your handling code here:
+        First();
     }//GEN-LAST:event_btnFirst2ActionPerformed
 
     private void btnPrev2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrev2ActionPerformed
-        // TODO add your handling code here:
+        prev();
     }//GEN-LAST:event_btnPrev2ActionPerformed
 
     private void btnNext2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext2ActionPerformed
-        // TODO add your handling code here:
+       next();
     }//GEN-LAST:event_btnNext2ActionPerformed
 
     private void btnLast2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLast2ActionPerformed
-        // TODO add your handling code here:
+       last();
     }//GEN-LAST:event_btnLast2ActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
