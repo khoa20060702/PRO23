@@ -593,7 +593,7 @@ public class chinhSuaThongTinCaNhan extends javax.swing.JDialog {
         lblSearch_menu1.setBackground(new java.awt.Color(255, 255, 255));
         lblSearch_menu1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblSearch_menu1.setForeground(new java.awt.Color(255, 255, 255));
-        lblSearch_menu1.setText("+ Playlist");
+        lblSearch_menu1.setText("+ ALBUM");
 
         javax.swing.GroupLayout pnl_search1Layout = new javax.swing.GroupLayout(pnl_search1);
         pnl_search1.setLayout(pnl_search1Layout);

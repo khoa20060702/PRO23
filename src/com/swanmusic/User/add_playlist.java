@@ -570,7 +570,6 @@ public class add_playlist extends javax.swing.JDialog {
         Songlbl4 = new javax.swing.JLabel();
         Artistlbl4 = new javax.swing.JLabel();
         Imglbl4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -1041,7 +1040,7 @@ public class add_playlist extends javax.swing.JDialog {
         lblSearch_menu2.setBackground(new java.awt.Color(255, 255, 255));
         lblSearch_menu2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblSearch_menu2.setForeground(new java.awt.Color(255, 255, 255));
-        lblSearch_menu2.setText("+ Playlist");
+        lblSearch_menu2.setText("+ ALBUM");
         lblSearch_menu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblSearch_menu2MouseClicked(evt);
@@ -1907,8 +1906,6 @@ public class add_playlist extends javax.swing.JDialog {
 
         jPanel34.add(jPanel41);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/profile-user.png"))); // NOI18N
-
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
         jPanel33Layout.setHorizontalGroup(
@@ -1930,22 +1927,15 @@ public class add_playlist extends javax.swing.JDialog {
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(75, 75, 75))
+                .addGap(75, 311, Short.MAX_VALUE))
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel33Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel33Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel33Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2359,7 +2349,7 @@ public class add_playlist extends javax.swing.JDialog {
             timer.stop();
         }
         String data1 = listSongArtist.get(2);
-        NgheSi mai = new NgheSi(null, forgot, data1);
+        chitietNghesi mai = new chitietNghesi(null, forgot, data1);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl3MouseClicked
@@ -2599,7 +2589,6 @@ public class add_playlist extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel110;

@@ -813,7 +813,7 @@ if(listAlbumName.size() > 0)
         lblSearch_menu2.setBackground(new java.awt.Color(255, 255, 255));
         lblSearch_menu2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblSearch_menu2.setForeground(new java.awt.Color(255, 255, 255));
-        lblSearch_menu2.setText("+ Playlist");
+        lblSearch_menu2.setText("+ ALBUM");
 
         javax.swing.GroupLayout pnl_search2Layout = new javax.swing.GroupLayout(pnl_search2);
         pnl_search2.setLayout(pnl_search2Layout);

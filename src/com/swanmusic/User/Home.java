@@ -658,7 +658,6 @@ public class Home extends javax.swing.JDialog {
         Songlbl8 = new javax.swing.JLabel();
         Artistlbl8 = new javax.swing.JLabel();
         Imglbl8 = new javax.swing.JLabel();
-        lblUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -1120,7 +1119,7 @@ public class Home extends javax.swing.JDialog {
         lblAdd_Playlist.setBackground(new java.awt.Color(255, 255, 255));
         lblAdd_Playlist.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblAdd_Playlist.setForeground(new java.awt.Color(255, 255, 255));
-        lblAdd_Playlist.setText("+ Playlist");
+        lblAdd_Playlist.setText("+ ALBUM");
         lblAdd_Playlist.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAdd_PlaylistMouseClicked(evt);
@@ -2230,8 +2229,6 @@ public class Home extends javax.swing.JDialog {
 
         jPanel34.add(jPanel41);
 
-        lblUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/icon/profile-user.png"))); // NOI18N
-
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
         jPanel33Layout.setHorizontalGroup(
@@ -2244,17 +2241,11 @@ public class Home extends javax.swing.JDialog {
                     .addComponent(jPanel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
                     .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel33Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblUser)
-                .addGap(15, 15, 15))
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel33Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(46, 46, 46)
                 .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2420,7 +2411,7 @@ public class Home extends javax.swing.JDialog {
             timer.stop();
         }
         String data1 = listSongArtist.get(2);
-        NgheSi mai = new NgheSi(null, forgot, data1);
+        chitietNghesi mai = new chitietNghesi(null, forgot, data1);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl3MouseClicked
@@ -2556,7 +2547,7 @@ public class Home extends javax.swing.JDialog {
             timer.stop();
         }
         String data1 = listSongArtist.get(0);
-        NgheSi mai = new NgheSi(null, forgot, data1);
+        chitietNghesi mai = new chitietNghesi(null, forgot, data1);
         this.setVisible(false);
         mai.setVisible(true);
     }//GEN-LAST:event_Artistlbl1MouseClicked
@@ -3067,7 +3058,6 @@ public class Home extends javax.swing.JDialog {
     private javax.swing.JLabel lblIcon_search;
     private javax.swing.JLabel lblSearch_menu;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JLabel lblUser;
     private javax.swing.JPanel main;
     private javax.swing.JPanel menu;
     private javax.swing.JPanel menu_con;
