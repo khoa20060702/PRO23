@@ -663,6 +663,7 @@ public class Home extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         musicPlayer.setBackground(new java.awt.Color(0, 0, 0));
         musicPlayer.setPreferredSize(new java.awt.Dimension(1242, 90));
@@ -838,7 +839,7 @@ public class Home extends javax.swing.JDialog {
 
         windoTtiling.setBackground(new java.awt.Color(0, 0, 0));
         windoTtiling.setPreferredSize(new java.awt.Dimension(1260, 40));
-        windoTtiling.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        windoTtiling.setLayout(new java.awt.BorderLayout());
 
         header.setBackground(new java.awt.Color(0, 0, 0));
         header.setPreferredSize(new java.awt.Dimension(1242, 30));
@@ -921,7 +922,7 @@ public class Home extends javax.swing.JDialog {
 
         header.add(jPanel22, java.awt.BorderLayout.LINE_END);
 
-        windoTtiling.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 40));
+        windoTtiling.add(header, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(windoTtiling, java.awt.BorderLayout.PAGE_START);
 

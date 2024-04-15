@@ -48,16 +48,18 @@ public static Account acc;
                 if (acc.getMatkhau().equals(pass)) {
                     acc = aDAO.selectByID(username);
                     Auth.USER = acc;                 
-                        if (acc.isVaiTro()==true) {                    
-                                MsgBox.alert(this, "vào admin");                           
+                        if (acc.isVaiTro()==true) {  
+                             this.setVisible(false);
+                                       this.openChao();            
                                 new com.swanmusic.User.taikhoan_Admin(null, true).setVisible(true);
-                                this.setVisible(false);
+                               
                                 
-                    } else {                       
-                             MsgBox.alert(this, "vào user");
+                    } else {     
+                            this.setVisible(false);
+                            this.openChao();
                                 new Home(null,true).setAccount(acc);
                                 new Home(null,true).setVisible(true);                                
-                                this.setVisible(false);
+                                
                     }
                 } else {
                     MsgBox.alert(this, "Mật khẩu không đúng");
