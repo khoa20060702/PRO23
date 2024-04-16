@@ -18,6 +18,8 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
+
 
 public class Dangnhap extends javax.swing.JDialog {
 public static Home main;
@@ -50,13 +52,13 @@ public static Account acc;
                     Auth.USER = acc;                 
                         if (acc.isVaiTro()==true) {  
                              this.setVisible(false);
-                                       this.openChao();            
+                                       this.openChaoadmin();            
                                 new com.swanmusic.User.taikhoan_Admin(null, true).setVisible(true);
                                
                                 
                     } else {     
                             this.setVisible(false);
-                            this.openChao();
+                            this.openChaouser();
                                 new Home(null,true).setAccount(acc);
                                 new Home(null,true).setVisible(true);                                
                                 
@@ -69,9 +71,23 @@ public static Account acc;
      void openChao(){
          new chao(null,true).setVisible(true);
      }
+     
+     void openChaoadmin(){
+         new chaoAdmin(null, true).setVisible(true);
+     }
+     
+          void openChaouser(){
+         new chaoUser(null, true).setVisible(true);
+     }
+     
+     
+     
      void init(){
-        this.setSize(1242,682);
+        this.setSize(1260,682);
         this.setLocationRelativeTo(null);
+        ImageIcon image = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok.png");
+        this.setIconImage(image.getImage());
+        this.setTitle("Swan Music");
         this.openChao();
     }
     @SuppressWarnings("unchecked")
@@ -92,12 +108,11 @@ public static Account acc;
         lblDT = new javax.swing.JLabel();
         lblRanhGioi = new javax.swing.JLabel();
         btnDangNhap1 = new javax.swing.JButton();
-        btnGoogle = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        nenden.setBackground(new java.awt.Color(0, 0, 0));
+        nenden.setBackground(new java.awt.Color(255, 255, 255));
         nenden.setForeground(new java.awt.Color(255, 255, 255));
         nenden.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -107,25 +122,25 @@ public static Account acc;
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/swanmusic/img/logoswan_ok.png"))); // NOI18N
         jLabel2.setText("jLabel2");
-        panel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 390, -1));
+        panel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, -1, 400));
 
         txtName.setBackground(new java.awt.Color(255, 145, 185));
         txtName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        panel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, 460, 50));
+        panel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 180, 460, 50));
 
         txtPass.setBackground(new java.awt.Color(255, 145, 185));
         txtPass.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        panel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 460, 50));
+        panel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 260, 460, 50));
 
         lblPass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblPass.setForeground(new java.awt.Color(255, 255, 255));
         lblPass.setText("Mật khẩu:");
-        panel1.add(lblPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 210, -1, -1));
+        panel1.add(lblPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 240, -1, -1));
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Tên tài khoản:");
-        panel1.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 130, -1, -1));
+        panel1.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 160, -1, -1));
 
         rdoNhoMK.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         rdoNhoMK.setForeground(new java.awt.Color(255, 255, 255));
@@ -135,7 +150,7 @@ public static Account acc;
                 rdoNhoMKActionPerformed(evt);
             }
         });
-        panel1.add(rdoNhoMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, -1, -1));
+        panel1.add(rdoNhoMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 320, -1, -1));
 
         lblQuenMK.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         lblQuenMK.setForeground(new java.awt.Color(255, 255, 255));
@@ -145,7 +160,7 @@ public static Account acc;
                 lblQuenMKMouseClicked(evt);
             }
         });
-        panel1.add(lblQuenMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 290, -1, -1));
+        panel1.add(lblQuenMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 320, -1, -1));
 
         btnDangKy.setBackground(new java.awt.Color(255, 145, 185));
         btnDangKy.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -157,20 +172,20 @@ public static Account acc;
                 btnDangKyActionPerformed(evt);
             }
         });
-        panel1.add(btnDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 510, 460, 60));
+        panel1.add(btnDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 460, 460, 60));
 
         lblDT2.setForeground(new java.awt.Color(255, 255, 255));
         lblDT2.setText("-----------------------------------");
-        panel1.add(lblDT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 400, 170, -1));
+        panel1.add(lblDT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 430, 170, -1));
 
         lblDT.setForeground(new java.awt.Color(255, 255, 255));
         lblDT.setText("-----------------------------------");
-        panel1.add(lblDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 400, 190, -1));
+        panel1.add(lblDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 430, 190, -1));
 
         lblRanhGioi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblRanhGioi.setForeground(new java.awt.Color(153, 153, 153));
         lblRanhGioi.setText("Hoặc tiếp tục với");
-        panel1.add(lblRanhGioi, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 400, -1, -1));
+        panel1.add(lblRanhGioi, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 430, -1, -1));
 
         btnDangNhap1.setBackground(new java.awt.Color(255, 145, 185));
         btnDangNhap1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -182,41 +197,28 @@ public static Account acc;
                 btnDangNhap1ActionPerformed(evt);
             }
         });
-        panel1.add(btnDangNhap1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, 460, 60));
-
-        btnGoogle.setBackground(new java.awt.Color(255, 145, 185));
-        btnGoogle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnGoogle.setForeground(new java.awt.Color(255, 255, 255));
-        btnGoogle.setText("Google");
-        btnGoogle.setBorder(null);
-        panel1.add(btnGoogle, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 430, 460, 60));
+        panel1.add(btnDangNhap1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 360, 460, 60));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("ĐĂNG NHẬP");
-        panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, -1));
+        panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, -1, -1));
 
-        nenden.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 8, 1200, 630));
+        nenden.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 18, 1220, 610));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1225, Short.MAX_VALUE)
+            .addGap(0, 1260, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(nenden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(nenden, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGap(0, 682, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(nenden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(nenden, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE))
         );
 
         pack();
@@ -293,7 +295,6 @@ public static Account acc;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangKy;
     private javax.swing.JButton btnDangNhap1;
-    private javax.swing.JButton btnGoogle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblDT;

@@ -879,44 +879,49 @@
                               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="btnThem" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnXoa" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnSua" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnMoi" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="btnThem" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="btnXoa" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="btnSua" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="btnMoi" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="txtTime" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
+                                          <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="txtTheloai" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
-                                  <Component id="lblTheloai" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtNghesi" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
-                                  <Component id="lblNghesi" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtTime" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
-                                  <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtName" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="txtTheloai" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
+                                          <Component id="lblTheloai" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtNghesi" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
+                                          <Component id="lblNghesi" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtName" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace pref="101" max="32767" attributes="0"/>
+                                      <Component id="pnlHinh2" min="-2" pref="228" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="304" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
-                              <Component id="pnlHinh2" min="-2" pref="228" max="-2" attributes="0"/>
-                              <EmptySpace pref="304" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="lblName" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                                      <Component id="pnlHinh2" min="-2" pref="228" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="lblName" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
                                       <Component id="txtName" min="-2" pref="43" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="lblTheloai" min="-2" max="-2" attributes="0"/>
@@ -928,16 +933,17 @@
                                       <Component id="txtNghesi" min="-2" pref="43" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="lblTime" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="txtTime" min="-2" pref="43" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="btnXoa" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnThem" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnSua" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnMoi" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
                                   </Group>
+                                  <Component id="pnlHinh2" min="-2" pref="228" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="txtTime" min="-2" pref="43" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnXoa" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnThem" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnSua" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnMoi" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="80" max="32767" attributes="0"/>
                           </Group>

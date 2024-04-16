@@ -4,8 +4,6 @@
  */
 package com.swanmusic.User;
 
-import com.swanmusic.User.*;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -15,37 +13,35 @@ import javax.swing.Timer;
  *
  * @author phuon
  */
-public class chao extends javax.swing.JDialog {
+public class chaoUser extends javax.swing.JDialog {
 
     /**
-     * Creates new form chaoJDialog
+     * Creates new form chaoUser
      */
-    public chao(java.awt.Frame parent, boolean modal) {
+    public chaoUser(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         init();
     }
-    
-    void init(){
-        this.setSize(1260,682);
+
+    void init() {
+        this.setSize(1260, 682);
         this.setLocationRelativeTo(null);
         ImageIcon image = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok.png");
         this.setIconImage(image.getImage());
         this.setTitle("Swan Music");
-        new Timer(5,new ActionListener() {
+        new Timer(5, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              int value = pgbChao.getValue();
-            if(value < 100)
-            {
-                pgbChao.setValue(value+1);
-                lblLoading.setText("Loading.."+value+"%");
+                int value = pgbChao.getValue();
+                if (value < 100) {
+                    pgbChao.setValue(value + 1);
+                    lblLoading.setText("Loading.." + value + "%");
+                } else {
+                    chaoUser.this.dispose();
+                }
             }
-            else{
-                chao.this.dispose();
-            }
-        }
-            }).start();
+        }).start();
     }
 
     /**
@@ -90,8 +86,8 @@ public class chao extends javax.swing.JDialog {
 
         TIEUDE.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         TIEUDE.setForeground(new java.awt.Color(255, 103, 158));
-        TIEUDE.setText("WELCOME TO SWAN MUSIC");
-        panel1.add(TIEUDE, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, -1, -1));
+        TIEUDE.setText("WELCOME USER");
+        panel1.add(TIEUDE, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, -1, -1));
 
         nenden.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 1220, 610));
 
@@ -126,21 +122,20 @@ public class chao extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(chao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(chaoUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(chao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(chaoUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(chao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(chaoUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(chao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(chaoUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                chao dialog = new chao(new javax.swing.JFrame(), true);
+                chaoUser dialog = new chaoUser(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
