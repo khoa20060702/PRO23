@@ -4,7 +4,6 @@
  */
 package com.swanmusic.User;
 
-
 import com.swanmusic.entity.*;
 import com.swanmusic.dao.*;
 import java.sql.Connection;
@@ -20,11 +19,11 @@ import java.util.logging.Logger;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 
-
 public class Dangnhap extends javax.swing.JDialog {
-public static Home main;
-public static taikhoan_Admin tk;
-public static Account acc;
+
+    public static Home main;
+    public static taikhoan_Admin tk;
+    public static Account acc;
     boolean viewPass = false;
     boolean forgot = false;
     private Dangnhap loginForm;
@@ -39,57 +38,57 @@ public static Account acc;
 //com.swanmusic.User.taikhoan_Admin mau= new com.swanmusic.User.taikhoan_Admin(main, forgot);
 //com.swanmusic.User.dangky dk = new com.swanmusic.User.dangky(main, forgot);
 //com.swanmusic.User.quenmatkhau qmk = new com.swanmusic.User.quenmatkhau(main, forgot);    
-        AccountDAO dao = new AccountDAO();
-     private void login() {
+    AccountDAO dao = new AccountDAO();
+
+    private void login() {
         String username = txtName.getText();
         String pass = new String(txtPass.getPassword());
         acc = dao.selectByID(username);
         if (acc == null) {
             MsgBox.alert(this, "Tên tài khoản không đúng");
         } else {
-                if (acc.getMatkhau().equals(pass)) {
-                    acc = aDAO.selectByID(username);
-                    Auth.USER = acc;                 
-                        if (acc.isVaiTro()==true) {  
-                             this.setVisible(false);
-                                       this.openChaoadmin();            
-                                new com.swanmusic.User.taikhoan_Admin(null, true).setVisible(true);
-                               
-                                
-                    } else {     
-                            this.setVisible(false);
-                            this.openChaouser();
-                                new Home(null,true).setAccount(acc);
-                                new Home(null,true).setVisible(true);                                
-                                
-                    }
+            if (acc.getMatkhau().equals(pass)) {
+                acc = aDAO.selectByID(username);
+                Auth.USER = acc;
+                if (acc.isVaiTro() == true) {
+                    this.setVisible(false);
+                    this.openChaoadmin();
+                    new com.swanmusic.User.taikhoan_Admin(null, true).setVisible(true);
+
                 } else {
-                    MsgBox.alert(this, "Mật khẩu không đúng");
+                    this.setVisible(false);
+                    this.openChaouser();
+                    new Home(null, true).setAccount(acc);
+                    new Home(null, true).setVisible(true);
+
                 }
+            } else {
+                MsgBox.alert(this, "Mật khẩu không đúng");
+            }
         }
     }
-     void openChao(){
-         new chao(null,true).setVisible(true);
-     }
-     
-     void openChaoadmin(){
-         new chaoAdmin(null, true).setVisible(true);
-     }
-     
-          void openChaouser(){
-         new chaoUser(null, true).setVisible(true);
-     }
-     
-     
-     
-     void init(){
-        this.setSize(1260,682);
+
+    void openChao() {
+        new chao(null, true).setVisible(true);
+    }
+
+    void openChaoadmin() {
+        new chaoAdmin(null, true).setVisible(true);
+    }
+
+    void openChaouser() {
+        new chaoUser(null, true).setVisible(true);
+    }
+
+    void init() {
+        this.setSize(1260, 682);
         this.setLocationRelativeTo(null);
         ImageIcon image = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok.png");
         this.setIconImage(image.getImage());
         this.setTitle("Swan Music");
         this.openChao();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -231,7 +230,7 @@ public static Account acc;
     private void lblQuenMKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMKMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        new com.swanmusic.User.quenmatkhau(null,true).setVisible(true);
+        new com.swanmusic.User.quenmatkhau(null, true).setVisible(true);
     }//GEN-LAST:event_lblQuenMKMouseClicked
 
     private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
@@ -239,10 +238,10 @@ public static Account acc;
         this.setVisible(false);
         new com.swanmusic.User.dangky(null, true).setVisible(true);
         //    try{
-            //        Thread.sleep(1000);
-            //    } catch(InterruptedException e) {
-            //        e.printStackTrace();
-            //    }
+        //        Thread.sleep(1000);
+        //    } catch(InterruptedException e) {
+        //        e.printStackTrace();
+        //    }
     }//GEN-LAST:event_btnDangKyActionPerformed
 
     private void btnDangNhap1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhap1ActionPerformed
