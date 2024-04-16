@@ -86,9 +86,9 @@ public class Dangnhap extends javax.swing.JDialog {
     void init() {
         this.setSize(1260, 682);
         this.setLocationRelativeTo(null);
-        ImageIcon image = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok.png");
-        this.setIconImage(image.getImage());
-        this.setTitle("Swan Music");
+//        ImageIcon image = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok.png");
+//        this.setIconImage(image.getImage());
+//        this.setTitle("Swan Music");
         this.openChao();
     }
 
