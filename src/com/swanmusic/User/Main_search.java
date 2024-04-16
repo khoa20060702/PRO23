@@ -63,8 +63,7 @@ public class Main_search extends javax.swing.JDialog {
         getAlbum();
         getPlaylist();
         getSong();
-        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
-        this.setIconImage(logo.getImage());
+      
         if (listAlbumName.size() > 0) {
             Album1.setText(listAlbumName.get(0));
         } else {

@@ -34,8 +34,7 @@ public class Dangnhap extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         init();
-        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
-        this.setIconImage(logo.getImage());
+
     }
 //Main form = new Main();
 //com.swanmusic.User.taikhoan_Admin mau= new com.swanmusic.User.taikhoan_Admin(main, forgot);
@@ -86,9 +85,9 @@ public class Dangnhap extends javax.swing.JDialog {
     void init() {
         this.setSize(1260, 682);
         this.setLocationRelativeTo(null);
-//        ImageIcon image = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok.png");
-//        this.setIconImage(image.getImage());
-//        this.setTitle("Swan Music");
+       ImageIcon image = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok.png");
+        this.setIconImage(image.getImage());
+       this.setTitle("Swan Music");
         this.openChao();
     }
 

@@ -24,8 +24,6 @@ public class chao extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         init();
-        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
-        this.setIconImage(logo.getImage());
     }
     
     void init(){

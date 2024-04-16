@@ -33,8 +33,7 @@ public class Album_Admin extends javax.swing.JDialog {
         init();
         load_data();
         navigatePages();
-        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
-        this.setIconImage(logo.getImage());
+
     }
     CardLayout cardLayout;
 
