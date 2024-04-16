@@ -214,6 +214,8 @@ public class chitietNghesi extends javax.swing.JDialog {
         this.data1 = data1;
         init();
         initComponents();
+        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
+        this.setIconImage(logo.getImage());
         //  customSplitpaneUI();
         getSongs();
         getAlbum();

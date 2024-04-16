@@ -18,6 +18,7 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import lab8_new1.SendMail;
 import java.util.Random;
+import javax.swing.ImageIcon;
 
 
 public class quenmatkhau extends javax.swing.JDialog {
@@ -29,6 +30,8 @@ int otp;
         super(parent, modal);
         initComponents();
         init();
+        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
+        this.setIconImage(logo.getImage());
     }
     
         void init(){

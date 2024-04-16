@@ -39,6 +39,7 @@ import java.awt.Color;
 import java.awt.event.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
@@ -51,6 +52,8 @@ public class chinhSuaThongTinCaNhan extends javax.swing.JDialog {
         initComponents();
         load_data();
         init();
+        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
+        this.setIconImage(logo.getImage());
     }
 
     void init() {

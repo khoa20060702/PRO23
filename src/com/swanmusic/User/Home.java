@@ -61,6 +61,8 @@ public class Home extends javax.swing.JDialog {
         getAlbum();
         getSong();
         getPlaylist();
+        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
+        this.setIconImage(logo.getImage());
         if (listAlbumName.size() > 0) {
             Album1.setText(listAlbumName.get(0));
         } else {

@@ -192,6 +192,8 @@ public class chitietAlbum extends javax.swing.JDialog {
         init();
         getAlbum();
         getPlaylist();
+        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
+        this.setIconImage(logo.getImage());
         this.data1 = data1;
         this.data2 = data2;
         this.data3 = data3;

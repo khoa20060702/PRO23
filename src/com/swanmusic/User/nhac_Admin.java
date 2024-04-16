@@ -41,6 +41,8 @@ public class nhac_Admin extends javax.swing.JDialog {
         initComponents();
         init();
         load_data();
+        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
+        this.setIconImage(logo.getImage());
     }
 
     void init() {

@@ -28,11 +28,14 @@ public class Dangnhap extends javax.swing.JDialog {
     boolean forgot = false;
     private Dangnhap loginForm;
     private AccountDAO aDAO = new AccountDAO();
-
+    
+    
     public Dangnhap(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         init();
+        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
+        this.setIconImage(logo.getImage());
     }
 //Main form = new Main();
 //com.swanmusic.User.taikhoan_Admin mau= new com.swanmusic.User.taikhoan_Admin(main, forgot);

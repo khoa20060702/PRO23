@@ -17,6 +17,7 @@ import java.awt.Color;
 import java.awt.event.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
@@ -39,6 +40,8 @@ public class taikhoan_Admin extends javax.swing.JDialog {
         init();
         load_data();
         navigatePages();
+        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
+        this.setIconImage(logo.getImage());
     }
     ArrayList<Account> list = new ArrayList();
     Account acc;

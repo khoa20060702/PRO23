@@ -46,7 +46,8 @@ public class Nghesi_Admin extends javax.swing.JDialog {
         initComponents();
         init();
         navigatePages();
-
+        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
+        this.setIconImage(logo.getImage());
     }
 
     public void init() {

@@ -199,6 +199,8 @@ public void playSong() throws FileNotFoundException, JavaLayerException, IOExcep
         customSplitpaneUI();
         getSongs();
         getAlbum();
+        ImageIcon logo = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok_da_canh_giua.png");
+        this.setIconImage(logo.getImage());
         Image image = icons[0].getImage();
         ImageIcon newscale = new ImageIcon(image.getScaledInstance(Songimglbl.getWidth(), Songimglbl.getHeight(), image.SCALE_SMOOTH));
         Artistimglbl.setIcon(newscale);
