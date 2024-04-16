@@ -373,7 +373,7 @@ public class add_playlist extends javax.swing.JDialog {
             if (rs1.next() == false) {
                 JOptionPane.showMessageDialog(this, "không truy vấn đc");
             } else {
-
+                allow = true;
                 jLabel14.setVisible(true);
                 jLabel2.setVisible(true);
                 jPanel43.setVisible(true);
@@ -389,7 +389,7 @@ public class add_playlist extends javax.swing.JDialog {
                 listSongDura.add(rs1.getString("THOILUONG"));
                 listSongLyr.add(rs1.getString("LOIBAIHAT"));
                 listSongPic.add(rs1.getString("ANH"));
-                icon = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(0));
+                icon = new ImageIcon("src\\com\\swanmusic\\img\\" + rs1.getString("ANH"));
                 Image image = icon.getImage();
                 icon = new ImageIcon(image.getScaledInstance(jLabel14.getWidth(), jLabel14.getHeight(), image.SCALE_SMOOTH));
                 jLabel14.setIcon(icon);
@@ -2467,7 +2467,7 @@ public class add_playlist extends javax.swing.JDialog {
                 ps.setString(1, txtTenPlaylist.getText());
                 ps.setString(2, txtTimKiem.getText());
 
-                ResultSet rs1 = ps.executeQuery();
+                ResultSet rs = ps.executeQuery();
             } catch (Exception e) {
             }
 
@@ -2514,6 +2514,7 @@ public class add_playlist extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

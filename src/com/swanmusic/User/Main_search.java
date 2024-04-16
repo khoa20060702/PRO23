@@ -388,7 +388,7 @@ public class Main_search extends javax.swing.JDialog {
                 listSongDura.add(rs1.getString("THOILUONG"));
                 listSongLyr.add(rs1.getString("LOIBAIHAT"));
                 listSongPic.add(rs1.getString("ANH"));
-                icon = new ImageIcon("src\\com\\swanmusic\\img\\" + listSongPic.get(0));
+                icon = new ImageIcon("src\\com\\swanmusic\\img\\" + rs1.getString("ANH"));
                 Image image = icon.getImage();
                 icon = new ImageIcon(image.getScaledInstance(Imglbl1.getWidth(), Imglbl1.getHeight(), image.SCALE_SMOOTH));
                 jLabel8.setIcon(icon);
