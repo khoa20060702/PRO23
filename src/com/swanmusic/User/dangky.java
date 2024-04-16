@@ -32,10 +32,16 @@ public static Home main;
     }
           ArrayList<Account> list = new ArrayList();
         void init(){
-        this.setSize(1242,682);
+        this.setSize(1260,682);
         this.setLocationRelativeTo(null);
-
+         ImageIcon image = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok.png");
+        this.setIconImage(image.getImage());
+        this.setTitle("Swan Music");
+        this.openChao();
     }
+        void openChao(){
+         new chao(null,true).setVisible(true);
+     }
         public void load_data() {
         list.clear();
         try {
@@ -237,7 +243,7 @@ public static Home main;
         });
         panel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 460, 50));
 
-        nenden.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 8, 1210, 660));
+        nenden.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 8, 1220, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -312,6 +318,11 @@ public static Home main;
                 int kq = ps.executeUpdate();
                 if (kq == 1) {
                     JOptionPane.showMessageDialog(this, "Lưu thành công");
+                    txtEmail.setText(null);
+                    txtName.setText(null);
+                    txtPass.setText(null);
+                    txtNhaplaiMK.setText(null);
+                    
                 } else {
                     JOptionPane.showMessageDialog(this, "Lưu không thành công");
                 }

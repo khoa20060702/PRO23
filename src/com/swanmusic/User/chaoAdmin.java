@@ -30,6 +30,7 @@ public class chaoAdmin extends javax.swing.JDialog {
         ImageIcon image = new ImageIcon("src\\com\\swanmusic\\img\\logoswan_ok.png");
         this.setIconImage(image.getImage());
         this.setTitle("Swan Music");
+        this.setTitle("Swan Music");
         new Timer(5, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
